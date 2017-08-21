@@ -1,0 +1,415 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1B32D6FD-3C74-40DC-9D43-102B19D40785}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BMap.NET.WindowsForm</RootNamespace>
+    <AssemblyName>BMap.NET.WindowsForm</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BCityControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BCityControl.Designer.cs">
+      <DependentUpon>BCityControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BDirectionBoard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BDirectionBoard.Designer.cs">
+      <DependentUpon>BDirectionBoard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BDrivingRouteItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BDrivingRouteItem.Designer.cs">
+      <DependentUpon>BDrivingRouteItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BDrivingStepItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BDrivingStepItem.Designer.cs">
+      <DependentUpon>BDrivingStepItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BLoadMapModeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BLoadMapModeControl.Designer.cs">
+      <DependentUpon>BLoadMapModeControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BMapControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BMapControl.Designer.cs">
+      <DependentUpon>BMapControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BMapElements\BMarker.cs" />
+    <Compile Include="BMapElements\BPoint.cs" />
+    <Compile Include="BMarkerTipControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BMarkerTipControl.Designer.cs">
+      <DependentUpon>BMarkerTipControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BPlaceItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BPlaceItem.Designer.cs">
+      <DependentUpon>BPlaceItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BMarkerEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BMarkerEditorControl.Designer.cs">
+      <DependentUpon>BMarkerEditorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BPlacesSuggestionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BPlacesSuggestionControl.Designer.cs">
+      <DependentUpon>BPlacesSuggestionControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BPlacesSuggestionItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BPlacesSuggestionItem.Designer.cs">
+      <DependentUpon>BPlacesSuggestionItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BPointTipControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BPointTipControl.Designer.cs">
+      <DependentUpon>BPointTipControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BQuickSearchBoardcs.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BQuickSearchBoardcs.Designer.cs">
+      <DependentUpon>BQuickSearchBoardcs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BQuickSearchControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BQuickSearchControl.Designer.cs">
+      <DependentUpon>BQuickSearchControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BPlaceBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BPlaceBox.Designer.cs">
+      <DependentUpon>BPlaceBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BPlacesBoard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BPlacesBoard.Designer.cs">
+      <DependentUpon>BPlacesBoard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BPOITipControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BPOITipControl.Designer.cs">
+      <DependentUpon>BPOITipControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BStepStartAndEndItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BStepStartAndEndItem.Designer.cs">
+      <DependentUpon>BStepStartAndEndItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BTaxiTipControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BTaxiTipControl.Designer.cs">
+      <DependentUpon>BTaxiTipControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BTransitRouteItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BTransitRouteItem.Designer.cs">
+      <DependentUpon>BTransitRouteItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BScreenshotMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BScreenshotMenu.Designer.cs">
+      <DependentUpon>BScreenshotMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BMapElements\BBound.cs" />
+    <Compile Include="BMapElements\BDistance.cs" />
+    <Compile Include="BMapElements\BMapElement.cs" />
+    <Compile Include="BMapElements\BNearBy.cs" />
+    <Compile Include="BMapElements\BPOI.cs" />
+    <Compile Include="BMapElements\BRoute.cs" />
+    <Compile Include="BMapElements\BTile.cs" />
+    <Compile Include="BTransitStepItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BTransitStepItem.Designer.cs">
+      <DependentUpon>BTransitStepItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BWalkingRouteItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BWalkingRouteItem.Designer.cs">
+      <DependentUpon>BWalkingRouteItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BWalkingStepItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BWalkingStepItem.Designer.cs">
+      <DependentUpon>BWalkingStepItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DrawingObjects\BCircle.cs" />
+    <Compile Include="DrawingObjects\BLine.cs" />
+    <Compile Include="DrawingObjects\BPolygon.cs" />
+    <Compile Include="DrawingObjects\BRectangle.cs" />
+    <Compile Include="DrawingObjects\BScreenShotRectangle.cs" />
+    <Compile Include="DrawingObjects\DrawingObject.cs" />
+    <Compile Include="FunctionalControls\BTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalControls\CityList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FunctionalControls\CityList.Designer.cs">
+      <DependentUpon>CityList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LatLngPoint.cs" />
+    <Compile Include="PointType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\BMap.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BMap.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="RouteType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BCityControl.resx">
+      <DependentUpon>BCityControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BDirectionBoard.resx">
+      <DependentUpon>BDirectionBoard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BDrivingRouteItem.resx">
+      <DependentUpon>BDrivingRouteItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BDrivingStepItem.resx">
+      <DependentUpon>BDrivingStepItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BLoadMapModeControl.resx">
+      <DependentUpon>BLoadMapModeControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BMapControl.resx">
+      <DependentUpon>BMapControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BMarkerEditorControl.resx">
+      <DependentUpon>BMarkerEditorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BMarkerTipControl.resx">
+      <DependentUpon>BMarkerTipControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BPlaceBox.resx">
+      <DependentUpon>BPlaceBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BPlaceItem.resx">
+      <DependentUpon>BPlaceItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BPlacesBoard.resx">
+      <DependentUpon>BPlacesBoard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BPlacesSuggestionControl.resx">
+      <DependentUpon>BPlacesSuggestionControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BPlacesSuggestionItem.resx">
+      <DependentUpon>BPlacesSuggestionItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BPointTipControl.resx">
+      <DependentUpon>BPointTipControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BPOITipControl.resx">
+      <DependentUpon>BPOITipControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BQuickSearchBoardcs.resx">
+      <DependentUpon>BQuickSearchBoardcs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BQuickSearchControl.resx">
+      <DependentUpon>BQuickSearchControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BScreenshotMenu.resx">
+      <DependentUpon>BScreenshotMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BStepStartAndEndItem.resx">
+      <DependentUpon>BStepStartAndEndItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BTaxiTipControl.resx">
+      <DependentUpon>BTaxiTipControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BTransitRouteItem.resx">
+      <DependentUpon>BTransitRouteItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BTransitStepItem.resx">
+      <DependentUpon>BTransitStepItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BWalkingRouteItem.resx">
+      <DependentUpon>BWalkingRouteItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BWalkingStepItem.resx">
+      <DependentUpon>BWalkingStepItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FunctionalControls\CityList.resx">
+      <DependentUpon>CityList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\BMap.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>BMap.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BMap.NET\BMap.NET.csproj">
+      <Project>{AFFEB71C-54B6-4A9B-A445-BB287EDBAC19}</Project>
+      <Name>BMap.NET</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BaiduJSAPI_cracker.js" />
+    <Content Include="libs\Newtonsoft.Json.dll" />
+    <None Include="Resources\ico_bysubway.png" />
+    <None Include="Resources\ico_bybus.png" />
+    <None Include="Resources\ico_strange_point.png" />
+    <None Include="Resources\ico_route_start.png" />
+    <None Include="Resources\ico_route_end.png" />
+    <None Include="Resources\ico_bywalk.png" />
+    <None Include="Resources\ico_bytransit.png" />
+    <None Include="Resources\ico_marker.png" />
+    <None Include="Resources\ico_poi_logo.png" />
+    <None Include="Resources\ico_edit_marker.png" />
+    <None Include="Resources\ico_delete_marker.png" />
+    <None Include="Resources\ico_select.gif" />
+    <None Include="Resources\ico_transit_blue.png" />
+    <None Include="Resources\ico_transit_gray.png" />
+    <None Include="Resources\ico_driving_blue.png" />
+    <None Include="Resources\ico_driving_gray.png" />
+    <None Include="Resources\ico_walking_blue.png" />
+    <None Include="Resources\ico_walking_gray.png" />
+    <None Include="Resources\ico_exchange.png" />
+    <None Include="Resources\ico_narrow_menu.gif" />
+    <None Include="Resources\ico_enlarge_menu.gif" />
+    <None Include="Resources\ico_removemark_menu.gif" />
+    <None Include="Resources\ico_removedrawing_menu.gif" />
+    <None Include="Resources\ico_center_menu.gif" />
+    <None Include="Resources\ico_where_menu.gif" />
+    <None Include="Resources\ico_start_menu.gif" />
+    <None Include="Resources\ico_end_menu.gif" />
+    <None Include="Resources\ico_red_point_big.png" />
+    <None Include="Resources\ico_red_point_small.png" />
+    <None Include="Resources\ico_blue_point_big.png" />
+    <None Include="Resources\ico_blue_point_small.png" />
+    <None Include="Resources\ico_source.png" />
+    <None Include="Resources\ico_destination.png" />
+    <None Include="Resources\ico_search_eat.png" />
+    <None Include="Resources\ico_search_hotel.png" />
+    <None Include="Resources\ico_search_cinema.png" />
+    <None Include="Resources\ico_travel.png" />
+    <None Include="Resources\ico_leisure.png" />
+    <None Include="Resources\ico_life.png" />
+    <None Include="Resources\ico_hotel.png" />
+    <None Include="Resources\ico_eat.png" />
+    <None Include="Resources\ico_service.png" />
+    <None Include="Resources\ico_happy.png" />
+    <None Include="Resources\ico_cursor_locate.png" />
+    <None Include="Resources\ico_setmarker.png" />
+    <None Include="Resources\ico_search_in_bound.png" />
+    <None Include="Resources\ico_screenshot.png" />
+    <None Include="Resources\ico_rectangle.png" />
+    <None Include="Resources\ico_polygon.png" />
+    <None Include="Resources\ico_location.png" />
+    <None Include="Resources\ico_line.png" />
+    <None Include="Resources\ico_distance.png" />
+    <None Include="Resources\ico_circle.png" />
+    <None Include="Resources\ico_server.png" />
+    <None Include="Resources\ico_sateshot.png" />
+    <None Include="Resources\ico_mapshot.png" />
+    <None Include="Resources\ico_cachefirst.png" />
+    <None Include="Resources\ico_cache.png" />
+    <None Include="Resources\ico_close.gif" />
+    <None Include="Resources\baidu_citys.txt" />
+    <None Include="Resources\ico_search.gif" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
