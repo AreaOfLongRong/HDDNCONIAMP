@@ -34,7 +34,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
             this.pictureBoxExit = new System.Windows.Forms.PictureBox();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanelBottom = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBoxNext = new System.Windows.Forms.PictureBox();
             this.labelX3 = new DevComponents.DotNetBar.LabelX();
             this.labelX4 = new DevComponents.DotNetBar.LabelX();
@@ -58,7 +58,7 @@
             this.tableLayoutPanelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxExit)).BeginInit();
-            this.tableLayoutPanel3.SuspendLayout();
+            this.tableLayoutPanelBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxNext)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPrevious)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -68,12 +68,12 @@
             // 
             // tableLayoutPanelMain
             // 
-            this.tableLayoutPanelMain.BackColor = System.Drawing.Color.PowderBlue;
+            this.tableLayoutPanelMain.BackColor = System.Drawing.Color.Transparent;
             this.tableLayoutPanelMain.ColumnCount = 1;
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelTop, 0, 0);
-            this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanel3, 0, 2);
+            this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelBottom, 0, 2);
             this.tableLayoutPanelMain.Controls.Add(this.superTabControlMain, 0, 1);
             this.tableLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
@@ -156,6 +156,7 @@
             // pictureBoxExit
             // 
             this.pictureBoxExit.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxExit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBoxExit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBoxExit.Image = global::HDDNCONIAMP.Properties.Resources.shutdown_72;
             this.pictureBoxExit.Location = new System.Drawing.Point(675, 3);
@@ -166,38 +167,38 @@
             this.pictureBoxExit.TabStop = false;
             this.pictureBoxExit.Click += new System.EventHandler(this.pictureBoxExit_Click);
             // 
-            // tableLayoutPanel3
+            // tableLayoutPanelBottom
             // 
-            this.tableLayoutPanel3.BackgroundImage = global::HDDNCONIAMP.Properties.Resources.home_background;
-            this.tableLayoutPanel3.ColumnCount = 10;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Controls.Add(this.pictureBoxNext, 7, 0);
-            this.tableLayoutPanel3.Controls.Add(this.labelX3, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.labelX4, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.labelXSystemTime, 1, 1);
-            this.tableLayoutPanel3.Controls.Add(this.labelXLogOut, 2, 0);
-            this.tableLayoutPanel3.Controls.Add(this.labelXUserName, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.labelX5, 4, 0);
-            this.tableLayoutPanel3.Controls.Add(this.labelX6, 4, 1);
-            this.tableLayoutPanel3.Controls.Add(this.pictureBoxPrevious, 6, 0);
-            this.tableLayoutPanel3.Controls.Add(this.pictureBox2, 9, 1);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 430);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(754, 94);
-            this.tableLayoutPanel3.TabIndex = 1;
+            this.tableLayoutPanelBottom.BackgroundImage = global::HDDNCONIAMP.Properties.Resources.home_background;
+            this.tableLayoutPanelBottom.ColumnCount = 10;
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelBottom.Controls.Add(this.pictureBoxNext, 7, 0);
+            this.tableLayoutPanelBottom.Controls.Add(this.labelX3, 0, 0);
+            this.tableLayoutPanelBottom.Controls.Add(this.labelX4, 0, 1);
+            this.tableLayoutPanelBottom.Controls.Add(this.labelXSystemTime, 1, 1);
+            this.tableLayoutPanelBottom.Controls.Add(this.labelXLogOut, 2, 0);
+            this.tableLayoutPanelBottom.Controls.Add(this.labelXUserName, 1, 0);
+            this.tableLayoutPanelBottom.Controls.Add(this.labelX5, 4, 0);
+            this.tableLayoutPanelBottom.Controls.Add(this.labelX6, 4, 1);
+            this.tableLayoutPanelBottom.Controls.Add(this.pictureBoxPrevious, 6, 0);
+            this.tableLayoutPanelBottom.Controls.Add(this.pictureBox2, 9, 1);
+            this.tableLayoutPanelBottom.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelBottom.Location = new System.Drawing.Point(3, 430);
+            this.tableLayoutPanelBottom.Name = "tableLayoutPanelBottom";
+            this.tableLayoutPanelBottom.RowCount = 2;
+            this.tableLayoutPanelBottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelBottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelBottom.Size = new System.Drawing.Size(754, 94);
+            this.tableLayoutPanelBottom.TabIndex = 1;
             // 
             // pictureBoxNext
             // 
@@ -206,7 +207,7 @@
             this.pictureBoxNext.Image = global::HDDNCONIAMP.Properties.Resources.next_64;
             this.pictureBoxNext.Location = new System.Drawing.Point(530, 3);
             this.pictureBoxNext.Name = "pictureBoxNext";
-            this.tableLayoutPanel3.SetRowSpan(this.pictureBoxNext, 2);
+            this.tableLayoutPanelBottom.SetRowSpan(this.pictureBoxNext, 2);
             this.pictureBoxNext.Size = new System.Drawing.Size(34, 88);
             this.pictureBoxNext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxNext.TabIndex = 8;
@@ -250,7 +251,7 @@
             // 
             // 
             this.labelXSystemTime.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tableLayoutPanel3.SetColumnSpan(this.labelXSystemTime, 2);
+            this.tableLayoutPanelBottom.SetColumnSpan(this.labelXSystemTime, 2);
             this.labelXSystemTime.Location = new System.Drawing.Point(83, 55);
             this.labelXSystemTime.Name = "labelXSystemTime";
             this.labelXSystemTime.Size = new System.Drawing.Size(174, 30);
@@ -322,7 +323,7 @@
             this.pictureBoxPrevious.Image = global::HDDNCONIAMP.Properties.Resources.previous_64;
             this.pictureBoxPrevious.Location = new System.Drawing.Point(490, 3);
             this.pictureBoxPrevious.Name = "pictureBoxPrevious";
-            this.tableLayoutPanel3.SetRowSpan(this.pictureBoxPrevious, 2);
+            this.tableLayoutPanelBottom.SetRowSpan(this.pictureBoxPrevious, 2);
             this.pictureBoxPrevious.Size = new System.Drawing.Size(34, 88);
             this.pictureBoxPrevious.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxPrevious.TabIndex = 7;
@@ -459,7 +460,7 @@
             this.tableLayoutPanelTop.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxExit)).EndInit();
-            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanelBottom.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxNext)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPrevious)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -476,7 +477,7 @@
         private DevComponents.DotNetBar.LabelX labelX1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private DevComponents.DotNetBar.LabelX labelX2;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelBottom;
         private DevComponents.DotNetBar.LabelX labelX3;
         private DevComponents.DotNetBar.LabelX labelX4;
         private DevComponents.DotNetBar.LabelX labelXSystemTime;

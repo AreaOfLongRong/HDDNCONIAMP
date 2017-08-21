@@ -52,6 +52,9 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\HDDNCONIAMP.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevComponents.DotNetBar2, Version=12.4.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -100,6 +103,10 @@
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="DB\HDDNCONIAMP.db3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="平台设计方案.docx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -139,9 +146,9 @@
     <Content Include="Resources\CCAD.png" />
     <Content Include="Resources\previous_64.png" />
     <Content Include="Resources\shutdown_72.png" />
+    <Content Include="Resources\HDDNCONIAMP.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DB\" />
     <Folder Include="Model\" />
     <Folder Include="UI\AudioVideoProcess\" />
     <Folder Include="UI\GISVideo\" />

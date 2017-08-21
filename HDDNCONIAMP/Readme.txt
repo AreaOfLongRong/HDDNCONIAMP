@@ -9,8 +9,8 @@
 	Model:数据模型存储目录；
 	UI:所有UI界面
 		-Login:登录界面；
-		-GISVideo:“GIS定位关联视频”模块界面；
-		-AudioVideoProcess：“音视频综合处理”模块界面；
-		-MeshManagement:“Mesh设备管理”模块界面；
-		-UserSettings:“用户配置管理”模块界面；
+		-GISVideo:“GIS定位关联视频”子系统界面；
+		-AudioVideoProcess：“音视频综合处理”子系统界面；
+		-MeshManagement:“Mesh设备管理”子系统界面；
+		-UserSettings:“用户配置管理”子系统界面；
 	Utils:工具类存储目录；
