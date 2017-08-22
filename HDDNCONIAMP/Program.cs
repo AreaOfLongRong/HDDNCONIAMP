@@ -1,5 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
+using log4net;
+using log4net.Config;
 
 namespace HDDNCONIAMP
 {
@@ -13,6 +16,15 @@ namespace HDDNCONIAMP
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            //加载log4net配置
+            FileInfo configFile = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "log4net.config");
+            XmlConfigurator.ConfigureAndWatch(configFile);
+
+            //创建logger
+            var logger = LogManager.GetLogger(typeof(Program));
+
+            logger.Info("启动程序...");
             Application.Run(new FormMain());
         }
     }

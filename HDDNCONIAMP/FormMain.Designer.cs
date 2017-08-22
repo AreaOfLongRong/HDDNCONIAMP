@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelTop = new System.Windows.Forms.TableLayoutPanel();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
@@ -54,6 +55,7 @@
             this.superTabItem3 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.superTabItem2 = new DevComponents.DotNetBar.SuperTabItem();
+            this.timerUpdateTime = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanelMain.SuspendLayout();
             this.tableLayoutPanelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -68,7 +70,7 @@
             // 
             // tableLayoutPanelMain
             // 
-            this.tableLayoutPanelMain.BackColor = System.Drawing.Color.Transparent;
+            this.tableLayoutPanelMain.BackColor = System.Drawing.Color.DodgerBlue;
             this.tableLayoutPanelMain.ColumnCount = 1;
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
@@ -87,13 +89,12 @@
             // 
             // tableLayoutPanelTop
             // 
-            this.tableLayoutPanelTop.BackgroundImage = global::HDDNCONIAMP.Properties.Resources.home_background;
             this.tableLayoutPanelTop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.tableLayoutPanelTop.ColumnCount = 4;
             this.tableLayoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tableLayoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tableLayoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 81F));
+            this.tableLayoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 82F));
             this.tableLayoutPanelTop.Controls.Add(this.labelX1, 0, 0);
             this.tableLayoutPanelTop.Controls.Add(this.pictureBox1, 1, 0);
             this.tableLayoutPanelTop.Controls.Add(this.labelX2, 2, 0);
@@ -119,7 +120,7 @@
             this.labelX1.Location = new System.Drawing.Point(20, 3);
             this.labelX1.Margin = new System.Windows.Forms.Padding(20, 3, 3, 3);
             this.labelX1.Name = "labelX1";
-            this.labelX1.Size = new System.Drawing.Size(378, 88);
+            this.labelX1.Size = new System.Drawing.Size(377, 88);
             this.labelX1.TabIndex = 0;
             this.labelX1.Text = "高清动态无中心自组网综合应用管理平台";
             // 
@@ -128,7 +129,7 @@
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Image = global::HDDNCONIAMP.Properties.Resources.CCAD;
-            this.pictureBox1.Location = new System.Drawing.Point(404, 3);
+            this.pictureBox1.Location = new System.Drawing.Point(403, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(94, 88);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -145,7 +146,7 @@
             this.labelX2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelX2.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelX2.ForeColor = System.Drawing.Color.White;
-            this.labelX2.Location = new System.Drawing.Point(504, 20);
+            this.labelX2.Location = new System.Drawing.Point(503, 20);
             this.labelX2.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
             this.labelX2.Name = "labelX2";
             this.labelX2.Size = new System.Drawing.Size(165, 71);
@@ -159,9 +160,9 @@
             this.pictureBoxExit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBoxExit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBoxExit.Image = global::HDDNCONIAMP.Properties.Resources.shutdown_72;
-            this.pictureBoxExit.Location = new System.Drawing.Point(675, 3);
+            this.pictureBoxExit.Location = new System.Drawing.Point(674, 3);
             this.pictureBoxExit.Name = "pictureBoxExit";
-            this.pictureBoxExit.Size = new System.Drawing.Size(76, 88);
+            this.pictureBoxExit.Size = new System.Drawing.Size(77, 88);
             this.pictureBoxExit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBoxExit.TabIndex = 3;
             this.pictureBoxExit.TabStop = false;
@@ -169,7 +170,6 @@
             // 
             // tableLayoutPanelBottom
             // 
-            this.tableLayoutPanelBottom.BackgroundImage = global::HDDNCONIAMP.Properties.Resources.home_background;
             this.tableLayoutPanelBottom.ColumnCount = 10;
             this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
@@ -256,7 +256,6 @@
             this.labelXSystemTime.Name = "labelXSystemTime";
             this.labelXSystemTime.Size = new System.Drawing.Size(174, 30);
             this.labelXSystemTime.TabIndex = 2;
-            this.labelXSystemTime.Text = "XXXX年XX月XX日";
             // 
             // labelXLogOut
             // 
@@ -445,6 +444,12 @@
             this.superTabItem2.Name = "superTabItem2";
             this.superTabItem2.Text = "音视频综合处理";
             // 
+            // timerUpdateTime
+            // 
+            this.timerUpdateTime.Enabled = true;
+            this.timerUpdateTime.Interval = 1000;
+            this.timerUpdateTime.Tick += new System.EventHandler(this.timerUpdateTime_Tick);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -456,6 +461,8 @@
             this.Name = "FormMain";
             this.Text = "FormHome";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
+            this.Load += new System.EventHandler(this.FormMain_Load);
             this.tableLayoutPanelMain.ResumeLayout(false);
             this.tableLayoutPanelTop.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -498,5 +505,6 @@
         private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel2;
         private DevComponents.DotNetBar.SuperTabItem superTabItem2;
         private System.Windows.Forms.PictureBox pictureBoxExit;
+        private System.Windows.Forms.Timer timerUpdateTime;
     }
 }
