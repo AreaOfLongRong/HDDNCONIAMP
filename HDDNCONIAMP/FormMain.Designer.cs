@@ -47,14 +47,21 @@
             this.pictureBoxPrevious = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.superTabControlMain = new DevComponents.DotNetBar.SuperTabControl();
-            this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.superTabControlPanelGISVideo = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.tableLayoutPanelLogin = new System.Windows.Forms.TableLayoutPanel();
+            this.textBoxXPassword = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.labelX7 = new DevComponents.DotNetBar.LabelX();
+            this.labelX8 = new DevComponents.DotNetBar.LabelX();
+            this.labelX9 = new DevComponents.DotNetBar.LabelX();
+            this.textBoxXUserName = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.buttonLogin = new DevComponents.DotNetBar.ButtonX();
             this.superTabItemGISVideo = new DevComponents.DotNetBar.SuperTabItem();
-            this.superTabControlPanel4 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.superTabItem4 = new DevComponents.DotNetBar.SuperTabItem();
-            this.superTabControlPanel3 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.superTabItem3 = new DevComponents.DotNetBar.SuperTabItem();
-            this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.superTabItem2 = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanelMeshManagement = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.superTabItemMeshManagement = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanelAudioVideoProcess = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.superTabItemAudioVideoProcess = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanelUserSettings = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.superTabItemUserSettings = new DevComponents.DotNetBar.SuperTabItem();
             this.timerUpdateTime = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanelMain.SuspendLayout();
             this.tableLayoutPanelTop.SuspendLayout();
@@ -66,6 +73,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControlMain)).BeginInit();
             this.superTabControlMain.SuspendLayout();
+            this.superTabControlPanelGISVideo.SuspendLayout();
+            this.tableLayoutPanelLogin.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanelMain
@@ -94,7 +103,7 @@
             this.tableLayoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tableLayoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tableLayoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 82F));
+            this.tableLayoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 84F));
             this.tableLayoutPanelTop.Controls.Add(this.labelX1, 0, 0);
             this.tableLayoutPanelTop.Controls.Add(this.pictureBox1, 1, 0);
             this.tableLayoutPanelTop.Controls.Add(this.labelX2, 2, 0);
@@ -120,7 +129,7 @@
             this.labelX1.Location = new System.Drawing.Point(20, 3);
             this.labelX1.Margin = new System.Windows.Forms.Padding(20, 3, 3, 3);
             this.labelX1.Name = "labelX1";
-            this.labelX1.Size = new System.Drawing.Size(377, 88);
+            this.labelX1.Size = new System.Drawing.Size(376, 88);
             this.labelX1.TabIndex = 0;
             this.labelX1.Text = "高清动态无中心自组网综合应用管理平台";
             // 
@@ -129,7 +138,7 @@
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Image = global::HDDNCONIAMP.Properties.Resources.CCAD;
-            this.pictureBox1.Location = new System.Drawing.Point(403, 3);
+            this.pictureBox1.Location = new System.Drawing.Point(402, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(94, 88);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -146,7 +155,7 @@
             this.labelX2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelX2.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelX2.ForeColor = System.Drawing.Color.White;
-            this.labelX2.Location = new System.Drawing.Point(503, 20);
+            this.labelX2.Location = new System.Drawing.Point(502, 20);
             this.labelX2.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
             this.labelX2.Name = "labelX2";
             this.labelX2.Size = new System.Drawing.Size(165, 71);
@@ -160,9 +169,9 @@
             this.pictureBoxExit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBoxExit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBoxExit.Image = global::HDDNCONIAMP.Properties.Resources.shutdown_72;
-            this.pictureBoxExit.Location = new System.Drawing.Point(674, 3);
+            this.pictureBoxExit.Location = new System.Drawing.Point(673, 3);
             this.pictureBoxExit.Name = "pictureBoxExit";
-            this.pictureBoxExit.Size = new System.Drawing.Size(77, 88);
+            this.pictureBoxExit.Size = new System.Drawing.Size(78, 88);
             this.pictureBoxExit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBoxExit.TabIndex = 3;
             this.pictureBoxExit.TabStop = false;
@@ -265,11 +274,13 @@
             // 
             // 
             this.labelXLogOut.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelXLogOut.Cursor = System.Windows.Forms.Cursors.Hand;
             this.labelXLogOut.Location = new System.Drawing.Point(183, 12);
             this.labelXLogOut.Name = "labelXLogOut";
             this.labelXLogOut.Size = new System.Drawing.Size(74, 23);
             this.labelXLogOut.TabIndex = 3;
-            this.labelXLogOut.Text = "<u>[退出登录]</u>";
+            this.labelXLogOut.Text = "<u>[退出登陆]</u>";
+            this.labelXLogOut.Click += new System.EventHandler(this.labelXLogOut_Click);
             // 
             // labelXUserName
             // 
@@ -283,7 +294,6 @@
             this.labelXUserName.Name = "labelXUserName";
             this.labelXUserName.Size = new System.Drawing.Size(94, 23);
             this.labelXUserName.TabIndex = 4;
-            this.labelXUserName.Text = "admin";
             // 
             // labelX5
             // 
@@ -357,10 +367,10 @@
             this.superTabControlMain.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.superTabControlMain.ControlBox.MenuBox,
             this.superTabControlMain.ControlBox.CloseBox});
-            this.superTabControlMain.Controls.Add(this.superTabControlPanel1);
-            this.superTabControlMain.Controls.Add(this.superTabControlPanel4);
-            this.superTabControlMain.Controls.Add(this.superTabControlPanel3);
-            this.superTabControlMain.Controls.Add(this.superTabControlPanel2);
+            this.superTabControlMain.Controls.Add(this.superTabControlPanelGISVideo);
+            this.superTabControlMain.Controls.Add(this.superTabControlPanelMeshManagement);
+            this.superTabControlMain.Controls.Add(this.superTabControlPanelAudioVideoProcess);
+            this.superTabControlMain.Controls.Add(this.superTabControlPanelUserSettings);
             this.superTabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControlMain.Location = new System.Drawing.Point(3, 103);
             this.superTabControlMain.Name = "superTabControlMain";
@@ -373,76 +383,197 @@
             this.superTabControlMain.TabIndex = 2;
             this.superTabControlMain.Tabs.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.superTabItemGISVideo,
-            this.superTabItem2,
-            this.superTabItem3,
-            this.superTabItem4});
+            this.superTabItemAudioVideoProcess,
+            this.superTabItemMeshManagement,
+            this.superTabItemUserSettings});
             this.superTabControlMain.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.Office2010BackstageBlue;
             this.superTabControlMain.TabVerticalSpacing = 20;
             this.superTabControlMain.Text = "superTabControl1";
+            this.superTabControlMain.SelectedTabChanged += new System.EventHandler<DevComponents.DotNetBar.SuperTabStripSelectedTabChangedEventArgs>(this.superTabControlMain_SelectedTabChanged);
             // 
-            // superTabControlPanel1
+            // superTabControlPanelGISVideo
             // 
-            this.superTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel1.Location = new System.Drawing.Point(128, 0);
-            this.superTabControlPanel1.Name = "superTabControlPanel1";
-            this.superTabControlPanel1.Size = new System.Drawing.Size(626, 321);
-            this.superTabControlPanel1.TabIndex = 1;
-            this.superTabControlPanel1.TabItem = this.superTabItemGISVideo;
+            this.superTabControlPanelGISVideo.BackgroundImage = global::HDDNCONIAMP.Properties.Resources.login_background;
+            this.superTabControlPanelGISVideo.Controls.Add(this.tableLayoutPanelLogin);
+            this.superTabControlPanelGISVideo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanelGISVideo.Location = new System.Drawing.Point(128, 0);
+            this.superTabControlPanelGISVideo.Name = "superTabControlPanelGISVideo";
+            this.superTabControlPanelGISVideo.Size = new System.Drawing.Size(626, 321);
+            this.superTabControlPanelGISVideo.TabIndex = 1;
+            this.superTabControlPanelGISVideo.TabItem = this.superTabItemGISVideo;
+            // 
+            // tableLayoutPanelLogin
+            // 
+            this.tableLayoutPanelLogin.BackColor = System.Drawing.Color.Transparent;
+            this.tableLayoutPanelLogin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.tableLayoutPanelLogin.ColumnCount = 4;
+            this.tableLayoutPanelLogin.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelLogin.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanelLogin.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            this.tableLayoutPanelLogin.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanelLogin.Controls.Add(this.textBoxXPassword, 2, 2);
+            this.tableLayoutPanelLogin.Controls.Add(this.labelX7, 1, 0);
+            this.tableLayoutPanelLogin.Controls.Add(this.labelX8, 1, 1);
+            this.tableLayoutPanelLogin.Controls.Add(this.labelX9, 1, 2);
+            this.tableLayoutPanelLogin.Controls.Add(this.textBoxXUserName, 2, 1);
+            this.tableLayoutPanelLogin.Controls.Add(this.buttonLogin, 3, 3);
+            this.tableLayoutPanelLogin.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelLogin.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelLogin.Name = "tableLayoutPanelLogin";
+            this.tableLayoutPanelLogin.Padding = new System.Windows.Forms.Padding(8);
+            this.tableLayoutPanelLogin.RowCount = 5;
+            this.tableLayoutPanelLogin.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanelLogin.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanelLogin.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanelLogin.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanelLogin.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanelLogin.Size = new System.Drawing.Size(626, 321);
+            this.tableLayoutPanelLogin.TabIndex = 1;
+            // 
+            // textBoxXPassword
+            // 
+            this.textBoxXPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.textBoxXPassword.Border.Class = "TextBoxBorder";
+            this.textBoxXPassword.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tableLayoutPanelLogin.SetColumnSpan(this.textBoxXPassword, 2);
+            this.textBoxXPassword.Location = new System.Drawing.Point(401, 156);
+            this.textBoxXPassword.Name = "textBoxXPassword";
+            this.textBoxXPassword.PasswordChar = '*';
+            this.textBoxXPassword.PreventEnterBeep = true;
+            this.textBoxXPassword.Size = new System.Drawing.Size(214, 21);
+            this.textBoxXPassword.TabIndex = 4;
+            this.textBoxXPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxXPassword_KeyPress);
+            // 
+            // labelX7
+            // 
+            this.labelX7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.labelX7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tableLayoutPanelLogin.SetColumnSpan(this.labelX7, 3);
+            this.labelX7.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX7.Location = new System.Drawing.Point(326, 29);
+            this.labelX7.Margin = new System.Windows.Forms.Padding(8);
+            this.labelX7.Name = "labelX7";
+            this.labelX7.Size = new System.Drawing.Size(284, 48);
+            this.labelX7.TabIndex = 0;
+            this.labelX7.Text = "高清动态无中心应用平台登陆";
+            // 
+            // labelX8
+            // 
+            this.labelX8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.labelX8.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX8.Location = new System.Drawing.Point(321, 110);
+            this.labelX8.Name = "labelX8";
+            this.labelX8.Size = new System.Drawing.Size(74, 23);
+            this.labelX8.TabIndex = 1;
+            this.labelX8.Text = "账  号：";
+            this.labelX8.TextAlignment = System.Drawing.StringAlignment.Center;
+            // 
+            // labelX9
+            // 
+            this.labelX9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.labelX9.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX9.Location = new System.Drawing.Point(321, 155);
+            this.labelX9.Name = "labelX9";
+            this.labelX9.Size = new System.Drawing.Size(74, 23);
+            this.labelX9.TabIndex = 2;
+            this.labelX9.Text = "密 码：";
+            this.labelX9.TextAlignment = System.Drawing.StringAlignment.Center;
+            // 
+            // textBoxXUserName
+            // 
+            this.textBoxXUserName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.textBoxXUserName.Border.Class = "TextBoxBorder";
+            this.textBoxXUserName.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tableLayoutPanelLogin.SetColumnSpan(this.textBoxXUserName, 2);
+            this.textBoxXUserName.Location = new System.Drawing.Point(401, 111);
+            this.textBoxXUserName.Name = "textBoxXUserName";
+            this.textBoxXUserName.PreventEnterBeep = true;
+            this.textBoxXUserName.Size = new System.Drawing.Size(214, 21);
+            this.textBoxXUserName.TabIndex = 3;
+            // 
+            // buttonLogin
+            // 
+            this.buttonLogin.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonLogin.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.buttonLogin.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonLogin.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonLogin.Location = new System.Drawing.Point(531, 208);
+            this.buttonLogin.Name = "buttonLogin";
+            this.buttonLogin.Size = new System.Drawing.Size(74, 23);
+            this.buttonLogin.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonLogin.TabIndex = 5;
+            this.buttonLogin.Text = "登  陆";
+            this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
             // 
             // superTabItemGISVideo
             // 
-            this.superTabItemGISVideo.AttachedControl = this.superTabControlPanel1;
+            this.superTabItemGISVideo.AttachedControl = this.superTabControlPanelGISVideo;
             this.superTabItemGISVideo.GlobalItem = false;
             this.superTabItemGISVideo.Name = "superTabItemGISVideo";
             this.superTabItemGISVideo.Text = "GIS定位关联视频";
             // 
-            // superTabControlPanel4
+            // superTabControlPanelMeshManagement
             // 
-            this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel4.Location = new System.Drawing.Point(138, 0);
-            this.superTabControlPanel4.Name = "superTabControlPanel4";
-            this.superTabControlPanel4.Size = new System.Drawing.Size(616, 321);
-            this.superTabControlPanel4.TabIndex = 0;
-            this.superTabControlPanel4.TabItem = this.superTabItem4;
+            this.superTabControlPanelMeshManagement.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanelMeshManagement.Location = new System.Drawing.Point(138, 0);
+            this.superTabControlPanelMeshManagement.Name = "superTabControlPanelMeshManagement";
+            this.superTabControlPanelMeshManagement.Size = new System.Drawing.Size(616, 321);
+            this.superTabControlPanelMeshManagement.TabIndex = 0;
+            this.superTabControlPanelMeshManagement.TabItem = this.superTabItemMeshManagement;
             // 
-            // superTabItem4
+            // superTabItemMeshManagement
             // 
-            this.superTabItem4.AttachedControl = this.superTabControlPanel4;
-            this.superTabItem4.GlobalItem = false;
-            this.superTabItem4.Name = "superTabItem4";
-            this.superTabItem4.Text = "用户配置管理";
+            this.superTabItemMeshManagement.AttachedControl = this.superTabControlPanelMeshManagement;
+            this.superTabItemMeshManagement.GlobalItem = false;
+            this.superTabItemMeshManagement.Name = "superTabItemMeshManagement";
+            this.superTabItemMeshManagement.Text = "Mesh设备管理";
             // 
-            // superTabControlPanel3
+            // superTabControlPanelAudioVideoProcess
             // 
-            this.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel3.Location = new System.Drawing.Point(117, 0);
-            this.superTabControlPanel3.Name = "superTabControlPanel3";
-            this.superTabControlPanel3.Size = new System.Drawing.Size(637, 249);
-            this.superTabControlPanel3.TabIndex = 0;
-            this.superTabControlPanel3.TabItem = this.superTabItem3;
+            this.superTabControlPanelAudioVideoProcess.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanelAudioVideoProcess.Location = new System.Drawing.Point(138, 0);
+            this.superTabControlPanelAudioVideoProcess.Name = "superTabControlPanelAudioVideoProcess";
+            this.superTabControlPanelAudioVideoProcess.Size = new System.Drawing.Size(616, 321);
+            this.superTabControlPanelAudioVideoProcess.TabIndex = 0;
+            this.superTabControlPanelAudioVideoProcess.TabItem = this.superTabItemAudioVideoProcess;
             // 
-            // superTabItem3
+            // superTabItemAudioVideoProcess
             // 
-            this.superTabItem3.AttachedControl = this.superTabControlPanel3;
-            this.superTabItem3.GlobalItem = false;
-            this.superTabItem3.Name = "superTabItem3";
-            this.superTabItem3.Text = "Mesh设备管理";
+            this.superTabItemAudioVideoProcess.AttachedControl = this.superTabControlPanelAudioVideoProcess;
+            this.superTabItemAudioVideoProcess.GlobalItem = false;
+            this.superTabItemAudioVideoProcess.Name = "superTabItemAudioVideoProcess";
+            this.superTabItemAudioVideoProcess.Text = "音视频综合处理";
             // 
-            // superTabControlPanel2
+            // superTabControlPanelUserSettings
             // 
-            this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel2.Location = new System.Drawing.Point(117, 0);
-            this.superTabControlPanel2.Name = "superTabControlPanel2";
-            this.superTabControlPanel2.Size = new System.Drawing.Size(637, 249);
-            this.superTabControlPanel2.TabIndex = 0;
-            this.superTabControlPanel2.TabItem = this.superTabItem2;
+            this.superTabControlPanelUserSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanelUserSettings.Location = new System.Drawing.Point(138, 0);
+            this.superTabControlPanelUserSettings.Name = "superTabControlPanelUserSettings";
+            this.superTabControlPanelUserSettings.Size = new System.Drawing.Size(616, 321);
+            this.superTabControlPanelUserSettings.TabIndex = 0;
+            this.superTabControlPanelUserSettings.TabItem = this.superTabItemUserSettings;
             // 
-            // superTabItem2
+            // superTabItemUserSettings
             // 
-            this.superTabItem2.AttachedControl = this.superTabControlPanel2;
-            this.superTabItem2.GlobalItem = false;
-            this.superTabItem2.Name = "superTabItem2";
-            this.superTabItem2.Text = "音视频综合处理";
+            this.superTabItemUserSettings.AttachedControl = this.superTabControlPanelUserSettings;
+            this.superTabItemUserSettings.GlobalItem = false;
+            this.superTabItemUserSettings.Name = "superTabItemUserSettings";
+            this.superTabItemUserSettings.Text = "用户配置管理";
             // 
             // timerUpdateTime
             // 
@@ -473,6 +604,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControlMain)).EndInit();
             this.superTabControlMain.ResumeLayout(false);
+            this.superTabControlPanelGISVideo.ResumeLayout(false);
+            this.tableLayoutPanelLogin.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -496,15 +629,22 @@
         private System.Windows.Forms.PictureBox pictureBoxNext;
         private System.Windows.Forms.PictureBox pictureBox2;
         private DevComponents.DotNetBar.SuperTabControl superTabControlMain;
-        private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel1;
+        private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanelGISVideo;
         private DevComponents.DotNetBar.SuperTabItem superTabItemGISVideo;
-        private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel4;
-        private DevComponents.DotNetBar.SuperTabItem superTabItem4;
-        private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel3;
-        private DevComponents.DotNetBar.SuperTabItem superTabItem3;
-        private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel2;
-        private DevComponents.DotNetBar.SuperTabItem superTabItem2;
+        private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanelUserSettings;
+        private DevComponents.DotNetBar.SuperTabItem superTabItemUserSettings;
+        private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanelMeshManagement;
+        private DevComponents.DotNetBar.SuperTabItem superTabItemMeshManagement;
+        private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanelAudioVideoProcess;
+        private DevComponents.DotNetBar.SuperTabItem superTabItemAudioVideoProcess;
         private System.Windows.Forms.PictureBox pictureBoxExit;
         private System.Windows.Forms.Timer timerUpdateTime;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelLogin;
+        private DevComponents.DotNetBar.Controls.TextBoxX textBoxXPassword;
+        private DevComponents.DotNetBar.LabelX labelX7;
+        private DevComponents.DotNetBar.LabelX labelX8;
+        private DevComponents.DotNetBar.LabelX labelX9;
+        private DevComponents.DotNetBar.Controls.TextBoxX textBoxXUserName;
+        private DevComponents.DotNetBar.ButtonX buttonLogin;
     }
 }
