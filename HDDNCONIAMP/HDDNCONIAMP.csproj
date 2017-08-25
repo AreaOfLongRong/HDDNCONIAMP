@@ -56,10 +56,16 @@
     <ApplicationIcon>Resources\HDDNCONIAMP.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BMap.NET">
+      <HintPath>..\BMap.NET\bin\x86\Debug\BMap.NET.dll</HintPath>
+    </Reference>
     <Reference Include="DevComponents.DotNetBar2, Version=12.4.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>References\log4net 2.0.8-newkey\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\BMap.NET.WindowsForm\libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -125,6 +131,7 @@
     <Compile Include="UI\UserSettings\UCUserSettings.Designer.cs">
       <DependentUpon>UCUserSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\SQLiteDBHelper.cs" />
     <Compile Include="Utils\SQLiteHelper.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -195,7 +202,12 @@
     <Content Include="Resources\HDDNCONIAMP.ico" />
     <Content Include="Resources\login_background.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\BMap.NET.WindowsForm\BMap.NET.WindowsForm.csproj">
+      <Project>{1B32D6FD-3C74-40DC-9D43-102B19D40785}</Project>
+      <Name>BMap.NET.WindowsForm</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

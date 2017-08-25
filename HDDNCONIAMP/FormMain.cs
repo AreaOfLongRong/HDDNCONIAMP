@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using HDDNCONIAMP.Events;
 using HDDNCONIAMP.Model;
 using HDDNCONIAMP.UI.AudioVideoProcess;
 using HDDNCONIAMP.UI.GISVideo;
-using HDDNCONIAMP.UI.Login;
 using HDDNCONIAMP.UI.MeshManagement;
 using HDDNCONIAMP.UI.UserSettings;
 using log4net;
@@ -52,12 +45,7 @@ namespace HDDNCONIAMP
         /// 日志记录器
         /// </summary>
         private ILog logger = LogManager.GetLogger(typeof(FormMain));
-
-        /// <summary>
-        /// 登陆控件
-        /// </summary>
-        private UCLogin ucLogin;
-
+        
         /// <summary>
         /// GIS定位关联视频控件
         /// </summary>
@@ -84,6 +72,8 @@ namespace HDDNCONIAMP
         public FormMain()
         {
             InitializeComponent();
+            //双缓冲设置，防止界面闪烁
+            setTableLayoutPanelDoubleBufferd();
         }
 
         /// <summary>
@@ -97,7 +87,7 @@ namespace HDDNCONIAMP
 
             logger.Info("启动更新系统时间计时器...");
             timerUpdateTime.Start();
-
+            //更新界面
             updateSuperTabControlPanel(OpenUCType.OpenLogin);
 
             //注册用户登陆/登出事件处理
@@ -267,6 +257,17 @@ namespace HDDNCONIAMP
         #endregion
 
         #region 私有方法
+
+        /// <summary>
+        /// 启用TableLayoutPanel双缓冲，防止界面闪烁
+        /// </summary>
+        private void setTableLayoutPanelDoubleBufferd()
+        {
+            tableLayoutPanelMain.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMain, true, null);
+            tableLayoutPanelTop.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelTop, true, null);
+            tableLayoutPanelLogin.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelLogin, true, null);
+            tableLayoutPanelBottom.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelBottom, true, null);
+        }
 
         /// <summary>
         /// 更新标签面板中的内容
