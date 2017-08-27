@@ -50,6 +50,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevComponents.DotNetBar2, Version=12.4.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>libs\Newtonsoft.Json.dll</HintPath>
@@ -103,6 +104,7 @@
     </Compile>
     <Compile Include="BMapElements\BMarker.cs" />
     <Compile Include="BMapElements\BPoint.cs" />
+    <Compile Include="BMapElements\BVideoPoint.cs" />
     <Compile Include="BMarkerTipControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

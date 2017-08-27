@@ -352,6 +352,7 @@
             // 
             // superTabControlMain
             // 
+            this.superTabControlMain.BackColor = System.Drawing.Color.White;
             // 
             // 
             // 
@@ -368,10 +369,11 @@
             this.superTabControlMain.ControlBox.MenuBox,
             this.superTabControlMain.ControlBox.CloseBox});
             this.superTabControlMain.Controls.Add(this.superTabControlPanelGISVideo);
-            this.superTabControlMain.Controls.Add(this.superTabControlPanelMeshManagement);
             this.superTabControlMain.Controls.Add(this.superTabControlPanelAudioVideoProcess);
+            this.superTabControlMain.Controls.Add(this.superTabControlPanelMeshManagement);
             this.superTabControlMain.Controls.Add(this.superTabControlPanelUserSettings);
             this.superTabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlMain.ForeColor = System.Drawing.Color.Black;
             this.superTabControlMain.Location = new System.Drawing.Point(3, 103);
             this.superTabControlMain.Name = "superTabControlMain";
             this.superTabControlMain.ReorderTabsEnabled = true;
@@ -433,18 +435,21 @@
             // textBoxXPassword
             // 
             this.textBoxXPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxXPassword.BackColor = System.Drawing.Color.White;
             // 
             // 
             // 
             this.textBoxXPassword.Border.Class = "TextBoxBorder";
             this.textBoxXPassword.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.tableLayoutPanelLogin.SetColumnSpan(this.textBoxXPassword, 2);
+            this.textBoxXPassword.DisabledBackColor = System.Drawing.Color.White;
+            this.textBoxXPassword.ForeColor = System.Drawing.Color.Black;
             this.textBoxXPassword.Location = new System.Drawing.Point(401, 156);
             this.textBoxXPassword.Name = "textBoxXPassword";
             this.textBoxXPassword.PasswordChar = '*';
             this.textBoxXPassword.PreventEnterBeep = true;
             this.textBoxXPassword.Size = new System.Drawing.Size(214, 21);
-            this.textBoxXPassword.TabIndex = 4;
+            this.textBoxXPassword.TabIndex = 1;
             this.textBoxXPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxXPassword_KeyPress);
             // 
             // labelX7
@@ -494,17 +499,20 @@
             // textBoxXUserName
             // 
             this.textBoxXUserName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxXUserName.BackColor = System.Drawing.Color.White;
             // 
             // 
             // 
             this.textBoxXUserName.Border.Class = "TextBoxBorder";
             this.textBoxXUserName.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.tableLayoutPanelLogin.SetColumnSpan(this.textBoxXUserName, 2);
+            this.textBoxXUserName.DisabledBackColor = System.Drawing.Color.White;
+            this.textBoxXUserName.ForeColor = System.Drawing.Color.Black;
             this.textBoxXUserName.Location = new System.Drawing.Point(401, 111);
             this.textBoxXUserName.Name = "textBoxXUserName";
             this.textBoxXUserName.PreventEnterBeep = true;
             this.textBoxXUserName.Size = new System.Drawing.Size(214, 21);
-            this.textBoxXUserName.TabIndex = 3;
+            this.textBoxXUserName.TabIndex = 0;
             // 
             // buttonLogin
             // 
@@ -516,7 +524,7 @@
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(74, 23);
             this.buttonLogin.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.buttonLogin.TabIndex = 5;
+            this.buttonLogin.TabIndex = 2;
             this.buttonLogin.Text = "登  陆";
             this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
             // 

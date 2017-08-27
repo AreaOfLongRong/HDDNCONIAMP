@@ -84,6 +84,8 @@ namespace HDDNCONIAMP
         private void FormMain_Load(object sender, EventArgs e)
         {
             logger.Info("加载主界面...");
+            //默认设置账户文本框为焦点
+            textBoxXUserName.Focus();
 
             logger.Info("启动更新系统时间计时器...");
             timerUpdateTime.Start();
