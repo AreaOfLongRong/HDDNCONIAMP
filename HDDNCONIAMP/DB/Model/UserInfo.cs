@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace HDDNCONIAMP.Model
+namespace HDDNCONIAMP.DB.Model
 {
     /// <summary>
     /// 用户信息类，对用户名、密码和权限进行描述

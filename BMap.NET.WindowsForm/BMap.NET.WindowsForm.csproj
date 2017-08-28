@@ -96,6 +96,12 @@
     <Compile Include="BLoadMapModeControl.Designer.cs">
       <DependentUpon>BLoadMapModeControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="BMapControl2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BMapControl2.Designer.cs">
+      <DependentUpon>BMapControl2.cs</DependentUpon>
+    </Compile>
     <Compile Include="BMapControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -266,6 +272,9 @@
     <EmbeddedResource Include="BLoadMapModeControl.resx">
       <DependentUpon>BLoadMapModeControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BMapControl2.resx">
+      <DependentUpon>BMapControl2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BMapControl.resx">
       <DependentUpon>BMapControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -344,6 +353,10 @@
   <ItemGroup>
     <Content Include="BaiduJSAPI_cracker.js" />
     <Content Include="libs\Newtonsoft.Json.dll" />
+    <Content Include="Resources\ico_camera_offline_64.png" />
+    <Content Include="Resources\ico_camera_online_64.png" />
+    <Content Include="Resources\ico_camera_offline_32.png" />
+    <Content Include="Resources\ico_camera_online_32.png" />
     <None Include="Resources\ico_bysubway.png" />
     <None Include="Resources\ico_bybus.png" />
     <None Include="Resources\ico_strange_point.png" />

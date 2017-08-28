@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using DevComponents.AdvTree;
 using log4net;
+using BMap.NET.WindowsForm.BMapElements;
+using BMap.NET.WindowsForm;
 
 namespace HDDNCONIAMP.UI.GISVideo
 {
@@ -37,6 +39,28 @@ namespace HDDNCONIAMP.UI.GISVideo
 
             //默认隐藏检索结果列表节点
             nodeSearchResult.Visible = false;
+        }
+
+        /// <summary>
+        /// 界面加载事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UCGISVideo_Load(object sender, EventArgs e)
+        {
+            //临时测试设备添加
+            List<BVideoPoint> devices = new List<BVideoPoint>();
+            BVideoPoint poi1 = new BVideoPoint();
+            poi1.Location = new LatLngPoint(116.391046, 40.014476);
+            poi1.Index = 1;
+            poi1.IsOnline = true;
+            devices.Add(poi1);
+            BVideoPoint poi2 = new BVideoPoint();
+            poi2.Location = new LatLngPoint(116.549722, 39.972907);
+            poi2.Index = 2;
+            poi2.IsOnline = false;
+            devices.Add(poi2);
+            bMapControl2Main.AddVideoPlaces(devices);
         }
 
         #region 设备列表事件
@@ -130,12 +154,12 @@ namespace HDDNCONIAMP.UI.GISVideo
 
         private void buttonItemBMapZoomIn_Click(object sender, EventArgs e)
         {
-            bMapControlMain.Zoom = bMapControlMain.Zoom >= 18 ? 18 : (bMapControlMain.Zoom++);
+            bMapControl2Main.Zoom = bMapControl2Main.Zoom >= 18 ? 18 : (bMapControl2Main.Zoom++);
         }
 
         private void buttonItemBMapZoomout_Click(object sender, EventArgs e)
         {
-            bMapControlMain.Zoom = bMapControlMain.Zoom <=3  ? 3 : (bMapControlMain.Zoom--);
+            bMapControl2Main.Zoom = bMapControl2Main.Zoom <=3  ? 3 : (bMapControl2Main.Zoom--);
         }
 
         #endregion

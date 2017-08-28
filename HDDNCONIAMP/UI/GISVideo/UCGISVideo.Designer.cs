@@ -34,35 +34,35 @@
             this.tableLayoutPanelDeviceList = new System.Windows.Forms.TableLayoutPanel();
             this.textBoxXSearch = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.advTreeDeviceList = new DevComponents.AdvTree.AdvTree();
-            this.nodeConnectorMain = new DevComponents.AdvTree.NodeConnector();
-            this.elementStyleMain = new DevComponents.DotNetBar.ElementStyle();
-            this.barDeviceList = new DevComponents.DotNetBar.Bar();
-            this.tableLayoutPanelBDMap = new System.Windows.Forms.TableLayoutPanel();
-            this.barToolsBDMap = new DevComponents.DotNetBar.Bar();
-            this.buttonItemBMapDrag = new DevComponents.DotNetBar.ButtonItem();
-            this.bMapControlMain = new BMap.NET.WindowsForm.BMapControl();
-            this.nodeSearchResult = new DevComponents.AdvTree.Node();
             this.imageListGISVideo = new System.Windows.Forms.ImageList(this.components);
             this.nodeDefaultGroup = new DevComponents.AdvTree.Node();
+            this.nodeSearchResult = new DevComponents.AdvTree.Node();
+            this.nodeConnectorMain = new DevComponents.AdvTree.NodeConnector();
+            this.elementStyleMain = new DevComponents.DotNetBar.ElementStyle();
             this.pictureBoxSearch = new System.Windows.Forms.PictureBox();
+            this.barDeviceList = new DevComponents.DotNetBar.Bar();
             this.buttonItemExpandAll = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemFoldAll = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemAddGroup = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemDeleteGroup = new DevComponents.DotNetBar.ButtonItem();
+            this.tableLayoutPanelBDMap = new System.Windows.Forms.TableLayoutPanel();
+            this.barToolsBDMap = new DevComponents.DotNetBar.Bar();
+            this.buttonItemBMapDrag = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemBMapZoomIn = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemBMapZoomout = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemBMapMeasure = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemBMapLocate = new DevComponents.DotNetBar.ButtonItem();
+            this.bMapControl2Main = new BMap.NET.WindowsForm.BMapControl2();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
             this.splitContainerMain.SuspendLayout();
             this.tableLayoutPanelDeviceList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.advTreeDeviceList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barDeviceList)).BeginInit();
             this.tableLayoutPanelBDMap.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barToolsBDMap)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSearch)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainerMain
@@ -154,108 +154,6 @@
             this.advTreeDeviceList.TabIndex = 1;
             this.advTreeDeviceList.Text = "advTree1";
             // 
-            // nodeConnectorMain
-            // 
-            this.nodeConnectorMain.LineColor = System.Drawing.SystemColors.ControlText;
-            // 
-            // elementStyleMain
-            // 
-            this.elementStyleMain.CornerType = DevComponents.DotNetBar.eCornerType.Rounded;
-            this.elementStyleMain.Name = "elementStyleMain";
-            this.elementStyleMain.TextColor = System.Drawing.SystemColors.ControlText;
-            // 
-            // barDeviceList
-            // 
-            this.barDeviceList.AntiAlias = true;
-            this.tableLayoutPanelDeviceList.SetColumnSpan(this.barDeviceList, 2);
-            this.barDeviceList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.barDeviceList.DockSide = DevComponents.DotNetBar.eDockSide.Document;
-            this.barDeviceList.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
-            this.barDeviceList.Images = this.imageListGISVideo;
-            this.barDeviceList.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.buttonItemExpandAll,
-            this.buttonItemFoldAll,
-            this.buttonItemAddGroup,
-            this.buttonItemDeleteGroup});
-            this.barDeviceList.Location = new System.Drawing.Point(3, 33);
-            this.barDeviceList.Name = "barDeviceList";
-            this.barDeviceList.Size = new System.Drawing.Size(144, 24);
-            this.barDeviceList.Stretch = true;
-            this.barDeviceList.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.barDeviceList.TabIndex = 3;
-            this.barDeviceList.TabStop = false;
-            this.barDeviceList.Text = "bar1";
-            // 
-            // tableLayoutPanelBDMap
-            // 
-            this.tableLayoutPanelBDMap.BackColor = System.Drawing.Color.Transparent;
-            this.tableLayoutPanelBDMap.ColumnCount = 1;
-            this.tableLayoutPanelBDMap.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelBDMap.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanelBDMap.Controls.Add(this.barToolsBDMap, 0, 0);
-            this.tableLayoutPanelBDMap.Controls.Add(this.bMapControlMain, 0, 1);
-            this.tableLayoutPanelBDMap.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelBDMap.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanelBDMap.Name = "tableLayoutPanelBDMap";
-            this.tableLayoutPanelBDMap.RowCount = 2;
-            this.tableLayoutPanelBDMap.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanelBDMap.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelBDMap.Size = new System.Drawing.Size(403, 361);
-            this.tableLayoutPanelBDMap.TabIndex = 0;
-            // 
-            // barToolsBDMap
-            // 
-            this.barToolsBDMap.AntiAlias = true;
-            this.barToolsBDMap.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.barToolsBDMap.DockSide = DevComponents.DotNetBar.eDockSide.Document;
-            this.barToolsBDMap.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
-            this.barToolsBDMap.Images = this.imageListGISVideo;
-            this.barToolsBDMap.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.buttonItemBMapDrag,
-            this.buttonItemBMapZoomIn,
-            this.buttonItemBMapZoomout,
-            this.buttonItemBMapMeasure,
-            this.buttonItemBMapLocate});
-            this.barToolsBDMap.Location = new System.Drawing.Point(3, 3);
-            this.barToolsBDMap.Name = "barToolsBDMap";
-            this.barToolsBDMap.Size = new System.Drawing.Size(397, 34);
-            this.barToolsBDMap.Stretch = true;
-            this.barToolsBDMap.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.barToolsBDMap.TabIndex = 0;
-            this.barToolsBDMap.TabStop = false;
-            this.barToolsBDMap.Text = "bar1";
-            // 
-            // buttonItemBMapDrag
-            // 
-            this.buttonItemBMapDrag.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItemBMapDrag.ImageIndex = 10;
-            this.buttonItemBMapDrag.Name = "buttonItemBMapDrag";
-            this.buttonItemBMapDrag.Text = "平移";
-            this.buttonItemBMapDrag.Click += new System.EventHandler(this.buttonItemBMapDrag_Click);
-            // 
-            // bMapControlMain
-            // 
-            this.bMapControlMain.BDirectionBoard = null;
-            this.bMapControlMain.BPlaceBox = null;
-            this.bMapControlMain.BPlacesBoard = null;
-            this.bMapControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bMapControlMain.LoadMode = BMap.NET.LoadMapMode.Cache;
-            this.bMapControlMain.Location = new System.Drawing.Point(3, 43);
-            this.bMapControlMain.Mode = BMap.NET.MapMode.Normal;
-            this.bMapControlMain.Name = "bMapControlMain";
-            this.bMapControlMain.Size = new System.Drawing.Size(397, 315);
-            this.bMapControlMain.TabIndex = 1;
-            this.bMapControlMain.Zoom = 12;
-            // 
-            // nodeSearchResult
-            // 
-            this.nodeSearchResult.Editable = false;
-            this.nodeSearchResult.Expanded = true;
-            this.nodeSearchResult.ImageExpandedIndex = 4;
-            this.nodeSearchResult.ImageIndex = 5;
-            this.nodeSearchResult.Name = "nodeSearchResult";
-            this.nodeSearchResult.Text = "检索结果";
-            // 
             // imageListGISVideo
             // 
             this.imageListGISVideo.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListGISVideo.ImageStream")));
@@ -285,6 +183,25 @@
             this.nodeDefaultGroup.Name = "nodeDefaultGroup";
             this.nodeDefaultGroup.Text = "默认分组";
             // 
+            // nodeSearchResult
+            // 
+            this.nodeSearchResult.Editable = false;
+            this.nodeSearchResult.Expanded = true;
+            this.nodeSearchResult.ImageExpandedIndex = 4;
+            this.nodeSearchResult.ImageIndex = 5;
+            this.nodeSearchResult.Name = "nodeSearchResult";
+            this.nodeSearchResult.Text = "检索结果";
+            // 
+            // nodeConnectorMain
+            // 
+            this.nodeConnectorMain.LineColor = System.Drawing.SystemColors.ControlText;
+            // 
+            // elementStyleMain
+            // 
+            this.elementStyleMain.CornerType = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.elementStyleMain.Name = "elementStyleMain";
+            this.elementStyleMain.TextColor = System.Drawing.SystemColors.ControlText;
+            // 
             // pictureBoxSearch
             // 
             this.pictureBoxSearch.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -296,6 +213,28 @@
             this.pictureBoxSearch.TabIndex = 2;
             this.pictureBoxSearch.TabStop = false;
             this.pictureBoxSearch.Click += new System.EventHandler(this.pictureBoxSearch_Click);
+            // 
+            // barDeviceList
+            // 
+            this.barDeviceList.AntiAlias = true;
+            this.tableLayoutPanelDeviceList.SetColumnSpan(this.barDeviceList, 2);
+            this.barDeviceList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.barDeviceList.DockSide = DevComponents.DotNetBar.eDockSide.Document;
+            this.barDeviceList.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
+            this.barDeviceList.Images = this.imageListGISVideo;
+            this.barDeviceList.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.buttonItemExpandAll,
+            this.buttonItemFoldAll,
+            this.buttonItemAddGroup,
+            this.buttonItemDeleteGroup});
+            this.barDeviceList.Location = new System.Drawing.Point(3, 33);
+            this.barDeviceList.Name = "barDeviceList";
+            this.barDeviceList.Size = new System.Drawing.Size(144, 25);
+            this.barDeviceList.Stretch = true;
+            this.barDeviceList.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.barDeviceList.TabIndex = 3;
+            this.barDeviceList.TabStop = false;
+            this.barDeviceList.Text = "bar1";
             // 
             // buttonItemExpandAll
             // 
@@ -330,6 +269,53 @@
             this.buttonItemDeleteGroup.Tooltip = "删除分组";
             this.buttonItemDeleteGroup.Click += new System.EventHandler(this.buttonItemDeleteGroup_Click);
             // 
+            // tableLayoutPanelBDMap
+            // 
+            this.tableLayoutPanelBDMap.BackColor = System.Drawing.Color.Transparent;
+            this.tableLayoutPanelBDMap.ColumnCount = 1;
+            this.tableLayoutPanelBDMap.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelBDMap.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanelBDMap.Controls.Add(this.barToolsBDMap, 0, 0);
+            this.tableLayoutPanelBDMap.Controls.Add(this.bMapControl2Main, 0, 1);
+            this.tableLayoutPanelBDMap.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelBDMap.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelBDMap.Name = "tableLayoutPanelBDMap";
+            this.tableLayoutPanelBDMap.RowCount = 2;
+            this.tableLayoutPanelBDMap.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanelBDMap.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelBDMap.Size = new System.Drawing.Size(403, 361);
+            this.tableLayoutPanelBDMap.TabIndex = 0;
+            // 
+            // barToolsBDMap
+            // 
+            this.barToolsBDMap.AntiAlias = true;
+            this.barToolsBDMap.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.barToolsBDMap.DockSide = DevComponents.DotNetBar.eDockSide.Document;
+            this.barToolsBDMap.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
+            this.barToolsBDMap.Images = this.imageListGISVideo;
+            this.barToolsBDMap.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.buttonItemBMapDrag,
+            this.buttonItemBMapZoomIn,
+            this.buttonItemBMapZoomout,
+            this.buttonItemBMapMeasure,
+            this.buttonItemBMapLocate});
+            this.barToolsBDMap.Location = new System.Drawing.Point(3, 3);
+            this.barToolsBDMap.Name = "barToolsBDMap";
+            this.barToolsBDMap.Size = new System.Drawing.Size(397, 26);
+            this.barToolsBDMap.Stretch = true;
+            this.barToolsBDMap.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.barToolsBDMap.TabIndex = 0;
+            this.barToolsBDMap.TabStop = false;
+            this.barToolsBDMap.Text = "bar1";
+            // 
+            // buttonItemBMapDrag
+            // 
+            this.buttonItemBMapDrag.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.buttonItemBMapDrag.ImageIndex = 10;
+            this.buttonItemBMapDrag.Name = "buttonItemBMapDrag";
+            this.buttonItemBMapDrag.Text = "平移";
+            this.buttonItemBMapDrag.Click += new System.EventHandler(this.buttonItemBMapDrag_Click);
+            // 
             // buttonItemBMapZoomIn
             // 
             this.buttonItemBMapZoomIn.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
@@ -361,6 +347,20 @@
             this.buttonItemBMapLocate.Name = "buttonItemBMapLocate";
             this.buttonItemBMapLocate.Text = "定位";
             // 
+            // bMapControl2Main
+            // 
+            this.bMapControl2Main.BDirectionBoard = null;
+            this.bMapControl2Main.BPlaceBox = null;
+            this.bMapControl2Main.BPlacesBoard = null;
+            this.bMapControl2Main.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.bMapControl2Main.LoadMode = BMap.NET.LoadMapMode.Cache;
+            this.bMapControl2Main.Location = new System.Drawing.Point(3, 43);
+            this.bMapControl2Main.Mode = BMap.NET.MapMode.Normal;
+            this.bMapControl2Main.Name = "bMapControl2Main";
+            this.bMapControl2Main.Size = new System.Drawing.Size(397, 315);
+            this.bMapControl2Main.TabIndex = 1;
+            this.bMapControl2Main.Zoom = 12;
+            // 
             // UCGISVideo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -368,16 +368,17 @@
             this.Controls.Add(this.splitContainerMain);
             this.Name = "UCGISVideo";
             this.Size = new System.Drawing.Size(555, 361);
+            this.Load += new System.EventHandler(this.UCGISVideo_Load);
             this.splitContainerMain.Panel1.ResumeLayout(false);
             this.splitContainerMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
             this.splitContainerMain.ResumeLayout(false);
             this.tableLayoutPanelDeviceList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.advTreeDeviceList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSearch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barDeviceList)).EndInit();
             this.tableLayoutPanelBDMap.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.barToolsBDMap)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSearch)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -393,7 +394,6 @@
         private DevComponents.DotNetBar.ElementStyle elementStyleMain;
         private DevComponents.DotNetBar.Bar barToolsBDMap;
         private DevComponents.DotNetBar.ButtonItem buttonItemBMapDrag;
-        private BMap.NET.WindowsForm.BMapControl bMapControlMain;
         private DevComponents.AdvTree.Node nodeDefaultGroup;
         private System.Windows.Forms.PictureBox pictureBoxSearch;
         private DevComponents.DotNetBar.Bar barDeviceList;
@@ -407,5 +407,6 @@
         private DevComponents.DotNetBar.ButtonItem buttonItemBMapZoomout;
         private DevComponents.DotNetBar.ButtonItem buttonItemBMapMeasure;
         private DevComponents.DotNetBar.ButtonItem buttonItemBMapLocate;
+        private BMap.NET.WindowsForm.BMapControl2 bMapControl2Main;
     }
 }

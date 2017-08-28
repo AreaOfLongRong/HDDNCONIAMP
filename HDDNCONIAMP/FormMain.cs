@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 using DevComponents.DotNetBar;
+using HDDNCONIAMP.DB;
+using HDDNCONIAMP.DB.Model;
 using HDDNCONIAMP.Events;
-using HDDNCONIAMP.Model;
 using HDDNCONIAMP.UI.AudioVideoProcess;
 using HDDNCONIAMP.UI.GISVideo;
 using HDDNCONIAMP.UI.MeshManagement;
@@ -45,7 +46,7 @@ namespace HDDNCONIAMP
         /// 日志记录器
         /// </summary>
         private ILog logger = LogManager.GetLogger(typeof(FormMain));
-        
+
         /// <summary>
         /// GIS定位关联视频控件
         /// </summary>
@@ -186,7 +187,6 @@ namespace HDDNCONIAMP
             {
                 MessageBox.Show("账号或密码不能为空！", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
             if (textBoxXUserName.Text.Equals(Properties.Settings.Default.AdministratorName))
             {
                 //管理员账户登陆
@@ -204,7 +204,16 @@ namespace HDDNCONIAMP
             else
             {
                 //TODO:其他账户登陆
-
+                if (SQLiteHelper.GetInstance().UserLogin(textBoxXUserName.Text, textBoxXPassword.Text))
+                {
+                    logger.Info("账户“" + textBoxXUserName.Text + "”登陆系统");
+                    //更新主界面
+                    OnRaiseUserLoginOroutEvent(this, new UserLoginOrOutEventArgs(UserInfo.Administrator, true));
+                }
+                else
+                {
+                    MessageBox.Show("账户名或密码输入有误，请重新输入！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 

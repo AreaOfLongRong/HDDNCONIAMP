@@ -59,6 +59,18 @@
     <Reference Include="BMap.NET">
       <HintPath>..\BMap.NET\bin\x86\Debug\BMap.NET.dll</HintPath>
     </Reference>
+    <Reference Include="Chloe, Version=2.15.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>References\SQLite\Chloe\Chloe.dll</HintPath>
+    </Reference>
+    <Reference Include="Chloe.Extension, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>References\SQLite\Chloe\Chloe.Extension.dll</HintPath>
+    </Reference>
+    <Reference Include="Chloe.SQLite, Version=2.15.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>References\SQLite\Chloe\Chloe.SQLite.dll</HintPath>
+    </Reference>
     <Reference Include="DevComponents.DotNetBar2, Version=12.4.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -71,15 +83,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite, Version=1.0.105.2, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>References\SQLite\System.Data.SQLite.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data.SQLite.EF6, Version=1.0.105.2, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>References\SQLite\System.Data.SQLite.EF6.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data.SQLite.Linq, Version=1.0.105.2, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>References\SQLite\System.Data.SQLite.Linq.dll</HintPath>
+      <HintPath>References\SQLite\Chloe\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -91,11 +95,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DB\Model\IDEntity.cs" />
+    <Compile Include="DB\Model\User.cs" />
+    <Compile Include="DB\SQLiteConnectionFactory.cs" />
+    <Compile Include="DB\SQLiteHelper.cs" />
     <Compile Include="Events\UserLoginOrOutEventArgs.cs" />
-    <Compile Include="Model\EUserAuthority.cs" />
-    <Compile Include="Model\MeshDevice.cs" />
-    <Compile Include="Model\UserInfo.cs" />
-    <Compile Include="Model\VideoDevice.cs" />
+    <Compile Include="DB\Model\EUserAuthority.cs" />
+    <Compile Include="DB\Model\MeshDevice.cs" />
+    <Compile Include="DB\Model\UserInfo.cs" />
+    <Compile Include="DB\Model\VideoDevice.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FormMain.cs">
@@ -133,8 +141,6 @@
     <Compile Include="UI\UserSettings\UCUserSettings.Designer.cs">
       <DependentUpon>UCUserSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utils\SQLiteDBHelper.cs" />
-    <Compile Include="Utils\SQLiteHelper.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -186,6 +192,16 @@
     <Content Include="References\log4net 2.0.8-newkey\log4net.dll" />
     <Content Include="References\log4net 2.0.8-newkey\log4net.pdb" />
     <Content Include="References\log4net 2.0.8-newkey\log4net.xml" />
+    <Content Include="References\SQLite\Chloe\Chloe.dll" />
+    <Content Include="References\SQLite\Chloe\Chloe.Extension.dll" />
+    <Content Include="References\SQLite\Chloe\Chloe.Extension.pdb" />
+    <Content Include="References\SQLite\Chloe\Chloe.pdb" />
+    <Content Include="References\SQLite\Chloe\Chloe.SQLite.dll" />
+    <Content Include="References\SQLite\Chloe\Chloe.SQLite.pdb" />
+    <Content Include="References\SQLite\Chloe\SQLite.Interop.dll" />
+    <Content Include="References\SQLite\Chloe\System.Data.SQLite.dll" />
+    <Content Include="References\SQLite\Chloe\System.Data.SQLite.pdb" />
+    <Content Include="References\SQLite\Chloe\System.Data.SQLite.xml" />
     <Content Include="References\SQLite\sqlite3.def" />
     <Content Include="References\SQLite\sqlite3.dll" />
     <Content Include="References\SQLite\System.Data.SQLite.dll" />
@@ -231,6 +247,9 @@
       <Project>{1B32D6FD-3C74-40DC-9D43-102B19D40785}</Project>
       <Name>BMap.NET.WindowsForm</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utils\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
