@@ -213,6 +213,16 @@ namespace HDDNCONIAMP.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap search_clear_32 {
+            get {
+                object obj = ResourceManager.GetObject("search_clear_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap shutdown_72 {
             get {
                 object obj = ResourceManager.GetObject("shutdown_72", resourceCulture);
@@ -236,6 +246,16 @@ namespace HDDNCONIAMP.Properties {
         internal static System.Drawing.Bitmap video_camera_64 {
             get {
                 object obj = ResourceManager.GetObject("video_camera_64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap video_no_signal_512 {
+            get {
+                object obj = ResourceManager.GetObject("video_no_signal_512", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

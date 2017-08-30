@@ -28,6 +28,7 @@ namespace HDDNCONIAMP.DB.Model
         /// <summary>
         /// 用户权限
         /// </summary>
-        public EUserAuthority? Authority { get; set; }
+        [Column(DbType = DbType.String)]
+        public string Authority { get; set; }
     }
 }

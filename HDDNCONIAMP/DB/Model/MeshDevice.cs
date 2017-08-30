@@ -10,5 +10,6 @@ namespace HDDNCONIAMP.DB.Model
     /// </summary>
     public class MeshDevice
     {
+
     }
 }

@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DB\Model\IDEntity.cs" />
+    <Compile Include="DB\Model\MeshDeviceGroup.cs" />
     <Compile Include="DB\Model\User.cs" />
     <Compile Include="DB\SQLiteConnectionFactory.cs" />
     <Compile Include="DB\SQLiteHelper.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="DB\Model\MeshDevice.cs" />
     <Compile Include="DB\Model\UserInfo.cs" />
     <Compile Include="DB\Model\VideoDevice.cs" />
+    <Compile Include="Mesh\MeshOperator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FormMain.cs">
@@ -123,6 +125,12 @@
     <Compile Include="UI\AudioVideoProcess\UCAudioVideoProcess.Designer.cs">
       <DependentUpon>UCAudioVideoProcess.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\common\UCDeviceList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\common\UCDeviceList.Designer.cs">
+      <DependentUpon>UCDeviceList.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\GISVideo\UCGISVideo.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -141,6 +149,8 @@
     <Compile Include="UI\UserSettings\UCUserSettings.Designer.cs">
       <DependentUpon>UCUserSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\FileUtils.cs" />
+    <Compile Include="Utils\PathUtils.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -151,6 +161,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AudioVideoProcess\UCAudioVideoProcess.resx">
       <DependentUpon>UCAudioVideoProcess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\common\UCDeviceList.resx">
+      <DependentUpon>UCDeviceList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\GISVideo\UCGISVideo.resx">
       <DependentUpon>UCGISVideo.cs</DependentUpon>
@@ -213,6 +226,7 @@
     <Content Include="References\SQLite\System.Data.SQLite.Linq.xml" />
     <Content Include="References\SQLite\System.Data.SQLite.pdb" />
     <Content Include="References\SQLite\System.Data.SQLite.xml" />
+    <Content Include="Resources\refresh_16.png" />
     <Content Include="Resources\bmap_locate_16.png" />
     <Content Include="Resources\bmap_zoom_in_16.png" />
     <Content Include="Resources\bmap_zoom_out_16.png" />
@@ -229,6 +243,8 @@
     <Content Include="Resources\delete_group_24.png" />
     <Content Include="Resources\add_16.png" />
     <Content Include="Resources\bmap_measure_16.png" />
+    <Content Include="Resources\search_clear_32.png" />
+    <Content Include="Resources\video_no_signal_512.jpg" />
     <Content Include="Resources\search_32.png" />
     <Content Include="Resources\logo_xinwei.png" />
     <Content Include="Resources\next_64.png" />
@@ -249,7 +265,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Utils\" />
+    <Folder Include="Video\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using BMap.NET.WindowsForm.BMapElements;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 using BMap.NET.HTTPService;
-using Newtonsoft.Json.Linq;
-using BMap.NET.WindowsForm.FunctionalControls;
+using BMap.NET.WindowsForm.BMapElements;
 using BMap.NET.WindowsForm.DrawingObjects;
+using BMap.NET.WindowsForm.FunctionalControls;
+using Newtonsoft.Json.Linq;
 
 namespace BMap.NET.WindowsForm
 {
@@ -78,7 +75,7 @@ namespace BMap.NET.WindowsForm
                 Invalidate();
             }
         }
-        private LoadMapMode _loadmode = LoadMapMode.Cache;
+        private LoadMapMode _loadmode = LoadMapMode.CacheServer;
         /// <summary>
         /// 地图加载模式
         /// </summary>
@@ -311,7 +308,7 @@ namespace BMap.NET.WindowsForm
                 //DrawCurrentCity(e.Graphics);
                 //工具栏  
                 //Z-20170828:隐藏工具栏的绘制
-                //DrawToolsBar(e.Graphics);
+                DrawToolsBar(e.Graphics);
             }
         }
         /// <summary>
@@ -1318,99 +1315,101 @@ namespace BMap.NET.WindowsForm
             //工具
             //g.FillRectangle(Brushes.White, new Rectangle(Width - 384, 10, 234, 26));
 
+            int offset = 384;
+
             using (SolidBrush sb = new SolidBrush(Color.FromArgb(120, Color.Black)))
             {
-                g.DrawImage(Properties.BMap.ico_search_in_bound, new Rectangle(Width - 384, 10, 26, 26)); //矩形区域搜索
+                g.DrawImage(Properties.BMap.ico_search_in_bound, new Rectangle(Width - offset, 10, 26, 26)); //矩形区域搜索
                 if (_mouse_type == MouseType.DrawBound)
                 {
                     g.FillRectangle(sb, new Rectangle(Width - 384, 10, 26, 26));
                 }
-                g.DrawImage(Properties.BMap.ico_distance, new Rectangle(Width - 384 + 26, 10, 26, 26)); //测量距离
+                g.DrawImage(Properties.BMap.ico_distance, new Rectangle(Width - offset + 26, 10, 26, 26)); //测量距离
                 if (_mouse_type == MouseType.DrawDistance)
                 {
                     g.FillRectangle(sb, new Rectangle(Width - 384 + 26 * 1, 10, 26, 26));
                 }
-                g.DrawImage(Properties.BMap.ico_screenshot, new Rectangle(Width - 384 + 26 * 2, 10, 26, 26)); //截图
+                g.DrawImage(Properties.BMap.ico_screenshot, new Rectangle(Width - offset + 26 * 2, 10, 26, 26)); //截图
                 if (_mouse_type == MouseType.DrawScreenshotArea)
                 {
                     g.FillRectangle(sb, new Rectangle(Width - 384 + 26 * 2, 10, 26, 26));
                 }
-                g.DrawImage(Properties.BMap.ico_setmarker, new Rectangle(Width - 384 + 26 * 3, 10, 26, 26)); //添加标记
+                g.DrawImage(Properties.BMap.ico_setmarker, new Rectangle(Width - offset + 26 * 3, 10, 26, 26)); //添加标记
                 if (_mouse_type == MouseType.DrawMarker)
                 {
                     g.FillRectangle(sb, new Rectangle(Width - 384 + 26 * 3, 10, 26, 26));
                 }
-                g.DrawImage(Properties.BMap.ico_rectangle, new Rectangle(Width - 384 + 26 * 4, 10, 26, 26)); //绘制矩形
+                g.DrawImage(Properties.BMap.ico_rectangle, new Rectangle(Width - offset + 26 * 4, 10, 26, 26)); //绘制矩形
                 if (_mouse_type == MouseType.DrawRectange)
                 {
                     g.FillRectangle(sb, new Rectangle(Width - 384 + 26 * 4, 10, 26, 26));
                 }
-                g.DrawImage(Properties.BMap.ico_circle, new Rectangle(Width - 384 + 26 * 5, 10, 26, 26)); //绘制椭圆
+                g.DrawImage(Properties.BMap.ico_circle, new Rectangle(Width - offset + 26 * 5, 10, 26, 26)); //绘制椭圆
                 if (_mouse_type == MouseType.DrawCircle)
                 {
                     g.FillRectangle(sb, new Rectangle(Width - 384 + 26 * 5, 10, 26, 26));
                 }
-                g.DrawImage(Properties.BMap.ico_line, new Rectangle(Width - 384 + 26 * 6, 10, 26, 26)); //绘制直线
+                g.DrawImage(Properties.BMap.ico_line, new Rectangle(Width - offset + 26 * 6, 10, 26, 26)); //绘制直线
                 if (_mouse_type == MouseType.DrawLine)
                 {
                     g.FillRectangle(sb, new Rectangle(Width - 384 + 26 * 6, 10, 26, 26));
                 }
-                g.DrawImage(Properties.BMap.ico_polygon, new Rectangle(Width - 384 + 26 * 7, 10, 26, 26));  //绘制多边形
+                g.DrawImage(Properties.BMap.ico_polygon, new Rectangle(Width - offset + 26 * 7, 10, 26, 26));  //绘制多边形
                 if (_mouse_type == MouseType.DrawPolygon)
                 {
                     g.FillRectangle(sb, new Rectangle(Width - 384 + 26 * 7, 10, 26, 26));
                 }
-                g.DrawImage(Properties.BMap.ico_cursor_locate, new Rectangle(Width - 384 + 26 * 8, 10, 26, 26));//鼠标定位效果
+                g.DrawImage(Properties.BMap.ico_cursor_locate, new Rectangle(Width - offset + 26 * 8, 10, 26, 26));//鼠标定位效果
                 if (_cursor_located)
                 {
-                    g.FillRectangle(sb, new Rectangle(Width - 384 + 26 * 8, 10, 26, 26));
+                    g.FillRectangle(sb, new Rectangle(Width - offset + 26 * 8, 10, 26, 26));
                 }
             }
-            g.DrawRectangle(Pens.DarkGray, new Rectangle(Width - 384, 10, 234, 26));
+            g.DrawRectangle(Pens.DarkGray, new Rectangle(Width - offset, 10, 234, 26));
             for (int i = 0; i < 8; ++i)
             {
-                g.DrawLine(Pens.LightGray, new Point(Width - 384 + (i + 1) * 26, 10), new Point(Width - 384 + (i + 1) * 26, 10 + 26));
+                g.DrawLine(Pens.LightGray, new Point(Width - offset + (i + 1) * 26, 10), new Point(Width - offset + (i + 1) * 26, 10 + 26));
             }
 
-            //地图加载模式
-            Image mode_image = ((Func<LoadMapMode, Image>)((LoadMapMode m) =>   //临时调用匿名方法
-                {
-                    if (_loadmode == LoadMapMode.Cache)
-                    {
-                        return Properties.BMap.ico_cache;
-                    }
-                    if (_loadmode == LoadMapMode.CacheServer)
-                    {
-                        return Properties.BMap.ico_cachefirst;
-                    }
-                    if (_loadmode == LoadMapMode.Server)
-                    {
-                        return Properties.BMap.ico_server;
-                    }
-                    return null;
-                }))(_loadmode);
-            g.DrawImage(mode_image, new Rectangle(Width - 124, 10, 52, 52));
-            using (SolidBrush sb = new SolidBrush(Color.FromArgb(180, Color.White)))
-            {
-                g.FillRectangle(sb, new Rectangle(Width - 124, 10 + 30, 52, 22));
-            }
-            using (Font f = new System.Drawing.Font("微软雅黑", 8))
-            {
-                g.DrawString(MapHelper.GetLoadMapModeTitle(_loadmode), f, Brushes.Black, new PointF(Width - 124 + 3, 10 + 30 + 5));
-            }
-            g.DrawRectangle(Pens.DarkGray, new Rectangle(Width - 124, 10, 52, 52));
-            
-            //地图模式
-            g.DrawImage(_mode == MapMode.Normal ? Properties.BMap.ico_sateshot : Properties.BMap.ico_mapshot, new Rectangle(Width - 62, 10, 52, 52));
-            using (SolidBrush sb = new SolidBrush(Color.FromArgb(180, Color.White)))
-            {
-                g.FillRectangle(sb, new Rectangle(Width - 62, 10 + 30, 52, 22));
-            }
-            using (Font f = new Font("微软雅黑", 9))
-            {
-                g.DrawString(_mode == MapMode.Normal ? "卫星" : "地图", f, Brushes.Black, new PointF(Width - 62 + 12, 10 + 30 + 4));
-            }
-            g.DrawRectangle(Pens.DarkGray, new Rectangle(Width - 62, 10, 52, 52));
+            //地图加载模式-Z-20170829:隐藏
+            //Image mode_image = ((Func<LoadMapMode, Image>)((LoadMapMode m) =>   //临时调用匿名方法
+            //    {
+            //        if (_loadmode == LoadMapMode.Cache)
+            //        {
+            //            return Properties.BMap.ico_cache;
+            //        }
+            //        if (_loadmode == LoadMapMode.CacheServer)
+            //        {
+            //            return Properties.BMap.ico_cachefirst;
+            //        }
+            //        if (_loadmode == LoadMapMode.Server)
+            //        {
+            //            return Properties.BMap.ico_server;
+            //        }
+            //        return null;
+            //    }))(_loadmode);
+            //g.DrawImage(mode_image, new Rectangle(Width - 124, 10, 52, 52));
+            //using (SolidBrush sb = new SolidBrush(Color.FromArgb(180, Color.White)))
+            //{
+            //    g.FillRectangle(sb, new Rectangle(Width - 124, 10 + 30, 52, 22));
+            //}
+            //using (Font f = new System.Drawing.Font("微软雅黑", 8))
+            //{
+            //    g.DrawString(MapHelper.GetLoadMapModeTitle(_loadmode), f, Brushes.Black, new PointF(Width - 124 + 3, 10 + 30 + 5));
+            //}
+            //g.DrawRectangle(Pens.DarkGray, new Rectangle(Width - 124, 10, 52, 52));
+
+            //地图模式-Z-20170829:隐藏
+            //g.DrawImage(_mode == MapMode.Normal ? Properties.BMap.ico_sateshot : Properties.BMap.ico_mapshot, new Rectangle(Width - 62, 10, 52, 52));
+            //using (SolidBrush sb = new SolidBrush(Color.FromArgb(180, Color.White)))
+            //{
+            //    g.FillRectangle(sb, new Rectangle(Width - 62, 10 + 30, 52, 22));
+            //}
+            //using (Font f = new Font("微软雅黑", 9))
+            //{
+            //    g.DrawString(_mode == MapMode.Normal ? "卫星" : "地图", f, Brushes.Black, new PointF(Width - 62 + 12, 10 + 30 + 4));
+            //}
+            //g.DrawRectangle(Pens.DarkGray, new Rectangle(Width - 62, 10, 52, 52));
         }
         /// <summary>
         /// 绘制鼠标效果

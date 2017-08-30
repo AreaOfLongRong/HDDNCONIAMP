@@ -12,6 +12,6 @@
         /// <summary>
         /// 普通用户
         /// </summary>
-        GeneralUser = 1
+        GeneralUser = 1            
     }
 }
