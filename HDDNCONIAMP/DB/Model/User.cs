@@ -30,5 +30,14 @@ namespace HDDNCONIAMP.DB.Model
         /// </summary>
         [Column(DbType = DbType.String)]
         public string Authority { get; set; }
+
+        /// <summary>
+        /// 字符串转化
+        /// </summary>
+        /// <returns>用户名</returns>
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

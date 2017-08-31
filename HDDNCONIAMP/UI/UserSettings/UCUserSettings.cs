@@ -25,7 +25,7 @@ namespace HDDNCONIAMP.UI.UserSettings
     {
 
         #region 私有变量
-        
+
         /// <summary>
         /// 日志记录器
         /// </summary>
@@ -57,6 +57,19 @@ namespace HDDNCONIAMP.UI.UserSettings
         private void UCUserSettings_Load(object sender, EventArgs e)
         {
             initAdvTreeLogManage();
+
+            //设置“权限管理”标签页的可见性
+            if (CurrentUser.Authority == EUserAuthority.GeneralUser.ToString())
+            {
+                //普通用户，隐藏“权限管理”标签页
+                superTabItemAuthorityManage.Visible = false;
+            }
+            else
+            {
+                //管理员用户，显示“权限管理”标签页
+                superTabItemAuthorityManage.Visible = true;
+                initAdvTreeUsers();
+            }
         }
 
         private int currentID;
@@ -108,7 +121,7 @@ namespace HDDNCONIAMP.UI.UserSettings
                     {
                         logContet.Text = FileUtils.ReadFileToString(selectNode.Tag.ToString());
                     }
-                    
+
                     logPanel.Controls.Add(logContet);
 
                     superTabControlLogs.Controls.Add(logPanel);
@@ -159,7 +172,7 @@ namespace HDDNCONIAMP.UI.UserSettings
         /// <param name="e"></param>
         private void buttonItemExportLogs_Click(object sender, EventArgs e)
         {
-            if(advTreeLogList.SelectedNodes.Count > 0)
+            if (advTreeLogList.SelectedNodes.Count > 0)
             {
                 FolderBrowserDialog fbd = new FolderBrowserDialog();
                 fbd.Description = "请选择日志文件导出的路径...";
@@ -183,8 +196,8 @@ namespace HDDNCONIAMP.UI.UserSettings
                     {
                         logger.Error("日志文件导出失败：", ex);
                     }
-                    
-                }                
+
+                }
             }
             else
             {
@@ -215,7 +228,7 @@ namespace HDDNCONIAMP.UI.UserSettings
             else
             {
                 SQLiteHelper.GetInstance().UserModifyPassword(CurrentUser.Name, textBoxXNewPassword.Text);
-                logger.Info("账户“"+CurrentUser.Name + "”密码修改成功！");
+                logger.Info("账户“" + CurrentUser.Name + "”密码修改成功！");
                 MessageBox.Show("密码修改成功!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 clearPasswordTextBoxContent();
             }
@@ -235,6 +248,124 @@ namespace HDDNCONIAMP.UI.UserSettings
 
         #region 权限管理事件处理
 
+        /// <summary>
+        /// 添加用户
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonItemUserAdd_Click(object sender, EventArgs e)
+        {
+            //开启添加用户功能
+            updateUAControlsEnableState(true, true);
+            buttonXOK.Text = "添  加";
+        }
+
+        /// <summary>
+        /// 编辑用户
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonItemUserEdit_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// 删除用户
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonItemUserDelete_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("确定删除选中的用户？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                string userName = ((User)advTreeUsers.SelectedNode.Tag).Name;
+                if (SQLiteHelper.GetInstance().UserDelete(userName) == 1)
+                {
+                    advTreeUsers.Nodes.Remove(advTreeUsers.SelectedNode);
+                    logger.Info("删除用户“" + userName + "”");
+                    MessageBox.Show("删除成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                //TODO:后续添加异常捕获处理
+            }
+        }
+
+        /// <summary>
+        /// 确定按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonXUAOK_Click(object sender, EventArgs e)
+        {
+            if (buttonXUAOK.Text.Equals("添  加"))
+            {  //添加用户
+                if (textBoxXUAUserName.Text.Trim() != "" && textBoxXUAUserPassword.Text.Trim() != null)
+                {
+                    User user = new User();
+                    user.Name = textBoxXUAUserName.Text.Trim();
+                    user.Password = textBoxXUAUserPassword.Text.Trim();
+                    user.Authority = radioButtonUAAdministrator.Checked ? EUserAuthority.Administrator.ToString() : EUserAuthority.GeneralUser.ToString();
+                    if (SQLiteHelper.GetInstance().UserRegister(user) > 0)
+                    {
+                        advTreeUsers.BeginUpdate();
+                        user = SQLiteHelper.GetInstance().UserSearchByName(user.Name);
+                        Node userNode = new Node();
+                        userNode.Tag = user;
+                        userNode.Text = user.ID.ToString();
+                        userNode.Cells.Add(new Cell(user.Name));
+                        userNode.Cells.Add(new Cell(user.Authority == EUserAuthority.Administrator.ToString() ? "管理员" : "普通用户"));
+                        advTreeUsers.Nodes.Add(userNode);
+                        advTreeUsers.EndUpdate();
+
+                        logger.Info("添加用户：“" + user.Name + "”，权限：“" + user.Authority + "”。");
+                        MessageBox.Show("添加用户成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        updateUAControlsEnableState(false, true);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("用户名或密码不能为空！", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {//修改用户信息
+
+            }
+        }
+
+        /// <summary>
+        /// 取消按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonXUACancel_Click(object sender, EventArgs e)
+        {
+            updateUAControlsEnableState(false, true);
+        }
+
+        /// <summary>
+        /// 用户列表树节点单击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void advTreeUsers_NodeClick(object sender, TreeNodeMouseEventArgs e)
+        {
+            //在右侧详情面板中显示用户信息
+            if(advTreeUsers.SelectedNode != null)
+            {
+                User user = (User)advTreeUsers.SelectedNode.Tag;
+                textBoxXUAUserName.Text = user.Name;
+                textBoxXUAUserPassword.Text = user.Password;
+                if (user.Authority.Equals(EUserAuthority.Administrator.ToString()))
+                {
+                    radioButtonUAAdministrator.Checked = true;
+                }
+                else
+                {
+                    radioButtonUAGeneralUser.Checked = true;
+                }
+            }
+        }
 
         private void buttonX1_Click(object sender, EventArgs e)
         {
@@ -277,6 +408,7 @@ namespace HDDNCONIAMP.UI.UserSettings
         {
             tableLayoutPanelLogManage.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelLogManage, true, null);
             tableLayoutPanelModifyPassword.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelModifyPassword, true, null);
+            tableLayoutPanelAuthorityManage.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelAuthorityManage, true, null);
         }
 
         /// <summary>
@@ -308,6 +440,28 @@ namespace HDDNCONIAMP.UI.UserSettings
         }
 
         /// <summary>
+        /// 初始化用户列表树
+        /// </summary>
+        private void initAdvTreeUsers()
+        {
+            List<User> users = SQLiteHelper.GetInstance().UserAllQuery();
+            advTreeUsers.BeginUpdate();
+            advTreeUsers.Nodes.Clear();
+            foreach (User u in users)
+            {
+                if (u.Name == "admin")
+                    continue;  //管理员账户自身不需要管理
+                Node userNode = new Node();
+                userNode.Tag = u;
+                userNode.Text = u.ID.ToString();
+                userNode.Cells.Add(new Cell(u.Name));
+                userNode.Cells.Add(new Cell(u.Authority == EUserAuthority.Administrator.ToString() ? "管理员" : "普通用户"));
+                advTreeUsers.Nodes.Add(userNode);
+            }
+            advTreeUsers.EndUpdate();
+        }
+
+        /// <summary>
         /// 清空密码文本框中的内容
         /// </summary>
         private void clearPasswordTextBoxContent()
@@ -315,6 +469,24 @@ namespace HDDNCONIAMP.UI.UserSettings
             textBoxXOriginalPassword.Clear();
             textBoxXNewPassword.Clear();
             textBoxXMakeSurePassword.Clear();
+        }
+
+        private void updateUAControlsEnableState(bool enable, bool clearContent)
+        {
+            //空间可用性控制
+            textBoxXUAUserName.Enabled = enable;
+            textBoxXUAUserPassword.Enabled = enable;
+            radioButtonUAAdministrator.Enabled = enable;
+            radioButtonUAGeneralUser.Enabled = enable;
+            buttonXUAOK.Enabled = enable;
+            buttonXUACancel.Enabled = enable;
+            //清空内容
+            if (clearContent)
+            {
+                textBoxXUAUserName.Text = "";
+                textBoxXUAUserPassword.Text = "";
+                radioButtonUAGeneralUser.Checked = true;
+            }
         }
 
         #endregion
