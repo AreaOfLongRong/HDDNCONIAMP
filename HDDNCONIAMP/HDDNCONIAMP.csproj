@@ -103,7 +103,6 @@
     <Compile Include="Events\UserLoginOrOutEventArgs.cs" />
     <Compile Include="DB\Model\EUserAuthority.cs" />
     <Compile Include="DB\Model\MeshDevice.cs" />
-    <Compile Include="DB\Model\UserInfo.cs" />
     <Compile Include="DB\Model\VideoDevice.cs" />
     <Compile Include="Mesh\MeshOperator.cs" />
     <Compile Include="Program.cs" />

@@ -20,7 +20,7 @@ namespace HDDNCONIAMP
         /// <summary>
         /// 当前用户
         /// </summary>
-        public UserInfo CurrentUser { get; set; }
+        public User CurrentUser { get; set; }
 
         #endregion
 
@@ -187,33 +187,17 @@ namespace HDDNCONIAMP
             {
                 MessageBox.Show("账号或密码不能为空！", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            if (textBoxXUserName.Text.Equals(Properties.Settings.Default.AdministratorName))
+            //账户登陆
+            if (SQLiteHelper.GetInstance().UserLogin(textBoxXUserName.Text, textBoxXPassword.Text))
             {
-                //管理员账户登陆
-                if (textBoxXPassword.Text.Equals(Properties.Settings.Default.AdministratorPassword))
-                {
-                    logger.Info("管理员账户admin登陆系统");
-                    //更新主界面
-                    OnRaiseUserLoginOroutEvent(this, new UserLoginOrOutEventArgs(UserInfo.Administrator, true));
-                }
-                else
-                {
-                    MessageBox.Show("管理员密码输入有误，请重新输入！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                CurrentUser = SQLiteHelper.GetInstance().UserSearchByName(textBoxXUserName.Text);
+                logger.Info("账户“" + textBoxXUserName.Text + "”登陆系统");
+                //更新主界面
+                OnRaiseUserLoginOroutEvent(this, new UserLoginOrOutEventArgs(CurrentUser, true));
             }
             else
             {
-                //TODO:其他账户登陆
-                if (SQLiteHelper.GetInstance().UserLogin(textBoxXUserName.Text, textBoxXPassword.Text))
-                {
-                    logger.Info("账户“" + textBoxXUserName.Text + "”登陆系统");
-                    //更新主界面
-                    OnRaiseUserLoginOroutEvent(this, new UserLoginOrOutEventArgs(UserInfo.Administrator, true));
-                }
-                else
-                {
-                    MessageBox.Show("账户名或密码输入有误，请重新输入！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MessageBox.Show("账户名或密码输入有误，请重新输入！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -349,6 +333,7 @@ namespace HDDNCONIAMP
                         {
                             ucUserSettings = new UCUserSettings();
                             ucUserSettings.Dock = DockStyle.Fill;
+                            ucUserSettings.CurrentUser = CurrentUser;
                             superTabControlPanelUserSettings.Controls.Clear();  //清空所有控件
                             superTabControlPanelUserSettings.Controls.Add(ucUserSettings);
                         }

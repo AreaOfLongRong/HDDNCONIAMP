@@ -22,23 +22,5 @@ namespace HDDNCONIAMP.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("admin")]
-        public string AdministratorName {
-            get {
-                return ((string)(this["AdministratorName"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("admin")]
-        public string AdministratorPassword {
-            get {
-                return ((string)(this["AdministratorPassword"]));
-            }
-        }
     }
 }

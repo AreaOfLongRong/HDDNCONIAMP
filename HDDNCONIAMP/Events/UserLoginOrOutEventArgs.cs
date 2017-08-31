@@ -11,14 +11,14 @@ namespace HDDNCONIAMP.Events
         /// <summary>
         /// 获取或设置关联用户
         /// </summary>
-        public UserInfo User { get; set; }
+        public User User { get; set; }
 
         /// <summary>
         /// 获取或设置是否是登陆操作，登陆为true，登出为false
         /// </summary>
         public bool IsLogin { get; set; }
 
-        public UserLoginOrOutEventArgs(UserInfo user, bool isLogin)
+        public UserLoginOrOutEventArgs(User user, bool isLogin)
         {
             this.User = user;
             this.IsLogin = isLogin;

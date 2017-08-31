@@ -76,6 +76,17 @@ namespace HDDNCONIAMP.DB
         }
 
         /// <summary>
+        /// 根据用户名检索用户
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <returns>用户对象</returns>
+        public User UserSearchByName(string userName)
+        {
+            IQuery<User> q = context.Query<User>();
+            return q.Where(u => u.Name == userName).First();
+        }
+
+        /// <summary>
         /// 修改用户密码
         /// </summary>
         /// <param name="userName">用户名</param>
@@ -117,7 +128,11 @@ namespace HDDNCONIAMP.DB
             return context.Delete<User>(u => u.ID == id);
         }
 
-        public List<User> UserQuery()
+        /// <summary>
+        /// 检索所有用户
+        /// </summary>
+        /// <returns>所有用户列表</returns>
+        public List<User> UserAllQuery()
         {
             return context.Query<User>().ToList();
         }

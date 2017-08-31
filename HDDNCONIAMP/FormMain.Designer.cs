@@ -56,10 +56,10 @@
             this.textBoxXUserName = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.buttonLogin = new DevComponents.DotNetBar.ButtonX();
             this.superTabItemGISVideo = new DevComponents.DotNetBar.SuperTabItem();
-            this.superTabControlPanelMeshManagement = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.superTabItemMeshManagement = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanelAudioVideoProcess = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.superTabItemAudioVideoProcess = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanelMeshManagement = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.superTabItemMeshManagement = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanelUserSettings = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.superTabItemUserSettings = new DevComponents.DotNetBar.SuperTabItem();
             this.timerUpdateTime = new System.Windows.Forms.Timer(this.components);
@@ -369,9 +369,9 @@
             this.superTabControlMain.ControlBox.MenuBox,
             this.superTabControlMain.ControlBox.CloseBox});
             this.superTabControlMain.Controls.Add(this.superTabControlPanelGISVideo);
-            this.superTabControlMain.Controls.Add(this.superTabControlPanelAudioVideoProcess);
-            this.superTabControlMain.Controls.Add(this.superTabControlPanelMeshManagement);
             this.superTabControlMain.Controls.Add(this.superTabControlPanelUserSettings);
+            this.superTabControlMain.Controls.Add(this.superTabControlPanelMeshManagement);
+            this.superTabControlMain.Controls.Add(this.superTabControlPanelAudioVideoProcess);
             this.superTabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControlMain.ForeColor = System.Drawing.Color.Black;
             this.superTabControlMain.Location = new System.Drawing.Point(3, 103);
@@ -535,22 +535,6 @@
             this.superTabItemGISVideo.Name = "superTabItemGISVideo";
             this.superTabItemGISVideo.Text = "GIS定位关联视频";
             // 
-            // superTabControlPanelMeshManagement
-            // 
-            this.superTabControlPanelMeshManagement.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanelMeshManagement.Location = new System.Drawing.Point(138, 0);
-            this.superTabControlPanelMeshManagement.Name = "superTabControlPanelMeshManagement";
-            this.superTabControlPanelMeshManagement.Size = new System.Drawing.Size(616, 321);
-            this.superTabControlPanelMeshManagement.TabIndex = 0;
-            this.superTabControlPanelMeshManagement.TabItem = this.superTabItemMeshManagement;
-            // 
-            // superTabItemMeshManagement
-            // 
-            this.superTabItemMeshManagement.AttachedControl = this.superTabControlPanelMeshManagement;
-            this.superTabItemMeshManagement.GlobalItem = false;
-            this.superTabItemMeshManagement.Name = "superTabItemMeshManagement";
-            this.superTabItemMeshManagement.Text = "Mesh设备管理";
-            // 
             // superTabControlPanelAudioVideoProcess
             // 
             this.superTabControlPanelAudioVideoProcess.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -566,6 +550,22 @@
             this.superTabItemAudioVideoProcess.GlobalItem = false;
             this.superTabItemAudioVideoProcess.Name = "superTabItemAudioVideoProcess";
             this.superTabItemAudioVideoProcess.Text = "音视频综合处理";
+            // 
+            // superTabControlPanelMeshManagement
+            // 
+            this.superTabControlPanelMeshManagement.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanelMeshManagement.Location = new System.Drawing.Point(138, 0);
+            this.superTabControlPanelMeshManagement.Name = "superTabControlPanelMeshManagement";
+            this.superTabControlPanelMeshManagement.Size = new System.Drawing.Size(616, 321);
+            this.superTabControlPanelMeshManagement.TabIndex = 0;
+            this.superTabControlPanelMeshManagement.TabItem = this.superTabItemMeshManagement;
+            // 
+            // superTabItemMeshManagement
+            // 
+            this.superTabItemMeshManagement.AttachedControl = this.superTabControlPanelMeshManagement;
+            this.superTabItemMeshManagement.GlobalItem = false;
+            this.superTabItemMeshManagement.Name = "superTabItemMeshManagement";
+            this.superTabItemMeshManagement.Text = "Mesh设备管理";
             // 
             // superTabControlPanelUserSettings
             // 

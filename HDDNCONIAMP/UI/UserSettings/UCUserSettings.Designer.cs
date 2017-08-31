@@ -55,15 +55,26 @@
             this.buttonItemFoldAll = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemRefresh = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemExportLogs = new DevComponents.DotNetBar.ButtonItem();
+            this.tableLayoutPanelModifyPassword = new System.Windows.Forms.TableLayoutPanel();
+            this.labelX1 = new DevComponents.DotNetBar.LabelX();
+            this.labelX2 = new DevComponents.DotNetBar.LabelX();
+            this.labelX3 = new DevComponents.DotNetBar.LabelX();
+            this.textBoxXOriginalPassword = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.textBoxXNewPassword = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.textBoxXMakeSurePassword = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.buttonXOK = new DevComponents.DotNetBar.ButtonX();
+            this.buttonXCancel = new DevComponents.DotNetBar.ButtonX();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControlUserSettings)).BeginInit();
             this.superTabControlUserSettings.SuspendLayout();
             this.superTabControlPanel3.SuspendLayout();
             this.superTabControlPanel1.SuspendLayout();
+            this.superTabControlPanel2.SuspendLayout();
             this.tableLayoutPanelLogManage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.advTreeLogList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barLog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControlLogs)).BeginInit();
             this.superTabControlLogs.SuspendLayout();
+            this.tableLayoutPanelModifyPassword.SuspendLayout();
             this.SuspendLayout();
             // 
             // superTabControlUserSettings
@@ -83,10 +94,10 @@
             this.superTabControlUserSettings.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.superTabControlUserSettings.ControlBox.MenuBox,
             this.superTabControlUserSettings.ControlBox.CloseBox});
+            this.superTabControlUserSettings.Controls.Add(this.superTabControlPanel2);
             this.superTabControlUserSettings.Controls.Add(this.superTabControlPanel1);
             this.superTabControlUserSettings.Controls.Add(this.superTabControlPanel3);
             this.superTabControlUserSettings.Controls.Add(this.superTabControlPanel4);
-            this.superTabControlUserSettings.Controls.Add(this.superTabControlPanel2);
             this.superTabControlUserSettings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControlUserSettings.Location = new System.Drawing.Point(0, 0);
             this.superTabControlUserSettings.Name = "superTabControlUserSettings";
@@ -205,6 +216,7 @@
             // 
             // superTabControlPanel2
             // 
+            this.superTabControlPanel2.Controls.Add(this.tableLayoutPanelModifyPassword);
             this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControlPanel2.Location = new System.Drawing.Point(0, 28);
             this.superTabControlPanel2.Name = "superTabControlPanel2";
@@ -369,6 +381,152 @@
             this.buttonItemExportLogs.Text = "导出日志";
             this.buttonItemExportLogs.Click += new System.EventHandler(this.buttonItemExportLogs_Click);
             // 
+            // tableLayoutPanelModifyPassword
+            // 
+            this.tableLayoutPanelModifyPassword.BackColor = System.Drawing.Color.Transparent;
+            this.tableLayoutPanelModifyPassword.ColumnCount = 5;
+            this.tableLayoutPanelModifyPassword.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelModifyPassword.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanelModifyPassword.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanelModifyPassword.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanelModifyPassword.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelModifyPassword.Controls.Add(this.labelX1, 1, 1);
+            this.tableLayoutPanelModifyPassword.Controls.Add(this.labelX2, 1, 2);
+            this.tableLayoutPanelModifyPassword.Controls.Add(this.labelX3, 1, 3);
+            this.tableLayoutPanelModifyPassword.Controls.Add(this.textBoxXOriginalPassword, 2, 1);
+            this.tableLayoutPanelModifyPassword.Controls.Add(this.textBoxXNewPassword, 2, 2);
+            this.tableLayoutPanelModifyPassword.Controls.Add(this.textBoxXMakeSurePassword, 2, 3);
+            this.tableLayoutPanelModifyPassword.Controls.Add(this.buttonXOK, 2, 4);
+            this.tableLayoutPanelModifyPassword.Controls.Add(this.buttonXCancel, 3, 4);
+            this.tableLayoutPanelModifyPassword.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelModifyPassword.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelModifyPassword.Name = "tableLayoutPanelModifyPassword";
+            this.tableLayoutPanelModifyPassword.RowCount = 6;
+            this.tableLayoutPanelModifyPassword.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelModifyPassword.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanelModifyPassword.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanelModifyPassword.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanelModifyPassword.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanelModifyPassword.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelModifyPassword.Size = new System.Drawing.Size(567, 402);
+            this.tableLayoutPanelModifyPassword.TabIndex = 0;
+            // 
+            // labelX1
+            // 
+            this.labelX1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX1.Location = new System.Drawing.Point(136, 129);
+            this.labelX1.Name = "labelX1";
+            this.labelX1.Size = new System.Drawing.Size(94, 23);
+            this.labelX1.TabIndex = 0;
+            this.labelX1.Text = "原始密码：";
+            this.labelX1.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // labelX2
+            // 
+            this.labelX2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX2.Location = new System.Drawing.Point(136, 169);
+            this.labelX2.Name = "labelX2";
+            this.labelX2.Size = new System.Drawing.Size(94, 23);
+            this.labelX2.TabIndex = 1;
+            this.labelX2.Text = "新 密 码：";
+            this.labelX2.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // labelX3
+            // 
+            this.labelX3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.labelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX3.Location = new System.Drawing.Point(136, 209);
+            this.labelX3.Name = "labelX3";
+            this.labelX3.Size = new System.Drawing.Size(94, 23);
+            this.labelX3.TabIndex = 2;
+            this.labelX3.Text = "确认密码：";
+            this.labelX3.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // textBoxXOriginalPassword
+            // 
+            this.textBoxXOriginalPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.textBoxXOriginalPassword.Border.Class = "TextBoxBorder";
+            this.textBoxXOriginalPassword.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tableLayoutPanelModifyPassword.SetColumnSpan(this.textBoxXOriginalPassword, 2);
+            this.textBoxXOriginalPassword.Location = new System.Drawing.Point(236, 130);
+            this.textBoxXOriginalPassword.Name = "textBoxXOriginalPassword";
+            this.textBoxXOriginalPassword.PasswordChar = '*';
+            this.textBoxXOriginalPassword.PreventEnterBeep = true;
+            this.textBoxXOriginalPassword.Size = new System.Drawing.Size(194, 21);
+            this.textBoxXOriginalPassword.TabIndex = 3;
+            // 
+            // textBoxXNewPassword
+            // 
+            this.textBoxXNewPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.textBoxXNewPassword.Border.Class = "TextBoxBorder";
+            this.textBoxXNewPassword.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tableLayoutPanelModifyPassword.SetColumnSpan(this.textBoxXNewPassword, 2);
+            this.textBoxXNewPassword.Location = new System.Drawing.Point(236, 170);
+            this.textBoxXNewPassword.Name = "textBoxXNewPassword";
+            this.textBoxXNewPassword.PasswordChar = '*';
+            this.textBoxXNewPassword.PreventEnterBeep = true;
+            this.textBoxXNewPassword.Size = new System.Drawing.Size(194, 21);
+            this.textBoxXNewPassword.TabIndex = 4;
+            // 
+            // textBoxXMakeSurePassword
+            // 
+            this.textBoxXMakeSurePassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.textBoxXMakeSurePassword.Border.Class = "TextBoxBorder";
+            this.textBoxXMakeSurePassword.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tableLayoutPanelModifyPassword.SetColumnSpan(this.textBoxXMakeSurePassword, 2);
+            this.textBoxXMakeSurePassword.Location = new System.Drawing.Point(236, 210);
+            this.textBoxXMakeSurePassword.Name = "textBoxXMakeSurePassword";
+            this.textBoxXMakeSurePassword.PasswordChar = '*';
+            this.textBoxXMakeSurePassword.PreventEnterBeep = true;
+            this.textBoxXMakeSurePassword.Size = new System.Drawing.Size(194, 21);
+            this.textBoxXMakeSurePassword.TabIndex = 5;
+            // 
+            // buttonXOK
+            // 
+            this.buttonXOK.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXOK.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.buttonXOK.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXOK.Location = new System.Drawing.Point(245, 249);
+            this.buttonXOK.Name = "buttonXOK";
+            this.buttonXOK.Size = new System.Drawing.Size(75, 23);
+            this.buttonXOK.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXOK.TabIndex = 6;
+            this.buttonXOK.Text = "修  改";
+            this.buttonXOK.Click += new System.EventHandler(this.buttonXOK_Click);
+            // 
+            // buttonXCancel
+            // 
+            this.buttonXCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.buttonXCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXCancel.Location = new System.Drawing.Point(345, 249);
+            this.buttonXCancel.Name = "buttonXCancel";
+            this.buttonXCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonXCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXCancel.TabIndex = 7;
+            this.buttonXCancel.Text = "取  消";
+            this.buttonXCancel.Click += new System.EventHandler(this.buttonXCancel_Click);
+            // 
             // UCUserSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -381,11 +539,13 @@
             this.superTabControlUserSettings.ResumeLayout(false);
             this.superTabControlPanel3.ResumeLayout(false);
             this.superTabControlPanel1.ResumeLayout(false);
+            this.superTabControlPanel2.ResumeLayout(false);
             this.tableLayoutPanelLogManage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.advTreeLogList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barLog)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControlLogs)).EndInit();
             this.superTabControlLogs.ResumeLayout(false);
+            this.tableLayoutPanelModifyPassword.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -417,5 +577,14 @@
         private DevComponents.DotNetBar.ButtonItem buttonItemFoldAll;
         private DevComponents.DotNetBar.ButtonItem buttonItemRefresh;
         private DevComponents.DotNetBar.ButtonItem buttonItemExportLogs;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelModifyPassword;
+        private DevComponents.DotNetBar.LabelX labelX1;
+        private DevComponents.DotNetBar.LabelX labelX2;
+        private DevComponents.DotNetBar.LabelX labelX3;
+        private DevComponents.DotNetBar.Controls.TextBoxX textBoxXOriginalPassword;
+        private DevComponents.DotNetBar.Controls.TextBoxX textBoxXNewPassword;
+        private DevComponents.DotNetBar.Controls.TextBoxX textBoxXMakeSurePassword;
+        private DevComponents.DotNetBar.ButtonX buttonXOK;
+        private DevComponents.DotNetBar.ButtonX buttonXCancel;
     }
 }

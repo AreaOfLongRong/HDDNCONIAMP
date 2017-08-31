@@ -31,6 +31,14 @@ namespace HDDNCONIAMP.UI.UserSettings
         /// </summary>
         private ILog logger = LogManager.GetLogger(typeof(UCUserSettings));
 
+        #endregion
+
+        #region 属性
+
+        /// <summary>
+        /// 获取或设置当前用户
+        /// </summary>
+        public User CurrentUser { get; set; }
 
         #endregion
 
@@ -188,7 +196,40 @@ namespace HDDNCONIAMP.UI.UserSettings
 
         #region 密码修改事件处理
 
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonXOK_Click(object sender, EventArgs e)
+        {
+            if (!textBoxXOriginalPassword.Text.Equals(CurrentUser.Password))
+            {
+                MessageBox.Show("原始密码错误!", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                clearPasswordTextBoxContent();
+            }
+            if (!textBoxXNewPassword.Text.Equals(textBoxXMakeSurePassword.Text))
+            {
+                MessageBox.Show("新密码前后输入不一致！", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                SQLiteHelper.GetInstance().UserModifyPassword(CurrentUser.Name, textBoxXNewPassword.Text);
+                logger.Info("账户“"+CurrentUser.Name + "”密码修改成功！");
+                MessageBox.Show("密码修改成功!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                clearPasswordTextBoxContent();
+            }
+        }
 
+        /// <summary>
+        /// 取消修改
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonXCancel_Click(object sender, EventArgs e)
+        {
+            clearPasswordTextBoxContent();
+        }
 
         #endregion
 
@@ -215,7 +256,7 @@ namespace HDDNCONIAMP.UI.UserSettings
 
         private void buttonX4_Click(object sender, EventArgs e)
         {
-            List<User> users = SQLiteHelper.GetInstance().UserQuery();
+            List<User> users = SQLiteHelper.GetInstance().UserAllQuery();
         }
 
 
@@ -235,6 +276,7 @@ namespace HDDNCONIAMP.UI.UserSettings
         private void setTableLayoutPanelDoubleBufferd()
         {
             tableLayoutPanelLogManage.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelLogManage, true, null);
+            tableLayoutPanelModifyPassword.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelModifyPassword, true, null);
         }
 
         /// <summary>
@@ -263,6 +305,16 @@ namespace HDDNCONIAMP.UI.UserSettings
                     advTreeLogList.Nodes.Add(yearNode);
                 }
             });
+        }
+
+        /// <summary>
+        /// 清空密码文本框中的内容
+        /// </summary>
+        private void clearPasswordTextBoxContent()
+        {
+            textBoxXOriginalPassword.Clear();
+            textBoxXNewPassword.Clear();
+            textBoxXMakeSurePassword.Clear();
         }
 
         #endregion
