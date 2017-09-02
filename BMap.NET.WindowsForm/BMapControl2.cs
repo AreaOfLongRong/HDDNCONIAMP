@@ -1115,7 +1115,7 @@ namespace BMap.NET.WindowsForm
         /// 定位
         /// </summary>
         /// <param name="mylocation">为true表示定位自己 否则定位当前地图中的城市</param>
-        private void Locate(bool mylocation)
+        public void Locate(bool mylocation)
         {
             //定位位置
             ((Action)(delegate()

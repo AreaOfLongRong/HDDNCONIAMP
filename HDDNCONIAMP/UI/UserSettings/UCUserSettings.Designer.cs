@@ -35,6 +35,7 @@
             this.tableLayoutPanelSoftSettings = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanelSSCacheSettings = new System.Windows.Forms.TableLayoutPanel();
+            this.buttonXSSCSResetDefault = new DevComponents.DotNetBar.ButtonX();
             this.buttonXVideoDataPathSelect = new DevComponents.DotNetBar.ButtonX();
             this.textBoxXVideoDataPath = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelX9 = new DevComponents.DotNetBar.LabelX();
@@ -98,7 +99,6 @@
             this.superTabItemPasswordModify = new DevComponents.DotNetBar.SuperTabItem();
             this.buttonItemHelp = new DevComponents.DotNetBar.ButtonItem();
             this.folderBrowserDialogCache = new System.Windows.Forms.FolderBrowserDialog();
-            this.buttonXSSCSResetDefault = new DevComponents.DotNetBar.ButtonX();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControlUserSettings)).BeginInit();
             this.superTabControlUserSettings.SuspendLayout();
             this.superTabControlPanel4.SuspendLayout();
@@ -222,6 +222,19 @@
             this.tableLayoutPanelSSCacheSettings.Size = new System.Drawing.Size(555, 175);
             this.tableLayoutPanelSSCacheSettings.TabIndex = 1;
             // 
+            // buttonXSSCSResetDefault
+            // 
+            this.buttonXSSCSResetDefault.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXSSCSResetDefault.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.buttonXSSCSResetDefault.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXSSCSResetDefault.Location = new System.Drawing.Point(171, 129);
+            this.buttonXSSCSResetDefault.Name = "buttonXSSCSResetDefault";
+            this.buttonXSSCSResetDefault.Size = new System.Drawing.Size(131, 32);
+            this.buttonXSSCSResetDefault.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXSSCSResetDefault.TabIndex = 8;
+            this.buttonXSSCSResetDefault.Text = "恢复默认值";
+            this.buttonXSSCSResetDefault.Click += new System.EventHandler(this.buttonXSSCSResetDefault_Click);
+            // 
             // buttonXVideoDataPathSelect
             // 
             this.buttonXVideoDataPathSelect.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
@@ -343,7 +356,7 @@
             this.groupBox2.Size = new System.Drawing.Size(561, 195);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "groupBox2";
+            this.groupBox2.Text = "关于";
             // 
             // tableLayoutPanelSSAbout
             // 
@@ -1031,19 +1044,6 @@
             this.buttonItemHelp.Name = "buttonItemHelp";
             this.buttonItemHelp.Tooltip = "查看帮助文档";
             this.buttonItemHelp.Click += new System.EventHandler(this.buttonItemHelp_Click);
-            // 
-            // buttonXSSCSResetDefault
-            // 
-            this.buttonXSSCSResetDefault.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.buttonXSSCSResetDefault.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonXSSCSResetDefault.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonXSSCSResetDefault.Location = new System.Drawing.Point(171, 129);
-            this.buttonXSSCSResetDefault.Name = "buttonXSSCSResetDefault";
-            this.buttonXSSCSResetDefault.Size = new System.Drawing.Size(131, 32);
-            this.buttonXSSCSResetDefault.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.buttonXSSCSResetDefault.TabIndex = 8;
-            this.buttonXSSCSResetDefault.Text = "恢复默认值";
-            this.buttonXSSCSResetDefault.Click += new System.EventHandler(this.buttonXSSCSResetDefault_Click);
             // 
             // UCUserSettings
             // 

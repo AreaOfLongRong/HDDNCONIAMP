@@ -71,6 +71,16 @@ namespace HDDNCONIAMP.UI.common
             {
                 BuddyBMapControl.AddVideoPlaces(devices);
             }
+
+            advTreeDeviceList.BeginUpdate();
+            foreach (BVideoPoint vp in devices)
+            {
+                Node node = new Node();
+                node.Tag = vp;
+                node.Text = vp.Index.ToString();
+                nodeDefaultGroup.Nodes.Add(node);
+            }
+            advTreeDeviceList.EndUpdate();
         }
 
         #region 设备列表事件
@@ -122,6 +132,11 @@ namespace HDDNCONIAMP.UI.common
 
         }
 
+        /// <summary>
+        /// 添加分组
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonItemAddGroup_Click(object sender, EventArgs e)
         {
             Node node = new Node("新建分组" + sCurrentNewGroupIndex);
@@ -132,6 +147,11 @@ namespace HDDNCONIAMP.UI.common
             logger.Info("添加分组“" + node.Text + "”。");
         }
 
+        /// <summary>
+        /// 删除分组
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonItemDeleteGroup_Click(object sender, EventArgs e)
         {
             Node selectedNode = advTreeDeviceList.SelectedNode;
@@ -162,6 +182,23 @@ namespace HDDNCONIAMP.UI.common
                 }
             }
 
+        }
+
+        /// <summary>
+        /// 单击节点，跳转到设备所在的位置。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void advTreeDeviceList_NodeClick(object sender, TreeNodeMouseEventArgs e)
+        {
+            Node selectNode = advTreeDeviceList.SelectedNode;
+            if(selectNode.Level == 1 && BuddyBMapControl != null)
+            {
+                //地图上跳转到设备所在的位置
+                BVideoPoint vp = (BVideoPoint)selectNode.Tag;
+                BuddyBMapControl.Center = vp.Location;
+                BuddyBMapControl.Locate(false);
+            }
         }
 
         #endregion
