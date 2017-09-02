@@ -16,6 +16,7 @@ using DevComponents.DotNetBar.Controls;
 using HDDNCONIAMP.Utils;
 using log4net;
 using System.Diagnostics;
+using System.Net.NetworkInformation;
 
 namespace HDDNCONIAMP.UI.UserSettings
 {
@@ -31,6 +32,11 @@ namespace HDDNCONIAMP.UI.UserSettings
         /// 日志记录器
         /// </summary>
         private ILog logger = LogManager.GetLogger(typeof(UCUserSettings));
+
+        /// <summary>
+        /// 网卡接口数组
+        /// </summary>
+        private NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
 
         #endregion
 
@@ -71,6 +77,8 @@ namespace HDDNCONIAMP.UI.UserSettings
                 superTabItemAuthorityManage.Visible = true;
                 initAdvTreeUsers();
             }
+
+            initMeshBaseParamConfit();
 
             initCacheSettingsTextBoxX();
         }
@@ -549,6 +557,22 @@ namespace HDDNCONIAMP.UI.UserSettings
                 textBoxXUAUserPassword.Text = "";
                 radioButtonUAGeneralUser.Checked = true;
             }
+        }
+
+        /// <summary>
+        /// 初始化“Mesh基本参数配置”界面控件
+        /// </summary>
+        private void initMeshBaseParamConfit()
+        {
+            //判断是否为以太网卡
+            //Ethernet              以太网卡  
+            //Wireless80211         无线网卡
+            NetworkInterface[] ethernets = nics.Where(nic => nic.NetworkInterfaceType == NetworkInterfaceType.Ethernet).ToArray();
+            foreach (NetworkInterface adapter in ethernets)
+            {
+                this.comboBoxExLocalhostNetwordCard.Items.Add(adapter.Name);
+            }
+            this.comboBoxExLocalhostNetwordCard.SelectedIndex = 0;
         }
 
         /// <summary>
