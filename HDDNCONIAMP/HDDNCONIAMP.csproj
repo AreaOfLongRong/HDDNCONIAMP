@@ -178,6 +178,9 @@
     </None>
     <None Include="Documents\软件需求及进度安排.docx" />
     <None Include="Documents\软件平台开发要求.docx" />
+    <None Include="Help.chm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -225,6 +228,8 @@
     <Content Include="References\SQLite\System.Data.SQLite.Linq.xml" />
     <Content Include="References\SQLite\System.Data.SQLite.pdb" />
     <Content Include="References\SQLite\System.Data.SQLite.xml" />
+    <Content Include="Resources\HDDNCONIAMP.ico" />
+    <Content Include="Resources\HDDNCONIAMP.png" />
     <Content Include="Resources\refresh_16.png" />
     <Content Include="Resources\bmap_locate_16.png" />
     <Content Include="Resources\bmap_zoom_in_16.png" />
@@ -251,7 +256,6 @@
     <Content Include="Resources\CCAD.png" />
     <Content Include="Resources\previous_64.png" />
     <Content Include="Resources\shutdown_72.png" />
-    <Content Include="Resources\HDDNCONIAMP.ico" />
     <Content Include="Resources\login_background.jpg" />
     <Content Include="Resources\video_camera_32.png" />
     <Content Include="Resources\video_camera_64.png" />

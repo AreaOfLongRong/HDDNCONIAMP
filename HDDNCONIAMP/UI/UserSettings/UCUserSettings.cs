@@ -15,6 +15,7 @@ using DevComponents.DotNetBar;
 using DevComponents.DotNetBar.Controls;
 using HDDNCONIAMP.Utils;
 using log4net;
+using System.Diagnostics;
 
 namespace HDDNCONIAMP.UI.UserSettings
 {
@@ -395,6 +396,15 @@ namespace HDDNCONIAMP.UI.UserSettings
 
         #region 软件设置事件处理
 
+        /// <summary>
+        /// 打开帮助文档
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonItemHelp_Click(object sender, EventArgs e)
+        {
+            Process.Start(FileUtils.HELP_CHM_PATH);
+        }
 
 
         #endregion
