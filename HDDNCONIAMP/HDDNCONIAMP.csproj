@@ -56,9 +56,6 @@
     <ApplicationIcon>Resources\HDDNCONIAMP.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BMap.NET">
-      <HintPath>..\BMap.NET\bin\x86\Debug\BMap.NET.dll</HintPath>
-    </Reference>
     <Reference Include="Chloe, Version=2.15.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>References\SQLite\Chloe\Chloe.dll</HintPath>
@@ -79,12 +76,15 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\BMap.NET.WindowsForm\libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="SharpPcap, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite, Version=1.0.105.2, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>References\SQLite\Chloe\System.Data.SQLite.dll</HintPath>
     </Reference>
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -135,6 +135,9 @@
     </Compile>
     <Compile Include="UI\GISVideo\UCGISVideo.Designer.cs">
       <DependentUpon>UCGISVideo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MeshManagement\DrawingPanel.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UI\MeshManagement\UCMeshManagement.cs">
       <SubType>UserControl</SubType>
@@ -262,9 +265,20 @@
       <Project>{1B32D6FD-3C74-40DC-9D43-102B19D40785}</Project>
       <Name>BMap.NET.WindowsForm</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BMap.NET\BMap.NET.csproj">
+      <Project>{affeb71c-54b6-4a9b-a445-bb287edbac19}</Project>
+      <Name>BMap.NET</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NodeTopology\NodeTopology.csproj">
+      <Project>{7b6daac9-c270-4d82-9fea-72303369699a}</Project>
+      <Name>NodeTopology</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Video\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
