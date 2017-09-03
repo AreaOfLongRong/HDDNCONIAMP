@@ -25,5 +25,14 @@ namespace BMap.NET.WindowsForm
             Lng = _lng;
             Lat = _lat;
         }
+
+        /// <summary>
+        /// 字符串转换
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return string.Format("经度：{0:F4}\n纬度：{1:F4}", Lng, Lat);
+        }
     }
 }

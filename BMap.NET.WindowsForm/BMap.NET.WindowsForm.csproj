@@ -108,6 +108,7 @@
     <Compile Include="BMapControl.Designer.cs">
       <DependentUpon>BMapControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="BMapElements\BDeviceRoute.cs" />
     <Compile Include="BMapElements\BMarker.cs" />
     <Compile Include="BMapElements\BPoint.cs" />
     <Compile Include="BMapElements\BVideoPoint.cs" />

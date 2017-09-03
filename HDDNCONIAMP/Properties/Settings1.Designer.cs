@@ -22,29 +22,5 @@ namespace HDDNCONIAMP.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string BDMAP_CACHE_PATH {
-            get {
-                return ((string)(this["BDMAP_CACHE_PATH"]));
-            }
-            set {
-                this["BDMAP_CACHE_PATH"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string VIDEO_DATA_PATH {
-            get {
-                return ((string)(this["VIDEO_DATA_PATH"]));
-            }
-            set {
-                this["VIDEO_DATA_PATH"] = value;
-            }
-        }
     }
 }

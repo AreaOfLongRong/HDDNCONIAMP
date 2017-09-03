@@ -31,12 +31,76 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCUserSettings));
             this.superTabControlUserSettings = new DevComponents.DotNetBar.SuperTabControl();
+            this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.tableLayoutPanelLogManage = new System.Windows.Forms.TableLayoutPanel();
+            this.advTreeLogList = new DevComponents.AdvTree.AdvTree();
+            this.nodeConnector1 = new DevComponents.AdvTree.NodeConnector();
+            this.elementStyle1 = new DevComponents.DotNetBar.ElementStyle();
+            this.barLog = new DevComponents.DotNetBar.Bar();
+            this.imageListUserSettings = new System.Windows.Forms.ImageList(this.components);
+            this.buttonItemExpandAll = new DevComponents.DotNetBar.ButtonItem();
+            this.buttonItemFoldAll = new DevComponents.DotNetBar.ButtonItem();
+            this.buttonItemRefresh = new DevComponents.DotNetBar.ButtonItem();
+            this.buttonItemExportLogs = new DevComponents.DotNetBar.ButtonItem();
+            this.superTabControlLogs = new DevComponents.DotNetBar.SuperTabControl();
+            this.superTabControlPanel5 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.superTabItemLogManage = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanel6 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.buttonXMBSCancel = new DevComponents.DotNetBar.ButtonX();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.labelX16 = new DevComponents.DotNetBar.LabelX();
+            this.integerInputMBSTCPServerPort = new DevComponents.Editors.IntegerInput();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.textBoxX3 = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.textBoxX2 = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.labelX14 = new DevComponents.DotNetBar.LabelX();
+            this.labelX11 = new DevComponents.DotNetBar.LabelX();
+            this.labelX12 = new DevComponents.DotNetBar.LabelX();
+            this.labelX13 = new DevComponents.DotNetBar.LabelX();
+            this.comboBoxExLocalhostNetwordCard = new DevComponents.DotNetBar.Controls.ComboBoxEx();
+            this.ipAddressInput1 = new DevComponents.Editors.IpAddressInput();
+            this.textBoxX1 = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.labelX15 = new DevComponents.DotNetBar.LabelX();
+            this.buttonXMBSSave = new DevComponents.DotNetBar.ButtonX();
+            this.superTabItemMeshSettings = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanel4 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.tableLayoutPanelSoftSettings = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanelSSCacheSettings = new System.Windows.Forms.TableLayoutPanel();
+            this.buttonXSSCSResetDefault = new DevComponents.DotNetBar.ButtonX();
+            this.buttonXVideoDataPathSelect = new DevComponents.DotNetBar.ButtonX();
+            this.textBoxXVideoDataPath = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.labelX9 = new DevComponents.DotNetBar.LabelX();
+            this.labelX10 = new DevComponents.DotNetBar.LabelX();
+            this.textBoxXOfflineBDMapCachePath = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.buttonXOfflineBDMapCachePathSelect = new DevComponents.DotNetBar.ButtonX();
+            this.buttonXSSCSCancel = new DevComponents.DotNetBar.ButtonX();
+            this.buttonXSSCSSave = new DevComponents.DotNetBar.ButtonX();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanelSSAbout = new System.Windows.Forms.TableLayoutPanel();
+            this.labelX8 = new DevComponents.DotNetBar.LabelX();
+            this.labelX7 = new DevComponents.DotNetBar.LabelX();
+            this.reflectionImage1 = new DevComponents.DotNetBar.Controls.ReflectionImage();
+            this.superTabItemSoftwareSetting = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.tableLayoutPanelModifyPassword = new System.Windows.Forms.TableLayoutPanel();
+            this.labelX1 = new DevComponents.DotNetBar.LabelX();
+            this.labelX2 = new DevComponents.DotNetBar.LabelX();
+            this.labelX3 = new DevComponents.DotNetBar.LabelX();
+            this.textBoxXOriginalPassword = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.textBoxXNewPassword = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.textBoxXMakeSurePassword = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.buttonXOK = new DevComponents.DotNetBar.ButtonX();
+            this.buttonXCancel = new DevComponents.DotNetBar.ButtonX();
+            this.superTabItemPasswordModify = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel3 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.tableLayoutPanelAuthorityManage = new System.Windows.Forms.TableLayoutPanel();
             this.radioButtonUAGeneralUser = new System.Windows.Forms.RadioButton();
             this.textBoxXUAUserPassword = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.barAuthorityManage = new DevComponents.DotNetBar.Bar();
-            this.imageListUserSettings = new System.Windows.Forms.ImageList(this.components);
             this.buttonItemUserAdd = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemUserEdit = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemUserDelete = new DevComponents.DotNetBar.ButtonItem();
@@ -54,46 +118,36 @@
             this.buttonXUACancel = new DevComponents.DotNetBar.ButtonX();
             this.buttonXUAOK = new DevComponents.DotNetBar.ButtonX();
             this.superTabItemAuthorityManage = new DevComponents.DotNetBar.SuperTabItem();
-            this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.tableLayoutPanelLogManage = new System.Windows.Forms.TableLayoutPanel();
-            this.advTreeLogList = new DevComponents.AdvTree.AdvTree();
-            this.nodeConnector1 = new DevComponents.AdvTree.NodeConnector();
-            this.elementStyle1 = new DevComponents.DotNetBar.ElementStyle();
-            this.barLog = new DevComponents.DotNetBar.Bar();
-            this.buttonItemExpandAll = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItemFoldAll = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItemRefresh = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItemExportLogs = new DevComponents.DotNetBar.ButtonItem();
-            this.superTabControlLogs = new DevComponents.DotNetBar.SuperTabControl();
-            this.superTabControlPanel5 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.superTabItemLogManage = new DevComponents.DotNetBar.SuperTabItem();
-            this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.tableLayoutPanelModifyPassword = new System.Windows.Forms.TableLayoutPanel();
-            this.labelX1 = new DevComponents.DotNetBar.LabelX();
-            this.labelX2 = new DevComponents.DotNetBar.LabelX();
-            this.labelX3 = new DevComponents.DotNetBar.LabelX();
-            this.textBoxXOriginalPassword = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.textBoxXNewPassword = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.textBoxXMakeSurePassword = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.buttonXOK = new DevComponents.DotNetBar.ButtonX();
-            this.buttonXCancel = new DevComponents.DotNetBar.ButtonX();
-            this.superTabItemPasswordModify = new DevComponents.DotNetBar.SuperTabItem();
-            this.superTabControlPanel4 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.superTabItemSoftwareSetting = new DevComponents.DotNetBar.SuperTabItem();
+            this.buttonItemHelp = new DevComponents.DotNetBar.ButtonItem();
+            this.folderBrowserDialogCache = new System.Windows.Forms.FolderBrowserDialog();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControlUserSettings)).BeginInit();
             this.superTabControlUserSettings.SuspendLayout();
-            this.superTabControlPanel3.SuspendLayout();
-            this.tableLayoutPanelAuthorityManage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.barAuthorityManage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.advTreeUsers)).BeginInit();
             this.superTabControlPanel1.SuspendLayout();
             this.tableLayoutPanelLogManage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.advTreeLogList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barLog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControlLogs)).BeginInit();
             this.superTabControlLogs.SuspendLayout();
+            this.superTabControlPanel6.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.integerInputMBSTCPServerPort)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ipAddressInput1)).BeginInit();
+            this.superTabControlPanel4.SuspendLayout();
+            this.tableLayoutPanelSoftSettings.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.tableLayoutPanelSSCacheSettings.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.tableLayoutPanelSSAbout.SuspendLayout();
             this.superTabControlPanel2.SuspendLayout();
             this.tableLayoutPanelModifyPassword.SuspendLayout();
+            this.superTabControlPanel3.SuspendLayout();
+            this.tableLayoutPanelAuthorityManage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.barAuthorityManage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.advTreeUsers)).BeginInit();
             this.SuspendLayout();
             // 
             // superTabControlUserSettings
@@ -113,11 +167,13 @@
             this.superTabControlUserSettings.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.superTabControlUserSettings.ControlBox.MenuBox,
             this.superTabControlUserSettings.ControlBox.CloseBox});
-            this.superTabControlUserSettings.Controls.Add(this.superTabControlPanel3);
-            this.superTabControlUserSettings.Controls.Add(this.superTabControlPanel1);
-            this.superTabControlUserSettings.Controls.Add(this.superTabControlPanel2);
             this.superTabControlUserSettings.Controls.Add(this.superTabControlPanel4);
+            this.superTabControlUserSettings.Controls.Add(this.superTabControlPanel1);
+            this.superTabControlUserSettings.Controls.Add(this.superTabControlPanel6);
+            this.superTabControlUserSettings.Controls.Add(this.superTabControlPanel2);
+            this.superTabControlUserSettings.Controls.Add(this.superTabControlPanel3);
             this.superTabControlUserSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlUserSettings.ImageList = this.imageListUserSettings;
             this.superTabControlUserSettings.Location = new System.Drawing.Point(0, 0);
             this.superTabControlUserSettings.Name = "superTabControlUserSettings";
             this.superTabControlUserSettings.ReorderTabsEnabled = true;
@@ -130,7 +186,925 @@
             this.superTabItemLogManage,
             this.superTabItemPasswordModify,
             this.superTabItemAuthorityManage,
-            this.superTabItemSoftwareSetting});
+            this.superTabItemMeshSettings,
+            this.superTabItemSoftwareSetting,
+            this.buttonItemHelp});
+            // 
+            // superTabControlPanel1
+            // 
+            this.superTabControlPanel1.Controls.Add(this.tableLayoutPanelLogManage);
+            this.superTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel1.Location = new System.Drawing.Point(0, 28);
+            this.superTabControlPanel1.Name = "superTabControlPanel1";
+            this.superTabControlPanel1.Size = new System.Drawing.Size(567, 402);
+            this.superTabControlPanel1.TabIndex = 1;
+            this.superTabControlPanel1.TabItem = this.superTabItemLogManage;
+            // 
+            // tableLayoutPanelLogManage
+            // 
+            this.tableLayoutPanelLogManage.BackColor = System.Drawing.Color.Transparent;
+            this.tableLayoutPanelLogManage.ColumnCount = 2;
+            this.tableLayoutPanelLogManage.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanelLogManage.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.tableLayoutPanelLogManage.Controls.Add(this.advTreeLogList, 0, 1);
+            this.tableLayoutPanelLogManage.Controls.Add(this.barLog, 0, 0);
+            this.tableLayoutPanelLogManage.Controls.Add(this.superTabControlLogs, 1, 1);
+            this.tableLayoutPanelLogManage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelLogManage.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelLogManage.Name = "tableLayoutPanelLogManage";
+            this.tableLayoutPanelLogManage.RowCount = 2;
+            this.tableLayoutPanelLogManage.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanelLogManage.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelLogManage.Size = new System.Drawing.Size(567, 402);
+            this.tableLayoutPanelLogManage.TabIndex = 0;
+            // 
+            // advTreeLogList
+            // 
+            this.advTreeLogList.AccessibleRole = System.Windows.Forms.AccessibleRole.Outline;
+            this.advTreeLogList.AllowDrop = true;
+            this.advTreeLogList.BackColor = System.Drawing.SystemColors.Window;
+            // 
+            // 
+            // 
+            this.advTreeLogList.BackgroundStyle.Class = "TreeBorderKey";
+            this.advTreeLogList.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.advTreeLogList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.advTreeLogList.Location = new System.Drawing.Point(3, 33);
+            this.advTreeLogList.MultiSelect = true;
+            this.advTreeLogList.Name = "advTreeLogList";
+            this.advTreeLogList.NodesConnector = this.nodeConnector1;
+            this.advTreeLogList.NodeStyle = this.elementStyle1;
+            this.advTreeLogList.PathSeparator = ";";
+            this.advTreeLogList.Size = new System.Drawing.Size(135, 366);
+            this.advTreeLogList.Styles.Add(this.elementStyle1);
+            this.advTreeLogList.TabIndex = 0;
+            this.advTreeLogList.Text = "advTree1";
+            this.advTreeLogList.NodeDoubleClick += new DevComponents.AdvTree.TreeNodeMouseEventHandler(this.advTreeLogList_NodeDoubleClick);
+            // 
+            // nodeConnector1
+            // 
+            this.nodeConnector1.LineColor = System.Drawing.SystemColors.ControlText;
+            // 
+            // elementStyle1
+            // 
+            this.elementStyle1.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.elementStyle1.Name = "elementStyle1";
+            this.elementStyle1.TextColor = System.Drawing.SystemColors.ControlText;
+            // 
+            // barLog
+            // 
+            this.barLog.AntiAlias = true;
+            this.tableLayoutPanelLogManage.SetColumnSpan(this.barLog, 2);
+            this.barLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.barLog.DockSide = DevComponents.DotNetBar.eDockSide.Document;
+            this.barLog.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
+            this.barLog.Images = this.imageListUserSettings;
+            this.barLog.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.buttonItemExpandAll,
+            this.buttonItemFoldAll,
+            this.buttonItemRefresh,
+            this.buttonItemExportLogs});
+            this.barLog.Location = new System.Drawing.Point(3, 3);
+            this.barLog.Name = "barLog";
+            this.barLog.Size = new System.Drawing.Size(561, 26);
+            this.barLog.Stretch = true;
+            this.barLog.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.barLog.TabIndex = 2;
+            this.barLog.TabStop = false;
+            // 
+            // imageListUserSettings
+            // 
+            this.imageListUserSettings.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListUserSettings.ImageStream")));
+            this.imageListUserSettings.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListUserSettings.Images.SetKeyName(0, "expand_all_16.png");
+            this.imageListUserSettings.Images.SetKeyName(1, "fold_all_16.png");
+            this.imageListUserSettings.Images.SetKeyName(2, "folder_expand_19.png");
+            this.imageListUserSettings.Images.SetKeyName(3, "folder_fold_17.png");
+            this.imageListUserSettings.Images.SetKeyName(4, "refresh_16.png");
+            this.imageListUserSettings.Images.SetKeyName(5, "user_add_32.png");
+            this.imageListUserSettings.Images.SetKeyName(6, "user_delete_32.png");
+            this.imageListUserSettings.Images.SetKeyName(7, "user_edit.png");
+            this.imageListUserSettings.Images.SetKeyName(8, "help_32.png");
+            // 
+            // buttonItemExpandAll
+            // 
+            this.buttonItemExpandAll.ImageIndex = 1;
+            this.buttonItemExpandAll.Name = "buttonItemExpandAll";
+            this.buttonItemExpandAll.Text = "展开所有";
+            this.buttonItemExpandAll.Tooltip = "展开所有";
+            this.buttonItemExpandAll.Click += new System.EventHandler(this.buttonItemExpandAll_Click);
+            // 
+            // buttonItemFoldAll
+            // 
+            this.buttonItemFoldAll.ImageIndex = 0;
+            this.buttonItemFoldAll.Name = "buttonItemFoldAll";
+            this.buttonItemFoldAll.Tooltip = "折叠所有";
+            this.buttonItemFoldAll.Click += new System.EventHandler(this.buttonItemFoldAll_Click);
+            // 
+            // buttonItemRefresh
+            // 
+            this.buttonItemRefresh.BeginGroup = true;
+            this.buttonItemRefresh.ImageIndex = 4;
+            this.buttonItemRefresh.Name = "buttonItemRefresh";
+            this.buttonItemRefresh.Tooltip = "刷新日志列表";
+            this.buttonItemRefresh.Click += new System.EventHandler(this.buttonItemRefresh_Click);
+            // 
+            // buttonItemExportLogs
+            // 
+            this.buttonItemExportLogs.BeginGroup = true;
+            this.buttonItemExportLogs.Name = "buttonItemExportLogs";
+            this.buttonItemExportLogs.Text = "导出日志";
+            this.buttonItemExportLogs.Click += new System.EventHandler(this.buttonItemExportLogs_Click);
+            // 
+            // superTabControlLogs
+            // 
+            this.superTabControlLogs.CloseButtonOnTabsVisible = true;
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.superTabControlLogs.ControlBox.CloseBox.Name = "";
+            // 
+            // 
+            // 
+            this.superTabControlLogs.ControlBox.MenuBox.Name = "";
+            this.superTabControlLogs.ControlBox.Name = "";
+            this.superTabControlLogs.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.superTabControlLogs.ControlBox.MenuBox,
+            this.superTabControlLogs.ControlBox.CloseBox});
+            this.superTabControlLogs.Controls.Add(this.superTabControlPanel5);
+            this.superTabControlLogs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlLogs.Location = new System.Drawing.Point(144, 33);
+            this.superTabControlLogs.Name = "superTabControlLogs";
+            this.superTabControlLogs.ReorderTabsEnabled = true;
+            this.superTabControlLogs.SelectedTabFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.superTabControlLogs.SelectedTabIndex = -1;
+            this.superTabControlLogs.Size = new System.Drawing.Size(420, 366);
+            this.superTabControlLogs.TabFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.superTabControlLogs.TabIndex = 3;
+            this.superTabControlLogs.Text = "superTabControl1";
+            // 
+            // superTabControlPanel5
+            // 
+            this.superTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel5.Location = new System.Drawing.Point(0, 0);
+            this.superTabControlPanel5.Name = "superTabControlPanel5";
+            this.superTabControlPanel5.Size = new System.Drawing.Size(420, 366);
+            this.superTabControlPanel5.TabIndex = 1;
+            // 
+            // superTabItemLogManage
+            // 
+            this.superTabItemLogManage.AttachedControl = this.superTabControlPanel1;
+            this.superTabItemLogManage.GlobalItem = false;
+            this.superTabItemLogManage.Name = "superTabItemLogManage";
+            this.superTabItemLogManage.Text = "日志管理";
+            // 
+            // superTabControlPanel6
+            // 
+            this.superTabControlPanel6.Controls.Add(this.tableLayoutPanel1);
+            this.superTabControlPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel6.Location = new System.Drawing.Point(0, 28);
+            this.superTabControlPanel6.Name = "superTabControlPanel6";
+            this.superTabControlPanel6.Size = new System.Drawing.Size(567, 402);
+            this.superTabControlPanel6.TabIndex = 0;
+            this.superTabControlPanel6.TabItem = this.superTabItemMeshSettings;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.buttonXMBSCancel, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox4, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox3, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.buttonXMBSSave, 0, 2);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(567, 402);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // buttonXMBSCancel
+            // 
+            this.buttonXMBSCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXMBSCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.buttonXMBSCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXMBSCancel.Location = new System.Drawing.Point(366, 352);
+            this.buttonXMBSCancel.Name = "buttonXMBSCancel";
+            this.buttonXMBSCancel.Size = new System.Drawing.Size(117, 39);
+            this.buttonXMBSCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXMBSCancel.TabIndex = 3;
+            this.buttonXMBSCancel.Text = "取  消";
+            // 
+            // groupBox4
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.groupBox4, 2);
+            this.groupBox4.Controls.Add(this.tableLayoutPanel3);
+            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox4.Location = new System.Drawing.Point(3, 174);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(561, 165);
+            this.groupBox4.TabIndex = 1;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "TCP服务";
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Controls.Add(this.labelX16, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.integerInputMBSTCPServerPort, 1, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 17);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 2;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(555, 145);
+            this.tableLayoutPanel3.TabIndex = 0;
+            // 
+            // labelX16
+            // 
+            this.labelX16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.labelX16.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX16.Location = new System.Drawing.Point(3, 24);
+            this.labelX16.Name = "labelX16";
+            this.labelX16.Size = new System.Drawing.Size(74, 23);
+            this.labelX16.TabIndex = 3;
+            this.labelX16.Text = "服务端口：";
+            this.labelX16.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // integerInputMBSTCPServerPort
+            // 
+            this.integerInputMBSTCPServerPort.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            // 
+            // 
+            // 
+            this.integerInputMBSTCPServerPort.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.integerInputMBSTCPServerPort.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.integerInputMBSTCPServerPort.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+            this.integerInputMBSTCPServerPort.Location = new System.Drawing.Point(83, 25);
+            this.integerInputMBSTCPServerPort.MaxValue = 65535;
+            this.integerInputMBSTCPServerPort.MinValue = 10000;
+            this.integerInputMBSTCPServerPort.Name = "integerInputMBSTCPServerPort";
+            this.integerInputMBSTCPServerPort.ShowUpDown = true;
+            this.integerInputMBSTCPServerPort.Size = new System.Drawing.Size(80, 21);
+            this.integerInputMBSTCPServerPort.TabIndex = 4;
+            this.integerInputMBSTCPServerPort.Value = 10000;
+            // 
+            // groupBox3
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.groupBox3, 2);
+            this.groupBox3.Controls.Add(this.tableLayoutPanel2);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.Location = new System.Drawing.Point(3, 3);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(561, 165);
+            this.groupBox3.TabIndex = 0;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "本机参数";
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 6;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.textBoxX3, 5, 1);
+            this.tableLayoutPanel2.Controls.Add(this.textBoxX2, 3, 1);
+            this.tableLayoutPanel2.Controls.Add(this.labelX14, 2, 1);
+            this.tableLayoutPanel2.Controls.Add(this.labelX11, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.labelX12, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.labelX13, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.comboBoxExLocalhostNetwordCard, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.ipAddressInput1, 1, 2);
+            this.tableLayoutPanel2.Controls.Add(this.textBoxX1, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.labelX15, 4, 1);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 17);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 3;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(555, 145);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // textBoxX3
+            // 
+            this.textBoxX3.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            // 
+            // 
+            // 
+            this.textBoxX3.Border.Class = "TextBoxBorder";
+            this.textBoxX3.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.textBoxX3.Location = new System.Drawing.Point(243, 61);
+            this.textBoxX3.Name = "textBoxX3";
+            this.textBoxX3.PreventEnterBeep = true;
+            this.textBoxX3.Size = new System.Drawing.Size(58, 21);
+            this.textBoxX3.TabIndex = 9;
+            this.textBoxX3.Text = "0";
+            this.textBoxX3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // textBoxX2
+            // 
+            this.textBoxX2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.textBoxX2.Border.Class = "TextBoxBorder";
+            this.textBoxX2.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.textBoxX2.Location = new System.Drawing.Point(163, 61);
+            this.textBoxX2.Name = "textBoxX2";
+            this.textBoxX2.PreventEnterBeep = true;
+            this.textBoxX2.Size = new System.Drawing.Size(54, 21);
+            this.textBoxX2.TabIndex = 8;
+            this.textBoxX2.Text = "168";
+            this.textBoxX2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // labelX14
+            // 
+            this.labelX14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.labelX14.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX14.Location = new System.Drawing.Point(143, 60);
+            this.labelX14.Name = "labelX14";
+            this.labelX14.Size = new System.Drawing.Size(14, 23);
+            this.labelX14.TabIndex = 6;
+            this.labelX14.Text = ".";
+            this.labelX14.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // labelX11
+            // 
+            this.labelX11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.labelX11.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX11.Location = new System.Drawing.Point(3, 12);
+            this.labelX11.Name = "labelX11";
+            this.labelX11.Size = new System.Drawing.Size(74, 23);
+            this.labelX11.TabIndex = 0;
+            this.labelX11.Text = "网卡选择：";
+            this.labelX11.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // labelX12
+            // 
+            this.labelX12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.labelX12.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX12.Location = new System.Drawing.Point(3, 60);
+            this.labelX12.Name = "labelX12";
+            this.labelX12.Size = new System.Drawing.Size(74, 23);
+            this.labelX12.TabIndex = 1;
+            this.labelX12.Text = "网段设置：";
+            this.labelX12.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // labelX13
+            // 
+            this.labelX13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.labelX13.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX13.Location = new System.Drawing.Point(3, 109);
+            this.labelX13.Name = "labelX13";
+            this.labelX13.Size = new System.Drawing.Size(74, 23);
+            this.labelX13.TabIndex = 2;
+            this.labelX13.Text = "本机IP：";
+            this.labelX13.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // comboBoxExLocalhostNetwordCard
+            // 
+            this.comboBoxExLocalhostNetwordCard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel2.SetColumnSpan(this.comboBoxExLocalhostNetwordCard, 5);
+            this.comboBoxExLocalhostNetwordCard.DisplayMember = "Text";
+            this.comboBoxExLocalhostNetwordCard.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.comboBoxExLocalhostNetwordCard.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxExLocalhostNetwordCard.FormattingEnabled = true;
+            this.comboBoxExLocalhostNetwordCard.ItemHeight = 15;
+            this.comboBoxExLocalhostNetwordCard.Location = new System.Drawing.Point(83, 13);
+            this.comboBoxExLocalhostNetwordCard.Name = "comboBoxExLocalhostNetwordCard";
+            this.comboBoxExLocalhostNetwordCard.Size = new System.Drawing.Size(469, 21);
+            this.comboBoxExLocalhostNetwordCard.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.comboBoxExLocalhostNetwordCard.TabIndex = 3;
+            // 
+            // ipAddressInput1
+            // 
+            this.ipAddressInput1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.ipAddressInput1.AutoOverwrite = true;
+            // 
+            // 
+            // 
+            this.ipAddressInput1.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.ipAddressInput1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ipAddressInput1.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+            this.ipAddressInput1.ButtonFreeText.Visible = true;
+            this.tableLayoutPanel2.SetColumnSpan(this.ipAddressInput1, 4);
+            this.ipAddressInput1.Location = new System.Drawing.Point(83, 110);
+            this.ipAddressInput1.Name = "ipAddressInput1";
+            this.ipAddressInput1.Size = new System.Drawing.Size(154, 21);
+            this.ipAddressInput1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.ipAddressInput1.TabIndex = 4;
+            this.ipAddressInput1.Value = "192.168.0.10";
+            // 
+            // textBoxX1
+            // 
+            this.textBoxX1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.textBoxX1.Border.Class = "TextBoxBorder";
+            this.textBoxX1.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.textBoxX1.Location = new System.Drawing.Point(83, 61);
+            this.textBoxX1.Name = "textBoxX1";
+            this.textBoxX1.PreventEnterBeep = true;
+            this.textBoxX1.Size = new System.Drawing.Size(54, 21);
+            this.textBoxX1.TabIndex = 5;
+            this.textBoxX1.Text = "192";
+            this.textBoxX1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // labelX15
+            // 
+            this.labelX15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.labelX15.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX15.Location = new System.Drawing.Point(223, 60);
+            this.labelX15.Name = "labelX15";
+            this.labelX15.Size = new System.Drawing.Size(14, 23);
+            this.labelX15.TabIndex = 7;
+            this.labelX15.Text = ".";
+            this.labelX15.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // buttonXMBSSave
+            // 
+            this.buttonXMBSSave.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXMBSSave.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.buttonXMBSSave.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXMBSSave.Location = new System.Drawing.Point(83, 352);
+            this.buttonXMBSSave.Name = "buttonXMBSSave";
+            this.buttonXMBSSave.Size = new System.Drawing.Size(117, 39);
+            this.buttonXMBSSave.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXMBSSave.TabIndex = 2;
+            this.buttonXMBSSave.Text = "保  存";
+            // 
+            // superTabItemMeshSettings
+            // 
+            this.superTabItemMeshSettings.AttachedControl = this.superTabControlPanel6;
+            this.superTabItemMeshSettings.GlobalItem = false;
+            this.superTabItemMeshSettings.Name = "superTabItemMeshSettings";
+            this.superTabItemMeshSettings.Text = "Mesh基本配置";
+            // 
+            // superTabControlPanel4
+            // 
+            this.superTabControlPanel4.Controls.Add(this.tableLayoutPanelSoftSettings);
+            this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel4.Location = new System.Drawing.Point(0, 28);
+            this.superTabControlPanel4.Name = "superTabControlPanel4";
+            this.superTabControlPanel4.Size = new System.Drawing.Size(567, 402);
+            this.superTabControlPanel4.TabIndex = 0;
+            this.superTabControlPanel4.TabItem = this.superTabItemSoftwareSetting;
+            // 
+            // tableLayoutPanelSoftSettings
+            // 
+            this.tableLayoutPanelSoftSettings.BackColor = System.Drawing.Color.Transparent;
+            this.tableLayoutPanelSoftSettings.ColumnCount = 1;
+            this.tableLayoutPanelSoftSettings.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelSoftSettings.Controls.Add(this.groupBox1, 0, 0);
+            this.tableLayoutPanelSoftSettings.Controls.Add(this.groupBox2, 0, 1);
+            this.tableLayoutPanelSoftSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelSoftSettings.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelSoftSettings.Name = "tableLayoutPanelSoftSettings";
+            this.tableLayoutPanelSoftSettings.RowCount = 2;
+            this.tableLayoutPanelSoftSettings.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelSoftSettings.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelSoftSettings.Size = new System.Drawing.Size(567, 402);
+            this.tableLayoutPanelSoftSettings.TabIndex = 0;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.tableLayoutPanelSSCacheSettings);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(3, 3);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(561, 195);
+            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "缓存设置";
+            // 
+            // tableLayoutPanelSSCacheSettings
+            // 
+            this.tableLayoutPanelSSCacheSettings.ColumnCount = 4;
+            this.tableLayoutPanelSSCacheSettings.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanelSSCacheSettings.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanelSSCacheSettings.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanelSSCacheSettings.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanelSSCacheSettings.Controls.Add(this.buttonXSSCSResetDefault, 1, 2);
+            this.tableLayoutPanelSSCacheSettings.Controls.Add(this.buttonXVideoDataPathSelect, 3, 1);
+            this.tableLayoutPanelSSCacheSettings.Controls.Add(this.textBoxXVideoDataPath, 1, 1);
+            this.tableLayoutPanelSSCacheSettings.Controls.Add(this.labelX9, 0, 0);
+            this.tableLayoutPanelSSCacheSettings.Controls.Add(this.labelX10, 0, 1);
+            this.tableLayoutPanelSSCacheSettings.Controls.Add(this.textBoxXOfflineBDMapCachePath, 1, 0);
+            this.tableLayoutPanelSSCacheSettings.Controls.Add(this.buttonXOfflineBDMapCachePathSelect, 3, 0);
+            this.tableLayoutPanelSSCacheSettings.Controls.Add(this.buttonXSSCSCancel, 3, 2);
+            this.tableLayoutPanelSSCacheSettings.Controls.Add(this.buttonXSSCSSave, 2, 2);
+            this.tableLayoutPanelSSCacheSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelSSCacheSettings.Location = new System.Drawing.Point(3, 17);
+            this.tableLayoutPanelSSCacheSettings.Name = "tableLayoutPanelSSCacheSettings";
+            this.tableLayoutPanelSSCacheSettings.RowCount = 3;
+            this.tableLayoutPanelSSCacheSettings.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanelSSCacheSettings.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanelSSCacheSettings.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanelSSCacheSettings.Size = new System.Drawing.Size(555, 175);
+            this.tableLayoutPanelSSCacheSettings.TabIndex = 1;
+            // 
+            // buttonXSSCSResetDefault
+            // 
+            this.buttonXSSCSResetDefault.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXSSCSResetDefault.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.buttonXSSCSResetDefault.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXSSCSResetDefault.Location = new System.Drawing.Point(171, 129);
+            this.buttonXSSCSResetDefault.Name = "buttonXSSCSResetDefault";
+            this.buttonXSSCSResetDefault.Size = new System.Drawing.Size(131, 32);
+            this.buttonXSSCSResetDefault.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXSSCSResetDefault.TabIndex = 8;
+            this.buttonXSSCSResetDefault.Text = "恢复默认值";
+            this.buttonXSSCSResetDefault.Click += new System.EventHandler(this.buttonXSSCSResetDefault_Click);
+            // 
+            // buttonXVideoDataPathSelect
+            // 
+            this.buttonXVideoDataPathSelect.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXVideoDataPathSelect.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.buttonXVideoDataPathSelect.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXVideoDataPathSelect.Location = new System.Drawing.Point(472, 71);
+            this.buttonXVideoDataPathSelect.Name = "buttonXVideoDataPathSelect";
+            this.buttonXVideoDataPathSelect.Size = new System.Drawing.Size(75, 32);
+            this.buttonXVideoDataPathSelect.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXVideoDataPathSelect.TabIndex = 5;
+            this.buttonXVideoDataPathSelect.Text = "...";
+            this.buttonXVideoDataPathSelect.Click += new System.EventHandler(this.buttonXVideoDataPathSelect_Click);
+            // 
+            // textBoxXVideoDataPath
+            // 
+            this.textBoxXVideoDataPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.textBoxXVideoDataPath.Border.Class = "TextBoxBorder";
+            this.textBoxXVideoDataPath.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tableLayoutPanelSSCacheSettings.SetColumnSpan(this.textBoxXVideoDataPath, 2);
+            this.textBoxXVideoDataPath.Enabled = false;
+            this.textBoxXVideoDataPath.Location = new System.Drawing.Point(103, 76);
+            this.textBoxXVideoDataPath.Name = "textBoxXVideoDataPath";
+            this.textBoxXVideoDataPath.PreventEnterBeep = true;
+            this.textBoxXVideoDataPath.Size = new System.Drawing.Size(358, 21);
+            this.textBoxXVideoDataPath.TabIndex = 3;
+            // 
+            // labelX9
+            // 
+            this.labelX9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.labelX9.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX9.Location = new System.Drawing.Point(3, 17);
+            this.labelX9.Name = "labelX9";
+            this.labelX9.Size = new System.Drawing.Size(94, 23);
+            this.labelX9.TabIndex = 0;
+            this.labelX9.Text = "离线地图缓存：";
+            this.labelX9.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // labelX10
+            // 
+            this.labelX10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.labelX10.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX10.Location = new System.Drawing.Point(3, 75);
+            this.labelX10.Name = "labelX10";
+            this.labelX10.Size = new System.Drawing.Size(94, 23);
+            this.labelX10.TabIndex = 1;
+            this.labelX10.Text = "视频数据缓存：";
+            this.labelX10.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // textBoxXOfflineBDMapCachePath
+            // 
+            this.textBoxXOfflineBDMapCachePath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.textBoxXOfflineBDMapCachePath.Border.Class = "TextBoxBorder";
+            this.textBoxXOfflineBDMapCachePath.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tableLayoutPanelSSCacheSettings.SetColumnSpan(this.textBoxXOfflineBDMapCachePath, 2);
+            this.textBoxXOfflineBDMapCachePath.Enabled = false;
+            this.textBoxXOfflineBDMapCachePath.Location = new System.Drawing.Point(103, 18);
+            this.textBoxXOfflineBDMapCachePath.Name = "textBoxXOfflineBDMapCachePath";
+            this.textBoxXOfflineBDMapCachePath.PreventEnterBeep = true;
+            this.textBoxXOfflineBDMapCachePath.Size = new System.Drawing.Size(358, 21);
+            this.textBoxXOfflineBDMapCachePath.TabIndex = 2;
+            // 
+            // buttonXOfflineBDMapCachePathSelect
+            // 
+            this.buttonXOfflineBDMapCachePathSelect.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXOfflineBDMapCachePathSelect.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.buttonXOfflineBDMapCachePathSelect.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXOfflineBDMapCachePathSelect.Location = new System.Drawing.Point(472, 13);
+            this.buttonXOfflineBDMapCachePathSelect.Name = "buttonXOfflineBDMapCachePathSelect";
+            this.buttonXOfflineBDMapCachePathSelect.Size = new System.Drawing.Size(75, 32);
+            this.buttonXOfflineBDMapCachePathSelect.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXOfflineBDMapCachePathSelect.TabIndex = 4;
+            this.buttonXOfflineBDMapCachePathSelect.Text = "...";
+            this.buttonXOfflineBDMapCachePathSelect.Click += new System.EventHandler(this.buttonXOfflineBDMapCachePathSelect_Click);
+            // 
+            // buttonXSSCSCancel
+            // 
+            this.buttonXSSCSCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXSSCSCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.buttonXSSCSCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXSSCSCancel.Location = new System.Drawing.Point(472, 129);
+            this.buttonXSSCSCancel.Name = "buttonXSSCSCancel";
+            this.buttonXSSCSCancel.Size = new System.Drawing.Size(75, 32);
+            this.buttonXSSCSCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXSSCSCancel.TabIndex = 7;
+            this.buttonXSSCSCancel.Text = "取消";
+            this.buttonXSSCSCancel.Click += new System.EventHandler(this.buttonXSSCSCancel_Click);
+            // 
+            // buttonXSSCSSave
+            // 
+            this.buttonXSSCSSave.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXSSCSSave.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.buttonXSSCSSave.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXSSCSSave.Location = new System.Drawing.Point(381, 129);
+            this.buttonXSSCSSave.Name = "buttonXSSCSSave";
+            this.buttonXSSCSSave.Size = new System.Drawing.Size(75, 32);
+            this.buttonXSSCSSave.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXSSCSSave.TabIndex = 6;
+            this.buttonXSSCSSave.Text = "保存";
+            this.buttonXSSCSSave.Click += new System.EventHandler(this.buttonXSSCSSave_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.tableLayoutPanelSSAbout);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(3, 204);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(561, 195);
+            this.groupBox2.TabIndex = 3;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "关于";
+            // 
+            // tableLayoutPanelSSAbout
+            // 
+            this.tableLayoutPanelSSAbout.ColumnCount = 2;
+            this.tableLayoutPanelSSAbout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanelSSAbout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelSSAbout.Controls.Add(this.labelX8, 1, 1);
+            this.tableLayoutPanelSSAbout.Controls.Add(this.labelX7, 1, 0);
+            this.tableLayoutPanelSSAbout.Controls.Add(this.reflectionImage1, 0, 0);
+            this.tableLayoutPanelSSAbout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelSSAbout.Location = new System.Drawing.Point(3, 17);
+            this.tableLayoutPanelSSAbout.Name = "tableLayoutPanelSSAbout";
+            this.tableLayoutPanelSSAbout.RowCount = 2;
+            this.tableLayoutPanelSSAbout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelSSAbout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelSSAbout.Size = new System.Drawing.Size(555, 175);
+            this.tableLayoutPanelSSAbout.TabIndex = 1;
+            // 
+            // labelX8
+            // 
+            // 
+            // 
+            // 
+            this.labelX8.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelX8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX8.Location = new System.Drawing.Point(203, 90);
+            this.labelX8.Name = "labelX8";
+            this.labelX8.Size = new System.Drawing.Size(349, 82);
+            this.labelX8.TabIndex = 2;
+            this.labelX8.Text = "XX公司  版权所有\r\nCopyright © 2017 XX. All Rights Reserved.";
+            this.labelX8.TextLineAlignment = System.Drawing.StringAlignment.Near;
+            // 
+            // labelX7
+            // 
+            // 
+            // 
+            // 
+            this.labelX7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelX7.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX7.Location = new System.Drawing.Point(203, 3);
+            this.labelX7.Name = "labelX7";
+            this.labelX7.Size = new System.Drawing.Size(349, 81);
+            this.labelX7.TabIndex = 1;
+            this.labelX7.Text = "高清动态无中心自组网综合应用管理平台软件 v1.0";
+            this.labelX7.TextLineAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // reflectionImage1
+            // 
+            // 
+            // 
+            // 
+            this.reflectionImage1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.reflectionImage1.BackgroundStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center;
+            this.reflectionImage1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.reflectionImage1.Image = ((System.Drawing.Image)(resources.GetObject("reflectionImage1.Image")));
+            this.reflectionImage1.Location = new System.Drawing.Point(3, 3);
+            this.reflectionImage1.Name = "reflectionImage1";
+            this.tableLayoutPanelSSAbout.SetRowSpan(this.reflectionImage1, 2);
+            this.reflectionImage1.Size = new System.Drawing.Size(194, 169);
+            this.reflectionImage1.TabIndex = 3;
+            // 
+            // superTabItemSoftwareSetting
+            // 
+            this.superTabItemSoftwareSetting.AttachedControl = this.superTabControlPanel4;
+            this.superTabItemSoftwareSetting.GlobalItem = false;
+            this.superTabItemSoftwareSetting.Name = "superTabItemSoftwareSetting";
+            this.superTabItemSoftwareSetting.Text = "软件设置";
+            // 
+            // superTabControlPanel2
+            // 
+            this.superTabControlPanel2.Controls.Add(this.tableLayoutPanelModifyPassword);
+            this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel2.Location = new System.Drawing.Point(0, 28);
+            this.superTabControlPanel2.Name = "superTabControlPanel2";
+            this.superTabControlPanel2.Size = new System.Drawing.Size(567, 402);
+            this.superTabControlPanel2.TabIndex = 0;
+            this.superTabControlPanel2.TabItem = this.superTabItemPasswordModify;
+            // 
+            // tableLayoutPanelModifyPassword
+            // 
+            this.tableLayoutPanelModifyPassword.BackColor = System.Drawing.Color.Transparent;
+            this.tableLayoutPanelModifyPassword.ColumnCount = 5;
+            this.tableLayoutPanelModifyPassword.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelModifyPassword.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanelModifyPassword.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanelModifyPassword.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanelModifyPassword.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelModifyPassword.Controls.Add(this.labelX1, 1, 1);
+            this.tableLayoutPanelModifyPassword.Controls.Add(this.labelX2, 1, 2);
+            this.tableLayoutPanelModifyPassword.Controls.Add(this.labelX3, 1, 3);
+            this.tableLayoutPanelModifyPassword.Controls.Add(this.textBoxXOriginalPassword, 2, 1);
+            this.tableLayoutPanelModifyPassword.Controls.Add(this.textBoxXNewPassword, 2, 2);
+            this.tableLayoutPanelModifyPassword.Controls.Add(this.textBoxXMakeSurePassword, 2, 3);
+            this.tableLayoutPanelModifyPassword.Controls.Add(this.buttonXOK, 2, 4);
+            this.tableLayoutPanelModifyPassword.Controls.Add(this.buttonXCancel, 3, 4);
+            this.tableLayoutPanelModifyPassword.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelModifyPassword.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelModifyPassword.Name = "tableLayoutPanelModifyPassword";
+            this.tableLayoutPanelModifyPassword.RowCount = 6;
+            this.tableLayoutPanelModifyPassword.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelModifyPassword.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanelModifyPassword.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanelModifyPassword.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanelModifyPassword.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanelModifyPassword.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelModifyPassword.Size = new System.Drawing.Size(567, 402);
+            this.tableLayoutPanelModifyPassword.TabIndex = 0;
+            // 
+            // labelX1
+            // 
+            this.labelX1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX1.Location = new System.Drawing.Point(136, 129);
+            this.labelX1.Name = "labelX1";
+            this.labelX1.Size = new System.Drawing.Size(94, 23);
+            this.labelX1.TabIndex = 0;
+            this.labelX1.Text = "原始密码：";
+            this.labelX1.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // labelX2
+            // 
+            this.labelX2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX2.Location = new System.Drawing.Point(136, 169);
+            this.labelX2.Name = "labelX2";
+            this.labelX2.Size = new System.Drawing.Size(94, 23);
+            this.labelX2.TabIndex = 1;
+            this.labelX2.Text = "新 密 码：";
+            this.labelX2.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // labelX3
+            // 
+            this.labelX3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.labelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX3.Location = new System.Drawing.Point(136, 209);
+            this.labelX3.Name = "labelX3";
+            this.labelX3.Size = new System.Drawing.Size(94, 23);
+            this.labelX3.TabIndex = 2;
+            this.labelX3.Text = "确认密码：";
+            this.labelX3.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // textBoxXOriginalPassword
+            // 
+            this.textBoxXOriginalPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.textBoxXOriginalPassword.Border.Class = "TextBoxBorder";
+            this.textBoxXOriginalPassword.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tableLayoutPanelModifyPassword.SetColumnSpan(this.textBoxXOriginalPassword, 2);
+            this.textBoxXOriginalPassword.Location = new System.Drawing.Point(236, 130);
+            this.textBoxXOriginalPassword.Name = "textBoxXOriginalPassword";
+            this.textBoxXOriginalPassword.PasswordChar = '*';
+            this.textBoxXOriginalPassword.PreventEnterBeep = true;
+            this.textBoxXOriginalPassword.Size = new System.Drawing.Size(194, 21);
+            this.textBoxXOriginalPassword.TabIndex = 3;
+            // 
+            // textBoxXNewPassword
+            // 
+            this.textBoxXNewPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.textBoxXNewPassword.Border.Class = "TextBoxBorder";
+            this.textBoxXNewPassword.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tableLayoutPanelModifyPassword.SetColumnSpan(this.textBoxXNewPassword, 2);
+            this.textBoxXNewPassword.Location = new System.Drawing.Point(236, 170);
+            this.textBoxXNewPassword.Name = "textBoxXNewPassword";
+            this.textBoxXNewPassword.PasswordChar = '*';
+            this.textBoxXNewPassword.PreventEnterBeep = true;
+            this.textBoxXNewPassword.Size = new System.Drawing.Size(194, 21);
+            this.textBoxXNewPassword.TabIndex = 4;
+            // 
+            // textBoxXMakeSurePassword
+            // 
+            this.textBoxXMakeSurePassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.textBoxXMakeSurePassword.Border.Class = "TextBoxBorder";
+            this.textBoxXMakeSurePassword.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tableLayoutPanelModifyPassword.SetColumnSpan(this.textBoxXMakeSurePassword, 2);
+            this.textBoxXMakeSurePassword.Location = new System.Drawing.Point(236, 210);
+            this.textBoxXMakeSurePassword.Name = "textBoxXMakeSurePassword";
+            this.textBoxXMakeSurePassword.PasswordChar = '*';
+            this.textBoxXMakeSurePassword.PreventEnterBeep = true;
+            this.textBoxXMakeSurePassword.Size = new System.Drawing.Size(194, 21);
+            this.textBoxXMakeSurePassword.TabIndex = 5;
+            // 
+            // buttonXOK
+            // 
+            this.buttonXOK.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXOK.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.buttonXOK.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXOK.Location = new System.Drawing.Point(245, 249);
+            this.buttonXOK.Name = "buttonXOK";
+            this.buttonXOK.Size = new System.Drawing.Size(75, 23);
+            this.buttonXOK.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXOK.TabIndex = 6;
+            this.buttonXOK.Text = "修  改";
+            this.buttonXOK.Click += new System.EventHandler(this.buttonXOK_Click);
+            // 
+            // buttonXCancel
+            // 
+            this.buttonXCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.buttonXCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXCancel.Location = new System.Drawing.Point(345, 249);
+            this.buttonXCancel.Name = "buttonXCancel";
+            this.buttonXCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonXCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXCancel.TabIndex = 7;
+            this.buttonXCancel.Text = "取  消";
+            this.buttonXCancel.Click += new System.EventHandler(this.buttonXCancel_Click);
+            // 
+            // superTabItemPasswordModify
+            // 
+            this.superTabItemPasswordModify.AttachedControl = this.superTabControlPanel2;
+            this.superTabItemPasswordModify.GlobalItem = false;
+            this.superTabItemPasswordModify.Name = "superTabItemPasswordModify";
+            this.superTabItemPasswordModify.Text = "密码修改";
             // 
             // superTabControlPanel3
             // 
@@ -224,19 +1198,6 @@
             this.barAuthorityManage.TabIndex = 0;
             this.barAuthorityManage.TabStop = false;
             this.barAuthorityManage.Text = "bar1";
-            // 
-            // imageListUserSettings
-            // 
-            this.imageListUserSettings.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListUserSettings.ImageStream")));
-            this.imageListUserSettings.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageListUserSettings.Images.SetKeyName(0, "expand_all_16.png");
-            this.imageListUserSettings.Images.SetKeyName(1, "fold_all_16.png");
-            this.imageListUserSettings.Images.SetKeyName(2, "folder_expand_19.png");
-            this.imageListUserSettings.Images.SetKeyName(3, "folder_fold_17.png");
-            this.imageListUserSettings.Images.SetKeyName(4, "refresh_16.png");
-            this.imageListUserSettings.Images.SetKeyName(5, "user_add_32.png");
-            this.imageListUserSettings.Images.SetKeyName(6, "user_delete_32.png");
-            this.imageListUserSettings.Images.SetKeyName(7, "user_edit.png");
             // 
             // buttonItemUserAdd
             // 
@@ -421,341 +1382,13 @@
             this.superTabItemAuthorityManage.Name = "superTabItemAuthorityManage";
             this.superTabItemAuthorityManage.Text = "权限管理";
             // 
-            // superTabControlPanel1
-            // 
-            this.superTabControlPanel1.Controls.Add(this.tableLayoutPanelLogManage);
-            this.superTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel1.Location = new System.Drawing.Point(0, 28);
-            this.superTabControlPanel1.Name = "superTabControlPanel1";
-            this.superTabControlPanel1.Size = new System.Drawing.Size(567, 402);
-            this.superTabControlPanel1.TabIndex = 1;
-            this.superTabControlPanel1.TabItem = this.superTabItemLogManage;
-            // 
-            // tableLayoutPanelLogManage
-            // 
-            this.tableLayoutPanelLogManage.BackColor = System.Drawing.Color.Transparent;
-            this.tableLayoutPanelLogManage.ColumnCount = 2;
-            this.tableLayoutPanelLogManage.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanelLogManage.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanelLogManage.Controls.Add(this.advTreeLogList, 0, 1);
-            this.tableLayoutPanelLogManage.Controls.Add(this.barLog, 0, 0);
-            this.tableLayoutPanelLogManage.Controls.Add(this.superTabControlLogs, 1, 1);
-            this.tableLayoutPanelLogManage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelLogManage.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanelLogManage.Name = "tableLayoutPanelLogManage";
-            this.tableLayoutPanelLogManage.RowCount = 2;
-            this.tableLayoutPanelLogManage.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanelLogManage.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelLogManage.Size = new System.Drawing.Size(567, 402);
-            this.tableLayoutPanelLogManage.TabIndex = 0;
-            // 
-            // advTreeLogList
-            // 
-            this.advTreeLogList.AccessibleRole = System.Windows.Forms.AccessibleRole.Outline;
-            this.advTreeLogList.AllowDrop = true;
-            this.advTreeLogList.BackColor = System.Drawing.SystemColors.Window;
-            // 
-            // 
-            // 
-            this.advTreeLogList.BackgroundStyle.Class = "TreeBorderKey";
-            this.advTreeLogList.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.advTreeLogList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.advTreeLogList.Location = new System.Drawing.Point(3, 33);
-            this.advTreeLogList.MultiSelect = true;
-            this.advTreeLogList.Name = "advTreeLogList";
-            this.advTreeLogList.NodesConnector = this.nodeConnector1;
-            this.advTreeLogList.NodeStyle = this.elementStyle1;
-            this.advTreeLogList.PathSeparator = ";";
-            this.advTreeLogList.Size = new System.Drawing.Size(135, 366);
-            this.advTreeLogList.Styles.Add(this.elementStyle1);
-            this.advTreeLogList.TabIndex = 0;
-            this.advTreeLogList.Text = "advTree1";
-            this.advTreeLogList.NodeDoubleClick += new DevComponents.AdvTree.TreeNodeMouseEventHandler(this.advTreeLogList_NodeDoubleClick);
-            // 
-            // nodeConnector1
-            // 
-            this.nodeConnector1.LineColor = System.Drawing.SystemColors.ControlText;
-            // 
-            // elementStyle1
-            // 
-            this.elementStyle1.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.elementStyle1.Name = "elementStyle1";
-            this.elementStyle1.TextColor = System.Drawing.SystemColors.ControlText;
-            // 
-            // barLog
-            // 
-            this.barLog.AntiAlias = true;
-            this.tableLayoutPanelLogManage.SetColumnSpan(this.barLog, 2);
-            this.barLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.barLog.DockSide = DevComponents.DotNetBar.eDockSide.Document;
-            this.barLog.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
-            this.barLog.Images = this.imageListUserSettings;
-            this.barLog.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.buttonItemExpandAll,
-            this.buttonItemFoldAll,
-            this.buttonItemRefresh,
-            this.buttonItemExportLogs});
-            this.barLog.Location = new System.Drawing.Point(3, 3);
-            this.barLog.Name = "barLog";
-            this.barLog.Size = new System.Drawing.Size(561, 41);
-            this.barLog.Stretch = true;
-            this.barLog.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.barLog.TabIndex = 2;
-            this.barLog.TabStop = false;
-            // 
-            // buttonItemExpandAll
-            // 
-            this.buttonItemExpandAll.ImageIndex = 1;
-            this.buttonItemExpandAll.Name = "buttonItemExpandAll";
-            this.buttonItemExpandAll.Text = "展开所有";
-            this.buttonItemExpandAll.Tooltip = "展开所有";
-            this.buttonItemExpandAll.Click += new System.EventHandler(this.buttonItemExpandAll_Click);
-            // 
-            // buttonItemFoldAll
-            // 
-            this.buttonItemFoldAll.ImageIndex = 0;
-            this.buttonItemFoldAll.Name = "buttonItemFoldAll";
-            this.buttonItemFoldAll.Tooltip = "折叠所有";
-            this.buttonItemFoldAll.Click += new System.EventHandler(this.buttonItemFoldAll_Click);
-            // 
-            // buttonItemRefresh
-            // 
-            this.buttonItemRefresh.BeginGroup = true;
-            this.buttonItemRefresh.ImageIndex = 4;
-            this.buttonItemRefresh.Name = "buttonItemRefresh";
-            this.buttonItemRefresh.Tooltip = "刷新日志列表";
-            this.buttonItemRefresh.Click += new System.EventHandler(this.buttonItemRefresh_Click);
-            // 
-            // buttonItemExportLogs
-            // 
-            this.buttonItemExportLogs.BeginGroup = true;
-            this.buttonItemExportLogs.Name = "buttonItemExportLogs";
-            this.buttonItemExportLogs.Text = "导出日志";
-            this.buttonItemExportLogs.Click += new System.EventHandler(this.buttonItemExportLogs_Click);
-            // 
-            // superTabControlLogs
-            // 
-            this.superTabControlLogs.CloseButtonOnTabsVisible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.superTabControlLogs.ControlBox.CloseBox.Name = "";
-            // 
-            // 
-            // 
-            this.superTabControlLogs.ControlBox.MenuBox.Name = "";
-            this.superTabControlLogs.ControlBox.Name = "";
-            this.superTabControlLogs.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.superTabControlLogs.ControlBox.MenuBox,
-            this.superTabControlLogs.ControlBox.CloseBox});
-            this.superTabControlLogs.Controls.Add(this.superTabControlPanel5);
-            this.superTabControlLogs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlLogs.Location = new System.Drawing.Point(144, 33);
-            this.superTabControlLogs.Name = "superTabControlLogs";
-            this.superTabControlLogs.ReorderTabsEnabled = true;
-            this.superTabControlLogs.SelectedTabFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
-            this.superTabControlLogs.SelectedTabIndex = -1;
-            this.superTabControlLogs.Size = new System.Drawing.Size(420, 366);
-            this.superTabControlLogs.TabFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.superTabControlLogs.TabIndex = 3;
-            this.superTabControlLogs.Text = "superTabControl1";
-            // 
-            // superTabControlPanel5
-            // 
-            this.superTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel5.Location = new System.Drawing.Point(0, 0);
-            this.superTabControlPanel5.Name = "superTabControlPanel5";
-            this.superTabControlPanel5.Size = new System.Drawing.Size(420, 366);
-            this.superTabControlPanel5.TabIndex = 1;
-            // 
-            // superTabItemLogManage
-            // 
-            this.superTabItemLogManage.AttachedControl = this.superTabControlPanel1;
-            this.superTabItemLogManage.GlobalItem = false;
-            this.superTabItemLogManage.Name = "superTabItemLogManage";
-            this.superTabItemLogManage.Text = "日志管理";
-            // 
-            // superTabControlPanel2
-            // 
-            this.superTabControlPanel2.Controls.Add(this.tableLayoutPanelModifyPassword);
-            this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel2.Location = new System.Drawing.Point(0, 28);
-            this.superTabControlPanel2.Name = "superTabControlPanel2";
-            this.superTabControlPanel2.Size = new System.Drawing.Size(567, 402);
-            this.superTabControlPanel2.TabIndex = 0;
-            this.superTabControlPanel2.TabItem = this.superTabItemPasswordModify;
-            // 
-            // tableLayoutPanelModifyPassword
-            // 
-            this.tableLayoutPanelModifyPassword.BackColor = System.Drawing.Color.Transparent;
-            this.tableLayoutPanelModifyPassword.ColumnCount = 5;
-            this.tableLayoutPanelModifyPassword.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelModifyPassword.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanelModifyPassword.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanelModifyPassword.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanelModifyPassword.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelModifyPassword.Controls.Add(this.labelX1, 1, 1);
-            this.tableLayoutPanelModifyPassword.Controls.Add(this.labelX2, 1, 2);
-            this.tableLayoutPanelModifyPassword.Controls.Add(this.labelX3, 1, 3);
-            this.tableLayoutPanelModifyPassword.Controls.Add(this.textBoxXOriginalPassword, 2, 1);
-            this.tableLayoutPanelModifyPassword.Controls.Add(this.textBoxXNewPassword, 2, 2);
-            this.tableLayoutPanelModifyPassword.Controls.Add(this.textBoxXMakeSurePassword, 2, 3);
-            this.tableLayoutPanelModifyPassword.Controls.Add(this.buttonXOK, 2, 4);
-            this.tableLayoutPanelModifyPassword.Controls.Add(this.buttonXCancel, 3, 4);
-            this.tableLayoutPanelModifyPassword.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelModifyPassword.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanelModifyPassword.Name = "tableLayoutPanelModifyPassword";
-            this.tableLayoutPanelModifyPassword.RowCount = 6;
-            this.tableLayoutPanelModifyPassword.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelModifyPassword.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanelModifyPassword.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanelModifyPassword.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanelModifyPassword.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanelModifyPassword.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelModifyPassword.Size = new System.Drawing.Size(567, 402);
-            this.tableLayoutPanelModifyPassword.TabIndex = 0;
-            // 
-            // labelX1
-            // 
-            this.labelX1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            // 
-            // 
-            // 
-            this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX1.Location = new System.Drawing.Point(136, 129);
-            this.labelX1.Name = "labelX1";
-            this.labelX1.Size = new System.Drawing.Size(94, 23);
-            this.labelX1.TabIndex = 0;
-            this.labelX1.Text = "原始密码：";
-            this.labelX1.TextAlignment = System.Drawing.StringAlignment.Far;
-            // 
-            // labelX2
-            // 
-            this.labelX2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            // 
-            // 
-            // 
-            this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX2.Location = new System.Drawing.Point(136, 169);
-            this.labelX2.Name = "labelX2";
-            this.labelX2.Size = new System.Drawing.Size(94, 23);
-            this.labelX2.TabIndex = 1;
-            this.labelX2.Text = "新 密 码：";
-            this.labelX2.TextAlignment = System.Drawing.StringAlignment.Far;
-            // 
-            // labelX3
-            // 
-            this.labelX3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            // 
-            // 
-            // 
-            this.labelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX3.Location = new System.Drawing.Point(136, 209);
-            this.labelX3.Name = "labelX3";
-            this.labelX3.Size = new System.Drawing.Size(94, 23);
-            this.labelX3.TabIndex = 2;
-            this.labelX3.Text = "确认密码：";
-            this.labelX3.TextAlignment = System.Drawing.StringAlignment.Far;
-            // 
-            // textBoxXOriginalPassword
-            // 
-            this.textBoxXOriginalPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            // 
-            // 
-            // 
-            this.textBoxXOriginalPassword.Border.Class = "TextBoxBorder";
-            this.textBoxXOriginalPassword.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tableLayoutPanelModifyPassword.SetColumnSpan(this.textBoxXOriginalPassword, 2);
-            this.textBoxXOriginalPassword.Location = new System.Drawing.Point(236, 130);
-            this.textBoxXOriginalPassword.Name = "textBoxXOriginalPassword";
-            this.textBoxXOriginalPassword.PasswordChar = '*';
-            this.textBoxXOriginalPassword.PreventEnterBeep = true;
-            this.textBoxXOriginalPassword.Size = new System.Drawing.Size(194, 21);
-            this.textBoxXOriginalPassword.TabIndex = 3;
-            // 
-            // textBoxXNewPassword
-            // 
-            this.textBoxXNewPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            // 
-            // 
-            // 
-            this.textBoxXNewPassword.Border.Class = "TextBoxBorder";
-            this.textBoxXNewPassword.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tableLayoutPanelModifyPassword.SetColumnSpan(this.textBoxXNewPassword, 2);
-            this.textBoxXNewPassword.Location = new System.Drawing.Point(236, 170);
-            this.textBoxXNewPassword.Name = "textBoxXNewPassword";
-            this.textBoxXNewPassword.PasswordChar = '*';
-            this.textBoxXNewPassword.PreventEnterBeep = true;
-            this.textBoxXNewPassword.Size = new System.Drawing.Size(194, 21);
-            this.textBoxXNewPassword.TabIndex = 4;
-            // 
-            // textBoxXMakeSurePassword
-            // 
-            this.textBoxXMakeSurePassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            // 
-            // 
-            // 
-            this.textBoxXMakeSurePassword.Border.Class = "TextBoxBorder";
-            this.textBoxXMakeSurePassword.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tableLayoutPanelModifyPassword.SetColumnSpan(this.textBoxXMakeSurePassword, 2);
-            this.textBoxXMakeSurePassword.Location = new System.Drawing.Point(236, 210);
-            this.textBoxXMakeSurePassword.Name = "textBoxXMakeSurePassword";
-            this.textBoxXMakeSurePassword.PasswordChar = '*';
-            this.textBoxXMakeSurePassword.PreventEnterBeep = true;
-            this.textBoxXMakeSurePassword.Size = new System.Drawing.Size(194, 21);
-            this.textBoxXMakeSurePassword.TabIndex = 5;
-            // 
-            // buttonXOK
-            // 
-            this.buttonXOK.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.buttonXOK.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonXOK.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonXOK.Location = new System.Drawing.Point(245, 249);
-            this.buttonXOK.Name = "buttonXOK";
-            this.buttonXOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonXOK.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.buttonXOK.TabIndex = 6;
-            this.buttonXOK.Text = "修  改";
-            this.buttonXOK.Click += new System.EventHandler(this.buttonXOK_Click);
-            // 
-            // buttonXCancel
-            // 
-            this.buttonXCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.buttonXCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonXCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonXCancel.Location = new System.Drawing.Point(345, 249);
-            this.buttonXCancel.Name = "buttonXCancel";
-            this.buttonXCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonXCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.buttonXCancel.TabIndex = 7;
-            this.buttonXCancel.Text = "取  消";
-            this.buttonXCancel.Click += new System.EventHandler(this.buttonXCancel_Click);
-            // 
-            // superTabItemPasswordModify
-            // 
-            this.superTabItemPasswordModify.AttachedControl = this.superTabControlPanel2;
-            this.superTabItemPasswordModify.GlobalItem = false;
-            this.superTabItemPasswordModify.Name = "superTabItemPasswordModify";
-            this.superTabItemPasswordModify.Text = "密码修改";
-            // 
-            // superTabControlPanel4
-            // 
-            this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel4.Location = new System.Drawing.Point(0, 28);
-            this.superTabControlPanel4.Name = "superTabControlPanel4";
-            this.superTabControlPanel4.Size = new System.Drawing.Size(567, 402);
-            this.superTabControlPanel4.TabIndex = 0;
-            this.superTabControlPanel4.TabItem = this.superTabItemSoftwareSetting;
-            // 
-            // superTabItemSoftwareSetting
-            // 
-            this.superTabItemSoftwareSetting.AttachedControl = this.superTabControlPanel4;
-            this.superTabItemSoftwareSetting.GlobalItem = false;
-            this.superTabItemSoftwareSetting.Name = "superTabItemSoftwareSetting";
-            this.superTabItemSoftwareSetting.Text = "软件设置";
+            // buttonItemHelp
+            // 
+            this.buttonItemHelp.BeginGroup = true;
+            this.buttonItemHelp.ImageIndex = 8;
+            this.buttonItemHelp.Name = "buttonItemHelp";
+            this.buttonItemHelp.Tooltip = "查看帮助文档";
+            this.buttonItemHelp.Click += new System.EventHandler(this.buttonItemHelp_Click);
             // 
             // UCUserSettings
             // 
@@ -767,19 +1400,33 @@
             this.Load += new System.EventHandler(this.UCUserSettings_Load);
             ((System.ComponentModel.ISupportInitialize)(this.superTabControlUserSettings)).EndInit();
             this.superTabControlUserSettings.ResumeLayout(false);
-            this.superTabControlPanel3.ResumeLayout(false);
-            this.tableLayoutPanelAuthorityManage.ResumeLayout(false);
-            this.tableLayoutPanelAuthorityManage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.barAuthorityManage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.advTreeUsers)).EndInit();
             this.superTabControlPanel1.ResumeLayout(false);
             this.tableLayoutPanelLogManage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.advTreeLogList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barLog)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControlLogs)).EndInit();
             this.superTabControlLogs.ResumeLayout(false);
+            this.superTabControlPanel6.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.integerInputMBSTCPServerPort)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ipAddressInput1)).EndInit();
+            this.superTabControlPanel4.ResumeLayout(false);
+            this.tableLayoutPanelSoftSettings.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.tableLayoutPanelSSCacheSettings.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.tableLayoutPanelSSAbout.ResumeLayout(false);
             this.superTabControlPanel2.ResumeLayout(false);
             this.tableLayoutPanelModifyPassword.ResumeLayout(false);
+            this.superTabControlPanel3.ResumeLayout(false);
+            this.tableLayoutPanelAuthorityManage.ResumeLayout(false);
+            this.tableLayoutPanelAuthorityManage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.barAuthorityManage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.advTreeUsers)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -836,5 +1483,45 @@
         private System.Windows.Forms.RadioButton radioButtonUAGeneralUser;
         private DevComponents.DotNetBar.ButtonX buttonXUAOK;
         private DevComponents.DotNetBar.ButtonX buttonXUACancel;
+        private DevComponents.DotNetBar.ButtonItem buttonItemHelp;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelSoftSettings;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelSSCacheSettings;
+        private DevComponents.DotNetBar.ButtonX buttonXVideoDataPathSelect;
+        private DevComponents.DotNetBar.Controls.TextBoxX textBoxXVideoDataPath;
+        private DevComponents.DotNetBar.LabelX labelX9;
+        private DevComponents.DotNetBar.LabelX labelX10;
+        private DevComponents.DotNetBar.Controls.TextBoxX textBoxXOfflineBDMapCachePath;
+        private DevComponents.DotNetBar.ButtonX buttonXOfflineBDMapCachePathSelect;
+        private DevComponents.DotNetBar.ButtonX buttonXSSCSCancel;
+        private DevComponents.DotNetBar.ButtonX buttonXSSCSSave;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelSSAbout;
+        private DevComponents.DotNetBar.LabelX labelX8;
+        private DevComponents.DotNetBar.LabelX labelX7;
+        private DevComponents.DotNetBar.Controls.ReflectionImage reflectionImage1;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogCache;
+        private DevComponents.DotNetBar.ButtonX buttonXSSCSResetDefault;
+        private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel6;
+        private DevComponents.DotNetBar.SuperTabItem superTabItemMeshSettings;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private DevComponents.DotNetBar.LabelX labelX11;
+        private DevComponents.DotNetBar.LabelX labelX12;
+        private DevComponents.DotNetBar.LabelX labelX13;
+        private DevComponents.DotNetBar.Controls.ComboBoxEx comboBoxExLocalhostNetwordCard;
+        private DevComponents.Editors.IpAddressInput ipAddressInput1;
+        private DevComponents.DotNetBar.Controls.TextBoxX textBoxX3;
+        private DevComponents.DotNetBar.Controls.TextBoxX textBoxX2;
+        private DevComponents.DotNetBar.LabelX labelX14;
+        private DevComponents.DotNetBar.Controls.TextBoxX textBoxX1;
+        private DevComponents.DotNetBar.LabelX labelX15;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private DevComponents.DotNetBar.LabelX labelX16;
+        private DevComponents.DotNetBar.ButtonX buttonXMBSCancel;
+        private DevComponents.DotNetBar.ButtonX buttonXMBSSave;
+        private DevComponents.Editors.IntegerInput integerInputMBSTCPServerPort;
     }
 }

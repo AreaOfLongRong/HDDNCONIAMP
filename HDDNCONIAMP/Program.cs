@@ -23,9 +23,15 @@ namespace HDDNCONIAMP
 
             //创建logger
             var logger = LogManager.GetLogger(typeof(Program));
-
-            logger.Info("启动程序...");
-            Application.Run(new FormMain());
+            try
+            {
+                logger.Info("启动程序...");
+                Application.Run(new FormMain());
+            }
+            catch (Exception ex)
+            {
+                logger.Error("程序出现异常：" + ex.ToString());
+            }
         }
     }
 }

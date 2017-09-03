@@ -11,6 +11,12 @@ namespace HDDNCONIAMP.Utils
     /// </summary>
     public class FileUtils
     {
+
+        /// <summary>
+        /// CHM帮助文档路径
+        /// </summary>
+        public static string HELP_CHM_PATH = AppDomain.CurrentDomain.BaseDirectory + "Help.chm";
+
         /// <summary>
         /// 私有构造函数，防止被实例化
         /// </summary>

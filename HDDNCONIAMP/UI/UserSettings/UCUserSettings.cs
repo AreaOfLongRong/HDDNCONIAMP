@@ -15,6 +15,8 @@ using DevComponents.DotNetBar;
 using DevComponents.DotNetBar.Controls;
 using HDDNCONIAMP.Utils;
 using log4net;
+using System.Diagnostics;
+using System.Net.NetworkInformation;
 
 namespace HDDNCONIAMP.UI.UserSettings
 {
@@ -30,6 +32,11 @@ namespace HDDNCONIAMP.UI.UserSettings
         /// 日志记录器
         /// </summary>
         private ILog logger = LogManager.GetLogger(typeof(UCUserSettings));
+
+        /// <summary>
+        /// 网卡接口数组
+        /// </summary>
+        private NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
 
         #endregion
 
@@ -70,9 +77,11 @@ namespace HDDNCONIAMP.UI.UserSettings
                 superTabItemAuthorityManage.Visible = true;
                 initAdvTreeUsers();
             }
-        }
 
-        private int currentID;
+            initMeshBaseParamConfit();
+
+            initCacheSettingsTextBoxX();
+        }
 
         #region 日志管理事件处理
 
@@ -351,7 +360,7 @@ namespace HDDNCONIAMP.UI.UserSettings
         private void advTreeUsers_NodeClick(object sender, TreeNodeMouseEventArgs e)
         {
             //在右侧详情面板中显示用户信息
-            if(advTreeUsers.SelectedNode != null)
+            if (advTreeUsers.SelectedNode != null)
             {
                 User user = (User)advTreeUsers.SelectedNode.Tag;
                 textBoxXUAUserName.Text = user.Name;
@@ -367,35 +376,88 @@ namespace HDDNCONIAMP.UI.UserSettings
             }
         }
 
-        private void buttonX1_Click(object sender, EventArgs e)
-        {
-            currentID = SQLiteHelper.GetInstance().UserRegister(DateTime.Now.ToString(), "123", EUserAuthority.GeneralUser.ToString());
-            MessageBox.Show(currentID + "");
-        }
-
-        private void buttonX2_Click(object sender, EventArgs e)
-        {
-            int row = SQLiteHelper.GetInstance().UserModifyPassword(currentID, "456");
-            MessageBox.Show(row + "");
-        }
-
-        private void buttonX3_Click(object sender, EventArgs e)
-        {
-            int row = SQLiteHelper.GetInstance().UserDelete(currentID);
-            MessageBox.Show(row + "");
-        }
-
-        private void buttonX4_Click(object sender, EventArgs e)
-        {
-            List<User> users = SQLiteHelper.GetInstance().UserAllQuery();
-        }
-
-
         #endregion
 
         #region 软件设置事件处理
 
+        /// <summary>
+        /// 打开帮助文档
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonItemHelp_Click(object sender, EventArgs e)
+        {
+            Process.Start(FileUtils.HELP_CHM_PATH);
+        }
 
+        /// <summary>
+        /// 选择离线地图缓存路径
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonXOfflineBDMapCachePathSelect_Click(object sender, EventArgs e)
+        {
+            if (folderBrowserDialogCache.ShowDialog() == DialogResult.OK)
+            {
+                textBoxXOfflineBDMapCachePath.Text = folderBrowserDialogCache.SelectedPath;
+            }
+        }
+
+        /// <summary>
+        /// 选择视频数据缓存路径
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonXVideoDataPathSelect_Click(object sender, EventArgs e)
+        {
+            if (folderBrowserDialogCache.ShowDialog() == DialogResult.OK)
+            {
+                textBoxXVideoDataPath.Text = folderBrowserDialogCache.SelectedPath;
+            }
+        }
+
+        /// <summary>
+        /// 恢复默认配置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonXSSCSResetDefault_Click(object sender, EventArgs e)
+        {
+            PathUtils.Instance.ResetDefaultCacheSetting();
+            initCacheSettingsTextBoxX();
+        }
+
+        /// <summary>
+        /// 保存缓存路径配置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonXSSCSSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                PathUtils.Instance.BDMapCachePath = textBoxXOfflineBDMapCachePath.Text;
+                PathUtils.Instance.VideoDataPath = textBoxXVideoDataPath.Text;
+                logger.Info("更改离线地图缓存配置为“" + PathUtils.Instance.BDMapCachePath + "”；视频缓存位置为“" + PathUtils.Instance.VideoDataPath + "”。");
+                MessageBox.Show("保存成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("缓存配置保存失败！", ex);
+                MessageBox.Show("保存失败！", "警告", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// 取消缓存路径配置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonXSSCSCancel_Click(object sender, EventArgs e)
+        {
+            textBoxXOfflineBDMapCachePath.Text = PathUtils.Instance.BDMapCachePath;
+            textBoxXVideoDataPath.Text = PathUtils.Instance.VideoDataPath;
+        }
 
         #endregion
 
@@ -409,6 +471,9 @@ namespace HDDNCONIAMP.UI.UserSettings
             tableLayoutPanelLogManage.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelLogManage, true, null);
             tableLayoutPanelModifyPassword.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelModifyPassword, true, null);
             tableLayoutPanelAuthorityManage.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelAuthorityManage, true, null);
+            tableLayoutPanelSSCacheSettings.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelSSCacheSettings, true, null);
+            tableLayoutPanelSSAbout.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelSSAbout, true, null);
+            tableLayoutPanelSoftSettings.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelSoftSettings, true, null);
         }
 
         /// <summary>
@@ -471,6 +536,11 @@ namespace HDDNCONIAMP.UI.UserSettings
             textBoxXMakeSurePassword.Clear();
         }
 
+        /// <summary>
+        /// 更新用户权限管理界面控件状态
+        /// </summary>
+        /// <param name="enable"></param>
+        /// <param name="clearContent"></param>
         private void updateUAControlsEnableState(bool enable, bool clearContent)
         {
             //空间可用性控制
@@ -487,6 +557,31 @@ namespace HDDNCONIAMP.UI.UserSettings
                 textBoxXUAUserPassword.Text = "";
                 radioButtonUAGeneralUser.Checked = true;
             }
+        }
+
+        /// <summary>
+        /// 初始化“Mesh基本参数配置”界面控件
+        /// </summary>
+        private void initMeshBaseParamConfit()
+        {
+            //判断是否为以太网卡
+            //Ethernet              以太网卡  
+            //Wireless80211         无线网卡
+            NetworkInterface[] ethernets = nics.Where(nic => nic.NetworkInterfaceType == NetworkInterfaceType.Ethernet).ToArray();
+            foreach (NetworkInterface adapter in ethernets)
+            {
+                this.comboBoxExLocalhostNetwordCard.Items.Add(adapter.Name);
+            }
+            this.comboBoxExLocalhostNetwordCard.SelectedIndex = 0;
+        }
+
+        /// <summary>
+        /// 初始化缓存设置控件的内容
+        /// </summary>
+        private void initCacheSettingsTextBoxX()
+        {
+            textBoxXOfflineBDMapCachePath.Text = PathUtils.Instance.BDMapCachePath;
+            textBoxXVideoDataPath.Text = PathUtils.Instance.VideoDataPath;
         }
 
         #endregion

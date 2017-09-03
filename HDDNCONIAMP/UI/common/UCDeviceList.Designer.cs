@@ -35,12 +35,6 @@
             this.advTreeDeviceList = new DevComponents.AdvTree.AdvTree();
             this.imageListGISVideo = new System.Windows.Forms.ImageList(this.components);
             this.nodeDefaultGroup = new DevComponents.AdvTree.Node();
-            this.node1 = new DevComponents.AdvTree.Node();
-            this.node2 = new DevComponents.AdvTree.Node();
-            this.node3 = new DevComponents.AdvTree.Node();
-            this.node4 = new DevComponents.AdvTree.Node();
-            this.node5 = new DevComponents.AdvTree.Node();
-            this.node6 = new DevComponents.AdvTree.Node();
             this.nodeConnectorMain = new DevComponents.AdvTree.NodeConnector();
             this.elementStyleMain = new DevComponents.DotNetBar.ElementStyle();
             this.barDeviceList = new DevComponents.DotNetBar.Bar();
@@ -115,8 +109,7 @@
             this.advTreeDeviceList.Location = new System.Drawing.Point(3, 63);
             this.advTreeDeviceList.Name = "advTreeDeviceList";
             this.advTreeDeviceList.Nodes.AddRange(new DevComponents.AdvTree.Node[] {
-            this.nodeDefaultGroup,
-            this.node4});
+            this.nodeDefaultGroup});
             this.advTreeDeviceList.NodesConnector = this.nodeConnectorMain;
             this.advTreeDeviceList.NodeStyle = this.elementStyleMain;
             this.advTreeDeviceList.PathSeparator = ";";
@@ -125,6 +118,7 @@
             this.advTreeDeviceList.Styles.Add(this.elementStyleMain);
             this.advTreeDeviceList.TabIndex = 1;
             this.advTreeDeviceList.Text = "advTree1";
+            this.advTreeDeviceList.NodeClick += new DevComponents.AdvTree.TreeNodeMouseEventHandler(this.advTreeDeviceList_NodeClick);
             // 
             // imageListGISVideo
             // 
@@ -153,50 +147,7 @@
             this.nodeDefaultGroup.ImageExpandedIndex = 4;
             this.nodeDefaultGroup.ImageIndex = 5;
             this.nodeDefaultGroup.Name = "nodeDefaultGroup";
-            this.nodeDefaultGroup.Nodes.AddRange(new DevComponents.AdvTree.Node[] {
-            this.node1,
-            this.node2,
-            this.node3});
             this.nodeDefaultGroup.Text = "默认分组";
-            // 
-            // node1
-            // 
-            this.node1.Expanded = true;
-            this.node1.Name = "node1";
-            this.node1.Text = "node1";
-            // 
-            // node2
-            // 
-            this.node2.Expanded = true;
-            this.node2.Name = "node2";
-            this.node2.Text = "node2";
-            // 
-            // node3
-            // 
-            this.node3.Expanded = true;
-            this.node3.Name = "node3";
-            this.node3.Text = "test3";
-            // 
-            // node4
-            // 
-            this.node4.Expanded = true;
-            this.node4.Name = "node4";
-            this.node4.Nodes.AddRange(new DevComponents.AdvTree.Node[] {
-            this.node5,
-            this.node6});
-            this.node4.Text = "node4";
-            // 
-            // node5
-            // 
-            this.node5.Expanded = true;
-            this.node5.Name = "node5";
-            this.node5.Text = "node5";
-            // 
-            // node6
-            // 
-            this.node6.Expanded = true;
-            this.node6.Name = "node6";
-            this.node6.Text = "test6";
             // 
             // nodeConnectorMain
             // 
@@ -296,12 +247,6 @@
         private DevComponents.DotNetBar.Controls.TextBoxX textBoxXSearch;
         private DevComponents.AdvTree.AdvTree advTreeDeviceList;
         private DevComponents.AdvTree.Node nodeDefaultGroup;
-        private DevComponents.AdvTree.Node node1;
-        private DevComponents.AdvTree.Node node2;
-        private DevComponents.AdvTree.Node node3;
-        private DevComponents.AdvTree.Node node4;
-        private DevComponents.AdvTree.Node node5;
-        private DevComponents.AdvTree.Node node6;
         private DevComponents.AdvTree.NodeConnector nodeConnectorMain;
         private DevComponents.DotNetBar.ElementStyle elementStyleMain;
         private DevComponents.DotNetBar.Bar barDeviceList;
