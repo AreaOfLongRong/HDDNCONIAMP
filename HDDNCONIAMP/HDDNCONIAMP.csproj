@@ -177,6 +177,7 @@
     <None Include="DB\HDDNCONIAMP.db3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Documents\软件开发进度表.xlsx" />
     <None Include="Documents\软件需求及进度安排.docx" />
     <None Include="Documents\软件平台开发要求.docx" />
     <None Include="Help.chm">

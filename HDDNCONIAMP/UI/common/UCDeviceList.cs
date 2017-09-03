@@ -72,6 +72,29 @@ namespace HDDNCONIAMP.UI.common
                 BuddyBMapControl.AddVideoPlaces(devices);
             }
 
+
+            List<BDeviceRoute> routes = new List<BDeviceRoute>();
+            BDeviceRoute r1 = new BDeviceRoute();
+            r1.DeviceName = "device1";
+            List<LatLngPoint> ps1 = new List<LatLngPoint>();
+            ps1.Add(new LatLngPoint(115.20, 39));
+            ps1.Add(new LatLngPoint(116.30, 40));
+            ps1.Add(new LatLngPoint(116.391046, 40.014476));
+            r1.DeviceLocationList = ps1;
+            routes.Add(r1);
+            BDeviceRoute r2 = new BDeviceRoute();
+            r2.DeviceName = "device2";
+            List<LatLngPoint> ps2 = new List<LatLngPoint>();
+            ps2.Add(new LatLngPoint(117.20, 39));
+            ps2.Add(new LatLngPoint(116.80, 40.1));
+            ps2.Add(new LatLngPoint(116.549722, 39.972907));
+            r2.DeviceLocationList = ps2;
+            routes.Add(r2);
+            if (BuddyBMapControl != null)
+            {
+                BuddyBMapControl.AddDeviceRoutes(routes);
+            }
+
             advTreeDeviceList.BeginUpdate();
             foreach (BVideoPoint vp in devices)
             {

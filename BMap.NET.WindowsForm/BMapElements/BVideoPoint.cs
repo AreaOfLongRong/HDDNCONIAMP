@@ -103,5 +103,18 @@ namespace BMap.NET.WindowsForm.BMapElements
             g.DrawImage(b, new Rectangle(p.X - b.Width / 2, p.Y - b.Height, b.Width, b.Height));
             _rect = new Rectangle(p.X - b.Width / 2, p.Y - b.Height, b.Width, b.Height);
         }
+
+        /// <summary>
+        /// 字符串转换
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("名称：" + Index);
+            sb.AppendLine(Location.ToString());
+            sb.AppendLine("状态：" + (IsOnline ? "在线" : "离线"));
+            return sb.ToString();
+        }
     }
 }

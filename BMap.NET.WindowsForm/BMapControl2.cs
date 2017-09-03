@@ -193,6 +193,10 @@ namespace BMap.NET.WindowsForm
         /// </summary>
         private BRoute _b_route;
         /// <summary>
+        /// 地图中视频设备轨迹集
+        /// </summary>
+        private Dictionary<string, BDeviceRoute> _deviceRoutes = new Dictionary<string, BDeviceRoute>();
+        /// <summary>
         /// 当前绘制图形  没有则为null(包括截图矩形)
         /// </summary>
         private DrawingObject _current_drawing;
@@ -478,58 +482,60 @@ namespace BMap.NET.WindowsForm
                     }
                     return;
                 }
-                if (new Rectangle(10, 10, 90, 25).Contains(e.Location))  //打开城市切换窗体
-                {
-                    if (_bCityControl.Visible)
-                    {
-                        _bCityControl.Visible = false;
-                    }
-                    else
-                    {
-                        _bCityControl.Location = new Point(10, 38);
-                        _bCityControl.Visible = true;
-                        _bCityControl.CurrentCity = _currentCity;
-                    }
-                    Invalidate();
-                    return;
-                }
-                else if (new Rectangle(Width - 124, 10, 52, 52).Contains(e.Location)) //打开地图加载模式窗体
-                {
-                    if (_bLoadMapModeControl.Visible)
-                    {
-                        _bLoadMapModeControl.Visible = false;
-                    }
-                    else
-                    {
-                        _bLoadMapModeControl.Location = new Point(Width - 124 + 52 - _bLoadMapModeControl.Width, 10 + 55);
-                        _bLoadMapModeControl.LoadMode = _loadmode;
-                        _bLoadMapModeControl.Visible = true;
-                    }
-                    Invalidate();
-                    return;
-                }
-                else if (new Rectangle(Width - 62, 10, 52, 52).Contains(e.Location)) //切换地图模式
-                {
-                    if (_mode == MapMode.Normal)
-                    {
-                        if (_chkShowRoadNet.Checked)
-                        {
-                            Mode = MapMode.Sate_RoadNet;
-                        }
-                        else
-                        {
-                            Mode = MapMode.Satellite;
-                        }
-                        _chkShowRoadNet.Location = new Point(Width - 62, 65);
-                        _chkShowRoadNet.Visible = true;
-                    }
-                    else
-                    {
-                        Mode = MapMode.Normal;
-                        _chkShowRoadNet.Visible = false;
-                    }
-                    return;
-                }
+
+                //Z-20170903:禁止打开“城市切换窗体”、“地图加载模式”和“切换地图模式”工具
+                //if (new Rectangle(10, 10, 90, 25).Contains(e.Location))  //打开城市切换窗体
+                //{
+                //    if (_bCityControl.Visible)
+                //    {
+                //        _bCityControl.Visible = false;
+                //    }
+                //    else
+                //    {
+                //        _bCityControl.Location = new Point(10, 38);
+                //        _bCityControl.Visible = true;
+                //        _bCityControl.CurrentCity = _currentCity;
+                //    }
+                //    Invalidate();
+                //    return;
+                //}
+                //else if (new Rectangle(Width - 124, 10, 52, 52).Contains(e.Location)) //打开地图加载模式窗体
+                //{
+                //    if (_bLoadMapModeControl.Visible)
+                //    {
+                //        _bLoadMapModeControl.Visible = false;
+                //    }
+                //    else
+                //    {
+                //        _bLoadMapModeControl.Location = new Point(Width - 124 + 52 - _bLoadMapModeControl.Width, 10 + 55);
+                //        _bLoadMapModeControl.LoadMode = _loadmode;
+                //        _bLoadMapModeControl.Visible = true;
+                //    }
+                //    Invalidate();
+                //    return;
+                //}
+                //else if (new Rectangle(Width - 62, 10, 52, 52).Contains(e.Location)) //切换地图模式
+                //{
+                //    if (_mode == MapMode.Normal)
+                //    {
+                //        if (_chkShowRoadNet.Checked)
+                //        {
+                //            Mode = MapMode.Sate_RoadNet;
+                //        }
+                //        else
+                //        {
+                //            Mode = MapMode.Satellite;
+                //        }
+                //        _chkShowRoadNet.Location = new Point(Width - 62, 65);
+                //        _chkShowRoadNet.Visible = true;
+                //    }
+                //    else
+                //    {
+                //        Mode = MapMode.Normal;
+                //        _chkShowRoadNet.Visible = false;
+                //    }
+                //    return;
+                //}
 
 
                 if (_mouse_type == MouseType.None)  //拖拽地图
@@ -802,7 +808,7 @@ namespace BMap.NET.WindowsForm
                 {
                     if (v.Value.Rect.Contains(e.Location))
                     {
-                        _toolTip.Text = v.Value.Location.ToString();
+                        _toolTip.Text = v.Value.ToString();
                         _toolTip.Location = new Point(
                             v.Value.Rect.Right - v.Value.Rect.Width / 2 - _toolTip.Width / 2,
                             v.Value.Rect.Bottom + 15);
@@ -815,10 +821,11 @@ namespace BMap.NET.WindowsForm
                     _toolTip.Visible = false;
             }
             //鼠标形状
-            if (new Rectangle(Width - 384, 10, 234, 26).Contains(e.Location)
-                || new Rectangle(Width - 124, 10, 52, 52).Contains(e.Location)
-                || new Rectangle(Width - 62, 10, 52, 52).Contains(e.Location))
-            {
+            //if (new Rectangle(Width - 384, 10, 234, 26).Contains(e.Location)
+            //    || new Rectangle(Width - 124, 10, 52, 52).Contains(e.Location)
+            //    || new Rectangle(Width - 62, 10, 52, 52).Contains(e.Location))
+                if (new Rectangle(Width - 384, 10, 234, 26).Contains(e.Location))
+                {
                 Cursor = Cursors.Hand;
                 return;
             }
@@ -1435,6 +1442,10 @@ namespace BMap.NET.WindowsForm
             {
                 v.Value.Draw(g, _center, _zoom, ClientSize);
             }
+            foreach (KeyValuePair<string, BDeviceRoute> v in _deviceRoutes)
+            {
+                v.Value.Draw(g, _center, _zoom, ClientSize);
+            }
             foreach (KeyValuePair<string, BMarker> p in _markers) //标记点
             {
                 p.Value.Draw(g, _center, _zoom, ClientSize);
@@ -1577,6 +1588,21 @@ namespace BMap.NET.WindowsForm
             _videoPoints.Clear();
             Invalidate();
         }
+
+        /// <summary>
+        /// 添加设备路径
+        /// </summary>
+        /// <param name="routes"></param>
+        public void AddDeviceRoutes(List<BDeviceRoute> routes)
+        {
+            _deviceRoutes.Clear();
+            foreach (BDeviceRoute r in routes)
+            {
+                _deviceRoutes.Add(r.DeviceName, r);
+            }
+            Invalidate();
+        }
+
         /// <summary>
         /// 设置地图中路线起点、终点（可以设为null表示清空）
         /// </summary>
