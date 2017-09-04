@@ -4,6 +4,7 @@ using DevComponents.DotNetBar;
 using HDDNCONIAMP.DB;
 using HDDNCONIAMP.DB.Model;
 using HDDNCONIAMP.Events;
+using HDDNCONIAMP.Network;
 using HDDNCONIAMP.UI.AudioVideoProcess;
 using HDDNCONIAMP.UI.GISVideo;
 using HDDNCONIAMP.UI.MeshManagement;
@@ -69,6 +70,10 @@ namespace HDDNCONIAMP
 
         #endregion
 
+        /// <summary>
+        /// 获取或设置网路监听管理器
+        /// </summary>
+        public NetworkListenerManage NLM { get; set; }
 
         public FormMain()
         {
@@ -90,11 +95,17 @@ namespace HDDNCONIAMP
 
             logger.Info("启动更新系统时间计时器...");
             timerUpdateTime.Start();
+
             //更新界面
             updateSuperTabControlPanel(OpenUCType.OpenLogin);
 
-            //注册用户登陆/登出事件处理
-            OnUserLoginOrOutEventHandler += FormMain_OnUserLoginOrOutEventHandler;
+            logger.Info("开启监听...");
+            NLM = new NetworkListenerManage();
+            NLM.Start();
+            
+
+           //注册用户登陆/登出事件处理
+           OnUserLoginOrOutEventHandler += FormMain_OnUserLoginOrOutEventHandler;
 
         }
 
@@ -137,6 +148,8 @@ namespace HDDNCONIAMP
         /// <param name="e"></param>
         private void pictureBoxExit_Click(object sender, EventArgs e)
         {
+            logger.Info("关闭监听线程...");
+            NLM.Stop();
             logger.Info("退出应用程序...");
             Application.Exit();
         }
@@ -287,7 +300,7 @@ namespace HDDNCONIAMP
                     {
                         if (ucGISVideo == null)
                         {
-                            ucGISVideo = new UCGISVideo();
+                            ucGISVideo = new UCGISVideo(this);
                             ucGISVideo.Dock = DockStyle.Fill;
                             superTabControlPanelGISVideo.Controls.Add(ucGISVideo);
                         }
@@ -302,7 +315,7 @@ namespace HDDNCONIAMP
                     {
                         if (ucAudioVideoProcess == null)
                         {
-                            ucAudioVideoProcess = new UCAudioVideoProcess();
+                            ucAudioVideoProcess = new UCAudioVideoProcess(this);
                             ucAudioVideoProcess.Dock = DockStyle.Fill;
                             superTabControlPanelAudioVideoProcess.Controls.Clear();  //清空所有控件
                             superTabControlPanelAudioVideoProcess.Controls.Add(ucAudioVideoProcess);

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.collapsibleSplitContainerMain = new DevComponents.DotNetBar.Controls.CollapsibleSplitContainer();
-            this.ucDeviceListmain = new HDDNCONIAMP.UI.common.UCDeviceList();
+            
             this.bMapControl2Main = new BMap.NET.WindowsForm.BMapControl2();
             ((System.ComponentModel.ISupportInitialize)(this.collapsibleSplitContainerMain)).BeginInit();
             this.collapsibleSplitContainerMain.Panel1.SuspendLayout();
@@ -43,11 +43,6 @@
             this.collapsibleSplitContainerMain.Location = new System.Drawing.Point(0, 0);
             this.collapsibleSplitContainerMain.Name = "collapsibleSplitContainerMain";
             // 
-            // collapsibleSplitContainerMain.Panel1
-            // 
-            this.collapsibleSplitContainerMain.Panel1.Controls.Add(this.ucDeviceListmain);
-            this.collapsibleSplitContainerMain.Panel1MinSize = 5;
-            // 
             // collapsibleSplitContainerMain.Panel2
             // 
             this.collapsibleSplitContainerMain.Panel2.Controls.Add(this.bMapControl2Main);
@@ -56,15 +51,7 @@
             this.collapsibleSplitContainerMain.SplitterDistance = 150;
             this.collapsibleSplitContainerMain.SplitterWidth = 10;
             this.collapsibleSplitContainerMain.TabIndex = 0;
-            // 
-            // ucDeviceListmain
-            // 
-            this.ucDeviceListmain.BuddyBMapControl = this.bMapControl2Main;
-            this.ucDeviceListmain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucDeviceListmain.Location = new System.Drawing.Point(0, 0);
-            this.ucDeviceListmain.Name = "ucDeviceListmain";
-            this.ucDeviceListmain.Size = new System.Drawing.Size(150, 439);
-            this.ucDeviceListmain.TabIndex = 0;
+           
             // 
             // bMapControl2Main
             // 
@@ -98,7 +85,7 @@
         #endregion
 
         private DevComponents.DotNetBar.Controls.CollapsibleSplitContainer collapsibleSplitContainerMain;
-        private common.UCDeviceList ucDeviceListmain;
+        
         private BMap.NET.WindowsForm.BMapControl2 bMapControl2Main;
     }
 }

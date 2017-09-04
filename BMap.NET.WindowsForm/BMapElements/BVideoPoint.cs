@@ -14,6 +14,15 @@ namespace BMap.NET.WindowsForm.BMapElements
     {
 
         /// <summary>
+        /// 设备名称
+        /// </summary>
+        public string Name
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 位置坐标
         /// </summary>
         public LatLngPoint Location
@@ -94,7 +103,7 @@ namespace BMap.NET.WindowsForm.BMapElements
             Bitmap b;
             if (_selected)
             {
-                b = _isOnline ? Properties.BMap.ico_camera_online_64: Properties.BMap.ico_camera_offline_64;
+                b = _isOnline ? Properties.BMap.ico_camera_online_64 : Properties.BMap.ico_camera_offline_64;
             }
             else
             {
@@ -111,7 +120,7 @@ namespace BMap.NET.WindowsForm.BMapElements
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("名称：" + Index);
+            sb.AppendLine("名称：" + Name);
             sb.AppendLine(Location.ToString());
             sb.AppendLine("状态：" + (IsOnline ? "在线" : "离线"));
             return sb.ToString();

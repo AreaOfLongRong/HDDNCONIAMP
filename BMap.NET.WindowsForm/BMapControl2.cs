@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -8,6 +9,7 @@ using BMap.NET.HTTPService;
 using BMap.NET.WindowsForm.BMapElements;
 using BMap.NET.WindowsForm.DrawingObjects;
 using BMap.NET.WindowsForm.FunctionalControls;
+using BMap.NET.WindowsForm.Video;
 using Newtonsoft.Json.Linq;
 
 namespace BMap.NET.WindowsForm
@@ -824,8 +826,8 @@ namespace BMap.NET.WindowsForm
             //if (new Rectangle(Width - 384, 10, 234, 26).Contains(e.Location)
             //    || new Rectangle(Width - 124, 10, 52, 52).Contains(e.Location)
             //    || new Rectangle(Width - 62, 10, 52, 52).Contains(e.Location))
-                if (new Rectangle(Width - 384, 10, 234, 26).Contains(e.Location))
-                {
+            if (new Rectangle(Width - 384, 10, 234, 26).Contains(e.Location))
+            {
                 Cursor = Cursors.Hand;
                 return;
             }
@@ -1063,6 +1065,30 @@ namespace BMap.NET.WindowsForm
             {
                 _mouse_type = MouseType.None;
                 _current_cursor_cache = Cursor = Cursors.Arrow;
+            }
+            //设备点双击查看视频
+            foreach (KeyValuePair<string, BVideoPoint> v in _videoPoints)
+            {
+                if (v.Value.Rect.Contains(e.Location))
+                {
+                    _current_selected_video_place = v.Value;
+                    //显示信息控件
+                    v.Value.Selected = true;
+
+                    //Z-20170904：调用C++ EXE，显示视频信息
+                    VideoInject injet = new VideoInject();
+                    injet.injectWindow();
+
+                    foreach (KeyValuePair<string, BVideoPoint> vv in _videoPoints)
+                    {
+                        if (vv.Value != v.Value)
+                        {
+                            vv.Value.Selected = false;
+                        }
+                    }
+                    Invalidate();
+                    return;
+                }
             }
             Invalidate();
         }
