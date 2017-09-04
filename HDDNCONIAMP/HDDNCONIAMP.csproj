@@ -106,6 +106,8 @@
     <Compile Include="DB\Model\MeshDevice.cs" />
     <Compile Include="DB\Model\VideoDevice.cs" />
     <Compile Include="Mesh\MeshOperator.cs" />
+    <Compile Include="Network\GPSUDPListener.cs" />
+    <Compile Include="Network\NetworkListenerManage.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FormMain.cs">
@@ -177,6 +179,8 @@
     <None Include="DB\HDDNCONIAMP.db3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Documents\Help.docx" />
+    <None Include="Documents\技术文档\GPS模块编程之NMEA0183协议.docx" />
     <None Include="Documents\软件开发进度表.xlsx" />
     <None Include="Documents\软件需求及进度安排.docx" />
     <None Include="Documents\软件平台开发要求.docx" />

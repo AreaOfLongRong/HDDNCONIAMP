@@ -56,12 +56,12 @@
             this.textBoxXUserName = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.buttonLogin = new DevComponents.DotNetBar.ButtonX();
             this.superTabItemGISVideo = new DevComponents.DotNetBar.SuperTabItem();
-            this.superTabControlPanelAudioVideoProcess = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.superTabItemAudioVideoProcess = new DevComponents.DotNetBar.SuperTabItem();
-            this.superTabControlPanelMeshManagement = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.superTabItemMeshManagement = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanelUserSettings = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.superTabItemUserSettings = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanelMeshManagement = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.superTabItemMeshManagement = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanelAudioVideoProcess = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.superTabItemAudioVideoProcess = new DevComponents.DotNetBar.SuperTabItem();
             this.timerUpdateTime = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanelMain.SuspendLayout();
             this.tableLayoutPanelTop.SuspendLayout();
@@ -221,6 +221,7 @@
             this.pictureBoxNext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxNext.TabIndex = 8;
             this.pictureBoxNext.TabStop = false;
+            this.pictureBoxNext.Visible = false;
             // 
             // labelX3
             // 
@@ -307,8 +308,7 @@
             this.labelX5.Name = "labelX5";
             this.labelX5.Size = new System.Drawing.Size(141, 30);
             this.labelX5.TabIndex = 5;
-            this.labelX5.Text = "售后地址：河北省石家庄市";
-            this.labelX5.TextAlignment = System.Drawing.StringAlignment.Far;
+            this.labelX5.Text = "售后地址：北京市海淀区东北旺西路8号中关村软件园7号楼新威大厦";
             // 
             // labelX6
             // 
@@ -323,7 +323,6 @@
             this.labelX6.Size = new System.Drawing.Size(141, 30);
             this.labelX6.TabIndex = 6;
             this.labelX6.Text = "售后联系方式：010-62802288";
-            this.labelX6.TextAlignment = System.Drawing.StringAlignment.Far;
             // 
             // pictureBoxPrevious
             // 
@@ -337,6 +336,7 @@
             this.pictureBoxPrevious.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxPrevious.TabIndex = 7;
             this.pictureBoxPrevious.TabStop = false;
+            this.pictureBoxPrevious.Visible = false;
             // 
             // pictureBox2
             // 
@@ -535,21 +535,21 @@
             this.superTabItemGISVideo.Name = "superTabItemGISVideo";
             this.superTabItemGISVideo.Text = "GIS定位关联视频";
             // 
-            // superTabControlPanelAudioVideoProcess
+            // superTabControlPanelUserSettings
             // 
-            this.superTabControlPanelAudioVideoProcess.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanelAudioVideoProcess.Location = new System.Drawing.Point(138, 0);
-            this.superTabControlPanelAudioVideoProcess.Name = "superTabControlPanelAudioVideoProcess";
-            this.superTabControlPanelAudioVideoProcess.Size = new System.Drawing.Size(616, 321);
-            this.superTabControlPanelAudioVideoProcess.TabIndex = 0;
-            this.superTabControlPanelAudioVideoProcess.TabItem = this.superTabItemAudioVideoProcess;
+            this.superTabControlPanelUserSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanelUserSettings.Location = new System.Drawing.Point(138, 0);
+            this.superTabControlPanelUserSettings.Name = "superTabControlPanelUserSettings";
+            this.superTabControlPanelUserSettings.Size = new System.Drawing.Size(616, 321);
+            this.superTabControlPanelUserSettings.TabIndex = 0;
+            this.superTabControlPanelUserSettings.TabItem = this.superTabItemUserSettings;
             // 
-            // superTabItemAudioVideoProcess
+            // superTabItemUserSettings
             // 
-            this.superTabItemAudioVideoProcess.AttachedControl = this.superTabControlPanelAudioVideoProcess;
-            this.superTabItemAudioVideoProcess.GlobalItem = false;
-            this.superTabItemAudioVideoProcess.Name = "superTabItemAudioVideoProcess";
-            this.superTabItemAudioVideoProcess.Text = "音视频综合处理";
+            this.superTabItemUserSettings.AttachedControl = this.superTabControlPanelUserSettings;
+            this.superTabItemUserSettings.GlobalItem = false;
+            this.superTabItemUserSettings.Name = "superTabItemUserSettings";
+            this.superTabItemUserSettings.Text = "用户配置管理";
             // 
             // superTabControlPanelMeshManagement
             // 
@@ -567,21 +567,21 @@
             this.superTabItemMeshManagement.Name = "superTabItemMeshManagement";
             this.superTabItemMeshManagement.Text = "Mesh设备管理";
             // 
-            // superTabControlPanelUserSettings
+            // superTabControlPanelAudioVideoProcess
             // 
-            this.superTabControlPanelUserSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanelUserSettings.Location = new System.Drawing.Point(138, 0);
-            this.superTabControlPanelUserSettings.Name = "superTabControlPanelUserSettings";
-            this.superTabControlPanelUserSettings.Size = new System.Drawing.Size(616, 321);
-            this.superTabControlPanelUserSettings.TabIndex = 0;
-            this.superTabControlPanelUserSettings.TabItem = this.superTabItemUserSettings;
+            this.superTabControlPanelAudioVideoProcess.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanelAudioVideoProcess.Location = new System.Drawing.Point(138, 0);
+            this.superTabControlPanelAudioVideoProcess.Name = "superTabControlPanelAudioVideoProcess";
+            this.superTabControlPanelAudioVideoProcess.Size = new System.Drawing.Size(616, 321);
+            this.superTabControlPanelAudioVideoProcess.TabIndex = 0;
+            this.superTabControlPanelAudioVideoProcess.TabItem = this.superTabItemAudioVideoProcess;
             // 
-            // superTabItemUserSettings
+            // superTabItemAudioVideoProcess
             // 
-            this.superTabItemUserSettings.AttachedControl = this.superTabControlPanelUserSettings;
-            this.superTabItemUserSettings.GlobalItem = false;
-            this.superTabItemUserSettings.Name = "superTabItemUserSettings";
-            this.superTabItemUserSettings.Text = "用户配置管理";
+            this.superTabItemAudioVideoProcess.AttachedControl = this.superTabControlPanelAudioVideoProcess;
+            this.superTabItemAudioVideoProcess.GlobalItem = false;
+            this.superTabItemAudioVideoProcess.Name = "superTabItemAudioVideoProcess";
+            this.superTabItemAudioVideoProcess.Text = "音视频综合处理";
             // 
             // timerUpdateTime
             // 

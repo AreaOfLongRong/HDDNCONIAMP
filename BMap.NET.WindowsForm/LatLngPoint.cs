@@ -32,7 +32,7 @@ namespace BMap.NET.WindowsForm
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("经度：{0:F4}\n纬度：{1:F4}", Lng, Lat);
+            return string.Format("经度：{0:F4}°\n纬度：{1:F4}°", Lng, Lat);
         }
     }
 }

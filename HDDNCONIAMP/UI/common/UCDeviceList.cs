@@ -29,6 +29,16 @@ namespace HDDNCONIAMP.UI.common
         /// </summary>
         private List<MeshDeviceGroup> mMeshDeviceGroups = new List<MeshDeviceGroup>();
 
+        /// <summary>
+        /// 设备标注点列表
+        /// </summary>
+        private List<BVideoPoint> mBVideoPoints = new List<BVideoPoint>();
+
+        /// <summary>
+        /// 主窗口引用
+        /// </summary>
+        private FormMain mFormMain;
+
         #endregion
 
         #region 属性
@@ -43,9 +53,11 @@ namespace HDDNCONIAMP.UI.common
         #endregion
 
 
-        public UCDeviceList()
+        public UCDeviceList(FormMain main)
         {
             InitializeComponent();
+            mFormMain = main;
+            mFormMain.NLM.PGPSUDPListener.OnReceiveGPS += PGPSUDPListener_OnReceiveGPS;
         }
 
         /// <summary>
@@ -55,55 +67,47 @@ namespace HDDNCONIAMP.UI.common
         /// <param name="e"></param>
         private void UCDeviceList_Load(object sender, EventArgs e)
         {
-            //临时测试设备添加
-            List<BVideoPoint> devices = new List<BVideoPoint>();
-            BVideoPoint poi1 = new BVideoPoint();
-            poi1.Location = new LatLngPoint(116.391046, 40.014476);
-            poi1.Index = 1;
-            poi1.IsOnline = true;
-            devices.Add(poi1);
-            BVideoPoint poi2 = new BVideoPoint();
-            poi2.Location = new LatLngPoint(116.549722, 39.972907);
-            poi2.Index = 2;
-            poi2.IsOnline = false;
-            devices.Add(poi2);
-            if (BuddyBMapControl != null)
-            {
-                BuddyBMapControl.AddVideoPlaces(devices);
-            }
+            ////临时测试设备添加
+            //List<BVideoPoint> devices = new List<BVideoPoint>();
+            //BVideoPoint poi1 = new BVideoPoint();
+            //poi1.Location = new LatLngPoint(116.391046, 40.014476);
+            //poi1.Index = 1;
+            //poi1.IsOnline = true;
+            //devices.Add(poi1);
+            //BVideoPoint poi2 = new BVideoPoint();
+            //poi2.Location = new LatLngPoint(116.549722, 39.972907);
+            //poi2.Index = 2;
+            //poi2.IsOnline = false;
+            //devices.Add(poi2);
+            //if (BuddyBMapControl != null)
+            //{
+            //    BuddyBMapControl.AddVideoPlaces(devices);
+            //}
 
 
-            List<BDeviceRoute> routes = new List<BDeviceRoute>();
-            BDeviceRoute r1 = new BDeviceRoute();
-            r1.DeviceName = "device1";
-            List<LatLngPoint> ps1 = new List<LatLngPoint>();
-            ps1.Add(new LatLngPoint(115.20, 39));
-            ps1.Add(new LatLngPoint(116.30, 40));
-            ps1.Add(new LatLngPoint(116.391046, 40.014476));
-            r1.DeviceLocationList = ps1;
-            routes.Add(r1);
-            BDeviceRoute r2 = new BDeviceRoute();
-            r2.DeviceName = "device2";
-            List<LatLngPoint> ps2 = new List<LatLngPoint>();
-            ps2.Add(new LatLngPoint(117.20, 39));
-            ps2.Add(new LatLngPoint(116.80, 40.1));
-            ps2.Add(new LatLngPoint(116.549722, 39.972907));
-            r2.DeviceLocationList = ps2;
-            routes.Add(r2);
-            if (BuddyBMapControl != null)
-            {
-                BuddyBMapControl.AddDeviceRoutes(routes);
-            }
+            //List<BDeviceRoute> routes = new List<BDeviceRoute>();
+            //BDeviceRoute r1 = new BDeviceRoute();
+            //r1.DeviceName = "device1";
+            //List<LatLngPoint> ps1 = new List<LatLngPoint>();
+            //ps1.Add(new LatLngPoint(115.20, 39));
+            //ps1.Add(new LatLngPoint(116.30, 40));
+            //ps1.Add(new LatLngPoint(116.391046, 40.014476));
+            //r1.DeviceLocationList = ps1;
+            //routes.Add(r1);
+            //BDeviceRoute r2 = new BDeviceRoute();
+            //r2.DeviceName = "device2";
+            //List<LatLngPoint> ps2 = new List<LatLngPoint>();
+            //ps2.Add(new LatLngPoint(117.20, 39));
+            //ps2.Add(new LatLngPoint(116.80, 40.1));
+            //ps2.Add(new LatLngPoint(116.549722, 39.972907));
+            //r2.DeviceLocationList = ps2;
+            //routes.Add(r2);
+            //if (BuddyBMapControl != null)
+            //{
+            //    BuddyBMapControl.AddDeviceRoutes(routes);
+            //}
 
-            advTreeDeviceList.BeginUpdate();
-            foreach (BVideoPoint vp in devices)
-            {
-                Node node = new Node();
-                node.Tag = vp;
-                node.Text = vp.Index.ToString();
-                nodeDefaultGroup.Nodes.Add(node);
-            }
-            advTreeDeviceList.EndUpdate();
+            
         }
 
         #region 设备列表事件
@@ -246,9 +250,69 @@ namespace HDDNCONIAMP.UI.common
             }
         }
 
-        public void updateDeviceGroup()
-        {
+        /// <summary>
+        /// 更新设备列表委托
+        /// </summary>
+        private delegate void updateDeviceListDelegate();
 
+        /// <summary>
+        /// 更新设备列表
+        /// </summary>
+        public void updateDeviceList()
+        {
+            advTreeDeviceList.BeginUpdate();
+            foreach (BVideoPoint vp in mBVideoPoints)
+            {
+                bool exist = false;
+                foreach (Node n in nodeDefaultGroup.Nodes)
+                {
+                    //如果节点已存在则更新节点内容
+                    if (n.Text == vp.Name)
+                    {
+                        n.Tag = vp;
+                        exist = true;
+                        break;
+                    }
+                }
+                if (!exist)
+                {
+                    Node node = new Node();
+                    node.Tag = vp;
+                    node.Text = vp.Name;
+                    nodeDefaultGroup.Nodes.Add(node);
+                }
+            }
+            advTreeDeviceList.EndUpdate();
+        }
+
+        /// <summary>
+        /// 接收到GPS信号时，实时更新设备位置
+        /// </summary>
+        /// <param name="device"></param>
+        private void PGPSUDPListener_OnReceiveGPS(VideoDevice device)
+        {
+            BVideoPoint currentPoint = mBVideoPoints.Find(delegate (BVideoPoint p) {
+                return p.Name == device.Name;
+            });
+            if (currentPoint != null)
+            {
+                currentPoint.Location = new LatLngPoint(device.Lon, device.Lat);
+            }
+            else
+            {
+                BVideoPoint p = new BVideoPoint();
+                p.Location = new LatLngPoint(device.Lon, device.Lat);
+                p.Name = device.Name;
+                p.IsOnline = true;
+                mBVideoPoints.Add(p);
+            }
+
+            advTreeDeviceList.BeginInvoke(new updateDeviceListDelegate(updateDeviceList));
+
+            if (BuddyBMapControl != null)
+            {
+                BuddyBMapControl.AddVideoPlaces(mBVideoPoints);
+            }
         }
 
 

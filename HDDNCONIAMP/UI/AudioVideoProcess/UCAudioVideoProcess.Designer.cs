@@ -39,7 +39,6 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.ucDeviceList1 = new HDDNCONIAMP.UI.common.UCDeviceList();
             ((System.ComponentModel.ISupportInitialize)(this.collapsibleSplitContainer1)).BeginInit();
             this.collapsibleSplitContainer1.Panel1.SuspendLayout();
             this.collapsibleSplitContainer1.Panel2.SuspendLayout();
@@ -61,11 +60,6 @@
             this.collapsibleSplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.collapsibleSplitContainer1.Location = new System.Drawing.Point(0, 0);
             this.collapsibleSplitContainer1.Name = "collapsibleSplitContainer1";
-            // 
-            // collapsibleSplitContainer1.Panel1
-            // 
-            this.collapsibleSplitContainer1.Panel1.Controls.Add(this.ucDeviceList1);
-            this.collapsibleSplitContainer1.Panel1MinSize = 5;
             // 
             // collapsibleSplitContainer1.Panel2
             // 
@@ -199,15 +193,7 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            // 
-            // ucDeviceList1
-            // 
-            this.ucDeviceList1.BuddyBMapControl = null;
-            this.ucDeviceList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucDeviceList1.Location = new System.Drawing.Point(0, 0);
-            this.ucDeviceList1.Name = "ucDeviceList1";
-            this.ucDeviceList1.Size = new System.Drawing.Size(150, 420);
-            this.ucDeviceList1.TabIndex = 0;
+            
             // 
             // UCAudioVideoProcess
             // 
@@ -247,6 +233,5 @@
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private common.UCDeviceList ucDeviceList1;
     }
 }
