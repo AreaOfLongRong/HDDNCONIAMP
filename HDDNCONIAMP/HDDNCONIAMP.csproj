@@ -126,6 +126,12 @@
     <Compile Include="UI\AudioVideoProcess\UCAudioVideoProcess.Designer.cs">
       <DependentUpon>UCAudioVideoProcess.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\AudioVideoProcess\UCGridVideo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\AudioVideoProcess\UCGridVideo.Designer.cs">
+      <DependentUpon>UCGridVideo.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\common\UCDeviceList.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -165,6 +171,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AudioVideoProcess\UCAudioVideoProcess.resx">
       <DependentUpon>UCAudioVideoProcess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AudioVideoProcess\UCGridVideo.resx">
+      <DependentUpon>UCGridVideo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\common\UCDeviceList.resx">
       <DependentUpon>UCDeviceList.cs</DependentUpon>

@@ -1101,7 +1101,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
         private void drawPanel_Paint(object sender, PaintEventArgs e)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         /// <summary>
