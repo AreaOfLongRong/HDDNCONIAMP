@@ -88,14 +88,19 @@ namespace HDDNCONIAMP.Network
             {
                 try
                 {
+                    //UDP接收GPS数据格式：
+                    //4字节：Type = 5;
+                    //4字节：设备ID；
+                    //8字节：时间戳；
+                    //后续数据：标准的NMEA 0183协议GPS数据
                     byte[] bytes = udpcRecv.Receive(ref ipendpoint);
-                    byte[] data = new byte[bytes.Length - GPS_MESSAGE_HEADER_LENGTH];
+                    byte[] gpsdata = new byte[bytes.Length - GPS_MESSAGE_HEADER_LENGTH];
                     for (int i = GPS_MESSAGE_HEADER_LENGTH; i < bytes.Length; i++)
                     {
-                        data[i - GPS_MESSAGE_HEADER_LENGTH] = bytes[i];
+                        gpsdata[i - GPS_MESSAGE_HEADER_LENGTH] = bytes[i];
                     }
                     string ip = ipendpoint.Address.ToString();
-                    string message = Encoding.Default.GetString(data, 0, data.Length);
+                    string message = Encoding.Default.GetString(gpsdata, 0, gpsdata.Length);
                     logger.Info("收到来自“" + ip + 
                         "”的UDP消息：“" + message + "”。");
 
@@ -104,7 +109,8 @@ namespace HDDNCONIAMP.Network
                         //切割字符串
                         string[] temp = message.Split(',');
                         VideoDevice device = new VideoDevice();
-                        device.Name = ip;
+                        //device.Name = ip;
+                        device.Name = BitConverter.ToInt32(bytes, 4).ToString();  //设备的ID
                         device.Lat = Double.Parse(temp[3].Substring(0, 2))
                             + Double.Parse(temp[3].Substring(2)) / 60.0;
                         device.Lon = Double.Parse(temp[5].Substring(0, 3))
