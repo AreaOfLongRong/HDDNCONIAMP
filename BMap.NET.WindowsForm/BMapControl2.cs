@@ -266,6 +266,8 @@ namespace BMap.NET.WindowsForm
         /// 当前选择的位置点（没有则为null）
         /// </summary>
         private BPoint _current_selected_point;
+
+        private VideoInject inject = new VideoInject();
         #endregion
 
         /// <summary>
@@ -1076,8 +1078,7 @@ namespace BMap.NET.WindowsForm
                     v.Value.Selected = true;
 
                     //Z-20170904：调用C++ EXE，显示视频信息
-                    VideoInject injet = new VideoInject();
-                    injet.injectWindow();
+                    inject.injectWindow();
 
                     foreach (KeyValuePair<string, BVideoPoint> vv in _videoPoints)
                     {

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -56,11 +59,56 @@ namespace BMap.NET.WindowsForm.Video
 
         IntPtr appWin;
 
+        /// <summary>
+        /// 网卡接口数组
+        /// </summary>
+        private NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+
+        /// <summary>
+        /// 宽高比
+        /// </summary>
         private double ratio = 1920.0 / 1080.0;
+
+        private string localIP;
+
+        /// <summary>
+        /// 窗体进程
+        /// </summary>
+        private Process _windowProcess;
+
+        /// <summary>
+        /// 面板进程
+        /// </summary>
+        private Process _panelProcess;
+
+        /// <summary>
+        /// 唯一实例
+        /// </summary>
+        private static VideoInject instance;
 
         public VideoInject()
         {
             appWin = IntPtr.Zero;
+            foreach (IPAddress address in Dns.GetHostAddresses(Dns.GetHostName()))
+            {
+                if(address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    localIP = address.ToString();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 获取唯一实例
+        /// </summary>
+        /// <returns></returns>
+        public static VideoInject GetInstance()
+        {
+            if(instance == null)
+            {
+                instance = new VideoInject();
+            }
+            return instance;
         }
 
         public void injectWindow()
@@ -69,13 +117,14 @@ namespace BMap.NET.WindowsForm.Video
             psi.RedirectStandardInput = true;
             psi.RedirectStandardOutput = true;
             psi.UseShellExecute = false;
-            psi.Arguments = string.Format("1 0 0 {0} {1}", (int)(500 * ratio), 500);
+            psi.Arguments = string.Format("{0} 1 0 0 {1} {2}", localIP, (int)(500 * ratio), 500);
 
-            Process _process = new Process();
-            _process.StartInfo = psi;
-            _process.EnableRaisingEvents = true;
-            _process.Start();
+            _windowProcess = new Process();
+            _windowProcess.StartInfo = psi;
+            _windowProcess.EnableRaisingEvents = true;
+            _windowProcess.Start();
         }
+
 
         public void injectPanel(Panel panel)
         {
@@ -85,32 +134,44 @@ namespace BMap.NET.WindowsForm.Video
             psi.RedirectStandardInput = true;
             psi.RedirectStandardOutput = true;
             psi.UseShellExecute = false;
-            psi.Arguments = string.Format("0 0 0 {0} {1}", panel.Width, panel.Height);
+            psi.Arguments = string.Format("{0} 0 0 0 {1} {2}", localIP, panel.Width, panel.Height);
 
-            Process _process = new Process();
-            _process.StartInfo = psi;
-            _process.EnableRaisingEvents = true;
-            _process.Exited += _process_Exited;
-            _process.Start();
+            _panelProcess = new Process();
+            _panelProcess.StartInfo = psi;
+            _panelProcess.EnableRaisingEvents = true;
+            _panelProcess.Exited += _process_Exited;
+            _panelProcess.Start();
 
-            if (_process.WaitForInputIdle())
+            if (_panelProcess.WaitForInputIdle())
             {
 
-                while (_process.MainWindowHandle.ToInt32() == 0)
+                while (_panelProcess.MainWindowHandle.ToInt32() == 0)
                 {
                     Thread.Sleep(100);
-                    _process.Refresh();//必须刷新状态才能重新获得TITLE
+                    _panelProcess.Refresh();//必须刷新状态才能重新获得TITLE
                 }
-                _process.StartInfo = psi;
+                _panelProcess.StartInfo = psi;
 
                 // Get the main handle
-                appWin = _process.MainWindowHandle;
+                appWin = _panelProcess.MainWindowHandle;
 
                 // Put it into this form
                 SetParent(appWin, panel.Handle);
                 // Move the window to overlay it on this window
                 //MoveWindow(appWin, 0, 0, _mainParent.dockPanel1.Width, _mainParent.dockPanel1.Height, true);
                 MoveWindow(appWin, 0, 0, panel.Width, panel.Height, true);
+            }
+        }
+
+        ~VideoInject()
+        {
+            if(_windowProcess != null && !_windowProcess.HasExited)
+            {
+                _windowProcess.Kill();
+            }
+            if (_panelProcess != null && !_panelProcess.HasExited)
+            {
+                _panelProcess.Kill();
             }
         }
 

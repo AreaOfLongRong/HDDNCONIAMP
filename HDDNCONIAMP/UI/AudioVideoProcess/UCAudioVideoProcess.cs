@@ -16,23 +16,24 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
     {
 
 
-        private common.UCDeviceList ucDeviceList1;
+        private common.UCDeviceList ucDeviceListMain;
 
         public UCAudioVideoProcess(FormMain main)
         {
             InitializeComponent();
 
-            this.ucDeviceList1 = new HDDNCONIAMP.UI.common.UCDeviceList(main);
-            this.ucDeviceList1.BuddyBMapControl = null;
-            this.ucDeviceList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucDeviceList1.Location = new System.Drawing.Point(0, 0);
-            this.ucDeviceList1.Name = "ucDeviceList1";
-            this.ucDeviceList1.Size = new System.Drawing.Size(150, 420);
-            this.ucDeviceList1.TabIndex = 0;
+            this.ucDeviceListMain = new HDDNCONIAMP.UI.common.UCDeviceList(main);
+            this.ucDeviceListMain.BuddyBMapControl = null;
+            this.ucDeviceListMain.BuddyGridVideo = ucGridVideoMain;
+            this.ucDeviceListMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucDeviceListMain.Location = new System.Drawing.Point(0, 0);
+            this.ucDeviceListMain.Name = "ucDeviceList1";
+            this.ucDeviceListMain.Size = new System.Drawing.Size(150, 420);
+            this.ucDeviceListMain.TabIndex = 0;
             // 
             // collapsibleSplitContainer1.Panel1
             // 
-            this.collapsibleSplitContainer1.Panel1.Controls.Add(this.ucDeviceList1);
+            this.collapsibleSplitContainer1.Panel1.Controls.Add(this.ucDeviceListMain);
             this.collapsibleSplitContainer1.Panel1MinSize = 5;
         }
     }

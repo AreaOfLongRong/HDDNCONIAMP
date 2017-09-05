@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using BMap.NET.WindowsForm;
 using BMap.NET.WindowsForm.BMapElements;
+using BMap.NET.WindowsForm.Video;
 using DevComponents.AdvTree;
 using HDDNCONIAMP.DB.Model;
+using HDDNCONIAMP.UI.AudioVideoProcess;
 using log4net;
 
 namespace HDDNCONIAMP.UI.common
@@ -39,6 +41,9 @@ namespace HDDNCONIAMP.UI.common
         /// </summary>
         private FormMain mFormMain;
 
+
+        VideoInject inject = new VideoInject();
+
         #endregion
 
         #region 属性
@@ -48,7 +53,7 @@ namespace HDDNCONIAMP.UI.common
         /// </summary>
         public BMapControl2 BuddyBMapControl { get; set; }
 
-
+        public UCGridVideo BuddyGridVideo { get; set; }
 
         #endregion
 
@@ -226,6 +231,11 @@ namespace HDDNCONIAMP.UI.common
                 BuddyBMapControl.Center = vp.Location;
                 BuddyBMapControl.Locate(false);
             }
+
+            if (selectNode.Level == 1 && BuddyGridVideo != null)
+            {
+                inject.injectPanel(BuddyGridVideo.GetFirstPanel());
+            }
         }
 
         #endregion
@@ -313,6 +323,8 @@ namespace HDDNCONIAMP.UI.common
             {
                 BuddyBMapControl.AddVideoPlaces(mBVideoPoints);
             }
+
+            
         }
 
 
