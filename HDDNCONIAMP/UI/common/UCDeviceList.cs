@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using BMap.NET.WindowsForm;
 using BMap.NET.WindowsForm.BMapElements;
@@ -9,7 +10,7 @@ using HDDNCONIAMP.DB.Model;
 using HDDNCONIAMP.UI.AudioVideoProcess;
 using log4net;
 
-namespace HDDNCONIAMP.UI.common
+namespace HDDNCONIAMP.UI.Common
 {
     public partial class UCDeviceList : UserControl
     {
@@ -41,9 +42,11 @@ namespace HDDNCONIAMP.UI.common
         /// </summary>
         private FormMain mFormMain;
 
-
+        /// <summary>
+        /// 视频封装
+        /// </summary>
         VideoInject inject = new VideoInject();
-
+        
         #endregion
 
         #region 属性
@@ -53,7 +56,7 @@ namespace HDDNCONIAMP.UI.common
         /// </summary>
         public BMapControl2 BuddyBMapControl { get; set; }
 
-        public UCGridVideo BuddyGridVideo { get; set; }
+        public IGrid BuddyGrid { get; set; }
 
         #endregion
 
@@ -72,23 +75,7 @@ namespace HDDNCONIAMP.UI.common
         /// <param name="e"></param>
         private void UCDeviceList_Load(object sender, EventArgs e)
         {
-            ////临时测试设备添加
-            //List<BVideoPoint> devices = new List<BVideoPoint>();
-            //BVideoPoint poi1 = new BVideoPoint();
-            //poi1.Location = new LatLngPoint(116.391046, 40.014476);
-            //poi1.Index = 1;
-            //poi1.IsOnline = true;
-            //devices.Add(poi1);
-            //BVideoPoint poi2 = new BVideoPoint();
-            //poi2.Location = new LatLngPoint(116.549722, 39.972907);
-            //poi2.Index = 2;
-            //poi2.IsOnline = false;
-            //devices.Add(poi2);
-            //if (BuddyBMapControl != null)
-            //{
-            //    BuddyBMapControl.AddVideoPlaces(devices);
-            //}
-
+            
 
             //List<BDeviceRoute> routes = new List<BDeviceRoute>();
             //BDeviceRoute r1 = new BDeviceRoute();
@@ -232,9 +219,39 @@ namespace HDDNCONIAMP.UI.common
                 BuddyBMapControl.Locate(false);
             }
 
-            if (selectNode.Level == 1 && BuddyGridVideo != null)
+            if (selectNode.Level == 1 && BuddyGrid != null)
             {
-                inject.injectPanel(BuddyGridVideo.GetFirstPanel());
+                //TODO：目前只支持一路信号输入，后续需修改
+                inject.injectPanel(BuddyGrid.GetPanelByIndex(1));
+            }
+        }
+
+        /// <summary>
+        /// 元素编辑完成事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void advTreeDeviceList_AfterCellEdit(object sender, CellEditEventArgs e)
+        {
+            //Node editNode = e.Cell.Parent;
+            //if(editNode.Level == 1)
+            //{//处理设备节点的元素编辑事件
+            //    deviceAlias.Keys[editNode.]
+            //}
+        }
+
+        /// <summary>
+        /// 鼠标按下事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void advTreeDeviceList_MouseDown(object sender, MouseEventArgs e)
+        {
+            Node selectNode = advTreeDeviceList.SelectedNode;
+            if (selectNode != null && selectNode.Level == 0)
+            {
+                //拖动设备
+                advTreeDeviceList.DoDragDrop(selectNode, DragDropEffects.Copy);
             }
         }
 
@@ -276,8 +293,9 @@ namespace HDDNCONIAMP.UI.common
                 bool exist = false;
                 foreach (Node n in nodeDefaultGroup.Nodes)
                 {
+                    BVideoPoint temp = (BVideoPoint)n.Tag;
                     //如果节点已存在则更新节点内容
-                    if (n.Text == vp.Name)
+                    if (temp.Name.Equals(vp.Name))
                     {
                         n.Tag = vp;
                         exist = true;
@@ -318,7 +336,7 @@ namespace HDDNCONIAMP.UI.common
             }
 
             advTreeDeviceList.BeginInvoke(new updateDeviceListDelegate(updateDeviceList));
-
+            //更新地图窗体
             if (BuddyBMapControl != null)
             {
                 BuddyBMapControl.AddVideoPlaces(mBVideoPoints);

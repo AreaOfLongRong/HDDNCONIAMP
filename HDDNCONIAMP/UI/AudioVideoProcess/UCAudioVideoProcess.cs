@@ -16,15 +16,15 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
     {
 
 
-        private common.UCDeviceList ucDeviceListMain;
+        private Common.UCDeviceList ucDeviceListMain;
 
         public UCAudioVideoProcess(FormMain main)
         {
             InitializeComponent();
 
-            this.ucDeviceListMain = new HDDNCONIAMP.UI.common.UCDeviceList(main);
+            this.ucDeviceListMain = new HDDNCONIAMP.UI.Common.UCDeviceList(main);
             this.ucDeviceListMain.BuddyBMapControl = null;
-            this.ucDeviceListMain.BuddyGridVideo = ucGridVideoMain;
+            this.ucDeviceListMain.BuddyGrid = ucGrid9Main;
             this.ucDeviceListMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ucDeviceListMain.Location = new System.Drawing.Point(0, 0);
             this.ucDeviceListMain.Name = "ucDeviceList1";

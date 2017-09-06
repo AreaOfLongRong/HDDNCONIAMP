@@ -110,7 +110,7 @@ namespace HDDNCONIAMP.Network
                         string[] temp = message.Split(',');
                         VideoDevice device = new VideoDevice();
                         //device.Name = ip;
-                        device.Name = BitConverter.ToInt32(bytes, 4).ToString();  //设备的ID
+                        device.Name = (bytes[4] << 24 | bytes[5] << 16 | bytes[6] << 8 | bytes[7]).ToString() ;  //设备的ID
                         device.Lat = Double.Parse(temp[3].Substring(0, 2))
                             + Double.Parse(temp[3].Substring(2)) / 60.0;
                         device.Lon = Double.Parse(temp[5].Substring(0, 3))
@@ -135,7 +135,24 @@ namespace HDDNCONIAMP.Network
         }
 
         #endregion
-        
+
+        #region 测试代码
+
+        public void TestReceiveMessage()
+        {
+            for (;;)
+            {
+                VideoDevice device = new VideoDevice();
+                device.Name = "26089";
+                device.Lat = 40.8;
+                device.Lon = 116.3;
+                RaiseReceiveGPS(device);
+                Thread.Sleep(10 * 1000);
+            }
+        }
+
+        #endregion
+
         #region 方法
 
         /// <summary>

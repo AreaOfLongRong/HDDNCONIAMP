@@ -121,11 +121,36 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UI\AudioVideoProcess\IGrid.cs" />
     <Compile Include="UI\AudioVideoProcess\UCAudioVideoProcess.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UI\AudioVideoProcess\UCAudioVideoProcess.Designer.cs">
       <DependentUpon>UCAudioVideoProcess.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AudioVideoProcess\UCGrid1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\AudioVideoProcess\UCGrid1.Designer.cs">
+      <DependentUpon>UCGrid1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AudioVideoProcess\UCGrid4.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\AudioVideoProcess\UCGrid4.Designer.cs">
+      <DependentUpon>UCGrid4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AudioVideoProcess\UCGrid6.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\AudioVideoProcess\UCGrid6.Designer.cs">
+      <DependentUpon>UCGrid6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AudioVideoProcess\UCGrid9.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\AudioVideoProcess\UCGrid9.Designer.cs">
+      <DependentUpon>UCGrid9.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\AudioVideoProcess\UCGridVideo.cs">
       <SubType>UserControl</SubType>
@@ -133,10 +158,16 @@
     <Compile Include="UI\AudioVideoProcess\UCGridVideo.Designer.cs">
       <DependentUpon>UCGridVideo.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\common\UCDeviceList.cs">
+    <Compile Include="UI\AudioVideoProcess\UCVideoPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\AudioVideoProcess\UCVideoPanel.Designer.cs">
+      <DependentUpon>UCVideoPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Common\UCDeviceList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\common\UCDeviceList.Designer.cs">
+    <Compile Include="UI\Common\UCDeviceList.Designer.cs">
       <DependentUpon>UCDeviceList.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\GISVideo\UCGISVideo.cs">
@@ -173,10 +204,16 @@
     <EmbeddedResource Include="UI\AudioVideoProcess\UCAudioVideoProcess.resx">
       <DependentUpon>UCAudioVideoProcess.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\AudioVideoProcess\UCGrid1.resx">
+      <DependentUpon>UCGrid1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AudioVideoProcess\UCGrid9.resx">
+      <DependentUpon>UCGrid9.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\AudioVideoProcess\UCGridVideo.resx">
       <DependentUpon>UCGridVideo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\common\UCDeviceList.resx">
+    <EmbeddedResource Include="UI\Common\UCDeviceList.resx">
       <DependentUpon>UCDeviceList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\GISVideo\UCGISVideo.resx">

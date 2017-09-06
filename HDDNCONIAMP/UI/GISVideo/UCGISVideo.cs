@@ -11,13 +11,13 @@ namespace HDDNCONIAMP.UI.GISVideo
 {
     public partial class UCGISVideo : UserControl
     {
-        private common.UCDeviceList ucDeviceListmain;
+        private Common.UCDeviceList ucDeviceListmain;
 
         public UCGISVideo(FormMain main)
         {
             InitializeComponent();
 
-            ucDeviceListmain = new HDDNCONIAMP.UI.common.UCDeviceList(main);
+            ucDeviceListmain = new HDDNCONIAMP.UI.Common.UCDeviceList(main);
             ucDeviceListmain.BuddyBMapControl = this.bMapControl2Main;
             ucDeviceListmain.Dock = System.Windows.Forms.DockStyle.Fill;
             ucDeviceListmain.Location = new System.Drawing.Point(0, 0);

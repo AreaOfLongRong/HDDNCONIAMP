@@ -221,7 +221,6 @@
             this.pictureBoxNext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxNext.TabIndex = 8;
             this.pictureBoxNext.TabStop = false;
-            this.pictureBoxNext.Visible = false;
             // 
             // labelX3
             // 
@@ -336,7 +335,6 @@
             this.pictureBoxPrevious.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxPrevious.TabIndex = 7;
             this.pictureBoxPrevious.TabStop = false;
-            this.pictureBoxPrevious.Visible = false;
             // 
             // pictureBox2
             // 
