@@ -308,7 +308,7 @@
             this.labelX5.Name = "labelX5";
             this.labelX5.Size = new System.Drawing.Size(141, 30);
             this.labelX5.TabIndex = 5;
-            this.labelX5.Text = "售后地址：北京市海淀区东北旺西路8号中关村软件园7号楼新威大厦";
+            this.labelX5.Text = "售后地址：北京市海淀区东北旺西路8号中关村软件园7号楼信威大厦";
             // 
             // labelX6
             // 

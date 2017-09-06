@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -52,6 +53,8 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
         List<int> EveryColumnNodeCountForRead = new List<int>();
 
+
+        Hashtable hashTable = new Hashtable();
 
         int ScanRate = 10;
 
@@ -202,7 +205,9 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
             LogHelper.WriteLog("开始获取MAC为:" + needInfoNode + " 的NODE的信息！！！ ");
 
-            node TheNode = MYBlockNodes.Nodelist.Where(n => n.MacAddress.Equals(needInfoNode)).ToList().First();
+            node TheNode = null;
+            if (MYBlockNodes.Nodelist!=null && MYBlockNodes.Nodelist.Count>0)
+                TheNode = MYBlockNodes.Nodelist.Where(n => n.MacAddress.Equals(needInfoNode)).ToList().First();
 
 
             if (TheNode != null)
@@ -212,29 +217,48 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                 try
                 {
-
+                    node cacheNode = null;
+                    if (hashTable.ContainsKey(needInfoNode))
+                    {
+                        cacheNode = (node)hashTable[needInfoNode];
+                    }
                     string recvStr = tn.recvDataWaitWord("help", 1);
 
                     //Thread.Sleep(1);
                     tn.sendData("battery");
                     //Thread.Sleep(1);
                     recvStr = tn.recvDataWaitWord("V", 1);
-                    TheNode.Battery = double.Parse(recvStr.Replace("OK\n#user@/>", "").Replace("V", ""));
+                    TheNode.Battery = (cacheNode!=null)?cacheNode.Battery: double.Parse(recvStr.Replace("OK\n#user@/>", "").Replace("V", ""));
 
                     Thread.Sleep(1);
                     tn.sendData("frequency");
                     recvStr = tn.recvDataWaitWord("MHz", 1);
-                    TheNode.Frequency = double.Parse(recvStr.Replace("OK\n#user@/>", "").Replace("MHz", ""));
+                    TheNode.Frequency = (cacheNode != null) ? cacheNode.Frequency : 616;
+                    //TheNode.Frequency = double.Parse(recvStr.Replace("OK\n#user@/>", "").Replace("MHz", ""));
 
                     //Thread.Sleep(1);
                     tn.sendData("txpower");
                     recvStr = tn.recvDataWaitWord("dBm", 1);
-                    TheNode.TxPower = double.Parse(recvStr.Replace("OK\n#user@/>", "").Replace("dBm", ""));
+                    TheNode.TxPower = (cacheNode != null) ? cacheNode.TxPower : double.Parse(recvStr.Replace("OK\n#user@/>", "").Replace("dBm", ""));
                     //Thread.Sleep(1);
                     tn.sendData("bandwidth");
                     recvStr = tn.recvDataWaitWord("MHz", 1);
-                    TheNode.BandWidth = double.Parse(recvStr.Replace("OK\n#user@/>", "").Replace("MHz", ""));
+                    TheNode.BandWidth = (cacheNode != null) ? cacheNode.BandWidth : double.Parse(recvStr.Replace("OK\n#user@/>", "").Replace("MHz", ""));
 
+                    node cacheNod = new node();
+                    cacheNod.IpAddress = TheNode.IpAddress;
+                    cacheNod.Frequency = TheNode.Frequency;
+                    cacheNod.BandWidth = TheNode.BandWidth;
+                    cacheNod.TxPower = TheNode.TxPower;
+                    cacheNod.Battery = TheNode.Battery;
+                    if (hashTable.ContainsKey(needInfoNode))
+                    {
+                        hashTable[needInfoNode] = cacheNod;
+                    }
+                    else
+                    {
+                        hashTable.Add(needInfoNode, cacheNod);
+                    }
                     //Thread.Sleep(1);
                     tn.sendData("mesh");
                     recvStr = tn.recvDataWaitWord("OK", 1);
@@ -242,18 +266,12 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                     if (tempmesh.Length > 1)
                     {
-
                         int i = int.Parse(tempmesh[0]);
                         if (i > 0)
                         {
-
                             string[] mymesh = tempmesh[1].Split(";".ToArray());
 
-
-
                             TheNode.Haschild = true;
-
-
 
                             //3:
                             //9,6C6126100328,14,12,45,19,6C6126100327
@@ -308,21 +326,13 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                                         this.MYBlockNodes.Relationlist.Add(NewRelation);
 
-
-
                                         this.NeedResearchMac.Add(NeedToCheckMac);
-
-
                                     }
                                     else //找到了根节点，这时候跟新与根节点的端口关系
                                     {
                                         //对关系是否需要增加则需要判断一下是否有该关系
                                         if (MYBlockNodes.Relationlist.Count > 0)
                                         {
-
-                                            //
-
-
                                             var needupdaterelation = MYBlockNodes.Relationlist.Where(x => x.Localnode.MacAddress.Equals(NeedToCheckMac) && x.Localnode.IpAddress.Equals(NeedToCheckIP) && x.Remotenode.MacAddress.Equals(TheNode.MacAddress) && x.Remotenode.IpAddress.Equals(TheNode.IpAddress)).ToList();
 
                                             if (needupdaterelation.Count > 0)
@@ -382,11 +392,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
                                     this.NeedResearchMac.Add(NeedToCheckMac);
 
                                 }
-
-
-
-
-
                                 //0 ->  端口号
                                 //1 ->  本地MAC
                                 //2 ->  TX Speed
@@ -394,15 +399,9 @@ namespace HDDNCONIAMP.UI.MeshManagement
                                 //4 ->  RX Speed
                                 //5 ->  RX SNR
                                 //6 ->  REMOTE MAC ADDRESS 子节点MAC地址
-
-
-
-
-
+                                
                                 // }
-
-
-
+                                
                             }
                         }
                         else
@@ -411,14 +410,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                             //     //需要告知用户
                             LogHelper.WriteLog("此拓扑只发现单一节点，未发现子节点！！！");
                         }
-
-
-
                     }
-
-
-
-
                 }
                 catch (Exception ex)
                 {
@@ -1384,6 +1376,75 @@ namespace HDDNCONIAMP.UI.MeshManagement
         private void button1_Click(object sender, EventArgs e)
         {
             StartTopology();
+        }
+
+        string currentNodeName = null;
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (currentNodeName == null)
+            {
+                MessageBox.Show("请先选择节点MAC地址");
+                return;
+            }
+            string name = currentNodeName;
+            try
+            {
+                //数字校验
+                //功率 10-30
+                double itx = double.Parse(textBox2.Text);
+                //频率 616-656
+                double irate = double.Parse(textBox3.Text);
+                //带宽 5-20
+                double ibindwidth = double.Parse(textBox4.Text);
+
+                if (itx < 10 || itx > 30)
+                    throw new Exception();
+                if (irate < 616 || irate > 656)
+                    throw new Exception();
+                if (ibindwidth < 5 || ibindwidth > 20)
+                    throw new Exception();
+
+                if (hashTable.Contains(name))
+                {
+                    node info = (node)hashTable[name];
+                    info.TxPower = itx;
+                    info.Frequency = irate;
+                    info.BandWidth = ibindwidth;
+
+                    MessageBox.Show("设置成功");
+                }
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("数据输入有误，请检查输入数据");
+            }
+        }
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            string name = e.Node.Text;
+            if (hashTable.Contains(name))
+            {
+                currentNodeName = name;
+                node info = (node)hashTable[name];
+                textBox1.Text = info.IpAddress;
+                textBox2.Text = info.TxPower.ToString();
+                textBox3.Text = info.Frequency.ToString();
+                textBox4.Text = info.BandWidth.ToString();
+                textBox5.Text = info.Battery.ToString();
+            }
+            else
+            {
+                currentNodeName = null;
+
+                textBox1.Text = "";
+                textBox2.Text = "";
+                textBox3.Text = "";
+                textBox4.Text = "";
+                textBox5.Text = "";
+            }
         }
     }
 
