@@ -8,13 +8,18 @@ namespace HDDNCONIAMP.DB.Model
     /// <summary>
     /// 视频设备对象
     /// </summary>
-    public class VideoDevice
+    public class AudioAndVideoDevice
     {
 
         /// <summary>
         /// 获取或设置视频设备名称
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// 设备别名
+        /// </summary>
+        public string Alias { get; set; }
 
         /// <summary>
         /// 获取或设置视频设备所在纬度

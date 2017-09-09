@@ -38,7 +38,7 @@ namespace BMap.NET.WindowsForm
                 _center = value;
             }
         }
-        private int _zoom = 12;
+        private int _zoom = 9;
         /// <summary>
         /// 地图缩放级别(3-18)
         /// </summary>
@@ -1078,7 +1078,8 @@ namespace BMap.NET.WindowsForm
                     v.Value.Selected = true;
 
                     //Z-20170904：调用C++ EXE，显示视频信息
-                    inject.injectWindow();
+                    //inject.injectWindow();
+                    inject.injectWindow(v.Value.Name);
 
                     foreach (KeyValuePair<string, BVideoPoint> vv in _videoPoints)
                     {

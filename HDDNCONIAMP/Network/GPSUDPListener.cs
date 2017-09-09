@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using BMap.NET.WindowsForm.Utils;
 using HDDNCONIAMP.DB.Model;
 using log4net;
 
@@ -25,7 +26,7 @@ namespace HDDNCONIAMP.Network
         /// 接收到GPS消息委托
         /// </summary>
         /// <param name="device"></param>
-        public delegate void OnReceiveGPSDelegate(VideoDevice device);
+        public delegate void OnReceiveGPSDelegate(AudioAndVideoDevice device);
 
         /// <summary>
         /// 接收到GPS信号事件
@@ -38,7 +39,7 @@ namespace HDDNCONIAMP.Network
         private const int Port = 8340;
 
         private const int GPS_MESSAGE_HEADER_LENGTH = 16;
-        
+
         /// <summary>
         /// 用于UDP接收的网络服务类
         /// </summary>
@@ -55,7 +56,7 @@ namespace HDDNCONIAMP.Network
         }
 
         #region 接收数据
-        
+
         /// <summary>
         /// 开启接收UDP消息
         /// </summary>
@@ -72,8 +73,10 @@ namespace HDDNCONIAMP.Network
         /// </summary>
         public void StopReceive()
         {
-            thrRecv.Abort();  //先关闭线程
-            udpcRecv.Close();
+            if (thrRecv != null)
+                thrRecv.Abort();  //先关闭线程
+            if (udpcRecv != null)
+                udpcRecv.Close();
             logger.Info("GPS UDP监听器已关闭");
         }
 
@@ -101,20 +104,23 @@ namespace HDDNCONIAMP.Network
                     }
                     string ip = ipendpoint.Address.ToString();
                     string message = Encoding.Default.GetString(gpsdata, 0, gpsdata.Length);
-                    logger.Info("收到来自“" + ip + 
+                    logger.Info("收到来自“" + ip +
                         "”的UDP消息：“" + message + "”。");
 
                     if (message.StartsWith("$GPRMC"))
                     {
                         //切割字符串
                         string[] temp = message.Split(',');
-                        VideoDevice device = new VideoDevice();
+                        AudioAndVideoDevice device = new AudioAndVideoDevice();
                         //device.Name = ip;
-                        device.Name = (bytes[4] << 24 | bytes[5] << 16 | bytes[6] << 8 | bytes[7]).ToString() ;  //设备的ID
-                        device.Lat = Double.Parse(temp[3].Substring(0, 2))
-                            + Double.Parse(temp[3].Substring(2)) / 60.0;
-                        device.Lon = Double.Parse(temp[5].Substring(0, 3))
-                            + Double.Parse(temp[5].Substring(3)) / 60.0;
+                        device.Name = (bytes[4] << 24 | bytes[5] << 16 | bytes[6] << 8 | bytes[7]).ToString();  //设备的ID
+                        double[] latLon = GPS2BD09.wgs2bd(Double.Parse(temp[3].Substring(0, 2))
+                            + Double.Parse(temp[3].Substring(2)) / 60.0,
+                            Double.Parse(temp[5].Substring(0, 3))
+                            + Double.Parse(temp[5].Substring(3)) / 60.0);
+                        device.Lat = latLon[0];
+                        device.Lon = latLon[1];
+                        device.Alias = device.Name;
                         RaiseReceiveGPS(device);
                     }
                 }
@@ -129,7 +135,7 @@ namespace HDDNCONIAMP.Network
         /// 上报接收到GPS信号事件
         /// </summary>
         /// <param name="device"></param>
-        private void RaiseReceiveGPS(VideoDevice device)
+        private void RaiseReceiveGPS(AudioAndVideoDevice device)
         {
             OnReceiveGPS?.Invoke(device);
         }
@@ -142,10 +148,11 @@ namespace HDDNCONIAMP.Network
         {
             for (;;)
             {
-                VideoDevice device = new VideoDevice();
+                AudioAndVideoDevice device = new AudioAndVideoDevice();
                 device.Name = "26089";
                 device.Lat = 40.8;
                 device.Lon = 116.3;
+                device.Alias = device.Name;
                 RaiseReceiveGPS(device);
                 Thread.Sleep(10 * 1000);
             }

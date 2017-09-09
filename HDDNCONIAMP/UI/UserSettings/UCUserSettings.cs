@@ -1,22 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using HDDNCONIAMP.DB.Model;
-using HDDNCONIAMP.DB;
-using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Net.NetworkInformation;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using DevComponents.AdvTree;
 using DevComponents.DotNetBar;
 using DevComponents.DotNetBar.Controls;
+using HDDNCONIAMP.DB;
+using HDDNCONIAMP.DB.Model;
 using HDDNCONIAMP.Utils;
 using log4net;
-using System.Diagnostics;
-using System.Net.NetworkInformation;
 
 namespace HDDNCONIAMP.UI.UserSettings
 {

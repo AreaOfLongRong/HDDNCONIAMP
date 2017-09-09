@@ -256,6 +256,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="RouteType.cs" />
+    <Compile Include="Utils\GPS2BD09.cs" />
     <Compile Include="Video\VideoInject.cs" />
   </ItemGroup>
   <ItemGroup>

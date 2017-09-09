@@ -95,6 +95,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AudioAndVideo\AAVDeviceManage.cs" />
     <Compile Include="DB\Model\IDEntity.cs" />
     <Compile Include="DB\Model\MeshDeviceGroup.cs" />
     <Compile Include="DB\Model\User.cs" />
@@ -103,7 +104,7 @@
     <Compile Include="Events\UserLoginOrOutEventArgs.cs" />
     <Compile Include="DB\Model\EUserAuthority.cs" />
     <Compile Include="DB\Model\MeshDevice.cs" />
-    <Compile Include="DB\Model\VideoDevice.cs" />
+    <Compile Include="DB\Model\AudioAndVideoDevice.cs" />
     <Compile Include="Mesh\MeshOperator.cs" />
     <Compile Include="Network\GPSUDPListener.cs" />
     <Compile Include="Network\NetworkListenerManage.cs" />
@@ -120,6 +121,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AudioVideoProcess\FormVideoFullScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AudioVideoProcess\FormVideoFullScreen.Designer.cs">
+      <DependentUpon>FormVideoFullScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\AudioVideoProcess\IGrid.cs" />
     <Compile Include="UI\AudioVideoProcess\UCAudioVideoProcess.cs">
@@ -200,6 +207,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AudioVideoProcess\FormVideoFullScreen.resx">
+      <DependentUpon>FormVideoFullScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AudioVideoProcess\UCAudioVideoProcess.resx">
       <DependentUpon>UCAudioVideoProcess.cs</DependentUpon>
@@ -330,9 +340,7 @@
       <Name>NodeTopology</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Video\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>

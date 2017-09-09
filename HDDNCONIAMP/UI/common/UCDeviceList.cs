@@ -222,7 +222,8 @@ namespace HDDNCONIAMP.UI.Common
             if (selectNode.Level == 1 && BuddyGrid != null)
             {
                 //TODO：目前只支持一路信号输入，后续需修改
-                inject.injectPanel(BuddyGrid.GetPanelByIndex(1));
+                BVideoPoint vp = (BVideoPoint)selectNode.Tag;
+                inject.injectPanel(BuddyGrid.GetPanelByIndex(1), vp.Name, "0");
             }
         }
 
@@ -233,11 +234,11 @@ namespace HDDNCONIAMP.UI.Common
         /// <param name="e"></param>
         private void advTreeDeviceList_AfterCellEdit(object sender, CellEditEventArgs e)
         {
-            //Node editNode = e.Cell.Parent;
-            //if(editNode.Level == 1)
-            //{//处理设备节点的元素编辑事件
-            //    deviceAlias.Keys[editNode.]
-            //}
+            Node editNode = e.Cell.Parent;
+            if (editNode.Level == 1)
+            {//处理设备节点的元素编辑事件
+                ((BVideoPoint)editNode.Tag).Alias = e.NewText;
+            }
         }
 
         /// <summary>
@@ -306,7 +307,7 @@ namespace HDDNCONIAMP.UI.Common
                 {
                     Node node = new Node();
                     node.Tag = vp;
-                    node.Text = vp.Name;
+                    node.Text = vp.Alias;
                     nodeDefaultGroup.Nodes.Add(node);
                 }
             }
@@ -317,7 +318,7 @@ namespace HDDNCONIAMP.UI.Common
         /// 接收到GPS信号时，实时更新设备位置
         /// </summary>
         /// <param name="device"></param>
-        private void PGPSUDPListener_OnReceiveGPS(VideoDevice device)
+        private void PGPSUDPListener_OnReceiveGPS(AudioAndVideoDevice device)
         {
             BVideoPoint currentPoint = mBVideoPoints.Find(delegate (BVideoPoint p) {
                 return p.Name == device.Name;
@@ -331,11 +332,20 @@ namespace HDDNCONIAMP.UI.Common
                 BVideoPoint p = new BVideoPoint();
                 p.Location = new LatLngPoint(device.Lon, device.Lat);
                 p.Name = device.Name;
+                p.Alias = device.Alias;
                 p.IsOnline = true;
                 mBVideoPoints.Add(p);
             }
 
-            advTreeDeviceList.BeginInvoke(new updateDeviceListDelegate(updateDeviceList));
+            try
+            {
+                advTreeDeviceList.BeginInvoke(new updateDeviceListDelegate(updateDeviceList));
+            }
+            catch (InvalidOperationException ex)
+            {
+                logger.Error("更新列表错误", ex);
+            }
+
             //更新地图窗体
             if (BuddyBMapControl != null)
             {
