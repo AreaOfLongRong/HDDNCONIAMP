@@ -64,6 +64,11 @@ namespace HDDNCONIAMP
         private UCMeshManagement ucMeshManagement;
 
         /// <summary>
+        /// Mesh设备管理控件
+        /// </summary>
+        private UCMeshManagement2 ucMeshManagement2;
+
+        /// <summary>
         /// 用户配置管理控件
         /// </summary>
         private UCUserSettings ucUserSettings;
@@ -327,12 +332,19 @@ namespace HDDNCONIAMP
                         updateSuperTabControlPanel(OpenUCType.OpenLogin);
                     else
                     {
-                        if (ucMeshManagement == null)
+                        //if (ucMeshManagement == null)
+                        //{
+                        //    ucMeshManagement = new UCMeshManagement();
+                        //    ucMeshManagement.Dock = DockStyle.Fill;
+                        //    superTabControlPanelMeshManagement.Controls.Clear();  //清空所有控件
+                        //    superTabControlPanelMeshManagement.Controls.Add(ucMeshManagement);
+                        //}
+                        if(ucMeshManagement2 == null)
                         {
-                            ucMeshManagement = new UCMeshManagement();
-                            ucMeshManagement.Dock = DockStyle.Fill;
+                            ucMeshManagement2 = new UCMeshManagement2();
+                            ucMeshManagement2.Dock = DockStyle.Fill;
                             superTabControlPanelMeshManagement.Controls.Clear();  //清空所有控件
-                            superTabControlPanelMeshManagement.Controls.Add(ucMeshManagement);
+                            superTabControlPanelMeshManagement.Controls.Add(ucMeshManagement2);
                         }
 
                     }

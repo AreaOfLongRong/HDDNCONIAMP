@@ -31,11 +31,6 @@ namespace HDDNCONIAMP.UI.UserSettings
         /// </summary>
         private ILog logger = LogManager.GetLogger(typeof(UCUserSettings));
 
-        /// <summary>
-        /// 网卡接口数组
-        /// </summary>
-        private NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
-
         #endregion
 
         #region 属性
@@ -75,9 +70,7 @@ namespace HDDNCONIAMP.UI.UserSettings
                 superTabItemAuthorityManage.Visible = true;
                 initAdvTreeUsers();
             }
-
-            initMeshBaseParamConfit();
-
+            
             initCacheSettingsTextBoxX();
         }
 
@@ -97,7 +90,7 @@ namespace HDDNCONIAMP.UI.UserSettings
                 {
                     SuperTabItem logItem = new SuperTabItem();
                     SuperTabControlPanel logPanel = new SuperTabControlPanel();
-                    TextBoxX logContet = new TextBoxX();
+                    RichTextBoxEx logContet = new RichTextBoxEx();
 
                     logItem.Name = selectNode.Text;
                     logItem.Text = selectNode.Text;
@@ -108,16 +101,14 @@ namespace HDDNCONIAMP.UI.UserSettings
                     logPanel.Location = new Point(0, 28);
                     logPanel.Size = new Size(300, 300);
                     logPanel.TabItem = logItem;
-
-                    logContet.Border.Class = "TextBoxBorder";
-                    logContet.Border.CornerType = eCornerType.Square;
+                    
                     logContet.Dock = DockStyle.Fill;
                     logContet.Location = new Point(0, 0);
                     logContet.Size = new Size(420, 340);
-                    logContet.PreventEnterBeep = true;
                     logContet.Multiline = true;
-                    logContet.ScrollBars = ScrollBars.Vertical;
+                    logContet.ScrollBars = RichTextBoxScrollBars.Vertical;
                     logContet.Font = new Font("微软雅黑", 10);
+                    logContet.SelectedText = "2017";
                     if (selectNode.Text.Split('.')[0].Equals(DateTime.Now.ToString("yyyy-MM-dd")))
                     {
                         string tempLogFile = Path.Combine(PathUtils.LOG_TEMP_DIRECTORY, selectNode.Text + ".temp");
@@ -469,9 +460,6 @@ namespace HDDNCONIAMP.UI.UserSettings
             tableLayoutPanelLogManage.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelLogManage, true, null);
             tableLayoutPanelModifyPassword.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelModifyPassword, true, null);
             tableLayoutPanelAuthorityManage.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelAuthorityManage, true, null);
-            tableLayoutPanelMeshBasicSetting.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshBasicSetting, true, null);
-            tableLayoutPanelMeshLocalhostSetting.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshLocalhostSetting, true, null);
-            tableLayoutPanelMeshTCP.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshTCP, true, null);
             tableLayoutPanelSSCacheSettings.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelSSCacheSettings, true, null);
             tableLayoutPanelSSAbout.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelSSAbout, true, null);
             tableLayoutPanelSoftSettings.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelSoftSettings, true, null);
@@ -558,22 +546,6 @@ namespace HDDNCONIAMP.UI.UserSettings
                 textBoxXUAUserPassword.Text = "";
                 radioButtonUAGeneralUser.Checked = true;
             }
-        }
-
-        /// <summary>
-        /// 初始化“Mesh基本参数配置”界面控件
-        /// </summary>
-        private void initMeshBaseParamConfit()
-        {
-            //判断是否为以太网卡
-            //Ethernet              以太网卡  
-            //Wireless80211         无线网卡
-            NetworkInterface[] ethernets = nics.Where(nic => nic.NetworkInterfaceType == NetworkInterfaceType.Ethernet).ToArray();
-            foreach (NetworkInterface adapter in ethernets)
-            {
-                this.comboBoxExLocalhostNetwordCard.Items.Add(adapter.Name);
-            }
-            this.comboBoxExLocalhostNetwordCard.SelectedIndex = 0;
         }
 
         /// <summary>

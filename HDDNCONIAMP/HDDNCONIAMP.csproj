@@ -55,6 +55,15 @@
   <PropertyGroup>
     <ApplicationIcon>Resources\HDDNCONIAMP.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Chloe, Version=2.15.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -69,6 +78,7 @@
       <HintPath>References\SQLite\Chloe\Chloe.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="DevComponents.DotNetBar2, Version=12.4.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.Instrumentation, Version=12.4.0.2, Culture=neutral, PublicKeyToken=bc4a9d761ea44ef0, processorArchitecture=MSIL" />
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>References\log4net 2.0.8-newkey\log4net.dll</HintPath>
@@ -192,6 +202,12 @@
     <Compile Include="UI\MeshManagement\UCMeshManagement.Designer.cs">
       <DependentUpon>UCMeshManagement.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\MeshManagement\UCMeshManagement2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\MeshManagement\UCMeshManagement2.Designer.cs">
+      <DependentUpon>UCMeshManagement2.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\UserSettings\UCUserSettings.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -199,6 +215,7 @@
       <DependentUpon>UCUserSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\FileUtils.cs" />
+    <Compile Include="Utils\NetUtils.cs" />
     <Compile Include="Utils\PathUtils.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -232,6 +249,9 @@
     <EmbeddedResource Include="UI\MeshManagement\UCMeshManagement.resx">
       <DependentUpon>UCMeshManagement.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\MeshManagement\UCMeshManagement2.resx">
+      <DependentUpon>UCMeshManagement2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\UserSettings\UCUserSettings.resx">
       <DependentUpon>UCUserSettings.cs</DependentUpon>
     </EmbeddedResource>
@@ -250,6 +270,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Documents\平台设计方案.docx" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings2.Designer.cs</LastGenOutput>
