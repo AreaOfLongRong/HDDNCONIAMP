@@ -151,18 +151,6 @@
     <Compile Include="UI\AudioVideoProcess\UCGrid1.Designer.cs">
       <DependentUpon>UCGrid1.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\AudioVideoProcess\UCGrid4.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\AudioVideoProcess\UCGrid4.Designer.cs">
-      <DependentUpon>UCGrid4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\AudioVideoProcess\UCGrid6.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\AudioVideoProcess\UCGrid6.Designer.cs">
-      <DependentUpon>UCGrid6.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\AudioVideoProcess\UCGrid9.cs">
       <SubType>UserControl</SubType>
     </Compile>

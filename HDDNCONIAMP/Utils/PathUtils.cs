@@ -24,6 +24,16 @@ namespace HDDNCONIAMP.Utils
         private static string VIDEO_DATA_DEFAULT_PATH = AppDomain.CurrentDomain.BaseDirectory + "Videos";
 
         /// <summary>
+        /// 临时数据存储目录
+        /// </summary>
+        private static string TEMP_PATH = AppDomain.CurrentDomain.BaseDirectory + "Temp";
+
+        /// <summary>
+        /// 音视频临时数据存储目录
+        /// </summary>
+        private static string TEMP_AUDIOANDVIDEO_PATH = TEMP_PATH + "\\AudioAndVideo\\";
+
+        /// <summary>
         /// 获取或设置百度地图缓存路径
         /// </summary>
         public string BDMapCachePath
@@ -34,6 +44,8 @@ namespace HDDNCONIAMP.Utils
                 {
                     Properties.Settings.Default.BDMAP_CACHE_PATH = BDMAP_CACHE_DEFAULT_PATH;
                     Properties.Settings.Default.Save();
+                    if (!Directory.Exists(BDMAP_CACHE_DEFAULT_PATH))
+                        Directory.CreateDirectory(BDMAP_CACHE_DEFAULT_PATH);
                 }
                 return Properties.Settings.Default.BDMAP_CACHE_PATH;
             }
@@ -41,6 +53,8 @@ namespace HDDNCONIAMP.Utils
             {
                 Properties.Settings.Default.BDMAP_CACHE_PATH = value;
                 Properties.Settings.Default.Save();
+                if (!Directory.Exists(value))
+                    Directory.CreateDirectory(value);
             }
         }
 
@@ -55,6 +69,8 @@ namespace HDDNCONIAMP.Utils
                 {
                     Properties.Settings.Default.VIDEO_DATA_PATH = VIDEO_DATA_DEFAULT_PATH;
                     Properties.Settings.Default.Save();
+                    if (!Directory.Exists(VIDEO_DATA_DEFAULT_PATH))
+                        Directory.CreateDirectory(VIDEO_DATA_DEFAULT_PATH);
                 }
                 return Properties.Settings.Default.VIDEO_DATA_PATH;
             }
@@ -62,6 +78,34 @@ namespace HDDNCONIAMP.Utils
             {
                 Properties.Settings.Default.VIDEO_DATA_PATH = value;
                 Properties.Settings.Default.Save();
+                if (!Directory.Exists(value))
+                    Directory.CreateDirectory(value);
+            }
+        }
+
+        /// <summary>
+        /// 获取数据存储临时路径
+        /// </summary>
+        public string TempPath
+        {
+            get
+            {
+                if (!Directory.Exists(TEMP_PATH))
+                    Directory.CreateDirectory(TEMP_PATH);
+                return TEMP_PATH;
+            }
+        }
+
+        /// <summary>
+        /// 获取音视频数据临时存储目录
+        /// </summary>
+        public string TempAudioAndVideoPath
+        {
+            get
+            {
+                if (!Directory.Exists(TEMP_AUDIOANDVIDEO_PATH))
+                    Directory.CreateDirectory(TEMP_AUDIOANDVIDEO_PATH);
+                return TEMP_AUDIOANDVIDEO_PATH;
             }
         }
 

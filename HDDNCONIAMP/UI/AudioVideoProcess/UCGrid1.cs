@@ -28,6 +28,15 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
             }
         }
 
+        /// <summary>
+        /// 获取下一个可用的面板
+        /// </summary>
+        /// <returns>可用的面板</returns>
+        public Panel GetNextAvailablePanel()
+        {
+            return panel1;
+        }
+
 
         /// <summary>
         /// 获取指定屏幕坐标位置处的Panel
@@ -54,6 +63,15 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
         public Panel GetPanelByIndex(int index)
         {
             return panel1;
+        }
+
+        /// <summary>
+        /// 初始化面板字典，键为面板，值为是否可用
+        /// </summary>
+        /// <returns></returns>
+        public void InitPanelDictionary()
+        {
+            throw new NotImplementedException();
         }
     }
 }
