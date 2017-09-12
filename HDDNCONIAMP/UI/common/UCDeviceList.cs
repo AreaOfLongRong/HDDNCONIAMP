@@ -256,6 +256,40 @@ namespace HDDNCONIAMP.UI.Common
             }
         }
 
+        #region 拖拽事件处理
+
+
+        private void advTreeDeviceList_NodeDragStart(object sender, EventArgs e)
+        {
+            Node node = (Node)sender;
+            if (node != null && node.Level == 1)
+            {
+                DoDragDrop(node, DragDropEffects.Move);
+            }
+        }
+
+        private void advTreeDeviceList_DragEnter(object sender, DragEventArgs e)
+        {
+            // 拖动效果设成移动
+            e.Effect = DragDropEffects.Move;
+        }
+
+        private void advTreeDeviceList_DragDrop(object sender, DragEventArgs e)
+        {
+            AdvTree tree = (AdvTree)sender;
+            Point point = tree.PointToClient(new Point(e.X, e.Y));
+            Node targetNode = tree.GetNodeAt(point);
+            Node dragNode = (Node)e.Data.GetData("DevComponents.AdvTree.Node");
+            if (targetNode != null)
+            {
+                targetNode.Nodes.Insert(targetNode.Nodes.Count, dragNode);
+                advTreeDeviceList.SelectedNode = dragNode;
+                targetNode.Expand();
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region 私有方法
@@ -292,17 +326,23 @@ namespace HDDNCONIAMP.UI.Common
             foreach (BVideoPoint vp in mBVideoPoints)
             {
                 bool exist = false;
-                foreach (Node n in nodeDefaultGroup.Nodes)
+                foreach (Node group in advTreeDeviceList.Nodes)
                 {
-                    BVideoPoint temp = (BVideoPoint)n.Tag;
-                    //如果节点已存在则更新节点内容
-                    if (temp.Name.Equals(vp.Name))
+                    foreach (Node n in group.Nodes)
                     {
-                        n.Tag = vp;
-                        exist = true;
-                        break;
+                        BVideoPoint temp = (BVideoPoint)n.Tag;
+                        //如果节点已存在则更新节点内容
+                        if (temp.Name.Equals(vp.Name))
+                        {
+                            n.Tag = vp;
+                            exist = true;
+                            break;
+                        }
                     }
+                    if (exist)
+                        break;
                 }
+                
                 if (!exist)
                 {
                     Node node = new Node();

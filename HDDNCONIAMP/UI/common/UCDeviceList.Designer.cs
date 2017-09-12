@@ -90,6 +90,7 @@
             // advTreeDeviceList
             // 
             this.advTreeDeviceList.AccessibleRole = System.Windows.Forms.AccessibleRole.Outline;
+            this.advTreeDeviceList.AllowDrop = true;
             this.advTreeDeviceList.BackColor = System.Drawing.SystemColors.Window;
             // 
             // 
@@ -118,7 +119,10 @@
             this.advTreeDeviceList.TabIndex = 1;
             this.advTreeDeviceList.Text = "advTree1";
             this.advTreeDeviceList.AfterCellEdit += new DevComponents.AdvTree.CellEditEventHandler(this.advTreeDeviceList_AfterCellEdit);
+            this.advTreeDeviceList.NodeDragStart += new System.EventHandler(this.advTreeDeviceList_NodeDragStart);
             this.advTreeDeviceList.NodeClick += new DevComponents.AdvTree.TreeNodeMouseEventHandler(this.advTreeDeviceList_NodeClick);
+            this.advTreeDeviceList.DragDrop += new System.Windows.Forms.DragEventHandler(this.advTreeDeviceList_DragDrop);
+            this.advTreeDeviceList.DragEnter += new System.Windows.Forms.DragEventHandler(this.advTreeDeviceList_DragEnter);
             this.advTreeDeviceList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.advTreeDeviceList_MouseDown);
             // 
             // imageListGISVideo
