@@ -22,6 +22,11 @@ namespace HDDNCONIAMP.DB.Model
         public string Alias { get; set; }
 
         /// <summary>
+        /// 分组名称
+        /// </summary>
+        public string GroupName { get; set; }
+
+        /// <summary>
         /// 获取或设置视频设备所在纬度
         /// </summary>
         public double Lat { get; set; }

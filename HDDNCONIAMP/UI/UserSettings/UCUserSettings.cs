@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BMap.NET;
 using DevComponents.AdvTree;
 using DevComponents.DotNetBar;
 using DevComponents.DotNetBar.Controls;
@@ -31,6 +32,11 @@ namespace HDDNCONIAMP.UI.UserSettings
         /// </summary>
         private ILog logger = LogManager.GetLogger(typeof(UCUserSettings));
 
+        /// <summary>
+        /// 应用程序主界面引用
+        /// </summary>
+        private FormMain mFormMain;
+
         #endregion
 
         #region 属性
@@ -42,9 +48,10 @@ namespace HDDNCONIAMP.UI.UserSettings
 
         #endregion
 
-        public UCUserSettings()
+        public UCUserSettings(FormMain formMain)
         {
             InitializeComponent();
+            mFormMain = formMain;
             //双缓冲设置，防止界面闪烁
             setTableLayoutPanelDoubleBufferd();
         }
@@ -425,8 +432,13 @@ namespace HDDNCONIAMP.UI.UserSettings
         {
             try
             {
-                PathUtils.Instance.BDMapCachePath = textBoxXOfflineBDMapCachePath.Text;
-                PathUtils.Instance.VideoDataPath = textBoxXVideoDataPath.Text;
+                mFormMain.AllApplicationSetting[ApplicationSettingKey.BDMapCachePath] = textBoxXOfflineBDMapCachePath.Text;
+                SQLiteHelper.GetInstance().ApplicationSettingUpdate(ApplicationSettingKey.BDMapCachePath, textBoxXOfflineBDMapCachePath.Text);
+                BMapConfiguration.MapCachePath = mFormMain.AllApplicationSetting[ApplicationSettingKey.BDMapCachePath];
+
+                mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoCachePath] = textBoxXVideoDataPath.Text;
+                SQLiteHelper.GetInstance().ApplicationSettingUpdate(ApplicationSettingKey.VideoCachePath, textBoxXVideoDataPath.Text);
+
                 logger.Info("更改离线地图缓存配置为“" + PathUtils.Instance.BDMapCachePath + "”；视频缓存位置为“" + PathUtils.Instance.VideoDataPath + "”。");
                 MessageBox.Show("保存成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -444,8 +456,8 @@ namespace HDDNCONIAMP.UI.UserSettings
         /// <param name="e"></param>
         private void buttonXSSCSCancel_Click(object sender, EventArgs e)
         {
-            textBoxXOfflineBDMapCachePath.Text = PathUtils.Instance.BDMapCachePath;
-            textBoxXVideoDataPath.Text = PathUtils.Instance.VideoDataPath;
+            textBoxXOfflineBDMapCachePath.Text = mFormMain.AllApplicationSetting[ApplicationSettingKey.BDMapCachePath];
+            textBoxXVideoDataPath.Text = mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoCachePath];
         }
 
         #endregion
@@ -553,8 +565,8 @@ namespace HDDNCONIAMP.UI.UserSettings
         /// </summary>
         private void initCacheSettingsTextBoxX()
         {
-            textBoxXOfflineBDMapCachePath.Text = PathUtils.Instance.BDMapCachePath;
-            textBoxXVideoDataPath.Text = PathUtils.Instance.VideoDataPath;
+            textBoxXOfflineBDMapCachePath.Text = mFormMain.AllApplicationSetting[ApplicationSettingKey.BDMapCachePath];
+            textBoxXVideoDataPath.Text = mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoCachePath];
         }
 
         #endregion

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
+using BMap.NET;
 using DevComponents.DotNetBar;
 using HDDNCONIAMP.DB;
 using HDDNCONIAMP.DB.Model;
@@ -9,6 +11,7 @@ using HDDNCONIAMP.UI.AudioVideoProcess;
 using HDDNCONIAMP.UI.GISVideo;
 using HDDNCONIAMP.UI.MeshManagement;
 using HDDNCONIAMP.UI.UserSettings;
+using HDDNCONIAMP.Utils;
 using log4net;
 
 namespace HDDNCONIAMP
@@ -22,6 +25,11 @@ namespace HDDNCONIAMP
         /// 当前用户
         /// </summary>
         public User CurrentUser { get; set; }
+
+        /// <summary>
+        /// 获取所有应用程序配置项
+        /// </summary>
+        public Dictionary<string, string> AllApplicationSetting { get; private set; }
 
         #endregion
 
@@ -210,6 +218,9 @@ namespace HDDNCONIAMP
             {
                 CurrentUser = SQLiteHelper.GetInstance().UserSearchByName(textBoxXUserName.Text);
                 logger.Info("账户“" + textBoxXUserName.Text + "”登陆系统");
+
+                loadAllApplicationSetting();
+
                 //更新主界面
                 OnRaiseUserLoginOroutEvent(this, new UserLoginOrOutEventArgs(CurrentUser, true));
             }
@@ -346,7 +357,6 @@ namespace HDDNCONIAMP
                             superTabControlPanelMeshManagement.Controls.Clear();  //清空所有控件
                             superTabControlPanelMeshManagement.Controls.Add(ucMeshManagement2);
                         }
-
                     }
                     break;
                 case OpenUCType.OpenUserSettings:
@@ -356,7 +366,7 @@ namespace HDDNCONIAMP
                     {
                         if (ucUserSettings == null)
                         {
-                            ucUserSettings = new UCUserSettings();
+                            ucUserSettings = new UCUserSettings(this);
                             ucUserSettings.Dock = DockStyle.Fill;
                             ucUserSettings.CurrentUser = CurrentUser;
                             superTabControlPanelUserSettings.Controls.Clear();  //清空所有控件
@@ -364,6 +374,31 @@ namespace HDDNCONIAMP
                         }
                     }
                     break;
+            }
+        }
+
+        /// <summary>
+        /// 加载所有应用程序配置项
+        /// </summary>
+        private void loadAllApplicationSetting()
+        {
+            logger.Info("开始读取应用程序配置信息……");
+            AllApplicationSetting = SQLiteHelper.GetInstance().ApplicationSettingAsDictionary();
+            logger.Info("读取应用程序配置信息完毕！");
+
+            if(AllApplicationSetting[ApplicationSettingKey.BDMapCachePath].Trim() == "")
+            {
+                AllApplicationSetting[ApplicationSettingKey.BDMapCachePath] =
+                    PathUtils.BDMAP_CACHE_DEFAULT_PATH;
+                SQLiteHelper.GetInstance().ApplicationSettingUpdate(ApplicationSettingKey.BDMapCachePath, PathUtils.BDMAP_CACHE_DEFAULT_PATH);
+            }
+            BMapConfiguration.MapCachePath = AllApplicationSetting[ApplicationSettingKey.BDMapCachePath];
+
+            if (AllApplicationSetting[ApplicationSettingKey.VideoCachePath].Trim() == "")
+            {
+                AllApplicationSetting[ApplicationSettingKey.VideoCachePath] =
+                    PathUtils.VIDEO_DATA_DEFAULT_PATH;
+                SQLiteHelper.GetInstance().ApplicationSettingUpdate(ApplicationSettingKey.VideoCachePath, PathUtils.VIDEO_DATA_DEFAULT_PATH);
             }
         }
 

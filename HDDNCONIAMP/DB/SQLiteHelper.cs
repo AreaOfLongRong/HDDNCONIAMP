@@ -26,7 +26,7 @@ namespace HDDNCONIAMP.DB
         /// </summary>
         private SQLiteHelper()
         {
-            
+
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace HDDNCONIAMP.DB
         {
             IQuery<User> q = context.Query<User>();
             int count = q.Where(u => u.Name.Equals(userName) && u.Password.Equals(password)).Count();
-            return  count> 0;
+            return count > 0;
         }
 
         /// <summary>
@@ -135,6 +135,83 @@ namespace HDDNCONIAMP.DB
         public List<User> UserAllQuery()
         {
             return context.Query<User>().ToList();
+        }
+
+        #endregion
+
+        #region Mesh设备分组相关
+
+
+
+        #endregion
+
+        #region Mesh设备信息相关
+
+
+
+        #endregion
+
+        #region 应用程序配置相关
+
+        /// <summary>
+        /// 插入应用程序配置项
+        /// </summary>
+        /// <param name="setting">配置项</param>
+        public void ApplicationSettingInsert(ApplicationSettings setting)
+        {
+            context.Insert<ApplicationSettings>(() =>
+            new ApplicationSettings()
+            {
+                Key = setting.Key,
+                Value = setting.Value,
+                Description = setting.Description
+            });
+        }
+
+        /// <summary>
+        /// 更新应用程序配置项
+        /// </summary>
+        /// <param name="key">配置项关键字</param>
+        /// <param name="value">配置项的值</param>
+        /// <returns>影响的行数</returns>
+        public int ApplicationSettingUpdate(string key, string value)
+        {
+            return context.Update<ApplicationSettings>(a => a.Key == key, u => new ApplicationSettings() { Value = value });
+        }
+
+        /// <summary>
+        /// 删除配置项
+        /// </summary>
+        /// <param name="userName">待删除的配置项</param>
+        /// <returns>删除影响到的行数</returns>
+        public int ApplicationSettingDelete(string key)
+        {
+            return context.Delete<ApplicationSettings>(a => a.Key == key);
+        }
+
+        /// <summary>
+        /// 检索所有配置项
+        /// </summary>
+        /// <returns>所有配置列表</returns>
+        public List<ApplicationSettings> ApplicationSettingAllQuery()
+        {
+            return context.Query<ApplicationSettings>().ToList();
+        }
+
+        /// <summary>
+        /// 检索所有应用程序配置项，填充到字典中，
+        /// 所有的键可在ApplicationSettingKey类中找到。
+        /// </summary>
+        /// <returns>应用程序配置项字典</returns>
+        public Dictionary<string, string> ApplicationSettingAsDictionary()
+        {
+            List<ApplicationSettings> allAS = ApplicationSettingAllQuery();
+            Dictionary<string, string> result = new Dictionary<string, string>();
+            foreach (ApplicationSettings item in allAS)
+            {
+                result.Add(item.Key, item.Value);
+            }
+            return result;
         }
 
         #endregion

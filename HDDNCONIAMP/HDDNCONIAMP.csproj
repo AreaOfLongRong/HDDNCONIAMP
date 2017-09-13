@@ -106,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AudioAndVideo\AAVDeviceManage.cs" />
+    <Compile Include="DB\Model\ApplicationSettings.cs" />
     <Compile Include="DB\Model\IDEntity.cs" />
     <Compile Include="DB\Model\MeshDeviceGroup.cs" />
     <Compile Include="DB\Model\User.cs" />
@@ -113,7 +114,7 @@
     <Compile Include="DB\SQLiteHelper.cs" />
     <Compile Include="Events\UserLoginOrOutEventArgs.cs" />
     <Compile Include="DB\Model\EUserAuthority.cs" />
-    <Compile Include="DB\Model\MeshDevice.cs" />
+    <Compile Include="DB\Model\MeshDeviceInfo.cs" />
     <Compile Include="DB\Model\AudioAndVideoDevice.cs" />
     <Compile Include="Mesh\MeshOperator.cs" />
     <Compile Include="Network\GPSUDPListener.cs" />
@@ -175,6 +176,12 @@
     <Compile Include="UI\Common\UCDeviceList.Designer.cs">
       <DependentUpon>UCDeviceList.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Common\UCMeshList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Common\UCMeshList.Designer.cs">
+      <DependentUpon>UCMeshList.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\GISVideo\UCGISVideo.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -202,6 +209,7 @@
     <Compile Include="UI\UserSettings\UCUserSettings.Designer.cs">
       <DependentUpon>UCUserSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\ApplicationSettingKey.cs" />
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Utils\NetUtils.cs" />
     <Compile Include="Utils\PathUtils.cs" />
@@ -230,6 +238,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Common\UCDeviceList.resx">
       <DependentUpon>UCDeviceList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Common\UCMeshList.resx">
+      <DependentUpon>UCMeshList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\GISVideo\UCGISVideo.resx">
       <DependentUpon>UCGISVideo.cs</DependentUpon>

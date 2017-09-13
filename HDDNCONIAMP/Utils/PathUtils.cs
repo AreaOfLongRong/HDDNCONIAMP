@@ -16,22 +16,22 @@ namespace HDDNCONIAMP.Utils
         /// <summary>
         /// 百度地图默认缓存路径
         /// </summary>
-        private static string BDMAP_CACHE_DEFAULT_PATH = AppDomain.CurrentDomain.BaseDirectory + "BDMapCache";
+        public static string BDMAP_CACHE_DEFAULT_PATH = AppDomain.CurrentDomain.BaseDirectory + "BDMapCache";
 
         /// <summary>
         /// 视频数据默认缓存路径
         /// </summary>
-        private static string VIDEO_DATA_DEFAULT_PATH = AppDomain.CurrentDomain.BaseDirectory + "Videos";
+        public static string VIDEO_DATA_DEFAULT_PATH = AppDomain.CurrentDomain.BaseDirectory + "Videos";
 
         /// <summary>
         /// 临时数据存储目录
         /// </summary>
-        private static string TEMP_PATH = AppDomain.CurrentDomain.BaseDirectory + "Temp";
+        public static string TEMP_PATH = AppDomain.CurrentDomain.BaseDirectory + "Temp";
 
         /// <summary>
         /// 音视频临时数据存储目录
         /// </summary>
-        private static string TEMP_AUDIOANDVIDEO_PATH = TEMP_PATH + "\\AudioAndVideo\\";
+        public static string TEMP_AUDIOANDVIDEO_PATH = TEMP_PATH + "\\AudioAndVideo\\";
 
         /// <summary>
         /// 获取或设置百度地图缓存路径
