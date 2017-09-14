@@ -107,6 +107,7 @@
     <Compile Include="Mesh\MeshOperator.cs" />
     <Compile Include="Network\GPSUDPListener.cs" />
     <Compile Include="Network\NetworkListenerManage.cs" />
+    <Compile Include="Network\TCPServer\TCPServer.cs" />
     <Compile Include="Network\UDP\UDPListener.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
