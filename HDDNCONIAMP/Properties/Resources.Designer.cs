@@ -173,9 +173,29 @@ namespace HDDNCONIAMP.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap logo_ccad_256 {
+            get {
+                object obj = ResourceManager.GetObject("logo_ccad_256", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap logo_xinwei {
             get {
                 object obj = ResourceManager.GetObject("logo_xinwei", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap logo_xinwei_1403 {
+            get {
+                object obj = ResourceManager.GetObject("logo_xinwei_1403", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -246,6 +266,26 @@ namespace HDDNCONIAMP.Properties {
         internal static System.Drawing.Bitmap video_camera_64 {
             get {
                 object obj = ResourceManager.GetObject("video_camera_64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap video_camera_ball_64 {
+            get {
+                object obj = ResourceManager.GetObject("video_camera_ball_64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap video_camera_shoulder_64 {
+            get {
+                object obj = ResourceManager.GetObject("video_camera_shoulder_64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

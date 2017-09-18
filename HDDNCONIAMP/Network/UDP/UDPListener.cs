@@ -42,7 +42,7 @@ namespace HDDNCONIAMP.Network.UDP
         /// 接收到GPS消息委托
         /// </summary>
         /// <param name="device"></param>
-        public delegate void OnReceiveGPSDelegate(VideoDevice device);
+        public delegate void OnReceiveGPSDelegate(AudioAndVideoDevice device);
 
         /// <summary>
         /// 接收到GPS信号事件
@@ -150,7 +150,7 @@ namespace HDDNCONIAMP.Network.UDP
             string message = Encoding.Default.GetString(receiveData, 16, receiveData.Length - 16);
             //切割字符串
             string[] temp = message.Split(',');
-            VideoDevice device = new VideoDevice();
+            AudioAndVideoDevice device = new AudioAndVideoDevice();
             device.Name = BitConverter.ToInt32(receiveData, 4).ToString();  //设备的ID
             device.Lat = Double.Parse(temp[3].Substring(0, 2))
                 + Double.Parse(temp[3].Substring(2)) / 60.0;  //设备纬度
@@ -167,7 +167,7 @@ namespace HDDNCONIAMP.Network.UDP
         /// 上报接收到GPS信号事件
         /// </summary>
         /// <param name="device"></param>
-        private void RaiseReceiveGPS(VideoDevice device)
+        private void RaiseReceiveGPS(AudioAndVideoDevice device)
         {
             OnReceiveGPS?.Invoke(device);
         }

@@ -44,5 +44,33 @@ namespace HDDNCONIAMP.Utils
             return sb.ToString();
         }
 
+        /// <summary>
+        /// 生成音视频信息文件路径
+        /// </summary>
+        /// <returns>音视频信息文件路径</returns>
+        public static string GenerateAudioAndVideoInfoFilePath()
+        {
+            return PathUtils.Instance.TempAudioAndVideoPath + Guid.NewGuid().ToString() + ".txt";
+        }
+
+        /// <summary>
+        /// 读取音视频设备信息
+        /// </summary>
+        /// <param name="infoTxtPath">音视频设备信息文件路径</param>
+        /// <returns></returns>
+        public static string ReadAudioAndVideoInfo(string infoTxtPath)
+        {
+            StringBuilder sb = new StringBuilder();
+            using(StreamReader sr = new StreamReader(infoTxtPath))
+            {
+                string line = "";
+                while((line = sr.ReadLine()) != null)
+                {
+                    sb.AppendLine(line);
+                }
+            }
+            return sb.ToString();
+        }
+
     }
 }

@@ -23,6 +23,15 @@ namespace BMap.NET.WindowsForm.BMapElements
         }
 
         /// <summary>
+        /// 设备别名
+        /// </summary>
+        public string Alias
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 位置坐标
         /// </summary>
         public LatLngPoint Location
@@ -120,7 +129,7 @@ namespace BMap.NET.WindowsForm.BMapElements
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("名称：" + Name);
+            sb.AppendLine("名称：" + (Alias == null ? Name : Alias));
             sb.AppendLine(Location.ToString());
             sb.AppendLine("状态：" + (IsOnline ? "在线" : "离线"));
             return sb.ToString();

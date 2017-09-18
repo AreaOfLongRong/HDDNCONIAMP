@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.collapsibleSplitContainer1 = new DevComponents.DotNetBar.Controls.CollapsibleSplitContainer();
-            this.ucGridVideoMain = new HDDNCONIAMP.UI.AudioVideoProcess.UCGridVideo();
+            this.ucGrid9Main = new HDDNCONIAMP.UI.AudioVideoProcess.UCGrid9();
             ((System.ComponentModel.ISupportInitialize)(this.collapsibleSplitContainer1)).BeginInit();
             this.collapsibleSplitContainer1.Panel2.SuspendLayout();
             this.collapsibleSplitContainer1.SuspendLayout();
@@ -43,20 +43,20 @@
             // 
             // collapsibleSplitContainer1.Panel2
             // 
-            this.collapsibleSplitContainer1.Panel2.Controls.Add(this.ucGridVideoMain);
+            this.collapsibleSplitContainer1.Panel2.Controls.Add(this.ucGrid9Main);
             this.collapsibleSplitContainer1.Panel2MinSize = 5;
             this.collapsibleSplitContainer1.Size = new System.Drawing.Size(617, 420);
             this.collapsibleSplitContainer1.SplitterDistance = 150;
             this.collapsibleSplitContainer1.SplitterWidth = 10;
             this.collapsibleSplitContainer1.TabIndex = 0;
             // 
-            // ucGridVideoMain
+            // ucGrid9Main
             // 
-            this.ucGridVideoMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucGridVideoMain.Location = new System.Drawing.Point(0, 0);
-            this.ucGridVideoMain.Name = "ucGridVideoMain";
-            this.ucGridVideoMain.Size = new System.Drawing.Size(457, 420);
-            this.ucGridVideoMain.TabIndex = 0;
+            this.ucGrid9Main.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucGrid9Main.Location = new System.Drawing.Point(0, 0);
+            this.ucGrid9Main.Name = "ucGrid9Main";
+            this.ucGrid9Main.Size = new System.Drawing.Size(457, 420);
+            this.ucGrid9Main.TabIndex = 0;
             // 
             // UCAudioVideoProcess
             // 
@@ -75,6 +75,6 @@
         #endregion
 
         private DevComponents.DotNetBar.Controls.CollapsibleSplitContainer collapsibleSplitContainer1;
-        private UCGridVideo ucGridVideoMain;
+        private UCGrid9 ucGrid9Main;
     }
 }
