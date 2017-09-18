@@ -110,6 +110,7 @@
     </Compile>
     <Compile Include="BMapElements\BDeviceRoute.cs" />
     <Compile Include="BMapElements\BMarker.cs" />
+    <Compile Include="BMapElements\BMeshPoint.cs" />
     <Compile Include="BMapElements\BPoint.cs" />
     <Compile Include="BMapElements\BVideoPoint.cs" />
     <Compile Include="BMarkerTipControl.cs">
@@ -360,6 +361,12 @@
     <Content Include="Resources\ico_camera_online_64.png" />
     <Content Include="Resources\ico_camera_offline_32.png" />
     <Content Include="Resources\ico_camera_online_32.png" />
+    <None Include="Resources\video_camera_shoulder_64.png" />
+    <None Include="Resources\video_camera_ball_64.png" />
+    <None Include="Resources\mesh_person_online_64.png" />
+    <None Include="Resources\mesh_person_online_32.png" />
+    <None Include="Resources\mesh_person_offline_64.png" />
+    <None Include="Resources\mesh_person_offline_32.png" />
     <None Include="Resources\ico_bysubway.png" />
     <None Include="Resources\ico_bybus.png" />
     <None Include="Resources\ico_strange_point.png" />

@@ -85,6 +85,7 @@
             this.textBoxXSearch.Size = new System.Drawing.Size(216, 21);
             this.textBoxXSearch.TabIndex = 0;
             this.textBoxXSearch.WatermarkText = "<i>键入搜索</i>";
+            this.textBoxXSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxXSearch_KeyPress);
             // 
             // advTreeMeshList
             // 
@@ -117,6 +118,10 @@
             this.advTreeMeshList.Styles.Add(this.elementStyleMain);
             this.advTreeMeshList.TabIndex = 1;
             this.advTreeMeshList.Text = "advTree1";
+            this.advTreeMeshList.NodeDragStart += new System.EventHandler(this.advTreeMeshList_NodeDragStart);
+            this.advTreeMeshList.NodeClick += new DevComponents.AdvTree.TreeNodeMouseEventHandler(this.advTreeMeshList_NodeClick);
+            this.advTreeMeshList.DragDrop += new System.Windows.Forms.DragEventHandler(this.advTreeMeshList_DragDrop);
+            this.advTreeMeshList.DragEnter += new System.Windows.Forms.DragEventHandler(this.advTreeMeshList_DragEnter);
             // 
             // imageListMesh
             // 
@@ -177,6 +182,7 @@
             this.buttonItemExpandAll.Name = "buttonItemExpandAll";
             this.buttonItemExpandAll.Text = "全部展开";
             this.buttonItemExpandAll.Tooltip = "全部展开";
+            this.buttonItemExpandAll.Click += new System.EventHandler(this.buttonItemExpandAll_Click);
             // 
             // buttonItemFoldAll
             // 
@@ -184,6 +190,7 @@
             this.buttonItemFoldAll.Name = "buttonItemFoldAll";
             this.buttonItemFoldAll.Text = "全部折叠";
             this.buttonItemFoldAll.Tooltip = "全部折叠";
+            this.buttonItemFoldAll.Click += new System.EventHandler(this.buttonItemFoldAll_Click);
             // 
             // buttonItemAddGroup
             // 
@@ -192,6 +199,7 @@
             this.buttonItemAddGroup.Name = "buttonItemAddGroup";
             this.buttonItemAddGroup.Text = "添加分组";
             this.buttonItemAddGroup.Tooltip = "添加分组";
+            this.buttonItemAddGroup.Click += new System.EventHandler(this.buttonItemAddGroup_Click);
             // 
             // buttonItemDeleteGroup
             // 
@@ -199,6 +207,7 @@
             this.buttonItemDeleteGroup.Name = "buttonItemDeleteGroup";
             this.buttonItemDeleteGroup.Text = "删除分组";
             this.buttonItemDeleteGroup.Tooltip = "删除分组";
+            this.buttonItemDeleteGroup.Click += new System.EventHandler(this.buttonItemDeleteGroup_Click);
             // 
             // buttonXSearch
             // 
@@ -210,6 +219,7 @@
             this.buttonXSearch.Size = new System.Drawing.Size(24, 23);
             this.buttonXSearch.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.buttonXSearch.TabIndex = 4;
+            this.buttonXSearch.Click += new System.EventHandler(this.buttonXSearch_Click);
             // 
             // UCMeshList
             // 
@@ -218,6 +228,7 @@
             this.Controls.Add(this.tableLayoutPanelDeviceList);
             this.Name = "UCMeshList";
             this.Size = new System.Drawing.Size(252, 411);
+            this.Load += new System.EventHandler(this.UCMeshList_Load);
             this.tableLayoutPanelDeviceList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.advTreeMeshList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barDeviceList)).EndInit();

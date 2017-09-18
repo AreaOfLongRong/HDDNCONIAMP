@@ -6,12 +6,13 @@ namespace HDDNCONIAMP.DB.Model
     /// <summary>
     /// 应用程序配置表
     /// </summary>
+    [TableAttribute("ApplicationSettings")]
     public class ApplicationSettings
     {
         /// <summary>
         /// 配置项关键字，字符串格式
         /// </summary>
-        [Column(DbType = DbType.String)]
+        [Column(DbType = DbType.String, IsPrimaryKey = true)]
         public string Key { get; set; }
         /// <summary>
         /// 配置项的值，字符串格式

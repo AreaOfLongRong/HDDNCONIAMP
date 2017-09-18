@@ -22,6 +22,11 @@
         public static string LocalNetworkCard = "LocalNetworkCard";
 
         /// <summary>
+        /// 子网IP
+        /// </summary>
+        public static string SubNetworkIP = "SubNetworkIP";
+
+        /// <summary>
         /// 本机IPV4地址
         /// </summary>
         public static string LocalIPV4 = "LocalIPV4";

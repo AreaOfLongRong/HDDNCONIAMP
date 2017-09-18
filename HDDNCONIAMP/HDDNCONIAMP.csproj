@@ -86,7 +86,13 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\BMap.NET.WindowsForm\libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="SharpPcap, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="PacketDotNet">
+      <HintPath>References\SharpPcap\PacketDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpPcap, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>References\SharpPcap\SharpPcap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -109,6 +115,7 @@
     <Compile Include="DB\Model\ApplicationSettings.cs" />
     <Compile Include="DB\Model\IDEntity.cs" />
     <Compile Include="DB\Model\MeshDeviceGroup.cs" />
+    <Compile Include="DB\Model\MeshPlanManage.cs" />
     <Compile Include="DB\Model\User.cs" />
     <Compile Include="DB\SQLiteConnectionFactory.cs" />
     <Compile Include="DB\SQLiteHelper.cs" />
@@ -116,7 +123,16 @@
     <Compile Include="DB\Model\EUserAuthority.cs" />
     <Compile Include="DB\Model\MeshDeviceInfo.cs" />
     <Compile Include="DB\Model\AudioAndVideoDevice.cs" />
-    <Compile Include="Mesh\MeshOperator.cs" />
+    <Compile Include="Mesh\ARPItem.cs" />
+    <Compile Include="Mesh\ARPList.cs" />
+    <Compile Include="Mesh\GScenario.cs" />
+    <Compile Include="Mesh\MeshCommon.cs" />
+    <Compile Include="Mesh\MeshGObject.cs" />
+    <Compile Include="Mesh\MeshBlockNodes.cs" />
+    <Compile Include="Mesh\MeshDeviceManage.cs" />
+    <Compile Include="Mesh\MeshNode.cs" />
+    <Compile Include="Mesh\MeshRelation.cs" />
+    <Compile Include="Mesh\MeshTelnet.cs" />
     <Compile Include="Network\GPSUDPListener.cs" />
     <Compile Include="Network\NetworkListenerManage.cs" />
     <Compile Include="Network\UDP\UDPListener.cs" />
@@ -315,6 +331,12 @@
     <Content Include="References\SQLite\System.Data.SQLite.xml" />
     <Content Include="Resources\HDDNCONIAMP.ico" />
     <Content Include="Resources\HDDNCONIAMP.png" />
+    <Content Include="Resources\HDDNCONIAMP_64.png" />
+    <Content Include="Resources\help_32.png" />
+    <Content Include="Resources\mesh_person_offline_32.png" />
+    <Content Include="Resources\mesh_person_offline_64.png" />
+    <Content Include="Resources\mesh_person_online_32.png" />
+    <Content Include="Resources\mesh_person_online_64.png" />
     <Content Include="Resources\refresh_16.png" />
     <Content Include="Resources\bmap_locate_16.png" />
     <Content Include="Resources\bmap_zoom_in_16.png" />
@@ -345,6 +367,10 @@
     <Content Include="Resources\video_camera_32.png" />
     <Content Include="Resources\video_camera_64.png" />
     <Content Include="Resources\delete_16.png" />
+    <Content Include="Resources\logo_ccad_256.png" />
+    <Content Include="Resources\logo_xinwei_1403.png" />
+    <Content Include="Resources\video_camera_ball_64.png" />
+    <Content Include="Resources\video_camera_shoulder_64.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BMap.NET.WindowsForm\BMap.NET.WindowsForm.csproj">

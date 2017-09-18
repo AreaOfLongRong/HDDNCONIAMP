@@ -44,5 +44,15 @@ namespace HDDNCONIAMP.DB.Model
         /// </summary>
         [Column(DbType = DbType.Decimal)]
         public string Frequency { get; set; }
+        /// <summary>
+        /// 设备带宽，字符串格式
+        /// </summary>
+        [Column(DbType = DbType.Decimal)]
+        public string BandWidth { get; set; }
+        /// <summary>
+        /// 设备电压，字符串格式
+        /// </summary>
+        [Column(DbType = DbType.Decimal)]
+        public string Battery { get; set; }
     }
 }

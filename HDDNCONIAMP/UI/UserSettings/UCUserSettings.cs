@@ -439,7 +439,7 @@ namespace HDDNCONIAMP.UI.UserSettings
                 mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoCachePath] = textBoxXVideoDataPath.Text;
                 SQLiteHelper.GetInstance().ApplicationSettingUpdate(ApplicationSettingKey.VideoCachePath, textBoxXVideoDataPath.Text);
 
-                logger.Info("更改离线地图缓存配置为“" + PathUtils.Instance.BDMapCachePath + "”；视频缓存位置为“" + PathUtils.Instance.VideoDataPath + "”。");
+                //logger.Info("更改离线地图缓存配置为“" + PathUtils.Instance.BDMapCachePath + "”；视频缓存位置为“" + PathUtils.Instance.VideoDataPath + "”。");
                 MessageBox.Show("保存成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)

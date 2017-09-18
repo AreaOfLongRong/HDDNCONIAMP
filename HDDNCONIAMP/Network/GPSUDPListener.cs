@@ -114,14 +114,23 @@ namespace HDDNCONIAMP.Network
                         AudioAndVideoDevice device = new AudioAndVideoDevice();
                         //device.Name = ip;
                         device.Name = (bytes[4] << 24 | bytes[5] << 16 | bytes[6] << 8 | bytes[7]).ToString();  //设备的ID
-                        double[] latLon = GPS2BD09.wgs2bd(Double.Parse(temp[3].Substring(0, 2))
-                            + Double.Parse(temp[3].Substring(2)) / 60.0,
-                            Double.Parse(temp[5].Substring(0, 3))
-                            + Double.Parse(temp[5].Substring(3)) / 60.0);
-                        device.Lat = latLon[0];
-                        device.Lon = latLon[1];
-                        device.Alias = device.Name;
-                        RaiseReceiveGPS(device);
+                        try
+                        {
+                            double[] latLon = GPS2BD09.wgs2bd(Double.Parse(temp[3].Substring(0, 2))
+                                                + Double.Parse(temp[3].Substring(2)) / 60.0,
+                                                Double.Parse(temp[5].Substring(0, 3))
+                                                + Double.Parse(temp[5].Substring(3)) / 60.0);
+                            device.Lat = latLon[0];
+                            device.Lon = latLon[1];
+                            device.Alias = device.Name;
+                            RaiseReceiveGPS(device);
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.Error("接收到的GPS位置信号有问题!", ex);
+                            device.Lat = 0;
+                            device.Lon = 0;
+                        }
                     }
                 }
                 catch (Exception ex)

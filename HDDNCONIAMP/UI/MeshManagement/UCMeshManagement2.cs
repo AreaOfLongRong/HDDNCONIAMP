@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Windows.Forms;
+using HDDNCONIAMP.Mesh;
+using HDDNCONIAMP.UI.Common;
 using HDDNCONIAMP.Utils;
 using log4net;
 
@@ -18,12 +20,27 @@ namespace HDDNCONIAMP.UI.MeshManagement
         /// 日志记录器
         /// </summary>
         private ILog logger = LogManager.GetLogger(typeof(UCMeshManagement2));
-        
+
+        /// <summary>
+        /// 主窗体引用
+        /// </summary>
+        private FormMain mFormMain;
+
+        /// <summary>
+        /// Mesh设备列表
+        /// </summary>
+        private UCMeshList ucMeshListMain;
+
         #endregion
 
-        public UCMeshManagement2()
+        public UCMeshManagement2(FormMain formMain)
         {
             InitializeComponent();
+
+            mFormMain = formMain;
+
+            initMeshDeviceList(formMain);
+
             setTableLayoutPanelDoubleBufferd();
         }
 
@@ -88,11 +105,20 @@ namespace HDDNCONIAMP.UI.MeshManagement
         /// </summary>
         private void setTableLayoutPanelDoubleBufferd()
         {
-            tableLayoutPanelMeshTopology.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshTopology, true, null);
+            tableLayoutPanelMeshNodeTopology.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshNodeTopology, true, null);
             tableLayoutPanelMeshParameters.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshParameters, true, null);
             tableLayoutPanelMeshBasicSetting.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshBasicSetting, true, null);
             tableLayoutPanelMeshLocalhostSetting.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshLocalhostSetting, true, null);
             tableLayoutPanelMeshTCP.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshTCP, true, null);
+        }
+
+        private void initMeshDeviceList(FormMain main)
+        {
+            this.ucMeshListMain = new HDDNCONIAMP.UI.Common.UCMeshList(main);
+
+            ucMeshListMain.MDManage = mFormMain.MDManage;
+            ucMeshListMain.StartScanMeshDevice();
+
         }
 
         /// <summary>

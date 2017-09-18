@@ -151,6 +151,60 @@ namespace HDDNCONIAMP.DB
 
         #endregion
 
+        #region Mesh预案管理相关
+
+        /// <summary>
+        /// 插入新的预案
+        /// </summary>
+        /// <param name="mpm">新的预案</param>
+        public void MeshPlanInsert(MeshPlanManage mpm)
+        {
+            context.Insert<MeshPlanManage>(() =>
+            new MeshPlanManage()
+            {
+                MeshIP = mpm.MeshIP,
+                AudioVideoID = mpm.AudioVideoID,
+                Model265IP = mpm.Model265IP,
+                HKVideoIP = mpm.HKVideoIP
+            });
+        }
+
+        /// <summary>
+        /// 检索所有预案
+        /// </summary>
+        /// <returns>预案列表</returns>
+        public List<MeshPlanManage> MeshPlanAllQuery()
+        {
+            return context.Query<MeshPlanManage>().ToList();
+        }
+
+        /// <summary>
+        /// 检索所有预案
+        /// </summary>
+        /// <returns>由Mesh的IP为键，预案为值组成的字典</returns>
+        public Dictionary<string, MeshPlanManage> MeshPlanAllQueryAsDictionary()
+        {
+            Dictionary<string, MeshPlanManage> result = new Dictionary<string, MeshPlanManage>();
+            List<MeshPlanManage> mpmList = MeshPlanAllQuery();
+            foreach (MeshPlanManage mpm in mpmList)
+            {
+                result.Add(mpm.MeshIP, mpm);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 检索指定Mesh IP地址对应的预案。
+        /// </summary>
+        /// <param name="meshIP"></param>
+        /// <returns>预案</returns>
+        public MeshPlanManage MeshPlanQueryByMeshIP(string meshIP)
+        {
+            return context.Query<MeshPlanManage>().Where(m => m.MeshIP == meshIP).First();
+        }
+
+        #endregion
+
         #region 应用程序配置相关
 
         /// <summary>
@@ -212,6 +266,17 @@ namespace HDDNCONIAMP.DB
                 result.Add(item.Key, item.Value);
             }
             return result;
+        }
+
+        /// <summary>
+        /// 根据应用程序配置项的键检索其值
+        /// </summary>
+        /// <param name="key">键</param>
+        /// <returns>配置项的值</returns>
+        public ApplicationSettings ApplicationSettingValueBykey(string key)
+        {
+            IQuery<ApplicationSettings> q = context.Query<ApplicationSettings>();
+            return q.Where(a => a.Key == key).First();
         }
 
         #endregion

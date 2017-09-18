@@ -33,56 +33,7 @@ namespace HDDNCONIAMP.Utils
         /// </summary>
         public static string TEMP_AUDIOANDVIDEO_PATH = TEMP_PATH + "\\AudioAndVideo\\";
 
-        /// <summary>
-        /// 获取或设置百度地图缓存路径
-        /// </summary>
-        public string BDMapCachePath
-        {
-            get
-            {
-                if (Properties.Settings.Default.BDMAP_CACHE_PATH == "")
-                {
-                    Properties.Settings.Default.BDMAP_CACHE_PATH = BDMAP_CACHE_DEFAULT_PATH;
-                    Properties.Settings.Default.Save();
-                    if (!Directory.Exists(BDMAP_CACHE_DEFAULT_PATH))
-                        Directory.CreateDirectory(BDMAP_CACHE_DEFAULT_PATH);
-                }
-                return Properties.Settings.Default.BDMAP_CACHE_PATH;
-            }
-            set
-            {
-                Properties.Settings.Default.BDMAP_CACHE_PATH = value;
-                Properties.Settings.Default.Save();
-                if (!Directory.Exists(value))
-                    Directory.CreateDirectory(value);
-            }
-        }
-
-        /// <summary>
-        /// 获取或设置视频数据路径
-        /// </summary>
-        public string VideoDataPath
-        {
-            get
-            {
-                if (Properties.Settings.Default.VIDEO_DATA_PATH == "")
-                {
-                    Properties.Settings.Default.VIDEO_DATA_PATH = VIDEO_DATA_DEFAULT_PATH;
-                    Properties.Settings.Default.Save();
-                    if (!Directory.Exists(VIDEO_DATA_DEFAULT_PATH))
-                        Directory.CreateDirectory(VIDEO_DATA_DEFAULT_PATH);
-                }
-                return Properties.Settings.Default.VIDEO_DATA_PATH;
-            }
-            set
-            {
-                Properties.Settings.Default.VIDEO_DATA_PATH = value;
-                Properties.Settings.Default.Save();
-                if (!Directory.Exists(value))
-                    Directory.CreateDirectory(value);
-            }
-        }
-
+        
         /// <summary>
         /// 获取数据存储临时路径
         /// </summary>
@@ -144,8 +95,7 @@ namespace HDDNCONIAMP.Utils
         /// </summary>
         public void ResetDefaultCacheSetting()
         {
-            BDMapCachePath = BDMAP_CACHE_DEFAULT_PATH;
-            VideoDataPath = VIDEO_DATA_DEFAULT_PATH;
+            
         }
 
     }
