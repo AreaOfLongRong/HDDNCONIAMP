@@ -55,6 +55,15 @@
   <PropertyGroup>
     <ApplicationIcon>Resources\HDDNCONIAMP.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Chloe, Version=2.15.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -69,6 +78,7 @@
       <HintPath>References\SQLite\Chloe\Chloe.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="DevComponents.DotNetBar2, Version=12.4.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.Instrumentation, Version=12.4.0.2, Culture=neutral, PublicKeyToken=bc4a9d761ea44ef0, processorArchitecture=MSIL" />
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>References\log4net 2.0.8-newkey\log4net.dll</HintPath>
@@ -76,7 +86,13 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\BMap.NET.WindowsForm\libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="SharpPcap, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="PacketDotNet">
+      <HintPath>References\SharpPcap\PacketDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpPcap, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>References\SharpPcap\SharpPcap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -95,16 +111,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AudioAndVideo\AAVDeviceManage.cs" />
+    <Compile Include="DB\Model\ApplicationSettings.cs" />
     <Compile Include="DB\Model\IDEntity.cs" />
     <Compile Include="DB\Model\MeshDeviceGroup.cs" />
+    <Compile Include="DB\Model\MeshPlanManage.cs" />
     <Compile Include="DB\Model\User.cs" />
     <Compile Include="DB\SQLiteConnectionFactory.cs" />
     <Compile Include="DB\SQLiteHelper.cs" />
     <Compile Include="Events\UserLoginOrOutEventArgs.cs" />
     <Compile Include="DB\Model\EUserAuthority.cs" />
-    <Compile Include="DB\Model\MeshDevice.cs" />
-    <Compile Include="DB\Model\VideoDevice.cs" />
-    <Compile Include="Mesh\MeshOperator.cs" />
+    <Compile Include="DB\Model\MeshDeviceInfo.cs" />
+    <Compile Include="DB\Model\AudioAndVideoDevice.cs" />
+    <Compile Include="Mesh\ARPItem.cs" />
+    <Compile Include="Mesh\ARPList.cs" />
+    <Compile Include="Mesh\GScenario.cs" />
+    <Compile Include="Mesh\MeshCommon.cs" />
+    <Compile Include="Mesh\MeshGObject.cs" />
+    <Compile Include="Mesh\MeshBlockNodes.cs" />
+    <Compile Include="Mesh\MeshDeviceManage.cs" />
+    <Compile Include="Mesh\MeshNode.cs" />
+    <Compile Include="Mesh\MeshRelation.cs" />
+    <Compile Include="Mesh\MeshTelnet.cs" />
     <Compile Include="Network\GPSUDPListener.cs" />
     <Compile Include="Network\NetworkListenerManage.cs" />
     <Compile Include="Network\TCPServer\TCPServer.cs" />
@@ -122,11 +150,30 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UI\AudioVideoProcess\FormVideoFullScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AudioVideoProcess\FormVideoFullScreen.Designer.cs">
+      <DependentUpon>FormVideoFullScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AudioVideoProcess\IGrid.cs" />
     <Compile Include="UI\AudioVideoProcess\UCAudioVideoProcess.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UI\AudioVideoProcess\UCAudioVideoProcess.Designer.cs">
       <DependentUpon>UCAudioVideoProcess.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AudioVideoProcess\UCGrid1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\AudioVideoProcess\UCGrid1.Designer.cs">
+      <DependentUpon>UCGrid1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AudioVideoProcess\UCGrid9.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\AudioVideoProcess\UCGrid9.Designer.cs">
+      <DependentUpon>UCGrid9.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\AudioVideoProcess\UCGridVideo.cs">
       <SubType>UserControl</SubType>
@@ -134,11 +181,23 @@
     <Compile Include="UI\AudioVideoProcess\UCGridVideo.Designer.cs">
       <DependentUpon>UCGridVideo.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\common\UCDeviceList.cs">
+    <Compile Include="UI\AudioVideoProcess\UCVideoPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\AudioVideoProcess\UCVideoPanel.Designer.cs">
+      <DependentUpon>UCVideoPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Common\UCDeviceList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\common\UCDeviceList.Designer.cs">
+    <Compile Include="UI\Common\UCDeviceList.Designer.cs">
       <DependentUpon>UCDeviceList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Common\UCMeshList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Common\UCMeshList.Designer.cs">
+      <DependentUpon>UCMeshList.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\GISVideo\UCGISVideo.cs">
       <SubType>UserControl</SubType>
@@ -155,13 +214,21 @@
     <Compile Include="UI\MeshManagement\UCMeshManagement.Designer.cs">
       <DependentUpon>UCMeshManagement.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\MeshManagement\UCMeshManagement2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\MeshManagement\UCMeshManagement2.Designer.cs">
+      <DependentUpon>UCMeshManagement2.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\UserSettings\UCUserSettings.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UI\UserSettings\UCUserSettings.Designer.cs">
       <DependentUpon>UCUserSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\ApplicationSettingKey.cs" />
     <Compile Include="Utils\FileUtils.cs" />
+    <Compile Include="Utils\NetUtils.cs" />
     <Compile Include="Utils\PathUtils.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -171,20 +238,35 @@
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\AudioVideoProcess\FormVideoFullScreen.resx">
+      <DependentUpon>FormVideoFullScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\AudioVideoProcess\UCAudioVideoProcess.resx">
       <DependentUpon>UCAudioVideoProcess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AudioVideoProcess\UCGrid1.resx">
+      <DependentUpon>UCGrid1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AudioVideoProcess\UCGrid9.resx">
+      <DependentUpon>UCGrid9.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AudioVideoProcess\UCGridVideo.resx">
       <DependentUpon>UCGridVideo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\common\UCDeviceList.resx">
+    <EmbeddedResource Include="UI\Common\UCDeviceList.resx">
       <DependentUpon>UCDeviceList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Common\UCMeshList.resx">
+      <DependentUpon>UCMeshList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\GISVideo\UCGISVideo.resx">
       <DependentUpon>UCGISVideo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MeshManagement\UCMeshManagement.resx">
       <DependentUpon>UCMeshManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MeshManagement\UCMeshManagement2.resx">
+      <DependentUpon>UCMeshManagement2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserSettings\UCUserSettings.resx">
       <DependentUpon>UCUserSettings.cs</DependentUpon>
@@ -204,6 +286,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Documents\平台设计方案.docx" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings2.Designer.cs</LastGenOutput>
@@ -249,6 +332,12 @@
     <Content Include="References\SQLite\System.Data.SQLite.xml" />
     <Content Include="Resources\HDDNCONIAMP.ico" />
     <Content Include="Resources\HDDNCONIAMP.png" />
+    <Content Include="Resources\HDDNCONIAMP_64.png" />
+    <Content Include="Resources\help_32.png" />
+    <Content Include="Resources\mesh_person_offline_32.png" />
+    <Content Include="Resources\mesh_person_offline_64.png" />
+    <Content Include="Resources\mesh_person_online_32.png" />
+    <Content Include="Resources\mesh_person_online_64.png" />
     <Content Include="Resources\refresh_16.png" />
     <Content Include="Resources\bmap_locate_16.png" />
     <Content Include="Resources\bmap_zoom_in_16.png" />
@@ -279,6 +368,10 @@
     <Content Include="Resources\video_camera_32.png" />
     <Content Include="Resources\video_camera_64.png" />
     <Content Include="Resources\delete_16.png" />
+    <Content Include="Resources\logo_ccad_256.png" />
+    <Content Include="Resources\logo_xinwei_1403.png" />
+    <Content Include="Resources\video_camera_ball_64.png" />
+    <Content Include="Resources\video_camera_shoulder_64.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BMap.NET.WindowsForm\BMap.NET.WindowsForm.csproj">
@@ -294,9 +387,7 @@
       <Name>NodeTopology</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Video\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>

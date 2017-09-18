@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
+using BMap.NET;
 using DevComponents.DotNetBar;
 using HDDNCONIAMP.DB;
 using HDDNCONIAMP.DB.Model;
 using HDDNCONIAMP.Events;
+using HDDNCONIAMP.Mesh;
 using HDDNCONIAMP.Network;
 using HDDNCONIAMP.UI.AudioVideoProcess;
 using HDDNCONIAMP.UI.GISVideo;
 using HDDNCONIAMP.UI.MeshManagement;
 using HDDNCONIAMP.UI.UserSettings;
+using HDDNCONIAMP.Utils;
 using log4net;
 
 namespace HDDNCONIAMP
@@ -22,6 +26,16 @@ namespace HDDNCONIAMP
         /// 当前用户
         /// </summary>
         public User CurrentUser { get; set; }
+
+        /// <summary>
+        /// 获取所有应用程序配置项
+        /// </summary>
+        public Dictionary<string, string> AllApplicationSetting { get; private set; }
+
+        /// <summary>
+        /// 获取或设置Mesh设备管理器
+        /// </summary>
+        public MeshDeviceManage MDManage { get; set; }
 
         #endregion
 
@@ -49,6 +63,11 @@ namespace HDDNCONIAMP
         private ILog logger = LogManager.GetLogger(typeof(FormMain));
 
         /// <summary>
+        /// 程序截止日期
+        /// </summary>
+        private DateTime DEADLINE = new DateTime(2017, 9, 30);
+
+        /// <summary>
         /// GIS定位关联视频控件
         /// </summary>
         private UCGISVideo ucGISVideo;
@@ -62,6 +81,11 @@ namespace HDDNCONIAMP
         /// Mesh设备管理控件
         /// </summary>
         private UCMeshManagement ucMeshManagement;
+
+        /// <summary>
+        /// Mesh设备管理控件
+        /// </summary>
+        private UCMeshManagement2 ucMeshManagement2;
 
         /// <summary>
         /// 用户配置管理控件
@@ -80,6 +104,10 @@ namespace HDDNCONIAMP
             InitializeComponent();
             //双缓冲设置，防止界面闪烁
             setTableLayoutPanelDoubleBufferd();
+
+            labelXValidPeriod.Text = string.Format("测试版试用期截止时间：{0}", DEADLINE.ToShortDateString());
+
+            MDManage = new MeshDeviceManage();
         }
 
         /// <summary>
@@ -100,8 +128,8 @@ namespace HDDNCONIAMP
             updateSuperTabControlPanel(OpenUCType.OpenLogin);
 
             logger.Info("开启监听...");
-            NLM = new NetworkListenerManage();
-            NLM.Start();
+            //NLM = new NetworkListenerManage();
+            //NLM.Start();
             
 
            //注册用户登陆/登出事件处理
@@ -196,6 +224,12 @@ namespace HDDNCONIAMP
         /// <param name="e"></param>
         private void buttonLogin_Click(object sender, EventArgs e)
         {
+            if (DateTime.Now >= DEADLINE)
+            {
+                MessageBox.Show("测试版使用到期，请使用正式版软件！", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (textBoxXUserName.Text.Trim().Equals("") || textBoxXPassword.Text.Trim().Equals(""))
             {
                 MessageBox.Show("账号或密码不能为空！", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -205,6 +239,9 @@ namespace HDDNCONIAMP
             {
                 CurrentUser = SQLiteHelper.GetInstance().UserSearchByName(textBoxXUserName.Text);
                 logger.Info("账户“" + textBoxXUserName.Text + "”登陆系统");
+
+                loadAllApplicationSetting();
+
                 //更新主界面
                 OnRaiseUserLoginOroutEvent(this, new UserLoginOrOutEventArgs(CurrentUser, true));
             }
@@ -327,14 +364,20 @@ namespace HDDNCONIAMP
                         updateSuperTabControlPanel(OpenUCType.OpenLogin);
                     else
                     {
-                        if (ucMeshManagement == null)
+                        //if (ucMeshManagement == null)
+                        //{
+                        //    ucMeshManagement = new UCMeshManagement();
+                        //    ucMeshManagement.Dock = DockStyle.Fill;
+                        //    superTabControlPanelMeshManagement.Controls.Clear();  //清空所有控件
+                        //    superTabControlPanelMeshManagement.Controls.Add(ucMeshManagement);
+                        //}
+                        if (ucMeshManagement2 == null)
                         {
-                            ucMeshManagement = new UCMeshManagement();
-                            ucMeshManagement.Dock = DockStyle.Fill;
+                            ucMeshManagement2 = new UCMeshManagement2(this);
+                            ucMeshManagement2.Dock = DockStyle.Fill;
                             superTabControlPanelMeshManagement.Controls.Clear();  //清空所有控件
-                            superTabControlPanelMeshManagement.Controls.Add(ucMeshManagement);
+                            superTabControlPanelMeshManagement.Controls.Add(ucMeshManagement2);
                         }
-
                     }
                     break;
                 case OpenUCType.OpenUserSettings:
@@ -344,7 +387,7 @@ namespace HDDNCONIAMP
                     {
                         if (ucUserSettings == null)
                         {
-                            ucUserSettings = new UCUserSettings();
+                            ucUserSettings = new UCUserSettings(this);
                             ucUserSettings.Dock = DockStyle.Fill;
                             ucUserSettings.CurrentUser = CurrentUser;
                             superTabControlPanelUserSettings.Controls.Clear();  //清空所有控件
@@ -352,6 +395,31 @@ namespace HDDNCONIAMP
                         }
                     }
                     break;
+            }
+        }
+
+        /// <summary>
+        /// 加载所有应用程序配置项
+        /// </summary>
+        private void loadAllApplicationSetting()
+        {
+            logger.Info("开始读取应用程序配置信息……");
+            AllApplicationSetting = SQLiteHelper.GetInstance().ApplicationSettingAsDictionary();
+            logger.Info("读取应用程序配置信息完毕！");
+
+            if(AllApplicationSetting[ApplicationSettingKey.BDMapCachePath].Trim() == "")
+            {
+                AllApplicationSetting[ApplicationSettingKey.BDMapCachePath] =
+                    PathUtils.BDMAP_CACHE_DEFAULT_PATH;
+                SQLiteHelper.GetInstance().ApplicationSettingUpdate(ApplicationSettingKey.BDMapCachePath, PathUtils.BDMAP_CACHE_DEFAULT_PATH);
+            }
+            BMapConfiguration.MapCachePath = AllApplicationSetting[ApplicationSettingKey.BDMapCachePath];
+
+            if (AllApplicationSetting[ApplicationSettingKey.VideoCachePath].Trim() == "")
+            {
+                AllApplicationSetting[ApplicationSettingKey.VideoCachePath] =
+                    PathUtils.VIDEO_DATA_DEFAULT_PATH;
+                SQLiteHelper.GetInstance().ApplicationSettingUpdate(ApplicationSettingKey.VideoCachePath, PathUtils.VIDEO_DATA_DEFAULT_PATH);
             }
         }
 

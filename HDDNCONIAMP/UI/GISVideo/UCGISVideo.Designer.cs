@@ -65,7 +65,7 @@
             this.bMapControl2Main.Name = "bMapControl2Main";
             this.bMapControl2Main.Size = new System.Drawing.Size(440, 439);
             this.bMapControl2Main.TabIndex = 0;
-            this.bMapControl2Main.Zoom = 12;
+            this.bMapControl2Main.Zoom = 9;
             // 
             // UCGISVideo
             // 

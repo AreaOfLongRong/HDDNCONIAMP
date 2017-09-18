@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using HDDNCONIAMP.DB.Model;
-using HDDNCONIAMP.DB;
-using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Net.NetworkInformation;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using BMap.NET;
 using DevComponents.AdvTree;
 using DevComponents.DotNetBar;
 using DevComponents.DotNetBar.Controls;
+using HDDNCONIAMP.DB;
+using HDDNCONIAMP.DB.Model;
 using HDDNCONIAMP.Utils;
 using log4net;
-using System.Diagnostics;
-using System.Net.NetworkInformation;
 
 namespace HDDNCONIAMP.UI.UserSettings
 {
@@ -34,9 +33,9 @@ namespace HDDNCONIAMP.UI.UserSettings
         private ILog logger = LogManager.GetLogger(typeof(UCUserSettings));
 
         /// <summary>
-        /// 网卡接口数组
+        /// 应用程序主界面引用
         /// </summary>
-        private NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+        private FormMain mFormMain;
 
         #endregion
 
@@ -49,9 +48,10 @@ namespace HDDNCONIAMP.UI.UserSettings
 
         #endregion
 
-        public UCUserSettings()
+        public UCUserSettings(FormMain formMain)
         {
             InitializeComponent();
+            mFormMain = formMain;
             //双缓冲设置，防止界面闪烁
             setTableLayoutPanelDoubleBufferd();
         }
@@ -77,9 +77,7 @@ namespace HDDNCONIAMP.UI.UserSettings
                 superTabItemAuthorityManage.Visible = true;
                 initAdvTreeUsers();
             }
-
-            initMeshBaseParamConfit();
-
+            
             initCacheSettingsTextBoxX();
         }
 
@@ -99,7 +97,7 @@ namespace HDDNCONIAMP.UI.UserSettings
                 {
                     SuperTabItem logItem = new SuperTabItem();
                     SuperTabControlPanel logPanel = new SuperTabControlPanel();
-                    TextBoxX logContet = new TextBoxX();
+                    RichTextBoxEx logContet = new RichTextBoxEx();
 
                     logItem.Name = selectNode.Text;
                     logItem.Text = selectNode.Text;
@@ -110,16 +108,14 @@ namespace HDDNCONIAMP.UI.UserSettings
                     logPanel.Location = new Point(0, 28);
                     logPanel.Size = new Size(300, 300);
                     logPanel.TabItem = logItem;
-
-                    logContet.Border.Class = "TextBoxBorder";
-                    logContet.Border.CornerType = eCornerType.Square;
+                    
                     logContet.Dock = DockStyle.Fill;
                     logContet.Location = new Point(0, 0);
                     logContet.Size = new Size(420, 340);
-                    logContet.PreventEnterBeep = true;
                     logContet.Multiline = true;
-                    logContet.ScrollBars = ScrollBars.Vertical;
+                    logContet.ScrollBars = RichTextBoxScrollBars.Vertical;
                     logContet.Font = new Font("微软雅黑", 10);
+                    logContet.SelectedText = "2017";
                     if (selectNode.Text.Split('.')[0].Equals(DateTime.Now.ToString("yyyy-MM-dd")))
                     {
                         string tempLogFile = Path.Combine(PathUtils.LOG_TEMP_DIRECTORY, selectNode.Text + ".temp");
@@ -436,9 +432,14 @@ namespace HDDNCONIAMP.UI.UserSettings
         {
             try
             {
-                PathUtils.Instance.BDMapCachePath = textBoxXOfflineBDMapCachePath.Text;
-                PathUtils.Instance.VideoDataPath = textBoxXVideoDataPath.Text;
-                logger.Info("更改离线地图缓存配置为“" + PathUtils.Instance.BDMapCachePath + "”；视频缓存位置为“" + PathUtils.Instance.VideoDataPath + "”。");
+                mFormMain.AllApplicationSetting[ApplicationSettingKey.BDMapCachePath] = textBoxXOfflineBDMapCachePath.Text;
+                SQLiteHelper.GetInstance().ApplicationSettingUpdate(ApplicationSettingKey.BDMapCachePath, textBoxXOfflineBDMapCachePath.Text);
+                BMapConfiguration.MapCachePath = mFormMain.AllApplicationSetting[ApplicationSettingKey.BDMapCachePath];
+
+                mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoCachePath] = textBoxXVideoDataPath.Text;
+                SQLiteHelper.GetInstance().ApplicationSettingUpdate(ApplicationSettingKey.VideoCachePath, textBoxXVideoDataPath.Text);
+
+                //logger.Info("更改离线地图缓存配置为“" + PathUtils.Instance.BDMapCachePath + "”；视频缓存位置为“" + PathUtils.Instance.VideoDataPath + "”。");
                 MessageBox.Show("保存成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -455,8 +456,8 @@ namespace HDDNCONIAMP.UI.UserSettings
         /// <param name="e"></param>
         private void buttonXSSCSCancel_Click(object sender, EventArgs e)
         {
-            textBoxXOfflineBDMapCachePath.Text = PathUtils.Instance.BDMapCachePath;
-            textBoxXVideoDataPath.Text = PathUtils.Instance.VideoDataPath;
+            textBoxXOfflineBDMapCachePath.Text = mFormMain.AllApplicationSetting[ApplicationSettingKey.BDMapCachePath];
+            textBoxXVideoDataPath.Text = mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoCachePath];
         }
 
         #endregion
@@ -560,28 +561,12 @@ namespace HDDNCONIAMP.UI.UserSettings
         }
 
         /// <summary>
-        /// 初始化“Mesh基本参数配置”界面控件
-        /// </summary>
-        private void initMeshBaseParamConfit()
-        {
-            //判断是否为以太网卡
-            //Ethernet              以太网卡  
-            //Wireless80211         无线网卡
-            NetworkInterface[] ethernets = nics.Where(nic => nic.NetworkInterfaceType == NetworkInterfaceType.Ethernet).ToArray();
-            foreach (NetworkInterface adapter in ethernets)
-            {
-                this.comboBoxExLocalhostNetwordCard.Items.Add(adapter.Name);
-            }
-            this.comboBoxExLocalhostNetwordCard.SelectedIndex = 0;
-        }
-
-        /// <summary>
         /// 初始化缓存设置控件的内容
         /// </summary>
         private void initCacheSettingsTextBoxX()
         {
-            textBoxXOfflineBDMapCachePath.Text = PathUtils.Instance.BDMapCachePath;
-            textBoxXVideoDataPath.Text = PathUtils.Instance.VideoDataPath;
+            textBoxXOfflineBDMapCachePath.Text = mFormMain.AllApplicationSetting[ApplicationSettingKey.BDMapCachePath];
+            textBoxXVideoDataPath.Text = mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoCachePath];
         }
 
         #endregion

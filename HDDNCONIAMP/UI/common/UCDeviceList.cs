@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using BMap.NET.WindowsForm;
 using BMap.NET.WindowsForm.BMapElements;
@@ -9,7 +10,7 @@ using HDDNCONIAMP.DB.Model;
 using HDDNCONIAMP.UI.AudioVideoProcess;
 using log4net;
 
-namespace HDDNCONIAMP.UI.common
+namespace HDDNCONIAMP.UI.Common
 {
     public partial class UCDeviceList : UserControl
     {
@@ -41,9 +42,11 @@ namespace HDDNCONIAMP.UI.common
         /// </summary>
         private FormMain mFormMain;
 
-
+        /// <summary>
+        /// 视频封装
+        /// </summary>
         VideoInject inject = new VideoInject();
-
+        
         #endregion
 
         #region 属性
@@ -53,7 +56,7 @@ namespace HDDNCONIAMP.UI.common
         /// </summary>
         public BMapControl2 BuddyBMapControl { get; set; }
 
-        public UCGridVideo BuddyGridVideo { get; set; }
+        public IGrid BuddyGrid { get; set; }
 
         #endregion
 
@@ -72,23 +75,7 @@ namespace HDDNCONIAMP.UI.common
         /// <param name="e"></param>
         private void UCDeviceList_Load(object sender, EventArgs e)
         {
-            ////临时测试设备添加
-            //List<BVideoPoint> devices = new List<BVideoPoint>();
-            //BVideoPoint poi1 = new BVideoPoint();
-            //poi1.Location = new LatLngPoint(116.391046, 40.014476);
-            //poi1.Index = 1;
-            //poi1.IsOnline = true;
-            //devices.Add(poi1);
-            //BVideoPoint poi2 = new BVideoPoint();
-            //poi2.Location = new LatLngPoint(116.549722, 39.972907);
-            //poi2.Index = 2;
-            //poi2.IsOnline = false;
-            //devices.Add(poi2);
-            //if (BuddyBMapControl != null)
-            //{
-            //    BuddyBMapControl.AddVideoPlaces(devices);
-            //}
-
+            
 
             //List<BDeviceRoute> routes = new List<BDeviceRoute>();
             //BDeviceRoute r1 = new BDeviceRoute();
@@ -232,11 +219,76 @@ namespace HDDNCONIAMP.UI.common
                 BuddyBMapControl.Locate(false);
             }
 
-            if (selectNode.Level == 1 && BuddyGridVideo != null)
+            if (selectNode.Level == 1 && BuddyGrid != null)
             {
-                inject.injectPanel(BuddyGridVideo.GetFirstPanel());
+                //TODO：目前只支持一路信号输入，后续需修改
+                BVideoPoint vp = (BVideoPoint)selectNode.Tag;
+                inject.injectPanel(BuddyGrid.GetPanelByIndex(1), vp.Name, "0");
             }
         }
+
+        /// <summary>
+        /// 元素编辑完成事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void advTreeDeviceList_AfterCellEdit(object sender, CellEditEventArgs e)
+        {
+            Node editNode = e.Cell.Parent;
+            if (editNode.Level == 1)
+            {//处理设备节点的元素编辑事件
+                ((BVideoPoint)editNode.Tag).Alias = e.NewText;
+            }
+        }
+
+        /// <summary>
+        /// 鼠标按下事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void advTreeDeviceList_MouseDown(object sender, MouseEventArgs e)
+        {
+            Node selectNode = advTreeDeviceList.SelectedNode;
+            if (selectNode != null && selectNode.Level == 0)
+            {
+                //拖动设备
+                advTreeDeviceList.DoDragDrop(selectNode, DragDropEffects.Copy);
+            }
+        }
+
+        #region 拖拽事件处理
+
+
+        private void advTreeDeviceList_NodeDragStart(object sender, EventArgs e)
+        {
+            Node node = (Node)sender;
+            if (node != null && node.Level == 1)
+            {
+                DoDragDrop(node, DragDropEffects.Move);
+            }
+        }
+
+        private void advTreeDeviceList_DragEnter(object sender, DragEventArgs e)
+        {
+            // 拖动效果设成移动
+            e.Effect = DragDropEffects.Move;
+        }
+
+        private void advTreeDeviceList_DragDrop(object sender, DragEventArgs e)
+        {
+            AdvTree tree = (AdvTree)sender;
+            Point point = tree.PointToClient(new Point(e.X, e.Y));
+            Node targetNode = tree.GetNodeAt(point);
+            Node dragNode = (Node)e.Data.GetData("DevComponents.AdvTree.Node");
+            if (targetNode != null)
+            {
+                targetNode.Nodes.Insert(targetNode.Nodes.Count, dragNode);
+                advTreeDeviceList.SelectedNode = dragNode;
+                targetNode.Expand();
+            }
+        }
+
+        #endregion
 
         #endregion
 
@@ -274,21 +326,28 @@ namespace HDDNCONIAMP.UI.common
             foreach (BVideoPoint vp in mBVideoPoints)
             {
                 bool exist = false;
-                foreach (Node n in nodeDefaultGroup.Nodes)
+                foreach (Node group in advTreeDeviceList.Nodes)
                 {
-                    //如果节点已存在则更新节点内容
-                    if (n.Text == vp.Name)
+                    foreach (Node n in group.Nodes)
                     {
-                        n.Tag = vp;
-                        exist = true;
-                        break;
+                        BVideoPoint temp = (BVideoPoint)n.Tag;
+                        //如果节点已存在则更新节点内容
+                        if (temp.Name.Equals(vp.Name))
+                        {
+                            n.Tag = vp;
+                            exist = true;
+                            break;
+                        }
                     }
+                    if (exist)
+                        break;
                 }
+                
                 if (!exist)
                 {
                     Node node = new Node();
                     node.Tag = vp;
-                    node.Text = vp.Name;
+                    node.Text = vp.Alias;
                     nodeDefaultGroup.Nodes.Add(node);
                 }
             }
@@ -299,7 +358,7 @@ namespace HDDNCONIAMP.UI.common
         /// 接收到GPS信号时，实时更新设备位置
         /// </summary>
         /// <param name="device"></param>
-        private void PGPSUDPListener_OnReceiveGPS(VideoDevice device)
+        private void PGPSUDPListener_OnReceiveGPS(AudioAndVideoDevice device)
         {
             BVideoPoint currentPoint = mBVideoPoints.Find(delegate (BVideoPoint p) {
                 return p.Name == device.Name;
@@ -313,12 +372,21 @@ namespace HDDNCONIAMP.UI.common
                 BVideoPoint p = new BVideoPoint();
                 p.Location = new LatLngPoint(device.Lon, device.Lat);
                 p.Name = device.Name;
+                p.Alias = device.Alias;
                 p.IsOnline = true;
                 mBVideoPoints.Add(p);
             }
 
-            advTreeDeviceList.BeginInvoke(new updateDeviceListDelegate(updateDeviceList));
+            try
+            {
+                advTreeDeviceList.BeginInvoke(new updateDeviceListDelegate(updateDeviceList));
+            }
+            catch (InvalidOperationException ex)
+            {
+                logger.Error("更新列表错误", ex);
+            }
 
+            //更新地图窗体
             if (BuddyBMapControl != null)
             {
                 BuddyBMapControl.AddVideoPlaces(mBVideoPoints);

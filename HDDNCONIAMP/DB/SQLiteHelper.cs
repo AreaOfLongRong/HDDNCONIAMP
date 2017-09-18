@@ -26,7 +26,7 @@ namespace HDDNCONIAMP.DB
         /// </summary>
         private SQLiteHelper()
         {
-            
+
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace HDDNCONIAMP.DB
         {
             IQuery<User> q = context.Query<User>();
             int count = q.Where(u => u.Name.Equals(userName) && u.Password.Equals(password)).Count();
-            return  count> 0;
+            return count > 0;
         }
 
         /// <summary>
@@ -135,6 +135,148 @@ namespace HDDNCONIAMP.DB
         public List<User> UserAllQuery()
         {
             return context.Query<User>().ToList();
+        }
+
+        #endregion
+
+        #region Mesh设备分组相关
+
+
+
+        #endregion
+
+        #region Mesh设备信息相关
+
+
+
+        #endregion
+
+        #region Mesh预案管理相关
+
+        /// <summary>
+        /// 插入新的预案
+        /// </summary>
+        /// <param name="mpm">新的预案</param>
+        public void MeshPlanInsert(MeshPlanManage mpm)
+        {
+            context.Insert<MeshPlanManage>(() =>
+            new MeshPlanManage()
+            {
+                MeshIP = mpm.MeshIP,
+                AudioVideoID = mpm.AudioVideoID,
+                Model265IP = mpm.Model265IP,
+                HKVideoIP = mpm.HKVideoIP
+            });
+        }
+
+        /// <summary>
+        /// 检索所有预案
+        /// </summary>
+        /// <returns>预案列表</returns>
+        public List<MeshPlanManage> MeshPlanAllQuery()
+        {
+            return context.Query<MeshPlanManage>().ToList();
+        }
+
+        /// <summary>
+        /// 检索所有预案
+        /// </summary>
+        /// <returns>由Mesh的IP为键，预案为值组成的字典</returns>
+        public Dictionary<string, MeshPlanManage> MeshPlanAllQueryAsDictionary()
+        {
+            Dictionary<string, MeshPlanManage> result = new Dictionary<string, MeshPlanManage>();
+            List<MeshPlanManage> mpmList = MeshPlanAllQuery();
+            foreach (MeshPlanManage mpm in mpmList)
+            {
+                result.Add(mpm.MeshIP, mpm);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 检索指定Mesh IP地址对应的预案。
+        /// </summary>
+        /// <param name="meshIP"></param>
+        /// <returns>预案</returns>
+        public MeshPlanManage MeshPlanQueryByMeshIP(string meshIP)
+        {
+            return context.Query<MeshPlanManage>().Where(m => m.MeshIP == meshIP).First();
+        }
+
+        #endregion
+
+        #region 应用程序配置相关
+
+        /// <summary>
+        /// 插入应用程序配置项
+        /// </summary>
+        /// <param name="setting">配置项</param>
+        public void ApplicationSettingInsert(ApplicationSettings setting)
+        {
+            context.Insert<ApplicationSettings>(() =>
+            new ApplicationSettings()
+            {
+                Key = setting.Key,
+                Value = setting.Value,
+                Description = setting.Description
+            });
+        }
+
+        /// <summary>
+        /// 更新应用程序配置项
+        /// </summary>
+        /// <param name="key">配置项关键字</param>
+        /// <param name="value">配置项的值</param>
+        /// <returns>影响的行数</returns>
+        public int ApplicationSettingUpdate(string key, string value)
+        {
+            return context.Update<ApplicationSettings>(a => a.Key == key, u => new ApplicationSettings() { Value = value });
+        }
+
+        /// <summary>
+        /// 删除配置项
+        /// </summary>
+        /// <param name="userName">待删除的配置项</param>
+        /// <returns>删除影响到的行数</returns>
+        public int ApplicationSettingDelete(string key)
+        {
+            return context.Delete<ApplicationSettings>(a => a.Key == key);
+        }
+
+        /// <summary>
+        /// 检索所有配置项
+        /// </summary>
+        /// <returns>所有配置列表</returns>
+        public List<ApplicationSettings> ApplicationSettingAllQuery()
+        {
+            return context.Query<ApplicationSettings>().ToList();
+        }
+
+        /// <summary>
+        /// 检索所有应用程序配置项，填充到字典中，
+        /// 所有的键可在ApplicationSettingKey类中找到。
+        /// </summary>
+        /// <returns>应用程序配置项字典</returns>
+        public Dictionary<string, string> ApplicationSettingAsDictionary()
+        {
+            List<ApplicationSettings> allAS = ApplicationSettingAllQuery();
+            Dictionary<string, string> result = new Dictionary<string, string>();
+            foreach (ApplicationSettings item in allAS)
+            {
+                result.Add(item.Key, item.Value);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 根据应用程序配置项的键检索其值
+        /// </summary>
+        /// <param name="key">键</param>
+        /// <returns>配置项的值</returns>
+        public ApplicationSettings ApplicationSettingValueBykey(string key)
+        {
+            IQuery<ApplicationSettings> q = context.Query<ApplicationSettings>();
+            return q.Where(a => a.Key == key).First();
         }
 
         #endregion

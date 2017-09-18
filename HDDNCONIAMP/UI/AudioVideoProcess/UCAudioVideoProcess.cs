@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using HDDNCONIAMP.UI.Common;
 
 namespace HDDNCONIAMP.UI.AudioVideoProcess
 {
@@ -16,15 +17,52 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
     {
 
 
-        private common.UCDeviceList ucDeviceListMain;
+        private UCDeviceList ucDeviceListMain;
+
+        private UCMeshList ucMeshDeviceListMain;
 
         public UCAudioVideoProcess(FormMain main)
         {
             InitializeComponent();
 
-            this.ucDeviceListMain = new HDDNCONIAMP.UI.common.UCDeviceList(main);
+            //initUCDeviceList(main);
+
+            initUCMeshList(main);
+        }
+
+        /// <summary>
+        /// 初始化Mesh设备列表
+        /// </summary>
+        /// <param name="main"></param>
+        private void initUCMeshList(FormMain main)
+        {
+            ucMeshDeviceListMain = new UCMeshList(main);
+            ucMeshDeviceListMain.BuddyBMapControl = null;
+            ucMeshDeviceListMain.BuddyGrid = ucGrid9Main;
+            ucMeshDeviceListMain.MDManage = main.MDManage;
+            ucMeshDeviceListMain.Dock = DockStyle.Fill;
+            ucMeshDeviceListMain.Location = new Point(0, 0);
+            ucMeshDeviceListMain.Name = "ucMeshListmain";
+            ucMeshDeviceListMain.Size = new Size(150, 439);
+            ucMeshDeviceListMain.TabIndex = 0;
+            // 
+            // collapsibleSplitContainerMain.Panel1
+            // 
+            this.collapsibleSplitContainer1.Panel1.Controls.Add(ucMeshDeviceListMain);
+            this.collapsibleSplitContainer1.Panel1MinSize = 5;
+            ucMeshDeviceListMain.StartScanMeshDevice();
+
+        }
+
+        /// <summary>
+        /// 初始化GPS设备列表，被废弃
+        /// </summary>
+        /// <param name="main"></param>
+        private void initUCDeviceList(FormMain main)
+        {
+            this.ucDeviceListMain = new HDDNCONIAMP.UI.Common.UCDeviceList(main);
             this.ucDeviceListMain.BuddyBMapControl = null;
-            this.ucDeviceListMain.BuddyGridVideo = ucGridVideoMain;
+            this.ucDeviceListMain.BuddyGrid = ucGrid9Main;
             this.ucDeviceListMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ucDeviceListMain.Location = new System.Drawing.Point(0, 0);
             this.ucDeviceListMain.Name = "ucDeviceList1";

@@ -38,7 +38,7 @@ namespace BMap.NET.WindowsForm
                 _center = value;
             }
         }
-        private int _zoom = 12;
+        private int _zoom = 9;
         /// <summary>
         /// 地图缩放级别(3-18)
         /// </summary>
@@ -215,6 +215,10 @@ namespace BMap.NET.WindowsForm
         /// </summary>
         private Dictionary<string, BVideoPoint> _videoPoints = new Dictionary<string, BVideoPoint>();
         /// <summary>
+        /// 地图中Mesh设备点（BVideoPoint）容器
+        /// </summary>
+        private Dictionary<string, BMeshPoint> _meshPoints = new Dictionary<string, BMeshPoint>();
+        /// <summary>
         /// 绘制图形容器
         /// </summary>
         private Dictionary<int, DrawingObject> _drawingObjects = new Dictionary<int, DrawingObject>();
@@ -258,6 +262,10 @@ namespace BMap.NET.WindowsForm
         /// 当前选择的视频设备点（没有则为null）
         /// </summary>
         private BVideoPoint _current_selected_video_place;
+        /// <summary>
+        /// 当前选择的Mesh设备点（没有则为null）
+        /// </summary>
+        private BMeshPoint _current_selected_mesh_place;
         /// <summary>
         /// 当前选择的标记点（没有则为null）
         /// </summary>
@@ -632,6 +640,25 @@ namespace BMap.NET.WindowsForm
                             return;
                         }
                     }
+                    foreach (KeyValuePair<string, BMeshPoint> v in _meshPoints) //是否点击Mesh设备点
+                    {
+                        if (v.Value.Rect.Contains(e.Location))
+                        {
+                            _current_selected_mesh_place = v.Value;
+                            //显示信息控件
+                            v.Value.Selected = true;
+
+                            foreach (KeyValuePair<string, BMeshPoint> vv in _meshPoints)
+                            {
+                                if (vv.Value != v.Value)
+                                {
+                                    vv.Value.Selected = false;
+                                }
+                            }
+                            Invalidate();
+                            return;
+                        }
+                    }
                     foreach (KeyValuePair<string, BMarker> p in _markers) //是否点击标记点
                     {
                         if (p.Value.Rect.Contains(e.Location))
@@ -821,6 +848,20 @@ namespace BMap.NET.WindowsForm
                         break;
                     }
                 }
+                //Z-20170916:添加鼠标移动到Mesh设备上时更新提示框
+                foreach (KeyValuePair<string, BMeshPoint> v in _meshPoints)  //视频设备点
+                {
+                    if (v.Value.Rect.Contains(e.Location))
+                    {
+                        _toolTip.Text = v.Value.ToString();
+                        _toolTip.Location = new Point(
+                            v.Value.Rect.Right - v.Value.Rect.Width / 2 - _toolTip.Width / 2,
+                            v.Value.Rect.Bottom + 15);
+                        _toolTip.Visible = true;
+                        showToolTip = true;
+                        break;
+                    }
+                }
                 if (!showToolTip)
                     _toolTip.Visible = false;
             }
@@ -859,6 +900,15 @@ namespace BMap.NET.WindowsForm
                 }
                 //Z-20170903:添加鼠标移动到视频设备点上时更改鼠标样式
                 foreach (KeyValuePair<string, BVideoPoint> v in _videoPoints)  //视频设备点
+                {
+                    if (v.Value.Rect.Contains(e.Location))
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+                //Z-20170919:添加鼠标移动到Mesh设备点上时更改鼠标样式
+                foreach (KeyValuePair<string, BMeshPoint> v in _meshPoints)  //视频设备点
                 {
                     if (v.Value.Rect.Contains(e.Location))
                     {
@@ -1078,7 +1128,8 @@ namespace BMap.NET.WindowsForm
                     v.Value.Selected = true;
 
                     //Z-20170904：调用C++ EXE，显示视频信息
-                    inject.injectWindow();
+                    //inject.injectWindow();
+                    inject.injectWindow(v.Value.Name);
 
                     foreach (KeyValuePair<string, BVideoPoint> vv in _videoPoints)
                     {
@@ -1613,6 +1664,29 @@ namespace BMap.NET.WindowsForm
         public void ClearVideoPlaces()
         {
             _videoPoints.Clear();
+            Invalidate();
+        }
+
+        /// <summary>
+        /// 添加Mesh设备点列表
+        /// </summary>
+        /// <param name="places"></param>
+        public void AddMeshDevicePlaces(List<BMeshPoint> places)
+        {
+            _meshPoints.Clear();
+            foreach (BMeshPoint mesh in places)
+            {
+                _meshPoints.Add(mesh.MACAddress, mesh);
+            }
+            Invalidate();
+        }
+
+        /// <summary>
+        /// 清空地图中所有的Mesh设备点
+        /// </summary>
+        public void ClearMeshDevicePlaces()
+        {
+            _meshPoints.Clear();
             Invalidate();
         }
 
