@@ -8,9 +8,9 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
-namespace HDDNCONIAMP.Network.TCPServer
+namespace TCPServer
 {
-    class TcpConnention
+    public class TcpConnention
     {
         public TcpClient client;
         public StreamWriter sWriter;
@@ -29,11 +29,11 @@ namespace HDDNCONIAMP.Network.TCPServer
         }
     }
 
-    class TcpServer
+    public class TcpServer
     {
         private TcpListener _server;
         private Boolean _isRunning;
-        private Hashtable _hashTable;
+        private Hashtable _hashTable = new Hashtable();//hash table of TcpConnention
 
         public TcpServer(int port)
         {
@@ -41,11 +41,13 @@ namespace HDDNCONIAMP.Network.TCPServer
             _server.Start();
 
             _isRunning = true;
-
-            LoopClients();
+            
+            Thread t = new Thread(LoopClients);
+            t.Start();
         }
 
-        public void LoopClients()
+
+        private void LoopClients()
         {
             while (_isRunning)
             {
@@ -69,6 +71,7 @@ namespace HDDNCONIAMP.Network.TCPServer
                 {
                     TcpConnention conn = (TcpConnention)_hashTable[ipAddr];
                     conn.sWriter.WriteLine(message);
+                    conn.sWriter.Flush();
                     return true;
                 }
             }
@@ -80,6 +83,7 @@ namespace HDDNCONIAMP.Network.TCPServer
 
         public void Close()
         {
+            _isRunning = false;
             _server.Stop();
         }
 
@@ -98,7 +102,7 @@ namespace HDDNCONIAMP.Network.TCPServer
             }
         }
 
-        public void HandleClient(object obj)
+        private void HandleClient(object obj)
         {
             // retrieve client from parameter passed to thread
             TcpConnention conn = (TcpConnention)obj;
