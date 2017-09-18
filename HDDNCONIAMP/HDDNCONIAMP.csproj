@@ -208,6 +208,7 @@
     <Compile Include="UI\MeshManagement\DrawingPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="UI\MeshManagement\MeshTcpConfigManager.cs" />
     <Compile Include="UI\MeshManagement\UCMeshManagement.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -385,6 +386,10 @@
     <ProjectReference Include="..\NodeTopology\NodeTopology.csproj">
       <Project>{7b6daac9-c270-4d82-9fea-72303369699a}</Project>
       <Name>NodeTopology</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TcpServer\TcpServer.csproj">
+      <Project>{dcce4881-88e3-44d6-9533-8c9e5a9d42d3}</Project>
+      <Name>TcpServer</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

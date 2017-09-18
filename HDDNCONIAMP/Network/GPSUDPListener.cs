@@ -108,6 +108,9 @@ namespace HDDNCONIAMP.Network
                     //8字节：时间戳；
                     //后续数据：标准的NMEA 0183协议GPS数据
                     byte[] bytes = udpcRecv.Receive(ref ipendpoint);
+
+                    int deviceId = bytes[4] << 24 | bytes[5] << 16 | bytes[6] << 8 | bytes[7];
+
                     byte[] gpsdata = new byte[bytes.Length - GPS_MESSAGE_HEADER_LENGTH];
                     for (int i = GPS_MESSAGE_HEADER_LENGTH; i < bytes.Length; i++)
                     {
