@@ -93,7 +93,6 @@
             this.tableLayoutPanelMeshParameters.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ipAddressInputMeshIP)).BeginInit();
             this.groupPanel2.SuspendLayout();
-            this.groupPanel1.SuspendLayout();
             this.superTabControlPanel3.SuspendLayout();
             this.tableLayoutPanelMeshBasicSetting.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -125,9 +124,9 @@
             this.superTabControlMain.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.superTabControlMain.ControlBox.MenuBox,
             this.superTabControlMain.ControlBox.CloseBox});
+            this.superTabControlMain.Controls.Add(this.superTabControlPanel2);
             this.superTabControlMain.Controls.Add(this.superTabControlPanel1);
             this.superTabControlMain.Controls.Add(this.superTabControlPanel3);
-            this.superTabControlMain.Controls.Add(this.superTabControlPanel2);
             this.superTabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControlMain.Location = new System.Drawing.Point(0, 0);
             this.superTabControlMain.Name = "superTabControlMain";
@@ -466,7 +465,6 @@
             // 
             this.groupPanel1.CanvasColor = System.Drawing.SystemColors.Control;
             this.groupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
-            this.groupPanel1.Controls.Add(this.ucMeshListMain);
             this.groupPanel1.DisabledBackColor = System.Drawing.Color.Empty;
             this.groupPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupPanel1.Location = new System.Drawing.Point(3, 3);
@@ -502,17 +500,6 @@
             this.groupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.groupPanel1.TabIndex = 1;
             this.groupPanel1.Text = "Mesh设备列表";
-            // 
-            // ucMeshListMain
-            // 
-            this.ucMeshListMain.BuddyBMapControl = null;
-            this.ucMeshListMain.BuddyGrid = null;
-            this.ucMeshListMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucMeshListMain.Location = new System.Drawing.Point(0, 0);
-            this.ucMeshListMain.MDManage = null;
-            this.ucMeshListMain.Name = "ucMeshListMain";
-            this.ucMeshListMain.Size = new System.Drawing.Size(188, 430);
-            this.ucMeshListMain.TabIndex = 2;
             // 
             // superTabItemMeshTopology
             // 
@@ -977,7 +964,6 @@
             this.tableLayoutPanelMeshParameters.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ipAddressInputMeshIP)).EndInit();
             this.groupPanel2.ResumeLayout(false);
-            this.groupPanel1.ResumeLayout(false);
             this.superTabControlPanel3.ResumeLayout(false);
             this.tableLayoutPanelMeshBasicSetting.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);

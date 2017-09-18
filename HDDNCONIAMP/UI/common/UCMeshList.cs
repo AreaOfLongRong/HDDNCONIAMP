@@ -82,7 +82,7 @@ namespace HDDNCONIAMP.UI.Common
         {
             InitializeComponent();
             mFormMain = main;
-            mFormMain.NLM.PGPSUDPListener.OnReceiveGPS += PGPSUDPListener_OnReceiveGPS;
+            //mFormMain.NLM.PGPSUDPListener.OnReceiveGPS += PGPSUDPListener_OnReceiveGPS;
         }
 
         /// <summary>
