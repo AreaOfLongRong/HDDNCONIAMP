@@ -133,6 +133,7 @@
     <Compile Include="Mesh\MeshNode.cs" />
     <Compile Include="Mesh\MeshRelation.cs" />
     <Compile Include="Mesh\MeshTelnet.cs" />
+    <Compile Include="Network\GPSInfo.cs" />
     <Compile Include="Network\GPSUDPListener.cs" />
     <Compile Include="Network\NetworkListenerManage.cs" />
     <Compile Include="Network\UDP\UDPListener.cs" />

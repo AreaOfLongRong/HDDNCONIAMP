@@ -34,6 +34,17 @@ namespace HDDNCONIAMP.Network
         public event OnReceiveGPSDelegate OnReceiveGPS;
 
         /// <summary>
+        /// 接收到GPS消息委托
+        /// </summary>
+        /// <param name="gpsInfo"></param>
+        public delegate void ReceiveGPSInfoDelegate(GPSInfo gpsInfo);
+
+        /// <summary>
+        /// 接收到GPS信号事件
+        /// </summary>
+        public event ReceiveGPSInfoDelegate OnReceiveGPSInfo;
+
+        /// <summary>
         /// UDP监听端口
         /// </summary>
         private const int Port = 8340;
@@ -114,26 +125,46 @@ namespace HDDNCONIAMP.Network
                     {
                         //切割字符串
                         string[] temp = message.Split(',');
-                        AudioAndVideoDevice device = new AudioAndVideoDevice();
-                        //device.Name = ip;
-                        device.Name = (bytes[4] << 24 | bytes[5] << 16 | bytes[6] << 8 | bytes[7]).ToString();  //设备的ID
+                        //AudioAndVideoDevice device = new AudioAndVideoDevice();
+                        ////device.Name = ip;
+                        //device.Name = (bytes[4] << 24 | bytes[5] << 16 | bytes[6] << 8 | bytes[7]).ToString();  //设备的ID
+                        //try
+                        //{
+                        //    double[] latLon = GPS2BD09.wgs2bd(Double.Parse(temp[3].Substring(0, 2))
+                        //                        + Double.Parse(temp[3].Substring(2)) / 60.0,
+                        //                        Double.Parse(temp[5].Substring(0, 3))
+                        //                        + Double.Parse(temp[5].Substring(3)) / 60.0);
+                        //    device.Lat = latLon[0];
+                        //    device.Lon = latLon[1];
+                        //    device.Alias = device.Name;
+                        //    RaiseReceiveGPS(device);
+                        //}
+                        //catch (Exception ex)
+                        //{
+                        //    logger.Error("接收到的GPS位置信号有问题!", ex);
+                        //    device.Lat = 0;
+                        //    device.Lon = 0;
+                        //}
+
+                        GPSInfo info = new GPSInfo();
+                        info.ID = (bytes[4] << 24 | bytes[5] << 16 | bytes[6] << 8 | bytes[7]).ToString();  //设备的ID
                         try
                         {
                             double[] latLon = GPS2BD09.wgs2bd(Double.Parse(temp[3].Substring(0, 2))
                                                 + Double.Parse(temp[3].Substring(2)) / 60.0,
                                                 Double.Parse(temp[5].Substring(0, 3))
                                                 + Double.Parse(temp[5].Substring(3)) / 60.0);
-                            device.Lat = latLon[0];
-                            device.Lon = latLon[1];
-                            device.Alias = device.Name;
-                            RaiseReceiveGPS(device);
+                            info.Lat = latLon[0];
+                            info.Lon = latLon[1];
                         }
                         catch (Exception ex)
                         {
                             logger.Error("接收到的GPS位置信号有问题!", ex);
-                            device.Lat = 0;
-                            device.Lon = 0;
+                            info.Lat = 0;
+                            info.Lon = 0;
                         }
+                        info.Time = temp[2];
+                        RaiseReceiveGPS(info);
                     }
                 }
                 catch (Exception ex)
@@ -150,6 +181,15 @@ namespace HDDNCONIAMP.Network
         private void RaiseReceiveGPS(AudioAndVideoDevice device)
         {
             OnReceiveGPS?.Invoke(device);
+        }
+
+        /// <summary>
+        /// 上报接收到GPS信号事件
+        /// </summary>
+        /// <param name="info">GPS信息</param>
+        private void RaiseReceiveGPS(GPSInfo info)
+        {
+            OnReceiveGPSInfo?.Invoke(info);
         }
 
         #endregion
