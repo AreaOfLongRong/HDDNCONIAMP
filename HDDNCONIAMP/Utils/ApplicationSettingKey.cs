@@ -22,11 +22,6 @@
         public static string LocalNetworkCard = "LocalNetworkCard";
 
         /// <summary>
-        /// 子网IP
-        /// </summary>
-        public static string SubNetworkIP = "SubNetworkIP";
-
-        /// <summary>
         /// 本机IPV4地址
         /// </summary>
         public static string LocalIPV4 = "LocalIPV4";
@@ -35,6 +30,26 @@
         /// UDP监听端口
         /// </summary>
         public static string UDPListenerPort = "UDPListenerPort";
+
+        /// <summary>
+        /// 子网IP
+        /// </summary>
+        public static string SubNetworkIP = "SubNetworkIP";
+
+        /// <summary>
+        /// Mesh设备默认功率
+        /// </summary>
+        public static string MeshDefaultPower = "MeshDefaultPower";
+
+        /// <summary>
+        /// Mesh设备默认频率
+        /// </summary>
+        public static string MeshDefaultFrequency = "MeshDefaultFrequency";
+
+        /// <summary>
+        /// Mesh设备列表刷新频率（单位：毫秒）
+        /// </summary>
+        public static string MeshListRefreshFrequency = "MeshListRefreshFrequency";
 
 
         /// <summary>

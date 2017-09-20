@@ -146,17 +146,16 @@ namespace HDDNCONIAMP.UI.MeshManagement
             IntPtr editHandle = GetWindow(this.comboBoxNetworkCard.Handle, GW_CHILD);
             SendMessage(editHandle, EM_SETREADONLY, 1, 0);
 
-
-            this.comboBoxNetworkCard.DataSource = OperateNode.NetworkInterfaceCard();
-
-
-            LogHelper.WriteLog("程序启动");
-
-            if (string.IsNullOrEmpty(this.comboBoxNetworkCard.SelectedItem.ToString()))
+            string[] cards = OperateNode.NetworkInterfaceCard();
+            if(cards != null)
             {
-                MessageBox.Show("未找到网卡，请检查网卡是否正常开启！！！");
-
+                this.comboBoxNetworkCard.DataSource = cards;
+                this.comboBoxNetworkCard.SelectedIndex = 0;
             }
+            else
+            {
+                MessageBox.Show("未找到网卡，请检查网卡是否正常开启！！！", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }            
         }
 
         /// <summary>
@@ -1372,6 +1371,9 @@ namespace HDDNCONIAMP.UI.MeshManagement
         }
         private Image FindGObjectTypeImage(string ObjType)
         {
+            if (imageList1.Images.Count == 0)
+                return null;
+
             Image RetImg = null;
             switch (ObjType)
             {

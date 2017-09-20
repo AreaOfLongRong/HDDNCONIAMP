@@ -33,8 +33,11 @@
             this.tableLayoutPanelMeshDeviceList = new System.Windows.Forms.TableLayoutPanel();
             this.textBoxXSearch = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.advTreeMeshList = new DevComponents.AdvTree.AdvTree();
+            this.columnHeaderGroup = new DevComponents.AdvTree.ColumnHeader();
+            this.columnHeaderState = new DevComponents.AdvTree.ColumnHeader();
+            this.columnHeaderGPS = new DevComponents.AdvTree.ColumnHeader();
+            this.columnHeaderVideo = new DevComponents.AdvTree.ColumnHeader();
             this.imageListMesh = new System.Windows.Forms.ImageList(this.components);
-            this.nodeDefaultGroup = new DevComponents.AdvTree.Node();
             this.nodeConnectorMain = new DevComponents.AdvTree.NodeConnector();
             this.elementStyleMain = new DevComponents.DotNetBar.ElementStyle();
             this.barDeviceList = new DevComponents.DotNetBar.Bar();
@@ -43,7 +46,6 @@
             this.buttonItemAddGroup = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemDeleteGroup = new DevComponents.DotNetBar.ButtonItem();
             this.buttonXSearch = new DevComponents.DotNetBar.ButtonX();
-            this.buttonItemRefreshTree = new DevComponents.DotNetBar.ButtonItem();
             this.tableLayoutPanelMeshDeviceList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.advTreeMeshList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barDeviceList)).BeginInit();
@@ -99,28 +101,53 @@
             this.advTreeMeshList.BackgroundStyle.Class = "TreeBorderKey";
             this.advTreeMeshList.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.advTreeMeshList.CellEdit = true;
+            this.advTreeMeshList.Columns.Add(this.columnHeaderGroup);
+            this.advTreeMeshList.Columns.Add(this.columnHeaderState);
+            this.advTreeMeshList.Columns.Add(this.columnHeaderGPS);
+            this.advTreeMeshList.Columns.Add(this.columnHeaderVideo);
             this.tableLayoutPanelMeshDeviceList.SetColumnSpan(this.advTreeMeshList, 2);
-            this.advTreeMeshList.ColumnsVisible = false;
             this.advTreeMeshList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.advTreeMeshList.ExpandImage = global::HDDNCONIAMP.Properties.Resources.folder_expand_19;
             this.advTreeMeshList.ExpandImageCollapse = global::HDDNCONIAMP.Properties.Resources.folder_fold_17;
-            this.advTreeMeshList.GridColumnLines = false;
+            this.advTreeMeshList.GridRowLines = true;
             this.advTreeMeshList.HotTracking = true;
             this.advTreeMeshList.ImageList = this.imageListMesh;
             this.advTreeMeshList.Location = new System.Drawing.Point(3, 63);
             this.advTreeMeshList.Name = "advTreeMeshList";
-            this.advTreeMeshList.Nodes.AddRange(new DevComponents.AdvTree.Node[] {
-            this.nodeDefaultGroup});
             this.advTreeMeshList.NodesConnector = this.nodeConnectorMain;
             this.advTreeMeshList.NodeStyle = this.elementStyleMain;
             this.advTreeMeshList.PathSeparator = ";";
-            this.advTreeMeshList.SelectionBoxStyle = DevComponents.AdvTree.eSelectionStyle.FullRowSelect;
+            this.advTreeMeshList.SelectionPerCell = true;
             this.advTreeMeshList.Size = new System.Drawing.Size(251, 344);
             this.advTreeMeshList.Styles.Add(this.elementStyleMain);
             this.advTreeMeshList.TabIndex = 1;
             this.advTreeMeshList.Text = "advTree1";
             this.advTreeMeshList.AfterCellEditComplete += new DevComponents.AdvTree.CellEditEventHandler(this.advTreeMeshList_AfterCellEditComplete);
             this.advTreeMeshList.NodeClick += new DevComponents.AdvTree.TreeNodeMouseEventHandler(this.advTreeMeshList_NodeClick);
+            // 
+            // columnHeaderGroup
+            // 
+            this.columnHeaderGroup.Name = "columnHeaderGroup";
+            this.columnHeaderGroup.Width.Absolute = 100;
+            this.columnHeaderGroup.Width.AutoSizeMinHeader = true;
+            // 
+            // columnHeaderState
+            // 
+            this.columnHeaderState.Name = "columnHeaderState";
+            this.columnHeaderState.Text = "状态";
+            this.columnHeaderState.Width.Absolute = 50;
+            // 
+            // columnHeaderGPS
+            // 
+            this.columnHeaderGPS.Name = "columnHeaderGPS";
+            this.columnHeaderGPS.Text = "GPS";
+            this.columnHeaderGPS.Width.Absolute = 50;
+            // 
+            // columnHeaderVideo
+            // 
+            this.columnHeaderVideo.Name = "columnHeaderVideo";
+            this.columnHeaderVideo.Text = "视频";
+            this.columnHeaderVideo.Width.Absolute = 50;
             // 
             // imageListMesh
             // 
@@ -134,15 +161,9 @@
             this.imageListMesh.Images.SetKeyName(5, "folder_fold_17.png");
             this.imageListMesh.Images.SetKeyName(6, "bmap_drag_16.png");
             this.imageListMesh.Images.SetKeyName(7, "refresh_16.png");
-            // 
-            // nodeDefaultGroup
-            // 
-            this.nodeDefaultGroup.Editable = false;
-            this.nodeDefaultGroup.Expanded = true;
-            this.nodeDefaultGroup.ImageExpandedIndex = 4;
-            this.nodeDefaultGroup.ImageIndex = 5;
-            this.nodeDefaultGroup.Name = "nodeDefaultGroup";
-            this.nodeDefaultGroup.Text = "默认分组";
+            this.imageListMesh.Images.SetKeyName(8, "mesh_person_offline_32.png");
+            this.imageListMesh.Images.SetKeyName(9, "gps_online_16.png");
+            this.imageListMesh.Images.SetKeyName(10, "video_camera_32.png");
             // 
             // nodeConnectorMain
             // 
@@ -166,11 +187,10 @@
             this.buttonItemExpandAll,
             this.buttonItemFoldAll,
             this.buttonItemAddGroup,
-            this.buttonItemDeleteGroup,
-            this.buttonItemRefreshTree});
+            this.buttonItemDeleteGroup});
             this.barDeviceList.Location = new System.Drawing.Point(3, 33);
             this.barDeviceList.Name = "barDeviceList";
-            this.barDeviceList.Size = new System.Drawing.Size(251, 24);
+            this.barDeviceList.Size = new System.Drawing.Size(251, 25);
             this.barDeviceList.Stretch = true;
             this.barDeviceList.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.barDeviceList.TabIndex = 3;
@@ -222,14 +242,6 @@
             this.buttonXSearch.TabIndex = 4;
             this.buttonXSearch.Click += new System.EventHandler(this.buttonXSearch_Click);
             // 
-            // buttonItemRefreshTree
-            // 
-            this.buttonItemRefreshTree.BeginGroup = true;
-            this.buttonItemRefreshTree.ImageIndex = 7;
-            this.buttonItemRefreshTree.Name = "buttonItemRefreshTree";
-            this.buttonItemRefreshTree.Tooltip = "刷新列表";
-            this.buttonItemRefreshTree.Click += new System.EventHandler(this.buttonItemRefreshTree_Click);
-            // 
             // UCMeshList2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -251,7 +263,6 @@
         private DevComponents.DotNetBar.Controls.TextBoxX textBoxXSearch;
         private DevComponents.AdvTree.AdvTree advTreeMeshList;
         private System.Windows.Forms.ImageList imageListMesh;
-        private DevComponents.AdvTree.Node nodeDefaultGroup;
         private DevComponents.AdvTree.NodeConnector nodeConnectorMain;
         private DevComponents.DotNetBar.ElementStyle elementStyleMain;
         private DevComponents.DotNetBar.Bar barDeviceList;
@@ -260,6 +271,9 @@
         private DevComponents.DotNetBar.ButtonItem buttonItemAddGroup;
         private DevComponents.DotNetBar.ButtonItem buttonItemDeleteGroup;
         private DevComponents.DotNetBar.ButtonX buttonXSearch;
-        private DevComponents.DotNetBar.ButtonItem buttonItemRefreshTree;
+        private DevComponents.AdvTree.ColumnHeader columnHeaderGroup;
+        private DevComponents.AdvTree.ColumnHeader columnHeaderGPS;
+        private DevComponents.AdvTree.ColumnHeader columnHeaderVideo;
+        private DevComponents.AdvTree.ColumnHeader columnHeaderState;
     }
 }

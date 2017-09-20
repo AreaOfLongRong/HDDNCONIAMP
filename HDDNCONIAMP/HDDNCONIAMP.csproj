@@ -348,6 +348,7 @@
     <Content Include="References\SQLite\System.Data.SQLite.Linq.xml" />
     <Content Include="References\SQLite\System.Data.SQLite.pdb" />
     <Content Include="References\SQLite\System.Data.SQLite.xml" />
+    <Content Include="Resources\gps_online_16.png" />
     <Content Include="Resources\add_32.png" />
     <Content Include="Resources\delete_32.png" />
     <Content Include="Resources\apply_modify_32.png" />

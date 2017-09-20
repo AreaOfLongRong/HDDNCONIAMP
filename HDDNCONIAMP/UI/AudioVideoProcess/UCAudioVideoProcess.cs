@@ -21,7 +21,7 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
 
         private UCDeviceList ucDeviceListMain;
 
-        private UCMeshList ucMeshDeviceListMain;
+        private UCMeshList2 ucMeshDeviceListMain;
 
         public UCAudioVideoProcess(FormMain main)
         {
@@ -38,7 +38,7 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
         /// <param name="main"></param>
         private void initUCMeshList(FormMain main)
         {
-            ucMeshDeviceListMain = new UCMeshList(main);
+            ucMeshDeviceListMain = new UCMeshList2(main);
             ucMeshDeviceListMain.BuddyBMapControl = null;
             ucMeshDeviceListMain.BuddyGrid = ucGrid9Main;
             ucMeshDeviceListMain.MDManage = main.MDManage;
@@ -52,7 +52,6 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
             // 
             this.collapsibleSplitContainer1.Panel1.Controls.Add(ucMeshDeviceListMain);
             this.collapsibleSplitContainer1.Panel1MinSize = 5;
-            ucMeshDeviceListMain.StartScanMeshDevice();
 
         }
 

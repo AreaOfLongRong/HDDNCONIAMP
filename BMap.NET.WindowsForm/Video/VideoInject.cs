@@ -71,9 +71,9 @@ namespace BMap.NET.WindowsForm.Video
 
         private string localIP;
 
-        private static string sVideoServerUserName = "admin";
+        private string mVideoServerUserName = "admin";
 
-        private static string sVideoServerPassword = "admin";
+        private string mVideoServerPassword = "admin";
 
         /// <summary>
         /// 窗体进程
@@ -102,19 +102,14 @@ namespace BMap.NET.WindowsForm.Video
             }
         }
 
-        /// <summary>
-        /// 获取唯一实例
-        /// </summary>
-        /// <returns></returns>
-        public static VideoInject GetInstance()
+        public VideoInject(string videoServerIP, string userName, string password)
         {
-            if(instance == null)
-            {
-                instance = new VideoInject();
-            }
-            return instance;
+            appWin = IntPtr.Zero;
+            localIP = videoServerIP;
+            mVideoServerUserName = userName;
+            mVideoServerPassword = password;
         }
-
+        
         public void injectWindow()
         {
             ProcessStartInfo psi = new ProcessStartInfo("SamplePlayClient\\SamplePlayClient.exe");
@@ -227,7 +222,7 @@ namespace BMap.NET.WindowsForm.Video
             psi.RedirectStandardOutput = true;
             psi.UseShellExecute = false;
             psi.Arguments = string.Format("{0} {1} {2} {3} 0 {4} {5} 0 0 {6} {7} 0 0 {8} {9}", 
-                localIP, sVideoServerUserName, sVideoServerUserName, 
+                localIP, mVideoServerUserName, mVideoServerUserName, 
                 deviceID, isFullScreen, 
                 savePath,
                 panel.Width, panel.Height,
