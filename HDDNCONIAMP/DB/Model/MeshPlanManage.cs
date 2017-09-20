@@ -21,6 +21,11 @@ namespace HDDNCONIAMP.DB.Model
         [Column(DbType = DbType.String)]
         public string MeshIP { get; set; }
         /// <summary>
+        /// Mesh设备IP地址，字符串格式
+        /// </summary>
+        [Column(DbType = DbType.String)]
+        public string Alias { get; set; }
+        /// <summary>
         /// 音视频设备ID，字符串格式
         /// </summary>
         [Column(DbType = DbType.String)]
@@ -35,5 +40,19 @@ namespace HDDNCONIAMP.DB.Model
         /// </summary>
         [Column(DbType = DbType.String)]
         public string HKVideoIP { get; set; }
+
+        /// <summary>
+        /// 字符串转换
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return "预案ID-" + ID +
+                "Mesh设备IP-" + MeshIP +
+                "别名-" + Alias +
+                "音视频ID-" + AudioVideoID +
+                "265模块IP-" + Model265IP +
+                (HKVideoIP == null ? "" : "海康球机IP-" + HKVideoIP);
+        }
     }
 }

@@ -83,6 +83,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>References\log4net 2.0.8-newkey\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="MindFusion.Graphs">
+      <HintPath>..\NodeTopology\bin\Debug\MindFusion.Graphs.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\BMap.NET.WindowsForm\libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -199,6 +202,12 @@
     <Compile Include="UI\Common\UCMeshList.Designer.cs">
       <DependentUpon>UCMeshList.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Common\UCMeshList2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Common\UCMeshList2.Designer.cs">
+      <DependentUpon>UCMeshList2.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\GISVideo\UCGISVideo.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -259,6 +268,9 @@
     <EmbeddedResource Include="UI\Common\UCMeshList.resx">
       <DependentUpon>UCMeshList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Common\UCMeshList2.resx">
+      <DependentUpon>UCMeshList2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\GISVideo\UCGISVideo.resx">
       <DependentUpon>UCGISVideo.cs</DependentUpon>
     </EmbeddedResource>
@@ -306,9 +318,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Readme.txt" />
+    <Content Include="References\GetVideoInfo\GetVideoInfo.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="References\log4net 2.0.8-newkey\log4net.dll" />
     <Content Include="References\log4net 2.0.8-newkey\log4net.pdb" />
     <Content Include="References\log4net 2.0.8-newkey\log4net.xml" />
+    <Content Include="References\SharpPcap\PacketDotNet.dll" />
+    <Content Include="References\SharpPcap\SharpPcap.dll" />
     <Content Include="References\SQLite\Chloe\Chloe.dll" />
     <Content Include="References\SQLite\Chloe\Chloe.Extension.dll" />
     <Content Include="References\SQLite\Chloe\Chloe.Extension.pdb" />
@@ -330,6 +347,9 @@
     <Content Include="References\SQLite\System.Data.SQLite.Linq.xml" />
     <Content Include="References\SQLite\System.Data.SQLite.pdb" />
     <Content Include="References\SQLite\System.Data.SQLite.xml" />
+    <Content Include="Resources\add_32.png" />
+    <Content Include="Resources\delete_32.png" />
+    <Content Include="Resources\apply_modify_32.png" />
     <Content Include="Resources\HDDNCONIAMP.ico" />
     <Content Include="Resources\HDDNCONIAMP.png" />
     <Content Include="Resources\HDDNCONIAMP_64.png" />

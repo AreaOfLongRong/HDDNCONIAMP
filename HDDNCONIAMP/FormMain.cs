@@ -30,7 +30,16 @@ namespace HDDNCONIAMP
         /// <summary>
         /// 获取所有应用程序配置项
         /// </summary>
-        public Dictionary<string, string> AllApplicationSetting { get; private set; }
+        public Dictionary<string, string> AllApplicationSetting { get; set; }
+
+        /// <summary>
+        /// Mesh预案管理字典
+        /// </summary>
+        public Dictionary<string, MeshPlanManage> MeshPlanManageDictionary
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// 获取或设置Mesh设备管理器
@@ -127,13 +136,16 @@ namespace HDDNCONIAMP
             //更新界面
             updateSuperTabControlPanel(OpenUCType.OpenLogin);
 
-            logger.Info("开启监听...");
-            //NLM = new NetworkListenerManage();
-            //NLM.Start();
-            
+            logger.Info("读取预案...");
+            MeshPlanManageDictionary = SQLiteHelper.GetInstance().MeshPlanAllQueryAsDictionary();
 
-           //注册用户登陆/登出事件处理
-           OnUserLoginOrOutEventHandler += FormMain_OnUserLoginOrOutEventHandler;
+            logger.Info("开启监听...");
+            NLM = new NetworkListenerManage();
+            NLM.Start();
+
+
+            //注册用户登陆/登出事件处理
+            OnUserLoginOrOutEventHandler += FormMain_OnUserLoginOrOutEventHandler;
 
         }
 

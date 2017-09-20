@@ -141,17 +141,148 @@ namespace HDDNCONIAMP.DB
 
         #region Mesh设备分组相关
 
+        /// <summary>
+        /// Mesh预案最大索引
+        /// </summary>
+        private static int MaxMeshDeviceGroupIndex = -1;
 
+        /// <summary>
+        /// 获取下一个Mesh设备分组编码
+        /// </summary>
+        /// <returns>编码值</returns>
+        public int GetNextMeshDeviceGroupID()
+        {
+            return MaxMeshDeviceGroupIndex += 1;
+        }
+
+        /// <summary>
+        /// 插入新的设备分组
+        /// </summary>
+        /// <param name="groupName">分组名称</param>
+        /// <returns>分组编号</returns>
+        public int MeshDeviceGroupInsert(string groupName)
+        {
+            return (int)context.Insert<MeshDeviceGroup>(() => new MeshDeviceGroup() { GroupName = groupName });
+        }
+
+        /// <summary>
+        /// 删除指定分组名称的设备分组记录
+        /// </summary>
+        /// <param name="groupName">待删除的设备分组名称</param>
+        /// <returns>影响的行数</returns>
+        public int MeshDeviceGroupDelete(string groupName)
+        {
+            return context.Delete<MeshDeviceGroup>(m => m.GroupName == groupName);
+        }
+
+        /// <summary>
+        /// 更新指定ID的分组名称
+        /// </summary>
+        /// <param name="id">待更新的分组编号</param>
+        /// <param name="groupName">新的分组名称</param>
+        /// <returns>影响的行数</returns>
+        public int MeshDeviceGroupUpdate(int id, string groupName)
+        {
+            return context.Update<MeshDeviceGroup>(m => m.ID == id, mdg => new MeshDeviceGroup() { GroupName = groupName });
+        }
+
+        /// <summary>
+        /// 检索所有Mesh设备分组
+        /// </summary>
+        /// <returns>Mesh设备分组列表</returns>
+        public List<MeshDeviceGroup> MeshDeviceGroupAllQuery()
+        {
+            List<MeshDeviceGroup> result = context.Query<MeshDeviceGroup>().ToList();
+            if (result != null && result.Count > 0)
+                MaxMeshDeviceGroupIndex = result[result.Count - 1].ID;
+            return result;
+        }
+
+        /// <summary>
+        /// 检索所有Mesh设备分组名称列表
+        /// </summary>
+        /// <returns>所有Mesh设备分组名称列表</returns>
+        public List<string> MeshDeviceGroupNameAllQuery()
+        {
+            List<string> mdgNameList = new List<string>();
+            foreach (var item in MeshDeviceGroupAllQuery())
+            {
+                mdgNameList.Add(item.GroupName);
+            }
+            return mdgNameList;
+        }
 
         #endregion
 
         #region Mesh设备信息相关
 
+        /// <summary>
+        /// 添加Mesh设备信息
+        /// </summary>
+        /// <param name="mdi">Mesh设备信息</param>
+        public void MeshDeviceInfoInsert(MeshDeviceInfo mdi)
+        {
+            context.Insert<MeshDeviceInfo>(() =>
+            new MeshDeviceInfo()
+            {
+                MAC = mdi.MAC,
+                Alias = mdi.Alias,
+                GroupName = mdi.GroupName,
+                IPV4 = mdi.IPV4,
+                Power = mdi.Power,
+                Frequency = mdi.Frequency,
+                BandWidth = mdi.BandWidth,
+                Battery = mdi.Battery
+            });
+        }
 
+        /// <summary>
+        /// 删除Mesh设备信息
+        /// </summary>
+        /// <param name="meshDeviceIPV4"></param>
+        public int MeshDeviceInfoDelete(string meshDeviceIPV4)
+        {
+            return context.Delete<MeshDeviceInfo>(m => m.IPV4 == meshDeviceIPV4);
+        }
+
+        /// <summary>
+        /// 更新Mesh设备信息
+        /// </summary>
+        /// <param name="info">新的Mesh设备信息</param>
+        /// <returns></returns>
+        public int MeshDeviceInfoUpdate(MeshDeviceInfo info)
+        {
+            return context.Update<MeshDeviceInfo>(m => m.ID == info.ID,
+                u => new MeshDeviceInfo()
+                {
+                    MAC = info.MAC,
+                    GroupName = info.GroupName,
+                    IPV4 = info.IPV4,
+                    Alias = info.Alias,
+                    Power = info.Power,
+                    Frequency = info.Frequency,
+                    BandWidth = info.BandWidth,
+                    Battery = info.Battery
+                });
+        }
+
+        /// <summary>
+        /// 检索所有的Mesh设备信息列表
+        /// </summary>
+        /// <returns>所有的Mesh设备信息列表</returns>
+        public List<MeshDeviceInfo> MeshDeviceInfoAllQuery()
+        {
+            return context.Query<MeshDeviceInfo>().ToList();
+        }
 
         #endregion
 
         #region Mesh预案管理相关
+
+        /// <summary>
+        /// Mesh预案最大索引
+        /// </summary>
+        private static int MaxMeshPlanIndex = -1;
 
         /// <summary>
         /// 插入新的预案
@@ -163,10 +294,39 @@ namespace HDDNCONIAMP.DB
             new MeshPlanManage()
             {
                 MeshIP = mpm.MeshIP,
+                Alias = mpm.Alias,
                 AudioVideoID = mpm.AudioVideoID,
                 Model265IP = mpm.Model265IP,
                 HKVideoIP = mpm.HKVideoIP
             });
+        }
+
+        /// <summary>
+        /// 删除指定Mesh设备IP所对应的预案
+        /// </summary>
+        /// <param name="meshIP">待删除的预案中的Mesh设备IP</param>
+        /// <returns>返回影响的记录数</returns>
+        public int MeshPlanDelete(string meshIP)
+        {
+            return context.Delete<MeshPlanManage>(m => m.MeshIP == meshIP);
+        }
+
+        /// <summary>
+        /// 更新Mesh预案
+        /// </summary>
+        /// <param name="mpm"></param>
+        /// <returns></returns>
+        public int MeshPlanUpdate(MeshPlanManage mpm)
+        {
+            return context.Update<MeshPlanManage>(m => m.ID == mpm.ID,
+                u => new MeshPlanManage()
+                {
+                    Alias = mpm.Alias,
+                    MeshIP = mpm.MeshIP,
+                    AudioVideoID = mpm.AudioVideoID,
+                    Model265IP = mpm.Model265IP,
+                    HKVideoIP = mpm.HKVideoIP
+                });
         }
 
         /// <summary>
@@ -175,7 +335,19 @@ namespace HDDNCONIAMP.DB
         /// <returns>预案列表</returns>
         public List<MeshPlanManage> MeshPlanAllQuery()
         {
-            return context.Query<MeshPlanManage>().ToList();
+            List<MeshPlanManage> list = context.Query<MeshPlanManage>().ToList();
+            if (list != null && list.Count > 0)
+                MaxMeshPlanIndex = list[list.Count - 1].ID;
+            return list;
+        }
+
+        /// <summary>
+        /// 获取下一个Mesh预案的ID
+        /// </summary>
+        /// <returns></returns>
+        public int GetNextMeshPlanID()
+        {
+            return MaxMeshPlanIndex += 1;
         }
 
         /// <summary>

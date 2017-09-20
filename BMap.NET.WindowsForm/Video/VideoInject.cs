@@ -71,6 +71,10 @@ namespace BMap.NET.WindowsForm.Video
 
         private string localIP;
 
+        private static string sVideoServerUserName = "admin";
+
+        private static string sVideoServerPassword = "admin";
+
         /// <summary>
         /// 窗体进程
         /// </summary>
@@ -186,6 +190,48 @@ namespace BMap.NET.WindowsForm.Video
             psi.RedirectStandardOutput = true;
             psi.UseShellExecute = false;
             psi.Arguments = string.Format("{0} {1} 0 {2} 0 0 {3} {4}", localIP, deviceID, isFullScreen, panel.Width, panel.Height);
+
+            _panelProcess = new Process();
+            _panelProcess.StartInfo = psi;
+            _panelProcess.EnableRaisingEvents = true;
+            _panelProcess.Exited += _process_Exited;
+            _panelProcess.Start();
+
+            if (_panelProcess.WaitForInputIdle())
+            {
+
+                while (_panelProcess.MainWindowHandle.ToInt32() == 0)
+                {
+                    Thread.Sleep(100);
+                    _panelProcess.Refresh();//必须刷新状态才能重新获得TITLE
+                }
+                _panelProcess.StartInfo = psi;
+
+                // Get the main handle
+                appWin = _panelProcess.MainWindowHandle;
+
+                // Put it into this form
+                SetParent(appWin, panel.Handle);
+                // Move the window to overlay it on this window
+                //MoveWindow(appWin, 0, 0, _mainParent.dockPanel1.Width, _mainParent.dockPanel1.Height, true);
+                MoveWindow(appWin, 0, 0, panel.Width, panel.Height, true);
+            }
+        }
+
+        public void injectPanel(Panel panel, Panel fullScreenPanel, string deviceID, string isFullScreen, string savePath)
+        {
+            if (appWin != IntPtr.Zero)
+                return;
+            ProcessStartInfo psi = new ProcessStartInfo("SamplePlayClient\\SamplePlayClient.exe");
+            psi.RedirectStandardInput = true;
+            psi.RedirectStandardOutput = true;
+            psi.UseShellExecute = false;
+            psi.Arguments = string.Format("{0} {1} {2} {3} 0 {4} {5} 0 0 {6} {7} 0 0 {8} {9}", 
+                localIP, sVideoServerUserName, sVideoServerUserName, 
+                deviceID, isFullScreen, 
+                savePath,
+                panel.Width, panel.Height,
+                fullScreenPanel.Width, fullScreenPanel.Height);
 
             _panelProcess = new Process();
             _panelProcess.StartInfo = psi;

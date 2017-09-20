@@ -14,7 +14,7 @@ namespace HDDNCONIAMP.UI.GISVideo
     {
         private UCDeviceList ucDeviceListmain;
 
-        private UCMeshList ucMeshDeviceListMain;
+        private UCMeshList2 ucMeshDeviceListMain;
 
         public UCGISVideo(FormMain main)
         {
@@ -29,7 +29,7 @@ namespace HDDNCONIAMP.UI.GISVideo
         /// <param name="main"></param>
         private void initUCMeshList(FormMain main)
         {
-            ucMeshDeviceListMain = new UCMeshList(main);
+            ucMeshDeviceListMain = new UCMeshList2(main);
             ucMeshDeviceListMain.BuddyBMapControl = this.bMapControl2Main;
             ucMeshDeviceListMain.MDManage = main.MDManage;
             ucMeshDeviceListMain.Dock = DockStyle.Fill;
@@ -42,7 +42,6 @@ namespace HDDNCONIAMP.UI.GISVideo
             // 
             this.collapsibleSplitContainerMain.Panel1.Controls.Add(ucMeshDeviceListMain);
             this.collapsibleSplitContainerMain.Panel1MinSize = 5;
-            ucMeshDeviceListMain.StartScanMeshDevice();
 
         }
 

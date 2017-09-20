@@ -1,29 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
+using System.Data;
+using System.Linq;
+using System.Text;
 using System.Windows.Forms;
-using BMap.NET.WindowsForm;
+using log4net;
+using HDDNCONIAMP.DB.Model;
+using DevComponents.AdvTree;
 using BMap.NET.WindowsForm.BMapElements;
 using BMap.NET.WindowsForm.Video;
-using DevComponents.AdvTree;
-using HDDNCONIAMP.DB;
-using HDDNCONIAMP.DB.Model;
 using HDDNCONIAMP.Mesh;
+using BMap.NET.WindowsForm;
 using HDDNCONIAMP.UI.AudioVideoProcess;
-using log4net;
+using HDDNCONIAMP.DB;
 
 namespace HDDNCONIAMP.UI.Common
 {
-    public partial class UCMeshList : UserControl
+    public partial class UCMeshList2 : UserControl
     {
-
 
         #region 私有变量
 
         /// <summary>
         /// 日志记录器
         /// </summary>
-        private ILog logger = LogManager.GetLogger(typeof(UCMeshList));
+        private ILog logger = LogManager.GetLogger(typeof(UCMeshList2));
 
         /// <summary>
         /// 主界面引用
@@ -73,11 +76,11 @@ namespace HDDNCONIAMP.UI.Common
 
         #endregion
 
-        public UCMeshList(FormMain main)
+        public UCMeshList2(FormMain main)
         {
             InitializeComponent();
-            mFormMain = main;
-            //mFormMain.NLM.PGPSUDPListener.OnReceiveGPS += PGPSUDPListener_OnReceiveGPS;
+            //双缓冲设置，防止界面闪烁
+            setTableLayoutPanelDoubleBufferd();
         }
 
         /// <summary>
@@ -85,58 +88,10 @@ namespace HDDNCONIAMP.UI.Common
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void UCMeshList_Load(object sender, EventArgs e)
+        private void UCMeshList2_Load(object sender, EventArgs e)
         {
-            
-        }
-
-        /// <summary>
-        /// 开始扫描Mesh设备，并注册事件
-        /// </summary>
-        public void StartScanMeshDevice()
-        {
-            if (MDManage != null)
-            {
-                if (!MDManage.IsScanning)
-                {
-                    MDManage.StartScanMeshDevice();
-                }
-                MDManage.OnMeshDeviceAdded += MDManage_OnMeshDeviceAdded;
-                MDManage.OnMeshDeviceUpdate += MDManage_OnMeshDeviceUpdate;
-            }
-        }
-
-        /// <summary>
-        /// 添加Mesh设备事件
-        /// </summary>
-        /// <param name="meshDeviceInfo"></param>
-        private void MDManage_OnMeshDeviceAdded(MeshDeviceInfo meshDeviceInfo)
-        {
-            Node meshNode = new Node();
-            meshNode.Text = meshDeviceInfo.Alias;
-            meshNode.Tag = meshDeviceInfo;
-            mMeshDeviceDictionary.Add(meshDeviceInfo.MAC, meshNode);
-            nodeDefaultGroup.Nodes.Add(meshNode);
-        }
-
-        /// <summary>
-        /// 更新Mesh设备事件
-        /// </summary>
-        /// <param name="meshDeviceInfo"></param>
-        private void MDManage_OnMeshDeviceUpdate(MeshDeviceInfo meshDeviceInfo)
-        {
-            if (mMeshDeviceDictionary.ContainsKey(meshDeviceInfo.MAC))
-            {
-                mMeshDeviceDictionary[meshDeviceInfo.MAC].Tag = meshDeviceInfo;
-            }
-            else
-            {
-                Node meshNode = new Node();
-                meshNode.Text = meshDeviceInfo.Alias;
-                meshNode.Tag = meshDeviceInfo;
-                mMeshDeviceDictionary.Add(meshDeviceInfo.MAC, meshNode);
-                nodeDefaultGroup.Nodes.Add(meshNode);
-            }
+            loadMeshDeviceGroupFromDB();
+            loadMeshDeviceFromDB();
         }
 
         #region 设备列表事件
@@ -195,11 +150,12 @@ namespace HDDNCONIAMP.UI.Common
         /// <param name="e"></param>
         private void buttonItemAddGroup_Click(object sender, EventArgs e)
         {
-            Node node = new Node("新建分组" + sCurrentNewGroupIndex);
+            Node node = new Node("新建分组" + SQLiteHelper.GetInstance().GetNextMeshDeviceGroupID());
             node.ImageIndex = 5;
             node.ImageExpandedIndex = 4;
             advTreeMeshList.Nodes.Add(node);
-            sCurrentNewGroupIndex++;
+            int id = SQLiteHelper.GetInstance().MeshDeviceGroupInsert(node.Text);
+            node.Tag = new MeshDeviceGroup() { ID = id, GroupName = node.Text };
             logger.Info("添加分组“" + node.Text + "”。");
         }
 
@@ -227,6 +183,7 @@ namespace HDDNCONIAMP.UI.Common
                 {
                     try
                     {
+                        SQLiteHelper.GetInstance().MeshDeviceGroupDelete(selectedNode.Text);
                         advTreeMeshList.Nodes.Remove(selectedNode);
                         logger.Info("删除分组“" + selectedNode.Text + "”。");
                     }
@@ -238,6 +195,16 @@ namespace HDDNCONIAMP.UI.Common
                 }
             }
 
+        }
+        /// <summary>
+        /// 刷新列表
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonItemRefreshTree_Click(object sender, EventArgs e)
+        {
+            loadMeshDeviceGroupFromDB();
+            loadMeshDeviceFromDB();
         }
 
         /// <summary>
@@ -265,16 +232,26 @@ namespace HDDNCONIAMP.UI.Common
         }
 
         /// <summary>
-        /// 元素编辑完成事件
+        /// 子元素编辑完成事件
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void advTreeMeshList_AfterCellEdit(object sender, CellEditEventArgs e)
+        private void advTreeMeshList_AfterCellEditComplete(object sender, CellEditEventArgs e)
         {
             Node editNode = e.Cell.Parent;
-            if (editNode.Level == 1)
-            {//处理设备节点的元素编辑事件
-                ((BMeshPoint)editNode.Tag).Alias = e.NewText;
+            switch (editNode.Level)
+            {
+                case 0:
+                    MeshDeviceGroup group = (MeshDeviceGroup)editNode.Tag;
+                    //处理设备分组元素编辑事件
+                    SQLiteHelper.GetInstance().MeshDeviceGroupUpdate(
+                        group.ID, editNode.Text);
+                    logger.Info("修改分组“" + group.ID.ToString() + "”的组名为“" + editNode.Text + "”");
+                    break;
+                case 1:
+                    //处理设备节点的元素编辑事件
+                    ((BMeshPoint)editNode.Tag).Alias = e.NewText;
+                    break;
             }
         }
 
@@ -332,6 +309,58 @@ namespace HDDNCONIAMP.UI.Common
         #region 私有方法
 
         /// <summary>
+        /// 启用TableLayoutPanel双缓冲，防止界面闪烁
+        /// </summary>
+        private void setTableLayoutPanelDoubleBufferd()
+        {
+            tableLayoutPanelMeshDeviceList.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshDeviceList, true, null);
+        }
+
+        /// <summary>
+        /// 从数据库中加载Mesh设备分组信息
+        /// </summary>
+        private void loadMeshDeviceGroupFromDB()
+        {
+            advTreeMeshList.BeginUpdate();
+            advTreeMeshList.Nodes.Clear();
+            List<MeshDeviceGroup> mdgList = SQLiteHelper.GetInstance().MeshDeviceGroupAllQuery();
+            foreach (var item in mdgList)
+            {
+                    //添加分组节点
+                    Node node = new Node(item.GroupName);
+                    node.ImageIndex = 5;
+                    node.ImageExpandedIndex = 4;
+                    node.Tag = item.ID;
+                    advTreeMeshList.Nodes.Add(node);
+            }
+            advTreeMeshList.EndUpdate();
+        }
+
+        /// <summary>
+        /// 从数据库中读取并添加Mesh设备列表
+        /// </summary>
+        private void loadMeshDeviceFromDB()
+        {
+            advTreeMeshList.BeginUpdate();
+            List<MeshDeviceInfo> mdiList = SQLiteHelper.GetInstance().MeshDeviceInfoAllQuery();
+            foreach (var item in mdiList)
+            {
+                foreach (Node node in advTreeMeshList.Nodes)
+                {
+                    if (node.Text.Equals(item.GroupName))
+                    {
+                        Node subNode = new Node();
+                        subNode.Text = item.Alias;
+                        subNode.Tag = item;
+                        node.Nodes.Add(subNode);
+                        break;
+                    }
+                }
+            }
+            advTreeMeshList.EndUpdate();
+        }
+
+        /// <summary>
         /// 设备检索
         /// </summary>
         private void onSearchMeshDevice()
@@ -349,44 +378,7 @@ namespace HDDNCONIAMP.UI.Common
             }
         }
 
-        /// <summary>
-        /// 接收到GPS信号的处理
-        /// </summary>
-        /// <param name="device"></param>
-        private void PGPSUDPListener_OnReceiveGPS(AudioAndVideoDevice device)
-        {
-            BVideoPoint currentPoint = mBVideoPoints.Find(delegate (BVideoPoint p) {
-                return p.Name == device.Name;
-            });
-            if (currentPoint != null)
-            {
-                currentPoint.Location = new LatLngPoint(device.Lon, device.Lat);
-            }
-            else
-            {
-                BVideoPoint p = new BVideoPoint();
-                p.Location = new LatLngPoint(device.Lon, device.Lat);
-                p.Name = device.Name;
-                p.Alias = device.Alias;
-                p.IsOnline = true;
-                mBVideoPoints.Add(p);
-            }
 
-            try
-            {
-                //advTreeDeviceList.BeginInvoke(new updateDeviceListDelegate(updateDeviceList));
-            }
-            catch (InvalidOperationException ex)
-            {
-                logger.Error("更新列表错误", ex);
-            }
-
-            //更新地图窗体
-            if (BuddyBMapControl != null)
-            {
-                BuddyBMapControl.AddVideoPlaces(mBVideoPoints);
-            }
-        }
 
         #endregion
 

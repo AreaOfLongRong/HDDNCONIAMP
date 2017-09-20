@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using HDDNCONIAMP.UI.Common;
+using BMap.NET.WindowsForm.Video;
+using HDDNCONIAMP.Utils;
 
 namespace HDDNCONIAMP.UI.AudioVideoProcess
 {
@@ -73,6 +75,14 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
             // 
             this.collapsibleSplitContainer1.Panel1.Controls.Add(this.ucDeviceListMain);
             this.collapsibleSplitContainer1.Panel1MinSize = 5;
+        }
+
+        private void ucGrid9Main_Load(object sender, EventArgs e)
+        {
+            //VideoInject vi = new VideoInject();
+            //vi.injectPanel(this.ucGrid9Main.GetNextAvailablePanel(), this.ucGrid9Main.GetMainPanel(), "26908", "0", PathUtils.VIDEO_DATA_DEFAULT_PATH);
+            //VideoInject vi2 = new VideoInject();
+            //vi2.injectPanel(this.ucGrid9Main.GetNextAvailablePanel(), this.ucGrid9Main.GetMainPanel(), "27022", "0", PathUtils.VIDEO_DATA_DEFAULT_PATH);
         }
     }
 }

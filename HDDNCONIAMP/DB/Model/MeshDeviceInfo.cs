@@ -38,21 +38,21 @@ namespace HDDNCONIAMP.DB.Model
         /// 设备功率，字符串格式
         /// </summary>
         [Column(DbType = DbType.Decimal)]
-        public string Power { get; set; }
+        public decimal Power { get; set; }
         /// <summary>
         /// 设备频率，字符串格式
         /// </summary>
         [Column(DbType = DbType.Decimal)]
-        public string Frequency { get; set; }
+        public decimal Frequency { get; set; }
         /// <summary>
         /// 设备带宽，字符串格式
         /// </summary>
         [Column(DbType = DbType.Decimal)]
-        public string BandWidth { get; set; }
+        public decimal BandWidth { get; set; }
         /// <summary>
         /// 设备电压，字符串格式
         /// </summary>
         [Column(DbType = DbType.Decimal)]
-        public string Battery { get; set; }
+        public decimal Battery { get; set; }
     }
 }

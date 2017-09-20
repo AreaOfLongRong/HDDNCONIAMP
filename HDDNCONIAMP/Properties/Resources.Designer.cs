@@ -223,6 +223,16 @@ namespace HDDNCONIAMP.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap refresh_16 {
+            get {
+                object obj = ResourceManager.GetObject("refresh_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap search_32 {
             get {
                 object obj = ResourceManager.GetObject("search_32", resourceCulture);
