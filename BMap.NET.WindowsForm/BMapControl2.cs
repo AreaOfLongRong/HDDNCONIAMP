@@ -255,6 +255,10 @@ namespace BMap.NET.WindowsForm
         /// </summary>
         private BPointTipControl _bPointTipControl = new BPointTipControl();
         /// <summary>
+        /// 视频设备显示控件
+        /// </summary>
+        private UCVideosControl _mUCVideosControl = new UCVideosControl();
+        /// <summary>
         /// 当前选择的POI（没有则为null）
         /// </summary>
         private BPOI _current_selected_poi;
@@ -731,21 +735,38 @@ namespace BMap.NET.WindowsForm
                     LatLngPoint p = MapHelper.GetLatLngByScreenLocation(e.Location, _center, _zoom, ClientSize);
                     ((Action)delegate ()
                     {
-                        GeocodingService gs = new GeocodingService();
-                        JObject place = gs.DeGeocoding(p.Lat + "," + p.Lng);
-                        if (place != null)
+                        this.Invoke((Action)delegate ()
                         {
-                            this.Invoke((Action)delegate ()
-                            {
-                                BMarker marker = new BMarker { Index = _markers.Count, Location = p, Name = (string)place["result"]["formatted_address"], Remarks = "我的备注", Selected = false, Address = (string)place["result"]["formatted_address"] };
-                                _markers.Add(marker.Index.ToString(), marker);
-                                _bMarkerEditorControl.Saved = false;
-                                _bMarkerEditorControl.Marker = marker;
-                                _bMarkerEditorControl.Location = new Point(e.Location.X - _bMarkerEditorControl.Width / 3 + 37, e.Location.Y - _bMarkerEditorControl.Height - 22);
-                                _bMarkerEditorControl.Visible = true;
-                                _current_selected_marker = marker;
-                            });
-                        }
+                            BMarker marker = new BMarker {
+                                Index = _markers.Count,
+                                Location = p,
+                                Name = "热点" + _markers.Count,
+                                Remarks = "热点备注",
+                                Selected = false
+                            };
+                            _markers.Add(marker.Index.ToString(), marker);
+                            _bMarkerEditorControl.Saved = false;
+                            _bMarkerEditorControl.Marker = marker;
+                            _bMarkerEditorControl.Location = new Point(e.Location.X - _bMarkerEditorControl.Width / 3 + 37, e.Location.Y - _bMarkerEditorControl.Height - 22);
+                            _bMarkerEditorControl.Visible = true;
+                            _current_selected_marker = marker;
+                        });
+                        //Z-20170921：隐藏原有通过访问百度地图服务来获取标记点信息的功能
+                        //GeocodingService gs = new GeocodingService();
+                        //JObject place = gs.DeGeocoding(p.Lat + "," + p.Lng);
+                        //if (place != null)
+                        //{
+                        //    this.Invoke((Action)delegate ()
+                        //    {
+                        //        BMarker marker = new BMarker { Index = _markers.Count, Location = p, Name = (string)place["result"]["formatted_address"], Remarks = "我的备注", Selected = false, Address = (string)place["result"]["formatted_address"] };
+                        //        _markers.Add(marker.Index.ToString(), marker);
+                        //        _bMarkerEditorControl.Saved = false;
+                        //        _bMarkerEditorControl.Marker = marker;
+                        //        _bMarkerEditorControl.Location = new Point(e.Location.X - _bMarkerEditorControl.Width / 3 + 37, e.Location.Y - _bMarkerEditorControl.Height - 22);
+                        //        _bMarkerEditorControl.Visible = true;
+                        //        _current_selected_marker = marker;
+                        //    });
+                        //}
                     }).BeginInvoke(null, null);
                 }
             }
@@ -797,7 +818,7 @@ namespace BMap.NET.WindowsForm
             }
             else if (new Rectangle(Width - 384 + 26 * 3, 10, 26, 26).Contains(PointToClient(Cursor.Position)))
             {
-                _toolTip.Text = "标记";
+                _toolTip.Text = "热点";
                 _toolTip.Location = new Point(Width - 384 + 26 * 3, 36 + 10);
                 _toolTip.Visible = true;
             }
@@ -1142,6 +1163,30 @@ namespace BMap.NET.WindowsForm
                     return;
                 }
             }
+            //Mesh设备点双击打开视频设备控件
+            foreach (KeyValuePair<string, BMeshPoint> v in _meshPoints)
+            {
+                if (v.Value.Rect.Contains(e.Location))
+                {
+                    _current_selected_mesh_place = v.Value;
+                    //显示信息控件
+                    v.Value.Selected = true;
+
+                    //Z-20170920：打开视频设备界面
+                    _mUCVideosControl.Location = new Point(e.X - _mUCVideosControl.Width / 2, e.Y - _mUCVideosControl.Height - 36);
+                    _mUCVideosControl.Visible = true;
+
+                    foreach (KeyValuePair<string, BMeshPoint> vv in _meshPoints)
+                    {
+                        if (vv.Value != v.Value)
+                        {
+                            vv.Value.Selected = false;
+                        }
+                    }
+                    Invalidate();
+                    return;
+                }
+            }
             Invalidate();
         }
         #endregion
@@ -1221,6 +1266,9 @@ namespace BMap.NET.WindowsForm
                 _bPointTipControl.VisibleChanged += new EventHandler(_bPointTipControl_VisibleChanged);
                 _bPointTipControl.SearchNearbyStarted += new SearchNearbyStartedEventHandler(_bTipControl_SearchNearbyStarted);
                 _bPointTipControl.DirecttionStarted += new DirectionStartedEventHandler(_bTipControl_DirecttionStarted);
+                //视频设备控件
+                _mUCVideosControl.Visible = false;
+                Controls.Add(_mUCVideosControl);
             }
         }
 
@@ -1517,6 +1565,10 @@ namespace BMap.NET.WindowsForm
                 p.Value.Draw(g, _center, _zoom, ClientSize);
             }
             foreach (KeyValuePair<string, BVideoPoint> v in _videoPoints)  //视频设备点
+            {
+                v.Value.Draw(g, _center, _zoom, ClientSize);
+            }
+            foreach (KeyValuePair<string, BMeshPoint> v in _meshPoints)  //Mesh设备点
             {
                 v.Value.Draw(g, _center, _zoom, ClientSize);
             }

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
+﻿using System.Data;
 using Chloe.Entity;
 
 namespace HDDNCONIAMP.DB.Model
 {
+    /// <summary>
+    /// Mesh设备分组表
+    /// </summary>
     public class MeshDeviceGroup : IDEntity
     {
         /// <summary>

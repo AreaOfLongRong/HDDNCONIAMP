@@ -153,6 +153,16 @@ namespace HDDNCONIAMP.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap gps_online_16 {
+            get {
+                object obj = ResourceManager.GetObject("gps_online_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap home_background {
             get {
                 object obj = ResourceManager.GetObject("home_background", resourceCulture);
@@ -216,6 +226,16 @@ namespace HDDNCONIAMP.Properties {
         internal static System.Drawing.Bitmap previous_64 {
             get {
                 object obj = ResourceManager.GetObject("previous_64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap refresh_16 {
+            get {
+                object obj = ResourceManager.GetObject("refresh_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

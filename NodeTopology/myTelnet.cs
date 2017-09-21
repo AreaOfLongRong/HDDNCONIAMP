@@ -128,7 +128,7 @@ namespace NodeTopology
             int count = 0;
             do
             {
-                if (!ns.DataAvailable)
+                if (ns == null || !ns.DataAvailable)
                 {
                     return "";
                 }

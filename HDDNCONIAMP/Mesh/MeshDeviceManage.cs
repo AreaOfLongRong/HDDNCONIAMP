@@ -724,8 +724,8 @@ namespace HDDNCONIAMP.Mesh
                 mdi.MAC = meshNode.MACAddress;
                 mdi.IPV4 = meshNode.IPAddress;
                 mdi.Alias = meshNode.IPAddress;
-                mdi.Frequency = meshNode.Frequency + "";
-                mdi.Power = meshNode.TxPower + "";
+                //mdi.Frequency = meshNode.Frequency + "";
+                //mdi.Power = meshNode.TxPower + "";
                 OnMeshDeviceAdded(mdi);
             }
         }
@@ -741,8 +741,8 @@ namespace HDDNCONIAMP.Mesh
                 MeshDeviceInfo mdi = new MeshDeviceInfo();
                 mdi.MAC = meshNode.MACAddress;
                 mdi.IPV4 = meshNode.IPAddress;
-                mdi.Frequency = meshNode.Frequency + "";
-                mdi.Power = meshNode.TxPower + "";
+                //mdi.Frequency = meshNode.Frequency + "";
+                //mdi.Power = meshNode.TxPower + "";
                 OnMeshDeviceUpdate(mdi);
             }
         }

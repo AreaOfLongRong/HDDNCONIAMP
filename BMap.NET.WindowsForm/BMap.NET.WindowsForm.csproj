@@ -257,6 +257,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="RouteType.cs" />
+    <Compile Include="UCVideosControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCVideosControl.Designer.cs">
+      <DependentUpon>UCVideosControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils\GPS2BD09.cs" />
     <Compile Include="Video\VideoInject.cs" />
   </ItemGroup>
@@ -347,6 +353,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="UCVideosControl.resx">
+      <DependentUpon>UCVideosControl.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BMap.NET\BMap.NET.csproj">
@@ -361,6 +370,7 @@
     <Content Include="Resources\ico_camera_online_64.png" />
     <Content Include="Resources\ico_camera_offline_32.png" />
     <Content Include="Resources\ico_camera_online_32.png" />
+    <None Include="Resources\ico_screenshotCancel.gif" />
     <None Include="Resources\video_camera_shoulder_64.png" />
     <None Include="Resources\video_camera_ball_64.png" />
     <None Include="Resources\mesh_person_online_64.png" />

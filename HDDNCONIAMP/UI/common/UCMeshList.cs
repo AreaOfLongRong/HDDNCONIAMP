@@ -46,11 +46,6 @@ namespace HDDNCONIAMP.UI.Common
         private Dictionary<string, Node> mMeshDeviceDictionary = new Dictionary<string, Node>();
 
         /// <summary>
-        /// Mesh预案管理字典
-        /// </summary>
-        private Dictionary<string, MeshPlanManage> mMeshPlanManageDictionary;
-
-        /// <summary>
         /// 设备标注点列表
         /// </summary>
         private List<BVideoPoint> mBVideoPoints = new List<BVideoPoint>();
@@ -92,7 +87,7 @@ namespace HDDNCONIAMP.UI.Common
         /// <param name="e"></param>
         private void UCMeshList_Load(object sender, EventArgs e)
         {
-            mMeshPlanManageDictionary = SQLiteHelper.GetInstance().MeshPlanAllQueryAsDictionary();
+            
         }
 
         /// <summary>
@@ -265,7 +260,7 @@ namespace HDDNCONIAMP.UI.Common
             {
                 //TODO：目前只支持一路信号输入，后续需修改
                 BMeshPoint vp = (BMeshPoint)selectNode.Tag;
-                inject.injectPanel(BuddyGrid.GetPanelByIndex(1), mMeshPlanManageDictionary[vp.MACAddress].AudioVideoID, "0");
+                //inject.injectPanel(BuddyGrid.GetPanelByIndex(1), mMeshPlanManageDictionary[vp.MACAddress].AudioVideoID, "0");
             }
         }
 

@@ -52,11 +52,13 @@
             // 
             // ucGrid9Main
             // 
+            this.ucGrid9Main.AllowDrop = true;
             this.ucGrid9Main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ucGrid9Main.Location = new System.Drawing.Point(0, 0);
             this.ucGrid9Main.Name = "ucGrid9Main";
             this.ucGrid9Main.Size = new System.Drawing.Size(457, 420);
             this.ucGrid9Main.TabIndex = 0;
+            this.ucGrid9Main.Load += new System.EventHandler(this.ucGrid9Main_Load);
             // 
             // UCAudioVideoProcess
             // 

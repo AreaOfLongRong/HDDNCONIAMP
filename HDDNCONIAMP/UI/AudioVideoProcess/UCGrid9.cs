@@ -104,6 +104,15 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
         }
 
         /// <summary>
+        /// 获取包含九宫格的主面板
+        /// </summary>
+        /// <returns></returns>
+        public Panel GetMainPanel()
+        {
+            return panelMain;
+        }
+
+        /// <summary>
         /// 启用TableLayoutPanel双缓冲，防止界面闪烁
         /// </summary>
         private void setTableLayoutPanelDoubleBufferd()
