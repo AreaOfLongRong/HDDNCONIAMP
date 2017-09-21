@@ -28,6 +28,8 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
         #region 私有变量
 
+        MeshTcpConfigManager meshTcpManager = MeshTcpConfigManager.GetInstance();
+
         /// <summary>
         /// 日志记录器
         /// </summary>
@@ -290,6 +292,18 @@ namespace HDDNCONIAMP.UI.MeshManagement
                     if (hashTable.ContainsKey(needInfoNode))
                     {
                         cacheNode = (node)hashTable[needInfoNode];
+                    }else
+                    {
+                        MeshDeviceInfo meshInfo = SQLiteHelper.GetInstance().MeshDeviceInfoQueryByIP(TheNode.IpAddress);
+                        if (meshInfo != null)
+                        {
+                            cacheNode = new node();
+                            cacheNode.IpAddress = meshInfo.IPV4;
+                            cacheNode.Frequency = (double)meshInfo.Frequency;
+                            cacheNode.BandWidth = (double)meshInfo.BandWidth;
+                            cacheNode.TxPower = (double)meshInfo.Power;
+                            cacheNode.Battery = (double)meshInfo.Battery;
+                        }
                     }
                     string recvStr = tn.recvDataWaitWord("help", 1);
 
@@ -2179,11 +2193,11 @@ namespace HDDNCONIAMP.UI.MeshManagement
             {
                 //数字校验
                 //功率 10-30
-                double itx = slider1.Value;
+                int itx = slider1.Value;
                 //频率 616-656
-                double irate = slider2.Value;
+                int irate = slider2.Value;
                 //带宽 5-20
-                double ibindwidth = slider3.Value;
+                int ibindwidth = slider3.Value;
 
                 if (itx < 10 || itx > 30)
                     throw new Exception();
@@ -2200,6 +2214,15 @@ namespace HDDNCONIAMP.UI.MeshManagement
                     info.BandWidth = ibindwidth;
 
                     //todo database
+                    MeshDeviceInfo meshInfo = SQLiteHelper.GetInstance().MeshDeviceInfoQueryByIP(info.IpAddress);
+                    meshInfo.BandWidth = (decimal)info.BandWidth;
+                    meshInfo.Frequency = (decimal)info.Frequency;
+                    meshInfo.Power = (decimal)info.TxPower;
+
+                    SQLiteHelper.GetInstance().MeshDeviceInfoUpdate(meshInfo);
+
+                    meshTcpManager.SendMessageTo(info.IpAddress, MeshTcpConfigManager.GetChangePowerCommand(itx));
+                    meshTcpManager.SendMessageTo(info.IpAddress, MeshTcpConfigManager.GetChangeRateCommand(irate));
                     MessageBox.Show("设置成功");
                 }
 

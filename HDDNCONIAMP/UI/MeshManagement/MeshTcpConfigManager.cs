@@ -63,7 +63,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             else
                 value = 10 * rate + 5 * bindWidth - 1728;
             if (value > 0)
-                return string.Format("%d\r\n", value);
+                return string.Format("[0] \r\n", value);
             return null;
         }
 
@@ -76,7 +76,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
         {
             int value = power * 2;
             if (value > 0)
-                return String.Format("%d\n\r", value);
+                return String.Format("[0] \n\r", value);
             return null;
         }
     }
