@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using HDDNCONIAMP.Network;
 
 namespace HDDNCONIAMP.Utils
 {
@@ -42,6 +43,22 @@ namespace HDDNCONIAMP.Utils
                 }
             }
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// 追加GPS信息到文件中
+        /// </summary>
+        /// <param name="info">GPS信息</param>
+        public static void AppendGPSInfoToFile(GPSInfo info)
+        {
+            string dir = Path.Combine(PathUtils.GPS_DATA_DEFAULT_PATH, info.ID);
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
+            string gpsFile = Path.Combine(dir, info.Time.Split(' ')[0].Replace('/', '-') + ".txt");
+            using(StreamWriter sw = new StreamWriter(gpsFile, true))
+            {
+                sw.WriteLine(info.ToString());
+            }
         }
 
         /// <summary>

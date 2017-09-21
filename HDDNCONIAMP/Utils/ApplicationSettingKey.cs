@@ -51,6 +51,21 @@
         /// </summary>
         public static string MeshListRefreshFrequency = "MeshListRefreshFrequency";
 
+        /// <summary>
+        /// 视频服务器IP地址
+        /// </summary>
+        public static string VideoServerIPV4 = "VideoServerIPV4";
+
+        /// <summary>
+        /// 视频服务器用户名
+        /// </summary>
+        public static string VideoServerUserName = "VideoServerUserName";
+
+        /// <summary>
+        /// 视频服务器用户密码
+        /// </summary>
+        public static string VideoServerPassword = "VideoServerPassword";
+        
 
         /// <summary>
         /// 私有构造函数，防止被实例化
