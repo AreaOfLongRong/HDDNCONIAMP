@@ -33,6 +33,28 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.superTabControlMain = new DevComponents.DotNetBar.SuperTabControl();
+            this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.tableLayoutPanelMeshNodeTopology = new System.Windows.Forms.TableLayoutPanel();
+            this.groupPanel3 = new DevComponents.DotNetBar.Controls.GroupPanel();
+            this.tableLayoutPanelMeshParameters = new System.Windows.Forms.TableLayoutPanel();
+            this.labelX5 = new DevComponents.DotNetBar.LabelX();
+            this.slider3 = new DevComponents.DotNetBar.Controls.Slider();
+            this.slider2 = new DevComponents.DotNetBar.Controls.Slider();
+            this.labelX3 = new DevComponents.DotNetBar.LabelX();
+            this.labelX2 = new DevComponents.DotNetBar.LabelX();
+            this.labelX1 = new DevComponents.DotNetBar.LabelX();
+            this.ipAddressInputMeshIP = new DevComponents.Editors.IpAddressInput();
+            this.slider1 = new DevComponents.DotNetBar.Controls.Slider();
+            this.labelX4 = new DevComponents.DotNetBar.LabelX();
+            this.progressBarXMeshPower = new DevComponents.DotNetBar.Controls.ProgressBarX();
+            this.buttonX1 = new DevComponents.DotNetBar.ButtonX();
+            this.groupPanel2 = new DevComponents.DotNetBar.Controls.GroupPanel();
+            this.myPanelMeshTopology = new NodeTopology.MyPanel();
+            this.groupPanel1 = new DevComponents.DotNetBar.Controls.GroupPanel();
+            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.comboBoxNetworkCard = new System.Windows.Forms.ComboBox();
+            this.buttonXRefreshTopology = new DevComponents.DotNetBar.ButtonX();
+            this.superTabItemMeshTopology = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.tableLayoutPanelMeshPlan = new System.Windows.Forms.TableLayoutPanel();
             this.textBoxXMeshPlanAudioVideoID = new DevComponents.DotNetBar.Controls.TextBoxX();
@@ -58,28 +80,6 @@
             this.ipAddressInputMeshPlanModel265IP = new DevComponents.Editors.IpAddressInput();
             this.ipAddressInputMeshPlanHKIP = new DevComponents.Editors.IpAddressInput();
             this.superTabItemMeshPlanManage = new DevComponents.DotNetBar.SuperTabItem();
-            this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.tableLayoutPanelMeshNodeTopology = new System.Windows.Forms.TableLayoutPanel();
-            this.groupPanel3 = new DevComponents.DotNetBar.Controls.GroupPanel();
-            this.tableLayoutPanelMeshParameters = new System.Windows.Forms.TableLayoutPanel();
-            this.labelX5 = new DevComponents.DotNetBar.LabelX();
-            this.slider3 = new DevComponents.DotNetBar.Controls.Slider();
-            this.slider2 = new DevComponents.DotNetBar.Controls.Slider();
-            this.labelX3 = new DevComponents.DotNetBar.LabelX();
-            this.labelX2 = new DevComponents.DotNetBar.LabelX();
-            this.labelX1 = new DevComponents.DotNetBar.LabelX();
-            this.ipAddressInputMeshIP = new DevComponents.Editors.IpAddressInput();
-            this.slider1 = new DevComponents.DotNetBar.Controls.Slider();
-            this.labelX4 = new DevComponents.DotNetBar.LabelX();
-            this.progressBarXMeshPower = new DevComponents.DotNetBar.Controls.ProgressBarX();
-            this.buttonX1 = new DevComponents.DotNetBar.ButtonX();
-            this.groupPanel2 = new DevComponents.DotNetBar.Controls.GroupPanel();
-            this.myPanelMeshTopology = new NodeTopology.MyPanel();
-            this.groupPanel1 = new DevComponents.DotNetBar.Controls.GroupPanel();
-            this.treeView1 = new System.Windows.Forms.TreeView();
-            this.comboBoxNetworkCard = new System.Windows.Forms.ComboBox();
-            this.buttonXRefreshTopology = new DevComponents.DotNetBar.ButtonX();
-            this.superTabItemMeshTopology = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel3 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.tableLayoutPanelMeshBasicSetting = new System.Windows.Forms.TableLayoutPanel();
             this.buttonXMBSCancel = new DevComponents.DotNetBar.ButtonX();
@@ -105,13 +105,6 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.superTabControlMain)).BeginInit();
             this.superTabControlMain.SuspendLayout();
-            this.superTabControlPanel2.SuspendLayout();
-            this.tableLayoutPanelMeshPlan.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewXMeshPlan)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ipAddressInputMeshPlanMeshIP)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ipAddressInputMeshPlanModel265IP)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ipAddressInputMeshPlanHKIP)).BeginInit();
             this.superTabControlPanel1.SuspendLayout();
             this.tableLayoutPanelMeshNodeTopology.SuspendLayout();
             this.groupPanel3.SuspendLayout();
@@ -119,6 +112,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.ipAddressInputMeshIP)).BeginInit();
             this.groupPanel2.SuspendLayout();
             this.groupPanel1.SuspendLayout();
+            this.superTabControlPanel2.SuspendLayout();
+            this.tableLayoutPanelMeshPlan.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewXMeshPlan)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ipAddressInputMeshPlanMeshIP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ipAddressInputMeshPlanModel265IP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ipAddressInputMeshPlanHKIP)).BeginInit();
             this.superTabControlPanel3.SuspendLayout();
             this.tableLayoutPanelMeshBasicSetting.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -163,349 +163,6 @@
             this.superTabItemMeshPlanManage,
             this.superTabItem3});
             this.superTabControlMain.Text = "superTabControl1";
-            // 
-            // superTabControlPanel2
-            // 
-            this.superTabControlPanel2.Controls.Add(this.tableLayoutPanelMeshPlan);
-            this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel2.Location = new System.Drawing.Point(0, 28);
-            this.superTabControlPanel2.Name = "superTabControlPanel2";
-            this.superTabControlPanel2.Size = new System.Drawing.Size(743, 460);
-            this.superTabControlPanel2.TabIndex = 0;
-            this.superTabControlPanel2.TabItem = this.superTabItemMeshPlanManage;
-            // 
-            // tableLayoutPanelMeshPlan
-            // 
-            this.tableLayoutPanelMeshPlan.ColumnCount = 3;
-            this.tableLayoutPanelMeshPlan.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelMeshPlan.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
-            this.tableLayoutPanelMeshPlan.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableLayoutPanelMeshPlan.Controls.Add(this.textBoxXMeshPlanAudioVideoID, 2, 3);
-            this.tableLayoutPanelMeshPlan.Controls.Add(this.bar1, 0, 0);
-            this.tableLayoutPanelMeshPlan.Controls.Add(this.dataGridViewXMeshPlan, 0, 1);
-            this.tableLayoutPanelMeshPlan.Controls.Add(this.labelX6, 1, 1);
-            this.tableLayoutPanelMeshPlan.Controls.Add(this.labelX7, 1, 2);
-            this.tableLayoutPanelMeshPlan.Controls.Add(this.labelX8, 1, 3);
-            this.tableLayoutPanelMeshPlan.Controls.Add(this.labelX9, 1, 4);
-            this.tableLayoutPanelMeshPlan.Controls.Add(this.labelX10, 1, 5);
-            this.tableLayoutPanelMeshPlan.Controls.Add(this.buttonXMeshPlanAdd, 1, 6);
-            this.tableLayoutPanelMeshPlan.Controls.Add(this.textBoxXMeshPlanAlias, 2, 1);
-            this.tableLayoutPanelMeshPlan.Controls.Add(this.ipAddressInputMeshPlanMeshIP, 2, 2);
-            this.tableLayoutPanelMeshPlan.Controls.Add(this.ipAddressInputMeshPlanModel265IP, 2, 4);
-            this.tableLayoutPanelMeshPlan.Controls.Add(this.ipAddressInputMeshPlanHKIP, 2, 5);
-            this.tableLayoutPanelMeshPlan.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelMeshPlan.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanelMeshPlan.Name = "tableLayoutPanelMeshPlan";
-            this.tableLayoutPanelMeshPlan.RowCount = 7;
-            this.tableLayoutPanelMeshPlan.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanelMeshPlan.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanelMeshPlan.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanelMeshPlan.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanelMeshPlan.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanelMeshPlan.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanelMeshPlan.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanelMeshPlan.Size = new System.Drawing.Size(743, 460);
-            this.tableLayoutPanelMeshPlan.TabIndex = 0;
-            // 
-            // textBoxXMeshPlanAudioVideoID
-            // 
-            this.textBoxXMeshPlanAudioVideoID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            // 
-            // 
-            // 
-            this.textBoxXMeshPlanAudioVideoID.Border.Class = "TextBoxBorder";
-            this.textBoxXMeshPlanAudioVideoID.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.textBoxXMeshPlanAudioVideoID.Location = new System.Drawing.Point(596, 202);
-            this.textBoxXMeshPlanAudioVideoID.Name = "textBoxXMeshPlanAudioVideoID";
-            this.textBoxXMeshPlanAudioVideoID.PreventEnterBeep = true;
-            this.textBoxXMeshPlanAudioVideoID.Size = new System.Drawing.Size(144, 21);
-            this.textBoxXMeshPlanAudioVideoID.TabIndex = 12;
-            // 
-            // bar1
-            // 
-            this.bar1.AntiAlias = true;
-            this.tableLayoutPanelMeshPlan.SetColumnSpan(this.bar1, 3);
-            this.bar1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bar1.DockSide = DevComponents.DotNetBar.eDockSide.Document;
-            this.bar1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
-            this.bar1.Images = this.imageListMesh;
-            this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.buttonItemMPMAddPlan,
-            this.buttonItemMPMDelete});
-            this.bar1.Location = new System.Drawing.Point(3, 3);
-            this.bar1.Name = "bar1";
-            this.bar1.Size = new System.Drawing.Size(737, 34);
-            this.bar1.Stretch = true;
-            this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.bar1.TabIndex = 0;
-            this.bar1.TabStop = false;
-            this.bar1.Text = "bar1";
-            // 
-            // imageListMesh
-            // 
-            this.imageListMesh.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListMesh.ImageStream")));
-            this.imageListMesh.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageListMesh.Images.SetKeyName(0, "refresh_16.png");
-            this.imageListMesh.Images.SetKeyName(1, "add_32.png");
-            this.imageListMesh.Images.SetKeyName(2, "apply_modify_32.png");
-            this.imageListMesh.Images.SetKeyName(3, "delete_32.png");
-            this.imageListMesh.Images.SetKeyName(4, "search_clear_32.png");
-            // 
-            // buttonItemMPMAddPlan
-            // 
-            this.buttonItemMPMAddPlan.ImageIndex = 1;
-            this.buttonItemMPMAddPlan.Name = "buttonItemMPMAddPlan";
-            this.buttonItemMPMAddPlan.Text = "添加预案";
-            this.buttonItemMPMAddPlan.Tooltip = "添加预案";
-            this.buttonItemMPMAddPlan.Click += new System.EventHandler(this.buttonItemMPMAddPlan_Click);
-            // 
-            // buttonItemMPMDelete
-            // 
-            this.buttonItemMPMDelete.ImageIndex = 3;
-            this.buttonItemMPMDelete.Name = "buttonItemMPMDelete";
-            this.buttonItemMPMDelete.Tooltip = "删除预案";
-            this.buttonItemMPMDelete.Click += new System.EventHandler(this.buttonItemMPMDelete_Click);
-            // 
-            // dataGridViewXMeshPlan
-            // 
-            this.dataGridViewXMeshPlan.AllowUserToAddRows = false;
-            this.dataGridViewXMeshPlan.AllowUserToDeleteRows = false;
-            this.dataGridViewXMeshPlan.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewXMeshPlan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridViewXMeshPlan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewXMeshPlan.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ID,
-            this.ColumnAlias,
-            this.MeshIP,
-            this.MeshAudioVideoID,
-            this.Model265IP,
-            this.HKVideoIP});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewXMeshPlan.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewXMeshPlan.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewXMeshPlan.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
-            this.dataGridViewXMeshPlan.Location = new System.Drawing.Point(3, 43);
-            this.dataGridViewXMeshPlan.MultiSelect = false;
-            this.dataGridViewXMeshPlan.Name = "dataGridViewXMeshPlan";
-            this.dataGridViewXMeshPlan.ReadOnly = true;
-            this.tableLayoutPanelMeshPlan.SetRowSpan(this.dataGridViewXMeshPlan, 6);
-            this.dataGridViewXMeshPlan.RowTemplate.Height = 23;
-            this.dataGridViewXMeshPlan.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewXMeshPlan.Size = new System.Drawing.Size(497, 414);
-            this.dataGridViewXMeshPlan.TabIndex = 1;
-            this.dataGridViewXMeshPlan.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewXMeshPlan_CellMouseClick);
-            // 
-            // ID
-            // 
-            this.ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.ID.HeaderText = "预案编码";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Width = 78;
-            // 
-            // ColumnAlias
-            // 
-            this.ColumnAlias.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColumnAlias.HeaderText = "别名";
-            this.ColumnAlias.Name = "ColumnAlias";
-            this.ColumnAlias.ReadOnly = true;
-            // 
-            // MeshIP
-            // 
-            this.MeshIP.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.MeshIP.HeaderText = "Mesh设备IP";
-            this.MeshIP.Name = "MeshIP";
-            this.MeshIP.ReadOnly = true;
-            // 
-            // MeshAudioVideoID
-            // 
-            this.MeshAudioVideoID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.MeshAudioVideoID.HeaderText = "音视频ID";
-            this.MeshAudioVideoID.Name = "MeshAudioVideoID";
-            this.MeshAudioVideoID.ReadOnly = true;
-            // 
-            // Model265IP
-            // 
-            this.Model265IP.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Model265IP.HeaderText = "265模块IP";
-            this.Model265IP.Name = "Model265IP";
-            this.Model265IP.ReadOnly = true;
-            // 
-            // HKVideoIP
-            // 
-            this.HKVideoIP.HeaderText = "海康视频IP";
-            this.HKVideoIP.Name = "HKVideoIP";
-            this.HKVideoIP.ReadOnly = true;
-            this.HKVideoIP.Visible = false;
-            // 
-            // labelX6
-            // 
-            this.labelX6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            // 
-            // 
-            // 
-            this.labelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX6.Location = new System.Drawing.Point(506, 63);
-            this.labelX6.Name = "labelX6";
-            this.labelX6.Size = new System.Drawing.Size(84, 23);
-            this.labelX6.TabIndex = 2;
-            this.labelX6.Text = "别    名:";
-            // 
-            // labelX7
-            // 
-            this.labelX7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            // 
-            // 
-            // 
-            this.labelX7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX7.Location = new System.Drawing.Point(506, 132);
-            this.labelX7.Name = "labelX7";
-            this.labelX7.Size = new System.Drawing.Size(84, 23);
-            this.labelX7.TabIndex = 3;
-            this.labelX7.Text = "Mesh设备IP:";
-            // 
-            // labelX8
-            // 
-            this.labelX8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            // 
-            // 
-            // 
-            this.labelX8.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX8.Location = new System.Drawing.Point(506, 201);
-            this.labelX8.Name = "labelX8";
-            this.labelX8.Size = new System.Drawing.Size(84, 23);
-            this.labelX8.TabIndex = 4;
-            this.labelX8.Text = "音视频ID:";
-            // 
-            // labelX9
-            // 
-            this.labelX9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            // 
-            // 
-            // 
-            this.labelX9.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX9.Location = new System.Drawing.Point(506, 270);
-            this.labelX9.Name = "labelX9";
-            this.labelX9.Size = new System.Drawing.Size(84, 23);
-            this.labelX9.TabIndex = 5;
-            this.labelX9.Text = "265模块IP:";
-            // 
-            // labelX10
-            // 
-            this.labelX10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            // 
-            // 
-            // 
-            this.labelX10.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX10.Location = new System.Drawing.Point(506, 339);
-            this.labelX10.Name = "labelX10";
-            this.labelX10.Size = new System.Drawing.Size(84, 23);
-            this.labelX10.TabIndex = 6;
-            this.labelX10.Text = "海康视频IP:";
-            this.labelX10.Visible = false;
-            // 
-            // buttonXMeshPlanAdd
-            // 
-            this.buttonXMeshPlanAdd.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.buttonXMeshPlanAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonXMeshPlanAdd.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.tableLayoutPanelMeshPlan.SetColumnSpan(this.buttonXMeshPlanAdd, 2);
-            this.buttonXMeshPlanAdd.Location = new System.Drawing.Point(506, 403);
-            this.buttonXMeshPlanAdd.Name = "buttonXMeshPlanAdd";
-            this.buttonXMeshPlanAdd.Size = new System.Drawing.Size(234, 38);
-            this.buttonXMeshPlanAdd.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.buttonXMeshPlanAdd.TabIndex = 7;
-            this.buttonXMeshPlanAdd.Text = "添加预案";
-            this.buttonXMeshPlanAdd.Click += new System.EventHandler(this.buttonXMeshPlanAdd_Click);
-            // 
-            // textBoxXMeshPlanAlias
-            // 
-            this.textBoxXMeshPlanAlias.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            // 
-            // 
-            // 
-            this.textBoxXMeshPlanAlias.Border.Class = "TextBoxBorder";
-            this.textBoxXMeshPlanAlias.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.textBoxXMeshPlanAlias.Location = new System.Drawing.Point(596, 64);
-            this.textBoxXMeshPlanAlias.Name = "textBoxXMeshPlanAlias";
-            this.textBoxXMeshPlanAlias.PreventEnterBeep = true;
-            this.textBoxXMeshPlanAlias.Size = new System.Drawing.Size(144, 21);
-            this.textBoxXMeshPlanAlias.TabIndex = 8;
-            // 
-            // ipAddressInputMeshPlanMeshIP
-            // 
-            this.ipAddressInputMeshPlanMeshIP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.ipAddressInputMeshPlanMeshIP.AutoOverwrite = true;
-            // 
-            // 
-            // 
-            this.ipAddressInputMeshPlanMeshIP.BackgroundStyle.Class = "DateTimeInputBackground";
-            this.ipAddressInputMeshPlanMeshIP.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.ipAddressInputMeshPlanMeshIP.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-            this.ipAddressInputMeshPlanMeshIP.ButtonFreeText.Visible = true;
-            this.ipAddressInputMeshPlanMeshIP.Location = new System.Drawing.Point(596, 133);
-            this.ipAddressInputMeshPlanMeshIP.Name = "ipAddressInputMeshPlanMeshIP";
-            this.ipAddressInputMeshPlanMeshIP.Size = new System.Drawing.Size(144, 21);
-            this.ipAddressInputMeshPlanMeshIP.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.ipAddressInputMeshPlanMeshIP.TabIndex = 9;
-            this.ipAddressInputMeshPlanMeshIP.Value = "192.168.0.1";
-            // 
-            // ipAddressInputMeshPlanModel265IP
-            // 
-            this.ipAddressInputMeshPlanModel265IP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.ipAddressInputMeshPlanModel265IP.AutoOverwrite = true;
-            // 
-            // 
-            // 
-            this.ipAddressInputMeshPlanModel265IP.BackgroundStyle.Class = "DateTimeInputBackground";
-            this.ipAddressInputMeshPlanModel265IP.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.ipAddressInputMeshPlanModel265IP.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-            this.ipAddressInputMeshPlanModel265IP.ButtonFreeText.Visible = true;
-            this.ipAddressInputMeshPlanModel265IP.Location = new System.Drawing.Point(596, 271);
-            this.ipAddressInputMeshPlanModel265IP.Name = "ipAddressInputMeshPlanModel265IP";
-            this.ipAddressInputMeshPlanModel265IP.Size = new System.Drawing.Size(144, 21);
-            this.ipAddressInputMeshPlanModel265IP.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.ipAddressInputMeshPlanModel265IP.TabIndex = 10;
-            this.ipAddressInputMeshPlanModel265IP.Value = "192.168.0.1";
-            // 
-            // ipAddressInputMeshPlanHKIP
-            // 
-            this.ipAddressInputMeshPlanHKIP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.ipAddressInputMeshPlanHKIP.AutoOverwrite = true;
-            // 
-            // 
-            // 
-            this.ipAddressInputMeshPlanHKIP.BackgroundStyle.Class = "DateTimeInputBackground";
-            this.ipAddressInputMeshPlanHKIP.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.ipAddressInputMeshPlanHKIP.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-            this.ipAddressInputMeshPlanHKIP.ButtonFreeText.Visible = true;
-            this.ipAddressInputMeshPlanHKIP.Location = new System.Drawing.Point(596, 340);
-            this.ipAddressInputMeshPlanHKIP.Name = "ipAddressInputMeshPlanHKIP";
-            this.ipAddressInputMeshPlanHKIP.Size = new System.Drawing.Size(144, 21);
-            this.ipAddressInputMeshPlanHKIP.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.ipAddressInputMeshPlanHKIP.TabIndex = 11;
-            this.ipAddressInputMeshPlanHKIP.Value = "192.168.0.1";
-            this.ipAddressInputMeshPlanHKIP.Visible = false;
-            // 
-            // superTabItemMeshPlanManage
-            // 
-            this.superTabItemMeshPlanManage.AttachedControl = this.superTabControlPanel2;
-            this.superTabItemMeshPlanManage.GlobalItem = false;
-            this.superTabItemMeshPlanManage.Name = "superTabItemMeshPlanManage";
-            this.superTabItemMeshPlanManage.Text = "预案管理";
             // 
             // superTabControlPanel1
             // 
@@ -911,6 +568,349 @@
             this.superTabItemMeshTopology.Name = "superTabItemMeshTopology";
             this.superTabItemMeshTopology.Text = "网络拓扑";
             // 
+            // superTabControlPanel2
+            // 
+            this.superTabControlPanel2.Controls.Add(this.tableLayoutPanelMeshPlan);
+            this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel2.Location = new System.Drawing.Point(0, 28);
+            this.superTabControlPanel2.Name = "superTabControlPanel2";
+            this.superTabControlPanel2.Size = new System.Drawing.Size(743, 460);
+            this.superTabControlPanel2.TabIndex = 0;
+            this.superTabControlPanel2.TabItem = this.superTabItemMeshPlanManage;
+            // 
+            // tableLayoutPanelMeshPlan
+            // 
+            this.tableLayoutPanelMeshPlan.ColumnCount = 3;
+            this.tableLayoutPanelMeshPlan.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelMeshPlan.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
+            this.tableLayoutPanelMeshPlan.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanelMeshPlan.Controls.Add(this.textBoxXMeshPlanAudioVideoID, 2, 3);
+            this.tableLayoutPanelMeshPlan.Controls.Add(this.bar1, 0, 0);
+            this.tableLayoutPanelMeshPlan.Controls.Add(this.dataGridViewXMeshPlan, 0, 1);
+            this.tableLayoutPanelMeshPlan.Controls.Add(this.labelX6, 1, 1);
+            this.tableLayoutPanelMeshPlan.Controls.Add(this.labelX7, 1, 2);
+            this.tableLayoutPanelMeshPlan.Controls.Add(this.labelX8, 1, 3);
+            this.tableLayoutPanelMeshPlan.Controls.Add(this.labelX9, 1, 4);
+            this.tableLayoutPanelMeshPlan.Controls.Add(this.labelX10, 1, 5);
+            this.tableLayoutPanelMeshPlan.Controls.Add(this.buttonXMeshPlanAdd, 1, 6);
+            this.tableLayoutPanelMeshPlan.Controls.Add(this.textBoxXMeshPlanAlias, 2, 1);
+            this.tableLayoutPanelMeshPlan.Controls.Add(this.ipAddressInputMeshPlanMeshIP, 2, 2);
+            this.tableLayoutPanelMeshPlan.Controls.Add(this.ipAddressInputMeshPlanModel265IP, 2, 4);
+            this.tableLayoutPanelMeshPlan.Controls.Add(this.ipAddressInputMeshPlanHKIP, 2, 5);
+            this.tableLayoutPanelMeshPlan.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelMeshPlan.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelMeshPlan.Name = "tableLayoutPanelMeshPlan";
+            this.tableLayoutPanelMeshPlan.RowCount = 7;
+            this.tableLayoutPanelMeshPlan.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanelMeshPlan.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanelMeshPlan.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanelMeshPlan.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanelMeshPlan.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanelMeshPlan.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanelMeshPlan.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanelMeshPlan.Size = new System.Drawing.Size(743, 460);
+            this.tableLayoutPanelMeshPlan.TabIndex = 0;
+            // 
+            // textBoxXMeshPlanAudioVideoID
+            // 
+            this.textBoxXMeshPlanAudioVideoID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.textBoxXMeshPlanAudioVideoID.Border.Class = "TextBoxBorder";
+            this.textBoxXMeshPlanAudioVideoID.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.textBoxXMeshPlanAudioVideoID.Location = new System.Drawing.Point(596, 202);
+            this.textBoxXMeshPlanAudioVideoID.Name = "textBoxXMeshPlanAudioVideoID";
+            this.textBoxXMeshPlanAudioVideoID.PreventEnterBeep = true;
+            this.textBoxXMeshPlanAudioVideoID.Size = new System.Drawing.Size(144, 21);
+            this.textBoxXMeshPlanAudioVideoID.TabIndex = 12;
+            // 
+            // bar1
+            // 
+            this.bar1.AntiAlias = true;
+            this.tableLayoutPanelMeshPlan.SetColumnSpan(this.bar1, 3);
+            this.bar1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.bar1.DockSide = DevComponents.DotNetBar.eDockSide.Document;
+            this.bar1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
+            this.bar1.Images = this.imageListMesh;
+            this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.buttonItemMPMAddPlan,
+            this.buttonItemMPMDelete});
+            this.bar1.Location = new System.Drawing.Point(3, 3);
+            this.bar1.Name = "bar1";
+            this.bar1.Size = new System.Drawing.Size(737, 34);
+            this.bar1.Stretch = true;
+            this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.bar1.TabIndex = 0;
+            this.bar1.TabStop = false;
+            this.bar1.Text = "bar1";
+            // 
+            // imageListMesh
+            // 
+            this.imageListMesh.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListMesh.ImageStream")));
+            this.imageListMesh.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListMesh.Images.SetKeyName(0, "refresh_16.png");
+            this.imageListMesh.Images.SetKeyName(1, "add_32.png");
+            this.imageListMesh.Images.SetKeyName(2, "apply_modify_32.png");
+            this.imageListMesh.Images.SetKeyName(3, "delete_32.png");
+            this.imageListMesh.Images.SetKeyName(4, "search_clear_32.png");
+            // 
+            // buttonItemMPMAddPlan
+            // 
+            this.buttonItemMPMAddPlan.ImageIndex = 1;
+            this.buttonItemMPMAddPlan.Name = "buttonItemMPMAddPlan";
+            this.buttonItemMPMAddPlan.Text = "添加预案";
+            this.buttonItemMPMAddPlan.Tooltip = "添加预案";
+            this.buttonItemMPMAddPlan.Click += new System.EventHandler(this.buttonItemMPMAddPlan_Click);
+            // 
+            // buttonItemMPMDelete
+            // 
+            this.buttonItemMPMDelete.ImageIndex = 3;
+            this.buttonItemMPMDelete.Name = "buttonItemMPMDelete";
+            this.buttonItemMPMDelete.Tooltip = "删除预案";
+            this.buttonItemMPMDelete.Click += new System.EventHandler(this.buttonItemMPMDelete_Click);
+            // 
+            // dataGridViewXMeshPlan
+            // 
+            this.dataGridViewXMeshPlan.AllowUserToAddRows = false;
+            this.dataGridViewXMeshPlan.AllowUserToDeleteRows = false;
+            this.dataGridViewXMeshPlan.AllowUserToOrderColumns = true;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewXMeshPlan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridViewXMeshPlan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewXMeshPlan.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID,
+            this.ColumnAlias,
+            this.MeshIP,
+            this.MeshAudioVideoID,
+            this.Model265IP,
+            this.HKVideoIP});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewXMeshPlan.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridViewXMeshPlan.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewXMeshPlan.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
+            this.dataGridViewXMeshPlan.Location = new System.Drawing.Point(3, 43);
+            this.dataGridViewXMeshPlan.MultiSelect = false;
+            this.dataGridViewXMeshPlan.Name = "dataGridViewXMeshPlan";
+            this.dataGridViewXMeshPlan.ReadOnly = true;
+            this.tableLayoutPanelMeshPlan.SetRowSpan(this.dataGridViewXMeshPlan, 6);
+            this.dataGridViewXMeshPlan.RowTemplate.Height = 23;
+            this.dataGridViewXMeshPlan.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewXMeshPlan.Size = new System.Drawing.Size(497, 414);
+            this.dataGridViewXMeshPlan.TabIndex = 1;
+            this.dataGridViewXMeshPlan.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewXMeshPlan_CellMouseClick);
+            // 
+            // ID
+            // 
+            this.ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ID.HeaderText = "预案编码";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Width = 78;
+            // 
+            // ColumnAlias
+            // 
+            this.ColumnAlias.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColumnAlias.HeaderText = "别名";
+            this.ColumnAlias.Name = "ColumnAlias";
+            this.ColumnAlias.ReadOnly = true;
+            // 
+            // MeshIP
+            // 
+            this.MeshIP.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.MeshIP.HeaderText = "Mesh设备IP";
+            this.MeshIP.Name = "MeshIP";
+            this.MeshIP.ReadOnly = true;
+            // 
+            // MeshAudioVideoID
+            // 
+            this.MeshAudioVideoID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.MeshAudioVideoID.HeaderText = "音视频ID";
+            this.MeshAudioVideoID.Name = "MeshAudioVideoID";
+            this.MeshAudioVideoID.ReadOnly = true;
+            // 
+            // Model265IP
+            // 
+            this.Model265IP.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Model265IP.HeaderText = "265模块IP";
+            this.Model265IP.Name = "Model265IP";
+            this.Model265IP.ReadOnly = true;
+            // 
+            // HKVideoIP
+            // 
+            this.HKVideoIP.HeaderText = "海康视频IP";
+            this.HKVideoIP.Name = "HKVideoIP";
+            this.HKVideoIP.ReadOnly = true;
+            this.HKVideoIP.Visible = false;
+            // 
+            // labelX6
+            // 
+            this.labelX6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.labelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX6.Location = new System.Drawing.Point(506, 63);
+            this.labelX6.Name = "labelX6";
+            this.labelX6.Size = new System.Drawing.Size(84, 23);
+            this.labelX6.TabIndex = 2;
+            this.labelX6.Text = "别    名:";
+            // 
+            // labelX7
+            // 
+            this.labelX7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.labelX7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX7.Location = new System.Drawing.Point(506, 132);
+            this.labelX7.Name = "labelX7";
+            this.labelX7.Size = new System.Drawing.Size(84, 23);
+            this.labelX7.TabIndex = 3;
+            this.labelX7.Text = "Mesh设备IP:";
+            // 
+            // labelX8
+            // 
+            this.labelX8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.labelX8.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX8.Location = new System.Drawing.Point(506, 201);
+            this.labelX8.Name = "labelX8";
+            this.labelX8.Size = new System.Drawing.Size(84, 23);
+            this.labelX8.TabIndex = 4;
+            this.labelX8.Text = "音视频ID:";
+            // 
+            // labelX9
+            // 
+            this.labelX9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.labelX9.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX9.Location = new System.Drawing.Point(506, 270);
+            this.labelX9.Name = "labelX9";
+            this.labelX9.Size = new System.Drawing.Size(84, 23);
+            this.labelX9.TabIndex = 5;
+            this.labelX9.Text = "265模块IP:";
+            // 
+            // labelX10
+            // 
+            this.labelX10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.labelX10.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX10.Location = new System.Drawing.Point(506, 339);
+            this.labelX10.Name = "labelX10";
+            this.labelX10.Size = new System.Drawing.Size(84, 23);
+            this.labelX10.TabIndex = 6;
+            this.labelX10.Text = "海康视频IP:";
+            this.labelX10.Visible = false;
+            // 
+            // buttonXMeshPlanAdd
+            // 
+            this.buttonXMeshPlanAdd.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXMeshPlanAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonXMeshPlanAdd.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.tableLayoutPanelMeshPlan.SetColumnSpan(this.buttonXMeshPlanAdd, 2);
+            this.buttonXMeshPlanAdd.Location = new System.Drawing.Point(506, 403);
+            this.buttonXMeshPlanAdd.Name = "buttonXMeshPlanAdd";
+            this.buttonXMeshPlanAdd.Size = new System.Drawing.Size(234, 38);
+            this.buttonXMeshPlanAdd.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXMeshPlanAdd.TabIndex = 7;
+            this.buttonXMeshPlanAdd.Text = "添加预案";
+            this.buttonXMeshPlanAdd.Click += new System.EventHandler(this.buttonXMeshPlanAdd_Click);
+            // 
+            // textBoxXMeshPlanAlias
+            // 
+            this.textBoxXMeshPlanAlias.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.textBoxXMeshPlanAlias.Border.Class = "TextBoxBorder";
+            this.textBoxXMeshPlanAlias.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.textBoxXMeshPlanAlias.Location = new System.Drawing.Point(596, 64);
+            this.textBoxXMeshPlanAlias.Name = "textBoxXMeshPlanAlias";
+            this.textBoxXMeshPlanAlias.PreventEnterBeep = true;
+            this.textBoxXMeshPlanAlias.Size = new System.Drawing.Size(144, 21);
+            this.textBoxXMeshPlanAlias.TabIndex = 8;
+            // 
+            // ipAddressInputMeshPlanMeshIP
+            // 
+            this.ipAddressInputMeshPlanMeshIP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.ipAddressInputMeshPlanMeshIP.AutoOverwrite = true;
+            // 
+            // 
+            // 
+            this.ipAddressInputMeshPlanMeshIP.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.ipAddressInputMeshPlanMeshIP.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ipAddressInputMeshPlanMeshIP.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+            this.ipAddressInputMeshPlanMeshIP.ButtonFreeText.Visible = true;
+            this.ipAddressInputMeshPlanMeshIP.Location = new System.Drawing.Point(596, 133);
+            this.ipAddressInputMeshPlanMeshIP.Name = "ipAddressInputMeshPlanMeshIP";
+            this.ipAddressInputMeshPlanMeshIP.Size = new System.Drawing.Size(144, 21);
+            this.ipAddressInputMeshPlanMeshIP.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.ipAddressInputMeshPlanMeshIP.TabIndex = 9;
+            this.ipAddressInputMeshPlanMeshIP.Value = "192.168.0.1";
+            // 
+            // ipAddressInputMeshPlanModel265IP
+            // 
+            this.ipAddressInputMeshPlanModel265IP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.ipAddressInputMeshPlanModel265IP.AutoOverwrite = true;
+            // 
+            // 
+            // 
+            this.ipAddressInputMeshPlanModel265IP.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.ipAddressInputMeshPlanModel265IP.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ipAddressInputMeshPlanModel265IP.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+            this.ipAddressInputMeshPlanModel265IP.ButtonFreeText.Visible = true;
+            this.ipAddressInputMeshPlanModel265IP.Location = new System.Drawing.Point(596, 271);
+            this.ipAddressInputMeshPlanModel265IP.Name = "ipAddressInputMeshPlanModel265IP";
+            this.ipAddressInputMeshPlanModel265IP.Size = new System.Drawing.Size(144, 21);
+            this.ipAddressInputMeshPlanModel265IP.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.ipAddressInputMeshPlanModel265IP.TabIndex = 10;
+            this.ipAddressInputMeshPlanModel265IP.Value = "192.168.0.1";
+            // 
+            // ipAddressInputMeshPlanHKIP
+            // 
+            this.ipAddressInputMeshPlanHKIP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.ipAddressInputMeshPlanHKIP.AutoOverwrite = true;
+            // 
+            // 
+            // 
+            this.ipAddressInputMeshPlanHKIP.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.ipAddressInputMeshPlanHKIP.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ipAddressInputMeshPlanHKIP.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+            this.ipAddressInputMeshPlanHKIP.ButtonFreeText.Visible = true;
+            this.ipAddressInputMeshPlanHKIP.Location = new System.Drawing.Point(596, 340);
+            this.ipAddressInputMeshPlanHKIP.Name = "ipAddressInputMeshPlanHKIP";
+            this.ipAddressInputMeshPlanHKIP.Size = new System.Drawing.Size(144, 21);
+            this.ipAddressInputMeshPlanHKIP.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.ipAddressInputMeshPlanHKIP.TabIndex = 11;
+            this.ipAddressInputMeshPlanHKIP.Value = "192.168.0.1";
+            this.ipAddressInputMeshPlanHKIP.Visible = false;
+            // 
+            // superTabItemMeshPlanManage
+            // 
+            this.superTabItemMeshPlanManage.AttachedControl = this.superTabControlPanel2;
+            this.superTabItemMeshPlanManage.GlobalItem = false;
+            this.superTabItemMeshPlanManage.Name = "superTabItemMeshPlanManage";
+            this.superTabItemMeshPlanManage.Text = "预案管理";
+            // 
             // superTabControlPanel3
             // 
             this.superTabControlPanel3.Controls.Add(this.tableLayoutPanelMeshBasicSetting);
@@ -1247,13 +1247,6 @@
             this.Load += new System.EventHandler(this.UCMeshManagement2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.superTabControlMain)).EndInit();
             this.superTabControlMain.ResumeLayout(false);
-            this.superTabControlPanel2.ResumeLayout(false);
-            this.tableLayoutPanelMeshPlan.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewXMeshPlan)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ipAddressInputMeshPlanMeshIP)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ipAddressInputMeshPlanModel265IP)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ipAddressInputMeshPlanHKIP)).EndInit();
             this.superTabControlPanel1.ResumeLayout(false);
             this.tableLayoutPanelMeshNodeTopology.ResumeLayout(false);
             this.groupPanel3.ResumeLayout(false);
@@ -1261,6 +1254,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.ipAddressInputMeshIP)).EndInit();
             this.groupPanel2.ResumeLayout(false);
             this.groupPanel1.ResumeLayout(false);
+            this.superTabControlPanel2.ResumeLayout(false);
+            this.tableLayoutPanelMeshPlan.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewXMeshPlan)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ipAddressInputMeshPlanMeshIP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ipAddressInputMeshPlanModel265IP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ipAddressInputMeshPlanHKIP)).EndInit();
             this.superTabControlPanel3.ResumeLayout(false);
             this.tableLayoutPanelMeshBasicSetting.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);

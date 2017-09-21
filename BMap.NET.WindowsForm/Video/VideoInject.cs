@@ -213,7 +213,7 @@ namespace BMap.NET.WindowsForm.Video
             }
         }
 
-        public void injectPanel(Panel panel, Panel fullScreenPanel, string deviceID, string isFullScreen, string savePath)
+        public void injectPanel(Panel panel, Panel fullScreenPanel, string deviceID, string isFullScreen)
         {
             if (appWin != IntPtr.Zero)
                 return;
@@ -221,10 +221,9 @@ namespace BMap.NET.WindowsForm.Video
             psi.RedirectStandardInput = true;
             psi.RedirectStandardOutput = true;
             psi.UseShellExecute = false;
-            psi.Arguments = string.Format("{0} {1} {2} {3} 0 {4} {5} 0 0 {6} {7} 0 0 {8} {9}", 
+            psi.Arguments = string.Format("{0} {1} {2} {3} 0 {4} 0 0 {5} {6} 0 0 {7} {8}", 
                 localIP, mVideoServerUserName, mVideoServerUserName, 
                 deviceID, isFullScreen, 
-                savePath,
                 panel.Width, panel.Height,
                 fullScreenPanel.Width, fullScreenPanel.Height);
 

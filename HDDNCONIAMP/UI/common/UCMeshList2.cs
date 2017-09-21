@@ -234,17 +234,20 @@ namespace HDDNCONIAMP.UI.Common
             Cell selectCell = selectNode.GetCellAt(e.X, e.Y);
             if (selectNode.Level == 1)
             {
+                MeshAllInfo mai = (MeshAllInfo)selectNode.Tag;
+                GPSInfo vp = mai.MeshGPSInfo;
                 if (selectCell.Images.ImageIndex == 9 && BuddyBMapControl != null)
                 {
                     //地图上跳转到设备所在的位置
-                    GPSInfo vp = ((MeshAllInfo)selectNode.Tag).MeshGPSInfo;
                     BuddyBMapControl.Center = new LatLngPoint(vp.Lon, vp.Lat);
                     BuddyBMapControl.Locate(false);
                 }
                 else if (selectCell.Images.ImageIndex == 10 && BuddyGrid != null)
                 {
-
-                    //inject.injectPanel(BuddyGrid.GetPanelByIndex(1), mMeshPlanManageDictionary[vp.MACAddress].AudioVideoID, "0");
+                    VideoInject inject = new VideoInject(mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerIPV4],
+                        mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerUserName],
+                        mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerPassword]);
+                    inject.injectPanel(BuddyGrid.GetNextAvailablePanel(), BuddyGrid.GetFullScreenPanel(), mai.PlanInfo.AudioVideoID, "0");
                 }
             }
         }
@@ -369,14 +372,21 @@ namespace HDDNCONIAMP.UI.Common
         /// <param name="args">参数</param>
         private void doUpdateAdvTreeMeshList(MeshAllInfo mai, params object[] args)
         {
-            if (this.advTreeMeshList.InvokeRequired)
+            try
             {
-                updateAdvTreeMeshList uatml = new updateAdvTreeMeshList(doUpdateAdvTreeMeshList);
-                this.Invoke(uatml, mai, args);
+                if (this.advTreeMeshList.InvokeRequired)
+                {
+                    updateAdvTreeMeshList uatml = new updateAdvTreeMeshList(doUpdateAdvTreeMeshList);
+                    this.Invoke(uatml, mai, args);
+                }
+                else
+                {
+                    mai.BuddyNode.Cells[1].Text = args[0].ToString();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                mai.BuddyNode.Cells[1].Text = args[0].ToString();
+                logger.Error("更新Mesh设备列表发生异常：", ex);
             }
         }
 
