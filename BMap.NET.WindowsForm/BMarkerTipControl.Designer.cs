@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BMarkerTipControl));
             this.label1 = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
@@ -46,6 +47,7 @@
             this.btndriving = new System.Windows.Forms.Button();
             this.btntransit = new System.Windows.Forms.Button();
             this.bPlaceBox = new BMap.NET.WindowsForm.BPlaceBox();
+            this.toolTipMain = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.picClose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDelete)).BeginInit();
@@ -63,12 +65,12 @@
             // lblName
             // 
             this.lblName.AutoSize = true;
-            this.lblName.Font = new System.Drawing.Font("Microsoft YaHei", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblName.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblName.Location = new System.Drawing.Point(8, 7);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(79, 19);
+            this.lblName.Size = new System.Drawing.Size(65, 19);
             this.lblName.TabIndex = 3;
-            this.lblName.Text = "标记点名称";
+            this.lblName.Text = "热点名称";
             // 
             // picClose
             // 
@@ -79,6 +81,7 @@
             this.picClose.Size = new System.Drawing.Size(13, 14);
             this.picClose.TabIndex = 4;
             this.picClose.TabStop = false;
+            this.toolTipMain.SetToolTip(this.picClose, "关闭");
             this.picClose.Click += new System.EventHandler(this.picClose_Click);
             // 
             // picEdit
@@ -91,6 +94,7 @@
             this.picEdit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picEdit.TabIndex = 5;
             this.picEdit.TabStop = false;
+            this.toolTipMain.SetToolTip(this.picEdit, "编辑热点");
             this.picEdit.Click += new System.EventHandler(this.picEdit_Click);
             // 
             // picDelete
@@ -103,13 +107,14 @@
             this.picDelete.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picDelete.TabIndex = 6;
             this.picDelete.TabStop = false;
+            this.toolTipMain.SetToolTip(this.picDelete, "删除热点");
             this.picDelete.Click += new System.EventHandler(this.picDelete_Click);
             // 
             // txtRemarks
             // 
             this.txtRemarks.BackColor = System.Drawing.Color.White;
             this.txtRemarks.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtRemarks.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtRemarks.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtRemarks.Location = new System.Drawing.Point(12, 47);
             this.txtRemarks.Multiline = true;
             this.txtRemarks.Name = "txtRemarks";
@@ -199,13 +204,14 @@
             // lblPlace
             // 
             this.lblPlace.AutoSize = true;
-            this.lblPlace.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblPlace.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblPlace.ForeColor = System.Drawing.Color.Gray;
             this.lblPlace.Location = new System.Drawing.Point(8, 156);
             this.lblPlace.Name = "lblPlace";
             this.lblPlace.Size = new System.Drawing.Size(32, 17);
             this.lblPlace.TabIndex = 26;
             this.lblPlace.Text = "起点";
+            this.lblPlace.Visible = false;
             // 
             // btndriving
             // 
@@ -216,6 +222,7 @@
             this.btndriving.TabIndex = 25;
             this.btndriving.Text = "驾车";
             this.btndriving.UseVisualStyleBackColor = true;
+            this.btndriving.Visible = false;
             this.btndriving.Click += new System.EventHandler(this.btndriving_Click);
             // 
             // btntransit
@@ -227,6 +234,7 @@
             this.btntransit.TabIndex = 24;
             this.btntransit.Text = "公交";
             this.btntransit.UseVisualStyleBackColor = true;
+            this.btntransit.Visible = false;
             this.btntransit.Click += new System.EventHandler(this.btntransit_Click);
             // 
             // bPlaceBox
@@ -234,12 +242,13 @@
             this.bPlaceBox.BPlacesBoard = null;
             this.bPlaceBox.CurrentCity = "天津";
             this.bPlaceBox.Enter2Search = false;
-            this.bPlaceBox.InputFont = new System.Drawing.Font("Microsoft YaHei", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.bPlaceBox.InputFont = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.bPlaceBox.Location = new System.Drawing.Point(42, 154);
             this.bPlaceBox.Name = "bPlaceBox";
             this.bPlaceBox.QueryText = "";
             this.bPlaceBox.Size = new System.Drawing.Size(193, 21);
             this.bPlaceBox.TabIndex = 23;
+            this.bPlaceBox.Visible = false;
             // 
             // BMarkerTipControl
             // 
@@ -264,7 +273,7 @@
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.label1);
             this.Name = "BMarkerTipControl";
-            this.Size = new System.Drawing.Size(360, 229);
+            this.Size = new System.Drawing.Size(360, 151);
             this.Load += new System.EventHandler(this.BMarkerTipControl_Load);
             this.Click += new System.EventHandler(this.BMarkerTipControl_Click);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.BMarkerTipControl_Paint);
@@ -296,5 +305,6 @@
         private System.Windows.Forms.Button btndriving;
         private System.Windows.Forms.Button btntransit;
         private BPlaceBox bPlaceBox;
+        private System.Windows.Forms.ToolTip toolTipMain;
     }
 }

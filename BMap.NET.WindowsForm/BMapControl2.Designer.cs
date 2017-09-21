@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BMapControl));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BMapControl2));
             this.cm_popup = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmsWhere = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsSetStart = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,6 +71,7 @@
             this.cmsWhere.Name = "cmsWhere";
             this.cmsWhere.Size = new System.Drawing.Size(179, 22);
             this.cmsWhere.Text = "这是哪里?";
+            this.cmsWhere.Visible = false;
             this.cmsWhere.Click += new System.EventHandler(this.cm_popup_Click);
             // 
             // cmsSetStart
@@ -80,6 +81,7 @@
             this.cmsSetStart.Name = "cmsSetStart";
             this.cmsSetStart.Size = new System.Drawing.Size(179, 22);
             this.cmsSetStart.Text = "以此为起点";
+            this.cmsSetStart.Visible = false;
             this.cmsSetStart.Click += new System.EventHandler(this.cm_popup_Click);
             // 
             // cmsSetEnd
@@ -89,12 +91,14 @@
             this.cmsSetEnd.Name = "cmsSetEnd";
             this.cmsSetEnd.Size = new System.Drawing.Size(179, 22);
             this.cmsSetEnd.Text = "以此为终点";
+            this.cmsSetEnd.Visible = false;
             this.cmsSetEnd.Click += new System.EventHandler(this.cm_popup_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(176, 6);
+            this.toolStripSeparator1.Visible = false;
             // 
             // cmsCenter
             // 
@@ -157,11 +161,11 @@
             this.cmsClearMarkers.Text = "清空所有标记";
             this.cmsClearMarkers.Click += new System.EventHandler(this.cm_popup_Click);
             // 
-            // BMapControl
+            // BMapControl2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "BMapControl";
+            this.Name = "BMapControl2";
             this.Size = new System.Drawing.Size(232, 172);
             this.cm_popup.ResumeLayout(false);
             this.ResumeLayout(false);

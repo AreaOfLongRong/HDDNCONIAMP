@@ -735,21 +735,38 @@ namespace BMap.NET.WindowsForm
                     LatLngPoint p = MapHelper.GetLatLngByScreenLocation(e.Location, _center, _zoom, ClientSize);
                     ((Action)delegate ()
                     {
-                        GeocodingService gs = new GeocodingService();
-                        JObject place = gs.DeGeocoding(p.Lat + "," + p.Lng);
-                        if (place != null)
+                        this.Invoke((Action)delegate ()
                         {
-                            this.Invoke((Action)delegate ()
-                            {
-                                BMarker marker = new BMarker { Index = _markers.Count, Location = p, Name = (string)place["result"]["formatted_address"], Remarks = "我的备注", Selected = false, Address = (string)place["result"]["formatted_address"] };
-                                _markers.Add(marker.Index.ToString(), marker);
-                                _bMarkerEditorControl.Saved = false;
-                                _bMarkerEditorControl.Marker = marker;
-                                _bMarkerEditorControl.Location = new Point(e.Location.X - _bMarkerEditorControl.Width / 3 + 37, e.Location.Y - _bMarkerEditorControl.Height - 22);
-                                _bMarkerEditorControl.Visible = true;
-                                _current_selected_marker = marker;
-                            });
-                        }
+                            BMarker marker = new BMarker {
+                                Index = _markers.Count,
+                                Location = p,
+                                Name = "热点" + _markers.Count,
+                                Remarks = "热点备注",
+                                Selected = false
+                            };
+                            _markers.Add(marker.Index.ToString(), marker);
+                            _bMarkerEditorControl.Saved = false;
+                            _bMarkerEditorControl.Marker = marker;
+                            _bMarkerEditorControl.Location = new Point(e.Location.X - _bMarkerEditorControl.Width / 3 + 37, e.Location.Y - _bMarkerEditorControl.Height - 22);
+                            _bMarkerEditorControl.Visible = true;
+                            _current_selected_marker = marker;
+                        });
+                        //Z-20170921：隐藏原有通过访问百度地图服务来获取标记点信息的功能
+                        //GeocodingService gs = new GeocodingService();
+                        //JObject place = gs.DeGeocoding(p.Lat + "," + p.Lng);
+                        //if (place != null)
+                        //{
+                        //    this.Invoke((Action)delegate ()
+                        //    {
+                        //        BMarker marker = new BMarker { Index = _markers.Count, Location = p, Name = (string)place["result"]["formatted_address"], Remarks = "我的备注", Selected = false, Address = (string)place["result"]["formatted_address"] };
+                        //        _markers.Add(marker.Index.ToString(), marker);
+                        //        _bMarkerEditorControl.Saved = false;
+                        //        _bMarkerEditorControl.Marker = marker;
+                        //        _bMarkerEditorControl.Location = new Point(e.Location.X - _bMarkerEditorControl.Width / 3 + 37, e.Location.Y - _bMarkerEditorControl.Height - 22);
+                        //        _bMarkerEditorControl.Visible = true;
+                        //        _current_selected_marker = marker;
+                        //    });
+                        //}
                     }).BeginInvoke(null, null);
                 }
             }
@@ -801,7 +818,7 @@ namespace BMap.NET.WindowsForm
             }
             else if (new Rectangle(Width - 384 + 26 * 3, 10, 26, 26).Contains(PointToClient(Cursor.Position)))
             {
-                _toolTip.Text = "标记";
+                _toolTip.Text = "热点";
                 _toolTip.Location = new Point(Width - 384 + 26 * 3, 36 + 10);
                 _toolTip.Visible = true;
             }
