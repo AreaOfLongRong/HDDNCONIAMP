@@ -33,7 +33,9 @@ namespace TCPServer
     {
         private TcpListener _server;
         private Boolean _isRunning;
-        private Hashtable _hashTable = new Hashtable();//hash table of TcpConnention
+        public Hashtable _hashTable = new Hashtable();//hash table of TcpConnention
+        public delegate void WelcomeMessageHandler(TcpConnention conn);
+        public event WelcomeMessageHandler OnWelcomeMessage;
 
         public TcpServer(int port)
         {
@@ -113,6 +115,7 @@ namespace TCPServer
             
             String sData = null;
 
+            OnWelcomeMessage?.Invoke(conn);
             while (client.Connected)
             {
                 // reads from stream
