@@ -15,7 +15,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
         // 定义私有构造函数，使外界不能创建该类实例
         private MeshTcpConfigManager()
         {
-            server = new TcpServer(8080);
+            server = new TcpServer(9200);
         }
 
         /// <summary>
@@ -46,6 +46,38 @@ namespace HDDNCONIAMP.UI.MeshManagement
         {
             server.Close();
             server = null;
+        }
+
+        /// <summary>
+        /// 获取修改频率命令
+        /// </summary>
+        /// <param name="rate">要设置的频率</param>
+        /// <param name="bindWidth"></param>
+        /// <returns>修改频率命令</returns>
+        public static string GetChangeRateCommand(int rate,int bindWidth = 20)
+        {
+            int value = 0;
+            
+            if (rate > 636)
+                value = 10 * rate - 5 * bindWidth - 1728;
+            else
+                value = 10 * rate + 5 * bindWidth - 1728;
+            if (value > 0)
+                return string.Format("%d\r\n", value);
+            return null;
+        }
+
+        /// <summary>
+        /// 获取修改功率命令
+        /// </summary>
+        /// <param name="power">要设置的功率</param>
+        /// <returns>修改功率命令</returns>
+        public static String GetChangePowerCommand(int power)
+        {
+            int value = power * 2;
+            if (value > 0)
+                return String.Format("%d\n\r", value);
+            return null;
         }
     }
 }
