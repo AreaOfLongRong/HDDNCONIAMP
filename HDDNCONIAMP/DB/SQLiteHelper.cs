@@ -275,6 +275,16 @@ namespace HDDNCONIAMP.DB
             return context.Query<MeshDeviceInfo>().ToList();
         }
 
+        /// <summary>
+        /// 检索指定IP对应的Mesh设备信息对象
+        /// </summary>
+        /// <param name="meshIP">IP地址</param>
+        /// <returns>Mesh设备信息对象</returns>
+        public MeshDeviceInfo MeshDeviceInfoQueryByIP(string meshIP)
+        {
+            return context.Query<MeshDeviceInfo>().Where(m => m.IPV4 == meshIP).First();
+        }
+
         #endregion
 
         #region Mesh预案管理相关

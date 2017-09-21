@@ -24,6 +24,11 @@ namespace HDDNCONIAMP.Utils
         public static string VIDEO_DATA_DEFAULT_PATH = AppDomain.CurrentDomain.BaseDirectory + "Videos";
 
         /// <summary>
+        /// GPS数据默认存储路径
+        /// </summary>
+        public static string GPS_DATA_DEFAULT_PATH = AppDomain.CurrentDomain.BaseDirectory + "GPS";
+
+        /// <summary>
         /// 临时数据存储目录
         /// </summary>
         public static string TEMP_PATH = AppDomain.CurrentDomain.BaseDirectory + "Temp";

@@ -42,5 +42,11 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
         /// <returns>可用的面板</returns>
         Panel GetNextAvailablePanel();
 
+        /// <summary>
+        /// 获取全屏面板
+        /// </summary>
+        /// <returns>全屏面板</returns>
+        Panel GetFullScreenPanel();
+
     }
 }

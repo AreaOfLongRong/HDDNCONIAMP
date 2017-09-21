@@ -135,5 +135,14 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
                 }
             }
         }
+
+        /// <summary>
+        /// 获取全屏面板
+        /// </summary>
+        /// <returns>全屏面板</returns>
+        public Panel GetFullScreenPanel()
+        {
+            return panelMain;
+        }
     }
 }

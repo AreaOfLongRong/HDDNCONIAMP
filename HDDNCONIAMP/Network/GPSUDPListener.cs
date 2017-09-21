@@ -5,8 +5,10 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Windows.Forms;
 using BMap.NET.WindowsForm.Utils;
 using HDDNCONIAMP.DB.Model;
+using HDDNCONIAMP.Utils;
 using log4net;
 
 namespace HDDNCONIAMP.Network
@@ -73,10 +75,19 @@ namespace HDDNCONIAMP.Network
         /// </summary>
         public void StartReceive()
         {
-            udpcRecv = new UdpClient(Port);
-            thrRecv = new Thread(ReceiveMessage);
-            thrRecv.Start();
-            logger.Info("GPS UDP监听器已成功启动");
+            try
+            {
+                udpcRecv = new UdpClient(Port);
+                thrRecv = new Thread(ReceiveMessage);
+                thrRecv.Start();
+                logger.Info("GPS UDP监听器已成功启动!");
+            }
+            catch (SocketException se)
+            {
+                logger.Error("GPS UDP监听启动失败！", se);
+                MessageBox.Show("GPS UDP监听端口" +
+                    Port + "被占用！", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         /// <summary>
@@ -163,7 +174,10 @@ namespace HDDNCONIAMP.Network
                             info.Lat = 0;
                             info.Lon = 0;
                         }
-                        info.Time = temp[2];
+                        info.Time = DateTime.Now.ToString();
+                        //保存GPS信息到相应文件中
+                        FileUtils.AppendGPSInfoToFile(info);
+                        //上报GPS更新信息
                         RaiseReceiveGPS(info);
                     }
                 }
