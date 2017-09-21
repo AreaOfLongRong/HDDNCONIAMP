@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCMeshManagement2));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.superTabControlMain = new DevComponents.DotNetBar.SuperTabControl();
             this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.tableLayoutPanelMeshNodeTopology = new System.Windows.Forms.TableLayoutPanel();
@@ -147,8 +147,8 @@
             this.superTabControlMain.ControlBox.MenuBox,
             this.superTabControlMain.ControlBox.CloseBox});
             this.superTabControlMain.Controls.Add(this.superTabControlPanel1);
-            this.superTabControlMain.Controls.Add(this.superTabControlPanel2);
             this.superTabControlMain.Controls.Add(this.superTabControlPanel3);
+            this.superTabControlMain.Controls.Add(this.superTabControlPanel2);
             this.superTabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControlMain.Location = new System.Drawing.Point(0, 0);
             this.superTabControlMain.Name = "superTabControlMain";
@@ -296,8 +296,9 @@
             this.slider3.Size = new System.Drawing.Size(172, 23);
             this.slider3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.slider3.TabIndex = 7;
-            this.slider3.Text = "15";
-            this.slider3.Value = 15;
+            this.slider3.Text = "20";
+            this.slider3.Value = 20;
+            this.slider3.ValueChanged += new System.EventHandler(this.sliderValueChanged);
             // 
             // slider2
             // 
@@ -315,8 +316,9 @@
             this.slider2.Size = new System.Drawing.Size(172, 23);
             this.slider2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.slider2.TabIndex = 6;
-            this.slider2.Text = "620";
-            this.slider2.Value = 620;
+            this.slider2.Text = "636";
+            this.slider2.Value = 636;
+            this.slider2.ValueChanged += new System.EventHandler(this.sliderValueChanged);
             // 
             // labelX3
             // 
@@ -357,7 +359,7 @@
             this.labelX1.Name = "labelX1";
             this.labelX1.Size = new System.Drawing.Size(54, 23);
             this.labelX1.TabIndex = 0;
-            this.labelX1.Text = "IP地址：";
+            this.labelX1.Text = "IP：";
             this.labelX1.TextAlignment = System.Drawing.StringAlignment.Far;
             // 
             // ipAddressInputMeshIP
@@ -371,6 +373,7 @@
             this.ipAddressInputMeshIP.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.ipAddressInputMeshIP.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
             this.ipAddressInputMeshIP.ButtonFreeText.Visible = true;
+            this.ipAddressInputMeshIP.Enabled = false;
             this.ipAddressInputMeshIP.Location = new System.Drawing.Point(63, 18);
             this.ipAddressInputMeshIP.Name = "ipAddressInputMeshIP";
             this.ipAddressInputMeshIP.Size = new System.Drawing.Size(172, 21);
@@ -393,8 +396,9 @@
             this.slider1.Size = new System.Drawing.Size(172, 23);
             this.slider1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.slider1.TabIndex = 3;
-            this.slider1.Text = "15";
-            this.slider1.Value = 15;
+            this.slider1.Text = "20";
+            this.slider1.Value = 20;
+            this.slider1.ValueChanged += new System.EventHandler(this.sliderValueChanged);
             // 
             // labelX4
             // 
@@ -436,6 +440,7 @@
             this.buttonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.buttonX1.TabIndex = 10;
             this.buttonX1.Text = "修  改";
+            this.buttonX1.Click += new System.EventHandler(this.buttonX1_Click);
             // 
             // groupPanel2
             // 
@@ -534,6 +539,7 @@
             this.treeView1.Name = "treeView1";
             this.treeView1.Size = new System.Drawing.Size(188, 400);
             this.treeView1.TabIndex = 1;
+            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
             // comboBoxNetworkCard
             // 
@@ -675,14 +681,14 @@
             this.dataGridViewXMeshPlan.AllowUserToAddRows = false;
             this.dataGridViewXMeshPlan.AllowUserToDeleteRows = false;
             this.dataGridViewXMeshPlan.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewXMeshPlan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewXMeshPlan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewXMeshPlan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewXMeshPlan.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID,
@@ -691,14 +697,14 @@
             this.MeshAudioVideoID,
             this.Model265IP,
             this.HKVideoIP});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewXMeshPlan.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewXMeshPlan.DefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewXMeshPlan.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewXMeshPlan.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dataGridViewXMeshPlan.Location = new System.Drawing.Point(3, 43);
