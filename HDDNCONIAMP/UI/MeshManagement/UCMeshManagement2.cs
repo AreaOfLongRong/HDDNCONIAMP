@@ -532,11 +532,11 @@ namespace HDDNCONIAMP.UI.MeshManagement
             {
                 LogHelper.WriteLog("循环扫描开始！！！");
 
-                LogHelper.WriteLog("PingSubNet:" + SubNet);
+                //LogHelper.WriteLog("PingSubNet:" + SubNet);
 
-                MyARPLIST.PingSubNet(SubNet);
+               // MyARPLIST.PingSubNet(SubNet);
 
-                LogHelper.WriteLog("PingSubNet结束!!!");
+               // LogHelper.WriteLog("PingSubNet结束!!!");
 
                 LogHelper.WriteLog("ReloadARP开始！！！");
 

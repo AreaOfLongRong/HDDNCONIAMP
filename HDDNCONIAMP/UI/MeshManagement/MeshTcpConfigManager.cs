@@ -48,6 +48,11 @@ namespace HDDNCONIAMP.UI.MeshManagement
             return uniqueInstance;
         }
 
+        public static bool HasInstance()
+        {
+            return uniqueInstance != null;
+        }
+
         public void SendMessageTo(String ipAddr, String message)
         {
             server.SendMessageTo(ipAddr, message);
