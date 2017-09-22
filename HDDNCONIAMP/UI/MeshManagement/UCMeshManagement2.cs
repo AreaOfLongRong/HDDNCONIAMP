@@ -162,6 +162,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
         private void UCMeshManagement2_Load(object sender, EventArgs e)
         {
             initMeshPlanTable();
+            initComboxExMPMGroupName();
             initMeshBaseParamConfit();
 
             GNetwork = new NodeTopology.GScenario(Nmax);
@@ -172,8 +173,24 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
         #region 网络拓扑事件处理
 
+        private string startRefreshTopologyStr = "刷新网络拓扑";
+        private string stopRefeshTopologyStr = "停止刷新";
 
-        void StartTopology()
+        private void buttonXRefreshTopology_Click(object sender, EventArgs e)
+        {
+            if (buttonXRefreshTopology.Text.Equals(startRefreshTopologyStr))
+            {
+                StartTopology();
+                buttonXRefreshTopology.Text = stopRefeshTopologyStr;
+            }
+            else
+            {
+                StopTopology();
+                buttonXRefreshTopology.Text = startRefreshTopologyStr;
+            }
+        }
+
+        private void StartTopology()
         {
             if (GetRealInfoThread != null)
             {
@@ -190,6 +207,18 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
             RefreshPanelContext = new Thread(RefreshPanelInfo);
             RefreshPanelContext.Start();
+        }
+
+        public void StopTopology()
+        {
+            if (GetRealInfoThread != null)
+            {
+                GetRealInfoThread.Abort();
+            }
+            if (RefreshPanelContext != null)
+            {
+                RefreshPanelContext.Abort();
+            }
         }
 
 
@@ -1959,22 +1988,23 @@ namespace HDDNCONIAMP.UI.MeshManagement
             {
                 case MeshPlanOperatorType.Add:
                     MeshPlanManage mpm = new MeshPlanManage();
-                    mpm.MeshIP = ipAddressInputMeshPlanMeshIP.Value;
+                    mpm.GroupName = comboBoxExMPMGroupName.SelectedItem.ToString();
                     mpm.Alias = textBoxXMeshPlanAlias.Text;
-                    mpm.AudioVideoID = textBoxXMeshPlanAudioVideoID.Text;
+                    mpm.MeshIP = ipAddressInputMeshPlanMeshIP.Value;
                     mpm.Model265IP = ipAddressInputMeshPlanModel265IP.Value;
+                    mpm.Model265ID = textBoxXMeshPlanModel265ID.Text;
+                    mpm.TCPToCOMIP = ipAddressInputMPMTCPToCOM.Value;
                     //mpm.HKVideoIP = ipAddressInputMeshPlanHKIP.Value;
                     SQLiteHelper.GetInstance().MeshPlanInsert(mpm);
 
                     MeshDeviceInfo mdi = new MeshDeviceInfo();
+                    mdi.GroupName = mpm.GroupName;
                     mdi.Alias = mpm.Alias;
                     mdi.IPV4 = mpm.MeshIP;
-                    mdi.MAC = "";
-                    mdi.GroupName = "默认分组";
                     mdi.Power = 15;
-                    mdi.Frequency = 625;
-                    mdi.BandWidth = 25;
-                    mdi.Battery = 2;
+                    mdi.Frequency = 616;
+                    mdi.BandWidth = 20;
+                    mdi.Battery = 0;
                     SQLiteHelper.GetInstance().MeshDeviceInfoInsert(mdi);
 
                     logger.Info("插入新的预案：" + mpm.ToString());
@@ -1982,10 +2012,12 @@ namespace HDDNCONIAMP.UI.MeshManagement
                 case MeshPlanOperatorType.Edit:
                     MeshPlanManage mpm2 = new MeshPlanManage();
                     mpm2.ID = int.Parse(textBoxXMeshPlanAlias.Tag.ToString());
-                    mpm2.MeshIP = ipAddressInputMeshPlanMeshIP.Value;
+                    mpm2.GroupName = comboBoxExMPMGroupName.SelectedItem.ToString();
                     mpm2.Alias = textBoxXMeshPlanAlias.Text;
-                    mpm2.AudioVideoID = textBoxXMeshPlanAudioVideoID.Text;
+                    mpm2.MeshIP = ipAddressInputMeshPlanMeshIP.Value;
+                    mpm2.Model265ID = textBoxXMeshPlanModel265ID.Text;
                     mpm2.Model265IP = ipAddressInputMeshPlanModel265IP.Value;
+                    mpm2.TCPToCOMIP = ipAddressInputMPMTCPToCOM.Value;
                     //mpm.HKVideoIP = ipAddressInputMeshPlanHKIP.Value;
                     int count = SQLiteHelper.GetInstance().MeshPlanUpdate(mpm2);
                     if(count == 1)
@@ -2015,7 +2047,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                 textBoxXMeshPlanAlias.Tag = row.Cells[0].Value.ToString();
                 textBoxXMeshPlanAlias.Text = row.Cells[1].Value.ToString();
                 ipAddressInputMeshPlanMeshIP.Value = row.Cells[2].Value.ToString();
-                textBoxXMeshPlanAudioVideoID.Text = row.Cells[3].Value.ToString();
+                textBoxXMeshPlanModel265ID.Text = row.Cells[3].Value.ToString();
                 ipAddressInputMeshPlanModel265IP.Value = row.Cells[4].Value.ToString();
                 mCurrentMPOType = MeshPlanOperatorType.Edit;
                 buttonXMeshPlanAdd.Text = "修改预案";
@@ -2034,13 +2066,25 @@ namespace HDDNCONIAMP.UI.MeshManagement
                 MeshPlanManage mpm = item.Value;
                 DataGridViewRow row = new DataGridViewRow();
                 row.Cells.Add(new DataGridViewTextBoxCell() { Value = mpm.ID });
+                row.Cells.Add(new DataGridViewTextBoxCell() { Value = mpm.GroupName });
                 row.Cells.Add(new DataGridViewTextBoxCell() { Value = mpm.Alias });
                 row.Cells.Add(new DataGridViewTextBoxCell() { Value = mpm.MeshIP });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = mpm.AudioVideoID });
                 row.Cells.Add(new DataGridViewTextBoxCell() { Value = mpm.Model265IP });
+                row.Cells.Add(new DataGridViewTextBoxCell() { Value = mpm.Model265ID });
+                row.Cells.Add(new DataGridViewTextBoxCell() { Value = mpm.TCPToCOMIP });
                 row.Cells.Add(new DataGridViewTextBoxCell() { Value = mpm.HKVideoIP });
                 dataGridViewXMeshPlan.Rows.Add(row);
             }
+        }
+
+        /// <summary>
+        /// 初始化分组名称下拉框
+        /// </summary>
+        private void initComboxExMPMGroupName()
+        {
+            string[] groupNames = SQLiteHelper.GetInstance().MeshDeviceGroupNameAllQuery().ToArray();
+            comboBoxExMPMGroupName.Items.AddRange(groupNames);
+            comboBoxExMPMGroupName.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -2058,10 +2102,12 @@ namespace HDDNCONIAMP.UI.MeshManagement
         /// <param name="enabled"></param>
         private void updateMeshPlanControlsState(bool enabled)
         {
+            comboBoxExMPMGroupName.Enabled = enabled;
             textBoxXMeshPlanAlias.Enabled = enabled;
             ipAddressInputMeshPlanMeshIP.Enabled = enabled;
             ipAddressInputMeshPlanModel265IP.Enabled = enabled;
-            textBoxXMeshPlanAudioVideoID.Enabled = enabled;
+            textBoxXMeshPlanModel265ID.Enabled = enabled;
+            ipAddressInputMPMTCPToCOM.Enabled = enabled;
             ipAddressInputMeshPlanHKIP.Enabled = false;  //始终隐藏
         }
 
@@ -2071,11 +2117,12 @@ namespace HDDNCONIAMP.UI.MeshManagement
         private void initMeshPlanControlsDefaultValue()
         {
             string prefix = textBoxXBSIP1.Text + "." + textBoxXBSIP2.Text + "." + textBoxXBSIP3.Text + ".";
-            textBoxXMeshPlanAlias.Text = prefix + "1";
+            textBoxXMeshPlanAlias.Text = "分组";
             ipAddressInputMeshPlanMeshIP.Value = prefix + "1";
             ipAddressInputMeshPlanModel265IP.Value = prefix + "2";
-            textBoxXMeshPlanAudioVideoID.Text = "20000";
-            ipAddressInputMeshPlanHKIP.Value = prefix + "3";
+            textBoxXMeshPlanModel265ID.Text = "20000";
+            ipAddressInputMPMTCPToCOM.Value = prefix + "3";
+            ipAddressInputMeshPlanHKIP.Value = prefix + "4";
         }
 
         private enum MeshPlanOperatorType
@@ -2158,11 +2205,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
 
         #endregion
-
-        private void buttonItemRefreshMeshTopology_Click(object sender, EventArgs e)
-        {
-            StartTopology();
-        }
 
         string currentNodeName = null;
         private void buttonX1_Click(object sender, EventArgs e)
@@ -2255,5 +2297,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
         {
             slider.Text = slider.Value.ToString();
         }
+
     }
 }

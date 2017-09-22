@@ -721,7 +721,6 @@ namespace HDDNCONIAMP.Mesh
             if(OnMeshDeviceAdded != null)
             {
                 MeshDeviceInfo mdi = new MeshDeviceInfo();
-                mdi.MAC = meshNode.MACAddress;
                 mdi.IPV4 = meshNode.IPAddress;
                 mdi.Alias = meshNode.IPAddress;
                 //mdi.Frequency = meshNode.Frequency + "";
@@ -739,7 +738,6 @@ namespace HDDNCONIAMP.Mesh
             if (OnMeshDeviceUpdate != null)
             {
                 MeshDeviceInfo mdi = new MeshDeviceInfo();
-                mdi.MAC = meshNode.MACAddress;
                 mdi.IPV4 = meshNode.IPAddress;
                 //mdi.Frequency = meshNode.Frequency + "";
                 //mdi.Power = meshNode.TxPower + "";

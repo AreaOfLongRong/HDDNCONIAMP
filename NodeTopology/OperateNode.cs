@@ -13,7 +13,7 @@ using System.Management;
 
 namespace NodeTopology
 {
-    
+
     public static class OperateNode
     {
         //获取已知MAC地址的IP地址
@@ -30,9 +30,9 @@ namespace NodeTopology
             }
             else
             {
-                return "未获取到MAC地址,可能需要手工输入或确认网卡可以正确通讯！"; 
+                return "未获取到MAC地址,可能需要手工输入或确认网卡可以正确通讯！";
             }
-        
+
         }
 
 
@@ -40,7 +40,7 @@ namespace NodeTopology
         {
             // NeedIPNode.IpAddress = "AAAAAAAAAAAA";
             //  ArpList.Where(x => x. == i.Key)
-            var a = ArpList.UsingArpList.Where(x => x.PhysicalAddress.Replace("-","").ToUpper() == MacAddress).ToList().FirstOrDefault();
+            var a = ArpList.UsingArpList.Where(x => x.PhysicalAddress.Replace("-", "").ToUpper() == MacAddress).ToList().FirstOrDefault();
             return a == null ? null : a.InternetAddress;
         }
 
@@ -48,23 +48,25 @@ namespace NodeTopology
         public static string[] NetworkInterfaceCard()
         {
             var devices = CaptureDeviceList.Instance;
-               // Where(x=>x.LinkType);
+            // Where(x=>x.LinkType);
 
             int i = devices.Count;
 
-             string[] MyNIC = new string[i];
+            string[] MyNIC = new string[i];
 
-             int j = 0;
+            int j = 0;
 
             foreach (var device in devices)
             {
-                
-                MyNIC[j] = device.Description;
-                j++;
+                if (device.Description.Contains("Ethernet"))
+                {
+                    MyNIC[j] = device.Description;
+                    j++;
+                }
             }
 
             return MyNIC;
-          
+
         }
 
         //获取初始MAC
@@ -97,35 +99,35 @@ namespace NodeTopology
 
             // If no devices were found print an error
 
-           // if (devices.Count < 1)
-           // {
-           //     //需要在此处抛出异常
-           //     Console.WriteLine("No devices were found on this machine");
-           //     return  "未找到网卡";
-           // }
+            // if (devices.Count < 1)
+            // {
+            //     //需要在此处抛出异常
+            //     Console.WriteLine("No devices were found on this machine");
+            //     return  "未找到网卡";
+            // }
 
-           // //Console.WriteLine("The following devices are available on this machine:");
-           // //Console.WriteLine("----------------------------------------------------");
-           // //Console.WriteLine();
+            // //Console.WriteLine("The following devices are available on this machine:");
+            // //Console.WriteLine("----------------------------------------------------");
+            // //Console.WriteLine();
 
-           // //int i = 0;
+            // //int i = 0;
 
-           //var device = devices[0];
-
-
+            //var device = devices[0];
 
 
 
-           //if (devices.Count == 1)
-           //{
-           //    device = devices[0];
-           //}
-           //else
-           //{
-           //    //选择一个网卡
-           //    device = devices[1];
 
-           //}
+
+            //if (devices.Count == 1)
+            //{
+            //    device = devices[0];
+            //}
+            //else
+            //{
+            //    //选择一个网卡
+            //    device = devices[1];
+
+            //}
 
 
 
@@ -243,7 +245,7 @@ namespace NodeTopology
 
 
                 if (len == 60)
-                {    
+                {
 
                     //string s1 = string.Format("{0:X2}", e.Packet.Data[12]);
                     //string s2 = string.Format("{0:X2}", e.Packet.Data[13]);
@@ -270,7 +272,7 @@ namespace NodeTopology
                         //}
                         //Console.WriteLine(stringOut);
                         //byte[] cmdData = { 85, 85, 83, 83, 255, 123, 99, 33, 55, 1, 1 };
-                        
+
                         Array.Copy(e.Packet.Data, 28, macbyte, 0, 6);
 
                         if (Lock)

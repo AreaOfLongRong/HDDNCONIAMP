@@ -225,9 +225,8 @@ namespace HDDNCONIAMP.DB
             context.Insert<MeshDeviceInfo>(() =>
             new MeshDeviceInfo()
             {
-                MAC = mdi.MAC,
-                Alias = mdi.Alias,
                 GroupName = mdi.GroupName,
+                Alias = mdi.Alias,
                 IPV4 = mdi.IPV4,
                 Power = mdi.Power,
                 Frequency = mdi.Frequency,
@@ -255,10 +254,9 @@ namespace HDDNCONIAMP.DB
             return context.Update<MeshDeviceInfo>(m => m.ID == info.ID,
                 u => new MeshDeviceInfo()
                 {
-                    MAC = info.MAC,
                     GroupName = info.GroupName,
-                    IPV4 = info.IPV4,
                     Alias = info.Alias,
+                    IPV4 = info.IPV4,
                     Power = info.Power,
                     Frequency = info.Frequency,
                     BandWidth = info.BandWidth,
@@ -303,12 +301,13 @@ namespace HDDNCONIAMP.DB
             context.Insert<MeshPlanManage>(() =>
             new MeshPlanManage()
             {
-                MeshIP = mpm.MeshIP,
+                GroupName = mpm.GroupName,
                 Alias = mpm.Alias,
-                AudioVideoID = mpm.AudioVideoID,
+                MeshIP = mpm.MeshIP,
                 Model265IP = mpm.Model265IP,
-                HKVideoIP = mpm.HKVideoIP,
-                TCPToCOMIP = mpm.TCPToCOMIP
+                Model265ID = mpm.Model265ID,
+                TCPToCOMIP = mpm.TCPToCOMIP,
+                HKVideoIP = mpm.HKVideoIP
             });
         }
 
@@ -332,12 +331,13 @@ namespace HDDNCONIAMP.DB
             return context.Update<MeshPlanManage>(m => m.ID == mpm.ID,
                 u => new MeshPlanManage()
                 {
+                    GroupName = mpm.GroupName,
                     Alias = mpm.Alias,
                     MeshIP = mpm.MeshIP,
-                    AudioVideoID = mpm.AudioVideoID,
+                    Model265ID = mpm.Model265ID,
                     Model265IP = mpm.Model265IP,
-                    HKVideoIP = mpm.HKVideoIP,
-                    TCPToCOMIP = mpm.TCPToCOMIP
+                    TCPToCOMIP = mpm.TCPToCOMIP,
+                    HKVideoIP = mpm.HKVideoIP
                 });
         }
 

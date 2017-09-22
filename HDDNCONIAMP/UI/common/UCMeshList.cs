@@ -115,7 +115,7 @@ namespace HDDNCONIAMP.UI.Common
             Node meshNode = new Node();
             meshNode.Text = meshDeviceInfo.Alias;
             meshNode.Tag = meshDeviceInfo;
-            mMeshDeviceDictionary.Add(meshDeviceInfo.MAC, meshNode);
+            mMeshDeviceDictionary.Add(meshDeviceInfo.IPV4, meshNode);
             nodeDefaultGroup.Nodes.Add(meshNode);
         }
 
@@ -125,16 +125,16 @@ namespace HDDNCONIAMP.UI.Common
         /// <param name="meshDeviceInfo"></param>
         private void MDManage_OnMeshDeviceUpdate(MeshDeviceInfo meshDeviceInfo)
         {
-            if (mMeshDeviceDictionary.ContainsKey(meshDeviceInfo.MAC))
+            if (mMeshDeviceDictionary.ContainsKey(meshDeviceInfo.IPV4))
             {
-                mMeshDeviceDictionary[meshDeviceInfo.MAC].Tag = meshDeviceInfo;
+                mMeshDeviceDictionary[meshDeviceInfo.IPV4].Tag = meshDeviceInfo;
             }
             else
             {
                 Node meshNode = new Node();
                 meshNode.Text = meshDeviceInfo.Alias;
                 meshNode.Tag = meshDeviceInfo;
-                mMeshDeviceDictionary.Add(meshDeviceInfo.MAC, meshNode);
+                mMeshDeviceDictionary.Add(meshDeviceInfo.IPV4, meshNode);
                 nodeDefaultGroup.Nodes.Add(meshNode);
             }
         }

@@ -240,7 +240,7 @@ namespace HDDNCONIAMP.UI.Common
                     inject.injectPanel(BuddyGrid.GetNextAvailablePanel(), 
                         mFormMain.GetVideoFullScreenLocation(), 
                         BuddyGrid.GetFullScreenPanel(), 
-                        mai.PlanInfo.AudioVideoID, "0");
+                        mai.PlanInfo.Model265ID, "0");
                 }
             }
         }
@@ -438,11 +438,10 @@ namespace HDDNCONIAMP.UI.Common
                             BuddyNode = subNode,
                             BuddyBMeshPoint = new BMeshPoint()
                             {
+                                GroupName = item.GroupName,
                                 Alias = item.Alias,
                                 IPV4 = item.IPV4,
-                                MACAddress = item.MAC,
-                                GroupName = item.GroupName,
-                                VideoID = mpm.AudioVideoID,
+                                VideoID = mpm.Model265ID,
                                 Power = item.Power,
                                 Frequency = item.Frequency,
                                 BandWidth = item.BandWidth,

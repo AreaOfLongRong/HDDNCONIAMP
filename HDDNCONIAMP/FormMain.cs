@@ -155,13 +155,16 @@ namespace HDDNCONIAMP
             logger.Info("停止更新系统时间计时器...");
             //停止计时器
             timerUpdateTime.Stop();
+            logger.Info("关闭监听线程...");
+            NLM.Stop();
+            ucMeshManagement2.StopTopology();
             //通知各线程关闭
             LifeTimeControl.closing = true;
             if (MeshTcpConfigManager.HasInstance())
             {
                 MeshTcpConfigManager.GetInstance().CloseServer();
             }
-
+            logger.Info("退出应用程序...");
         }
 
         #region 公共方法
@@ -200,9 +203,6 @@ namespace HDDNCONIAMP
         /// <param name="e"></param>
         private void pictureBoxExit_Click(object sender, EventArgs e)
         {
-            logger.Info("关闭监听线程...");
-            NLM.Stop();
-            logger.Info("退出应用程序...");
             Application.Exit();
         }
 
