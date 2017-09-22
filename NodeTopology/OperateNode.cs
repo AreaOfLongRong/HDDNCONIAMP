@@ -41,7 +41,7 @@ namespace NodeTopology
             // NeedIPNode.IpAddress = "AAAAAAAAAAAA";
             //  ArpList.Where(x => x. == i.Key)
             var a = ArpList.UsingArpList.Where(x => x.PhysicalAddress.Replace("-","").ToUpper() == MacAddress).ToList().FirstOrDefault();
-            return a.InternetAddress;
+            return a == null ? null : a.InternetAddress;
         }
 
 

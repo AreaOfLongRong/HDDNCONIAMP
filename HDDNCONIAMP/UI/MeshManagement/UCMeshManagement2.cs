@@ -562,7 +562,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                 LogHelper.WriteLog("TestGetIniMACandIP结束！！！");
 
-                if (RootIp.Equals(string.Empty))
+                if (RootIp == null || RootIp.Equals(string.Empty))
                 {
                     MessageBox.Show("未获取到根节点IP信息，请检查网络连接是否正常！");
 

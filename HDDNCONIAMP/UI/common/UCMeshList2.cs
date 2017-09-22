@@ -247,7 +247,10 @@ namespace HDDNCONIAMP.UI.Common
                     VideoInject inject = new VideoInject(mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerIPV4],
                         mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerUserName],
                         mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerPassword]);
-                    inject.injectPanel(BuddyGrid.GetNextAvailablePanel(), BuddyGrid.GetFullScreenPanel(), mai.PlanInfo.AudioVideoID, "0");
+                    inject.injectPanel(BuddyGrid.GetNextAvailablePanel(), 
+                        mFormMain.GetVideoFullScreenLocation(), 
+                        BuddyGrid.GetFullScreenPanel(), 
+                        mai.PlanInfo.AudioVideoID, "0");
                 }
             }
         }

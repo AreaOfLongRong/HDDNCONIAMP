@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using BMap.NET;
 using DevComponents.DotNetBar;
@@ -160,7 +161,8 @@ namespace HDDNCONIAMP
             logger.Info("停止更新系统时间计时器...");
             //停止计时器
             timerUpdateTime.Stop();
-
+            //通知各线程关闭
+            LifeTimeControl.closing = true;
         }
 
         #region 公共方法
@@ -176,6 +178,16 @@ namespace HDDNCONIAMP
             {
                 OnUserLoginOrOutEventHandler(sender, e);
             }
+        }
+
+        public Point GetVideoFullScreenLocation()
+        {
+            Point p = new Point();            
+            p.X = superTabControlMain.Location.X + 
+                superTabControlPanelAudioVideoProcess.Location.X + 
+                ucAudioVideoProcess.GetGridLocationX();
+            p.Y = superTabControlMain.Location.Y;
+            return p;
         }
 
         #endregion
