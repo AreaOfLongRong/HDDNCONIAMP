@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using NodeTopology;
 using System.Threading;
 using System.Runtime.InteropServices;
+using HDDNCONIAMP.Utils;
 
 namespace HDDNCONIAMP.UI.MeshManagement
 {
@@ -452,7 +453,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             string SubNet = "192.168.0.";
 
 
-            while (true)
+            while (!LifeTimeControl.closing)
             {
                 LogHelper.WriteLog("循环扫描开始！！！");
 
@@ -699,7 +700,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
         {
 
 
-            while (true)
+            while (!LifeTimeControl.closing)
             {
 
                 //争取在左上角加一个时间显示！！！
@@ -1269,7 +1270,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
         private void DrawNodeTest()
         {
 
-            while (true)
+            while (!LifeTimeControl.closing)
             {
 
                 ///随机增加层数和NODE数量，关系
