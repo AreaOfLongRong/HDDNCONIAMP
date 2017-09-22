@@ -43,7 +43,13 @@ namespace NodeTopology
                 IPAddress ip = System.Net.Dns.GetHostAddresses(host)[0];
                 remote = new IPEndPoint(ip, port);
                 client = new TcpClient();
-                client.Connect(remote);
+                var result = client.BeginConnect(ip, port, null, null);
+                var success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(2));
+                if (!success)
+                {
+                    LogHelper.WriteLog( "Telnet连接" + ip+ ":" +port+"超时！");
+                }
+                client.EndConnect(result);
                 ns = client.GetStream();
             }
             catch (Exception ex)
