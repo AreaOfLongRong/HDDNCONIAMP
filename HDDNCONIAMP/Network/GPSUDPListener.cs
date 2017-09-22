@@ -109,7 +109,7 @@ namespace HDDNCONIAMP.Network
         {
             //监听所有设备发来的UDP消息
             IPEndPoint ipendpoint = new IPEndPoint(IPAddress.Any, Port);
-            while (true)
+            while (!LifeTimeControl.closing)
             {
                 try
                 {

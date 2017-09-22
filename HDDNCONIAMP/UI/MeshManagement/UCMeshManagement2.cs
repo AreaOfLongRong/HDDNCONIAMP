@@ -2221,9 +2221,12 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                     SQLiteHelper.GetInstance().MeshDeviceInfoUpdate(meshInfo);
 
-                    //aim ip is wrong
-                    meshTcpManager.SendMessageTo(info.IpAddress, MeshTcpConfigManager.GetChangePowerCommand(itx));
-                    meshTcpManager.SendMessageTo(info.IpAddress, MeshTcpConfigManager.GetChangeRateCommand(irate));
+                    MeshPlanManage meshPlan = SQLiteHelper.GetInstance().MeshPlanQueryByMeshIP(info.IpAddress);
+                    if (meshPlan != null)
+                    {
+                        meshTcpManager.SendMessageTo(meshPlan.TCPToCOMIP, MeshTcpConfigManager.GetChangePowerCommand(itx));
+                        meshTcpManager.SendMessageTo(meshPlan.TCPToCOMIP, MeshTcpConfigManager.GetChangeRateCommand(irate));
+                    }
                     MessageBox.Show("设置成功");
                 }
 
