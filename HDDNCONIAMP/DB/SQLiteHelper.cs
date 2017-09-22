@@ -307,7 +307,8 @@ namespace HDDNCONIAMP.DB
                 Alias = mpm.Alias,
                 AudioVideoID = mpm.AudioVideoID,
                 Model265IP = mpm.Model265IP,
-                HKVideoIP = mpm.HKVideoIP
+                HKVideoIP = mpm.HKVideoIP,
+                TCPToCOMIP = mpm.TCPToCOMIP
             });
         }
 
@@ -335,7 +336,8 @@ namespace HDDNCONIAMP.DB
                     MeshIP = mpm.MeshIP,
                     AudioVideoID = mpm.AudioVideoID,
                     Model265IP = mpm.Model265IP,
-                    HKVideoIP = mpm.HKVideoIP
+                    HKVideoIP = mpm.HKVideoIP,
+                    TCPToCOMIP = mpm.TCPToCOMIP
                 });
         }
 

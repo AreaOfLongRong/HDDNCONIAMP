@@ -161,7 +161,8 @@ namespace HDDNCONIAMP
             logger.Info("停止更新系统时间计时器...");
             //停止计时器
             timerUpdateTime.Stop();
-
+            //通知各线程关闭
+            LifeTimeControl.closing = true;
         }
 
         #region 公共方法

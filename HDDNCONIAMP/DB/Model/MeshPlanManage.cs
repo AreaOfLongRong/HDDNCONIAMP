@@ -40,6 +40,11 @@ namespace HDDNCONIAMP.DB.Model
         /// </summary>
         [Column(DbType = DbType.String)]
         public string HKVideoIP { get; set; }
+        /// <summary>
+        /// TCP转串口IP地址，字符串格式
+        /// </summary>
+        [Column(DbType = DbType.String)]
+        public string TCPToCOMIP { get; set; }
 
         /// <summary>
         /// 字符串转换
@@ -52,7 +57,8 @@ namespace HDDNCONIAMP.DB.Model
                 "别名-" + Alias +
                 "音视频ID-" + AudioVideoID +
                 "265模块IP-" + Model265IP +
-                (HKVideoIP == null ? "" : "海康球机IP-" + HKVideoIP);
+                (HKVideoIP == null ? "" : "海康球机IP-" + HKVideoIP)+
+                "TCP转串口IP-"+TCPToCOMIP;
         }
     }
 }
