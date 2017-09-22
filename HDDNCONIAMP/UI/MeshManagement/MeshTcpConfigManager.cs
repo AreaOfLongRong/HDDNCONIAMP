@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HDDNCONIAMP.DB;
+using HDDNCONIAMP.DB.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +18,20 @@ namespace HDDNCONIAMP.UI.MeshManagement
         private MeshTcpConfigManager()
         {
             server = new TcpServer(9200);
+            server.OnWelcomeMessage += Server_OnWelcomeMessage;
+        }
+
+        private void Server_OnWelcomeMessage(TcpConnention conn)
+        {
+            string ipAddr = conn.ipAddr;
+            MeshDeviceInfo meshInfo = SQLiteHelper.GetInstance().MeshDeviceInfoQueryByIP(ipAddr);
+
+            if (null != conn.ipAddr)
+            {
+                SendMessageTo(ipAddr, MeshTcpConfigManager.GetChangePowerCommand((int)meshInfo.Power));
+                SendMessageTo(ipAddr, MeshTcpConfigManager.GetChangeRateCommand((int)meshInfo.Frequency));
+            }
+
         }
 
         /// <summary>
