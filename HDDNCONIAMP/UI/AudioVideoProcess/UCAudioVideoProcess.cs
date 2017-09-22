@@ -33,6 +33,15 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
         }
 
         /// <summary>
+        /// 获取视频网格所在位置的X值
+        /// </summary>
+        /// <returns></returns>
+        public int GetGridLocationX()
+        {
+            return collapsibleSplitContainer1.SplitterDistance + collapsibleSplitContainer1.SplitterWidth;
+        }
+
+        /// <summary>
         /// 初始化Mesh设备列表
         /// </summary>
         /// <param name="main"></param>

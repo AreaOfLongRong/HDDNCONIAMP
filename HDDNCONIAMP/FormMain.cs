@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using BMap.NET;
 using DevComponents.DotNetBar;
@@ -175,6 +176,16 @@ namespace HDDNCONIAMP
             {
                 OnUserLoginOrOutEventHandler(sender, e);
             }
+        }
+
+        public Point GetVideoFullScreenLocation()
+        {
+            Point p = new Point();            
+            p.X = superTabControlMain.Location.X + 
+                superTabControlPanelAudioVideoProcess.Location.X + 
+                ucAudioVideoProcess.GetGridLocationX();
+            p.Y = superTabControlMain.Location.Y;
+            return p;
         }
 
         #endregion

@@ -254,6 +254,48 @@ namespace BMap.NET.WindowsForm.Video
             }
         }
 
+        public void injectPanel(Panel panel, Point fullScreenLocation, Panel fullScreenPanel, string deviceID, string isFullScreen)
+        {
+            if (appWin != IntPtr.Zero)
+                return;
+            ProcessStartInfo psi = new ProcessStartInfo("SamplePlayClient\\SamplePlayClient.exe");
+            psi.RedirectStandardInput = true;
+            psi.RedirectStandardOutput = true;
+            psi.UseShellExecute = false;
+            psi.Arguments = string.Format("{0} {1} {2} {3} 0 {4} 0 0 {5} {6} {7} {8} {9} {10}",
+                localIP, mVideoServerUserName, mVideoServerUserName,
+                deviceID, isFullScreen,
+                panel.Width, panel.Height,
+                fullScreenLocation.X, fullScreenLocation.Y,
+                fullScreenPanel.Width, fullScreenPanel.Height);
+
+            _panelProcess = new Process();
+            _panelProcess.StartInfo = psi;
+            _panelProcess.EnableRaisingEvents = true;
+            _panelProcess.Exited += _process_Exited;
+            _panelProcess.Start();
+
+            if (_panelProcess.WaitForInputIdle())
+            {
+
+                while (_panelProcess.MainWindowHandle.ToInt32() == 0)
+                {
+                    Thread.Sleep(100);
+                    _panelProcess.Refresh();//必须刷新状态才能重新获得TITLE
+                }
+                _panelProcess.StartInfo = psi;
+
+                // Get the main handle
+                appWin = _panelProcess.MainWindowHandle;
+
+                // Put it into this form
+                SetParent(appWin, panel.Handle);
+                // Move the window to overlay it on this window
+                //MoveWindow(appWin, 0, 0, _mainParent.dockPanel1.Width, _mainParent.dockPanel1.Height, true);
+                MoveWindow(appWin, 0, 0, panel.Width, panel.Height, true);
+            }
+        }
+
         ~VideoInject()
         {
             if(_windowProcess != null && !_windowProcess.HasExited)
