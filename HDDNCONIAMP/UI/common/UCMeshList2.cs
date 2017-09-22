@@ -1,24 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using log4net;
-using HDDNCONIAMP.DB.Model;
-using DevComponents.AdvTree;
+using BMap.NET.WindowsForm;
 using BMap.NET.WindowsForm.BMapElements;
 using BMap.NET.WindowsForm.Video;
-using HDDNCONIAMP.Mesh;
-using BMap.NET.WindowsForm;
-using HDDNCONIAMP.UI.AudioVideoProcess;
+using DevComponents.AdvTree;
 using HDDNCONIAMP.DB;
-using System.Threading.Tasks;
-using System.Threading;
-using HDDNCONIAMP.Utils;
+using HDDNCONIAMP.DB.Model;
 using HDDNCONIAMP.Network;
+using HDDNCONIAMP.UI.AudioVideoProcess;
+using HDDNCONIAMP.Utils;
+using log4net;
 using NodeTopology;
 
 namespace HDDNCONIAMP.UI.Common
@@ -83,12 +78,7 @@ namespace HDDNCONIAMP.UI.Common
         #endregion
 
         #region 属性
-
-        /// <summary>
-        /// Mesh设备管理器
-        /// </summary>
-        public MeshDeviceManage MDManage { get; set; }
-
+        
         /// <summary>
         /// 获取或设置与本控件绑定的百度地图控件
         /// </summary>

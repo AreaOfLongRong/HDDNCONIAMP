@@ -31,7 +31,6 @@ namespace HDDNCONIAMP.UI.GISVideo
         {
             ucMeshDeviceListMain = new UCMeshList2(main);
             ucMeshDeviceListMain.BuddyBMapControl = this.bMapControl2Main;
-            ucMeshDeviceListMain.MDManage = main.MDManage;
             ucMeshDeviceListMain.Dock = DockStyle.Fill;
             ucMeshDeviceListMain.Location = new Point(0, 0);
             ucMeshDeviceListMain.Name = "ucMeshListmain";
