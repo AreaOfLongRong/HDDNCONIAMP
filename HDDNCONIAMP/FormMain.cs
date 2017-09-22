@@ -157,6 +157,11 @@ namespace HDDNCONIAMP
             timerUpdateTime.Stop();
             //通知各线程关闭
             LifeTimeControl.closing = true;
+            if (MeshTcpConfigManager.HasInstance())
+            {
+                MeshTcpConfigManager.GetInstance().CloseServer();
+            }
+
         }
 
         #region 公共方法

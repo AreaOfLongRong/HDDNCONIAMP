@@ -532,11 +532,11 @@ namespace HDDNCONIAMP.UI.MeshManagement
             {
                 LogHelper.WriteLog("循环扫描开始！！！");
 
-                LogHelper.WriteLog("PingSubNet:" + SubNet);
+                //LogHelper.WriteLog("PingSubNet:" + SubNet);
 
-                MyARPLIST.PingSubNet(SubNet);
+               // MyARPLIST.PingSubNet(SubNet);
 
-                LogHelper.WriteLog("PingSubNet结束!!!");
+               // LogHelper.WriteLog("PingSubNet结束!!!");
 
                 LogHelper.WriteLog("ReloadARP开始！！！");
 
@@ -2205,9 +2205,12 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                     SQLiteHelper.GetInstance().MeshDeviceInfoUpdate(meshInfo);
 
-                    //aim ip is wrong
-                    meshTcpManager.SendMessageTo(info.IpAddress, MeshTcpConfigManager.GetChangePowerCommand(itx));
-                    meshTcpManager.SendMessageTo(info.IpAddress, MeshTcpConfigManager.GetChangeRateCommand(irate));
+                    MeshPlanManage meshPlan = SQLiteHelper.GetInstance().MeshPlanQueryByMeshIP(info.IpAddress);
+                    if (meshPlan != null)
+                    {
+                        meshTcpManager.SendMessageTo(meshPlan.TCPToCOMIP, MeshTcpConfigManager.GetChangePowerCommand(itx));
+                        meshTcpManager.SendMessageTo(meshPlan.TCPToCOMIP, MeshTcpConfigManager.GetChangeRateCommand(irate));
+                    }
                     MessageBox.Show("设置成功");
                 }
 

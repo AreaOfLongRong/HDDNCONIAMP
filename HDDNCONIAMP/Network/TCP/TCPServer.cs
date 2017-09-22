@@ -55,14 +55,18 @@ namespace TCPServer
             while (_isRunning && !LifeTimeControl.closing)
             {
                 // wait for client connection
-                TcpClient newClient = _server.AcceptTcpClient();
+                if (_server.Pending())
+                {
+                    TcpClient newClient = _server.AcceptTcpClient();
 
-                // client found.
-                // create a thread to handle communication
-                TcpConnention conn = new TcpConnention(newClient);
-                Thread t = new Thread(new ParameterizedThreadStart(HandleClient));
-                _hashTable[conn.ipAddr] = conn;
-                t.Start(conn);
+                    // client found.
+                    // create a thread to handle communication
+                    TcpConnention conn = new TcpConnention(newClient);
+                    Thread t = new Thread(new ParameterizedThreadStart(HandleClient));
+                    _hashTable[conn.ipAddr] = conn;
+                    t.Start(conn);
+                }
+                
             }
         }
 

@@ -90,7 +90,6 @@ namespace NodeTopology
        // private static void listarp(ListBox l) 
          private void listarp()
         {
-
             try
             {
                 List<MIB_IPNETROW> ArpList = new List<MIB_IPNETROW>();
