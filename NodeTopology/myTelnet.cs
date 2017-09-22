@@ -58,11 +58,13 @@ namespace NodeTopology
         }
         public void close()
         {
-            client.Close();
+            if (client != null)
+                client.Close();
         }
         ~myTelnet()
         {
-            client.Close();
+            if (client != null)
+                client.Close();
         }
         /// <summary>
         /// 向服务器发送命令

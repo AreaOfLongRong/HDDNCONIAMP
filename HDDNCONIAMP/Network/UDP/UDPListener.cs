@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using HDDNCONIAMP.DB.Model;
+using HDDNCONIAMP.Utils;
 using log4net;
 using HDDNCONIAMP.Utils;
 

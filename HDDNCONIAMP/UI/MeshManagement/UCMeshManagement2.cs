@@ -39,12 +39,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
         /// 主窗体引用
         /// </summary>
         private FormMain mFormMain;
-
-        /// <summary>
-        /// Mesh设备列表
-        /// </summary>
-        private UCMeshList ucMeshListMain;
-
+        
         /// <summary>
         /// 当前Mesh设备操作类型
         /// </summary>
@@ -119,9 +114,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             InitializeComponent();
 
             mFormMain = formMain;
-
-            initMeshDeviceList(formMain);
-
+            
             initMeshPlanControlsDefaultValue();
 
             setTableLayoutPanelDoubleBufferd();
@@ -2149,16 +2142,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             tableLayoutPanelMeshLocalhostSetting.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshLocalhostSetting, true, null);
             tableLayoutPanelMeshTCP.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshTCP, true, null);
         }
-
-        private void initMeshDeviceList(FormMain main)
-        {
-            this.ucMeshListMain = new HDDNCONIAMP.UI.Common.UCMeshList(main);
-
-            ucMeshListMain.MDManage = mFormMain.MDManage;
-            ucMeshListMain.StartScanMeshDevice();
-
-        }
-
+        
         /// <summary>
         /// 初始化“Mesh基本参数配置”界面控件
         /// </summary>

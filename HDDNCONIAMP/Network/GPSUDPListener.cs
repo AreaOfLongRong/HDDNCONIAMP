@@ -127,36 +127,14 @@ namespace HDDNCONIAMP.Network
                     {
                         gpsdata[i - GPS_MESSAGE_HEADER_LENGTH] = bytes[i];
                     }
-                    string ip = ipendpoint.Address.ToString();
                     string message = Encoding.Default.GetString(gpsdata, 0, gpsdata.Length);
-                    logger.Info("收到来自“" + ip +
+                    logger.Info("收到来自ID为“" + deviceId +
                         "”的UDP消息：“" + message + "”。");
 
                     if (message.StartsWith("$GPRMC"))
                     {
                         //切割字符串
                         string[] temp = message.Split(',');
-                        //AudioAndVideoDevice device = new AudioAndVideoDevice();
-                        ////device.Name = ip;
-                        //device.Name = (bytes[4] << 24 | bytes[5] << 16 | bytes[6] << 8 | bytes[7]).ToString();  //设备的ID
-                        //try
-                        //{
-                        //    double[] latLon = GPS2BD09.wgs2bd(Double.Parse(temp[3].Substring(0, 2))
-                        //                        + Double.Parse(temp[3].Substring(2)) / 60.0,
-                        //                        Double.Parse(temp[5].Substring(0, 3))
-                        //                        + Double.Parse(temp[5].Substring(3)) / 60.0);
-                        //    device.Lat = latLon[0];
-                        //    device.Lon = latLon[1];
-                        //    device.Alias = device.Name;
-                        //    RaiseReceiveGPS(device);
-                        //}
-                        //catch (Exception ex)
-                        //{
-                        //    logger.Error("接收到的GPS位置信号有问题!", ex);
-                        //    device.Lat = 0;
-                        //    device.Lon = 0;
-                        //}
-
                         GPSInfo info = new GPSInfo();
                         info.ID = (bytes[4] << 24 | bytes[5] << 16 | bytes[6] << 8 | bytes[7]).ToString();  //设备的ID
                         try
@@ -170,9 +148,9 @@ namespace HDDNCONIAMP.Network
                         }
                         catch (Exception ex)
                         {
+                            //经纬度解析异常，继续下次数据接收
                             logger.Error("接收到的GPS位置信号有问题!", ex);
-                            info.Lat = 0;
-                            info.Lon = 0;
+                            continue;
                         }
                         info.Time = DateTime.Now.ToString();
                         //保存GPS信息到相应文件中

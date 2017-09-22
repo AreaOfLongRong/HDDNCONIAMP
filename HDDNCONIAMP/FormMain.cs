@@ -41,12 +41,7 @@ namespace HDDNCONIAMP
             get;
             set;
         }
-
-        /// <summary>
-        /// 获取或设置Mesh设备管理器
-        /// </summary>
-        public MeshDeviceManage MDManage { get; set; }
-
+        
         #endregion
 
         #region 自定义事件
@@ -116,8 +111,7 @@ namespace HDDNCONIAMP
             setTableLayoutPanelDoubleBufferd();
 
             labelXValidPeriod.Text = string.Format("测试版试用期截止时间：{0}", DEADLINE.ToShortDateString());
-
-            MDManage = new MeshDeviceManage();
+            
         }
 
         /// <summary>
