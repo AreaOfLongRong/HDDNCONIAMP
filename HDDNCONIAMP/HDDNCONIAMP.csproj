@@ -139,6 +139,7 @@
     <Compile Include="Network\GPSInfo.cs" />
     <Compile Include="Network\GPSUDPListener.cs" />
     <Compile Include="Network\NetworkListenerManage.cs" />
+    <Compile Include="Network\TCP\TCPServer.cs" />
     <Compile Include="Network\UDP\UDPListener.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -238,6 +239,7 @@
     </Compile>
     <Compile Include="Utils\ApplicationSettingKey.cs" />
     <Compile Include="Utils\FileUtils.cs" />
+    <Compile Include="Utils\LifeTimeControl.cs" />
     <Compile Include="Utils\NetUtils.cs" />
     <Compile Include="Utils\PathUtils.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -285,7 +287,7 @@
       <DependentUpon>UCUserSettings.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="DB\HDDNCONIAMP.db3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Documents\Help.docx" />
     <None Include="Documents\技术文档\GPS模块编程之NMEA0183协议.docx" />
@@ -407,10 +409,6 @@
     <ProjectReference Include="..\NodeTopology\NodeTopology.csproj">
       <Project>{7b6daac9-c270-4d82-9fea-72303369699a}</Project>
       <Name>NodeTopology</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TcpServer\TcpServer.csproj">
-      <Project>{dcce4881-88e3-44d6-9533-8c9e5a9d42d3}</Project>
-      <Name>TcpServer</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

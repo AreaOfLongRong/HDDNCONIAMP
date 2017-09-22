@@ -88,7 +88,7 @@ namespace HDDNCONIAMP.Network.UDP
         {
             //监听所有设备发来的UDP消息
             IPEndPoint ipendpoint = new IPEndPoint(IPAddress.Any, mPortReceive);
-            while (true)
+            while (!LifeTimeControl.closing)
             {
                 try
                 {

@@ -345,7 +345,7 @@ namespace HDDNCONIAMP.UI.Common
             Task.Factory.StartNew(
                 () =>
                 {
-                    while (true)
+                    while (!LifeTimeControl.closing)
                     {   //定时刷新设备状态
                         foreach (MeshAllInfo item in mMeshAllInfo)
                         {

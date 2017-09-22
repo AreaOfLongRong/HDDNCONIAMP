@@ -535,7 +535,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             string SubNet = "192.168.0.";
 
 
-            while (true)
+            while (!LifeTimeControl.closing)
             {
                 LogHelper.WriteLog("循环扫描开始！！！");
 
@@ -782,7 +782,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
         {
 
 
-            while (true)
+            while (!LifeTimeControl.closing)
             {
 
                 //争取在左上角加一个时间显示！！！
@@ -1812,7 +1812,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
         private void DrawNodeTest()
         {
 
-            while (true)
+            while (!LifeTimeControl.closing)
             {
 
                 ///随机增加层数和NODE数量，关系
@@ -2221,6 +2221,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                     SQLiteHelper.GetInstance().MeshDeviceInfoUpdate(meshInfo);
 
+                    //aim ip is wrong
                     meshTcpManager.SendMessageTo(info.IpAddress, MeshTcpConfigManager.GetChangePowerCommand(itx));
                     meshTcpManager.SendMessageTo(info.IpAddress, MeshTcpConfigManager.GetChangeRateCommand(irate));
                     MessageBox.Show("设置成功");
