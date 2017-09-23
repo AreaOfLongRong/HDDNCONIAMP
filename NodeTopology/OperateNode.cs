@@ -58,11 +58,8 @@ namespace NodeTopology
 
             foreach (var device in devices)
             {
-                if (device.Description.Contains("Ethernet"))
-                {
-                    MyNIC[j] = device.Description;
-                    j++;
-                }
+                MyNIC[j] = device.Description;
+                j++;
             }
 
             return MyNIC;
