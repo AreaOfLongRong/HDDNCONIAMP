@@ -26,7 +26,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             string ipAddr = conn.ipAddr;
             MeshDeviceInfo meshInfo = SQLiteHelper.GetInstance().MeshDeviceInfoQueryByIP(ipAddr);
 
-            if (null != conn.ipAddr)
+            if (null != conn.ipAddr && null != meshInfo)
             {
                 SendMessageTo(ipAddr, MeshTcpConfigManager.GetChangePowerCommand((int)meshInfo.Power));
                 SendMessageTo(ipAddr, MeshTcpConfigManager.GetChangeRateCommand((int)meshInfo.Frequency));

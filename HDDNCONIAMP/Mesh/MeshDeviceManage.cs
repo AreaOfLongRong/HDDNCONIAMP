@@ -320,8 +320,7 @@ namespace HDDNCONIAMP.Mesh
             List<string> nics = new List<string>();
             foreach (var device in CaptureDeviceList.Instance)
             {
-                if (device.Description.Contains("Ethernet"))
-                    nics.Add(device.Description);
+                nics.Add(device.Description);
             }
             return nics.ToArray();
 

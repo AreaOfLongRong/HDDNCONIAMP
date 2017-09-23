@@ -121,14 +121,20 @@ namespace TCPServer
             String sData = null;
 
             OnWelcomeMessage?.Invoke(conn);
-            while (client.Connected)
+            try
             {
-                // reads from stream
-                sData = conn.sReader.ReadLine();
-
-                // shows content on the console.
-                Console.WriteLine("Client &gt; " + sData);
+                while (client.Connected)
+                {
+                    sData = conn.sReader.ReadLine();
+                    // shows content on the console.
+                    Console.WriteLine("Client &gt; " + sData);
+                }
             }
+            catch
+            {
+
+            }
+            
             _hashTable.Remove(conn.ipAddr);
         }
     }

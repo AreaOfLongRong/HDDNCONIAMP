@@ -280,7 +280,10 @@ namespace HDDNCONIAMP.DB
         /// <returns>Mesh设备信息对象</returns>
         public MeshDeviceInfo MeshDeviceInfoQueryByIP(string meshIP)
         {
-            return context.Query<MeshDeviceInfo>().Where(m => m.IPV4 == meshIP).First();
+            int count = context.Query<MeshDeviceInfo>().Where(m => m.IPV4 == meshIP).Count();
+            if (count>0)
+                return context.Query<MeshDeviceInfo>().Where(m => m.IPV4 == meshIP).First();
+            return null;
         }
 
         #endregion
