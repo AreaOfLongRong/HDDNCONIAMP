@@ -28,6 +28,9 @@ namespace HDDNCONIAMP
                 logger.Info("启动程序...");
                 Application.Run(new FormMain());
             }
+            catch(AccessViolationException ave) {
+                logger.Error(" 尝试读取或写入受保护的内存", ave);
+            }
             catch (Exception ex)
             {
                 logger.Error("程序出现异常：" + ex.ToString());

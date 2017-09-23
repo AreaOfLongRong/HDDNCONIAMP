@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
@@ -50,7 +51,7 @@ namespace HDDNCONIAMP.UI.Common
         /// <summary>
         /// Mesh设备所有信息结构体
         /// </summary>
-        private struct MeshAllInfo
+        private class MeshAllInfo
         {
             /// <summary>
             /// 获取或设置设备基本信息
@@ -78,7 +79,7 @@ namespace HDDNCONIAMP.UI.Common
         #endregion
 
         #region 属性
-        
+
         /// <summary>
         /// 获取或设置与本控件绑定的百度地图控件
         /// </summary>
@@ -106,6 +107,8 @@ namespace HDDNCONIAMP.UI.Common
             loadMeshDeviceGroupFromDB();
             loadMeshDeviceFromDB();
             buttonItemExpandAll_Click(null, null);
+
+            mFormMain.NLM.PGPSUDPListener.OnReceiveGPSInfo += PGPSUDPListener_OnReceiveGPSInfo;
 
             startTaskToRefreshMeshList();
         }
@@ -221,26 +224,45 @@ namespace HDDNCONIAMP.UI.Common
         private void advTreeMeshList_NodeClick(object sender, TreeNodeMouseEventArgs e)
         {
             Node selectNode = advTreeMeshList.SelectedNode;
+
+            //设备不在线，不执行后续操作
+            //if (selectNode.Level != 1 || selectNode.Cells[1].Text.Equals("离线"))
+            if (selectNode.Level != 1)
+            {
+                return;
+            }
+
             Cell selectCell = selectNode.GetCellAt(e.X, e.Y);
-            if (selectNode.Level == 1)
+            if (selectNode.Level == 1 && selectCell.Images != null)
             {
                 MeshAllInfo mai = (MeshAllInfo)selectNode.Tag;
                 GPSInfo vp = mai.MeshGPSInfo;
-                if (selectCell.Images.ImageIndex == 9 && BuddyBMapControl != null)
+                //GPS坐标为（0,0），不能执行定位操作
+                if (selectCell.Images.ImageIndex == 9 &&
+                    vp.Lat == 0 && vp.Lon == 0
+                    && BuddyBMapControl != null)
                 {
                     //地图上跳转到设备所在的位置
                     BuddyBMapControl.Center = new LatLngPoint(vp.Lon, vp.Lat);
                     BuddyBMapControl.Locate(false);
                 }
-                else if (selectCell.Images.ImageIndex == 10 && BuddyGrid != null)
+                else if (selectCell.Images.ImageIndex == 10)
                 {
                     VideoInject inject = new VideoInject(mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerIPV4],
                         mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerUserName],
                         mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerPassword]);
-                    inject.injectPanel(BuddyGrid.GetNextAvailablePanel(), 
-                        mFormMain.GetVideoFullScreenLocation(), 
-                        BuddyGrid.GetFullScreenPanel(), 
-                        mai.PlanInfo.Model265ID, "0");
+                    if (BuddyBMapControl != null)
+                    {
+                        Process p = inject.injectWindow(mai.PlanInfo.Model265ID);
+                        logger.Info("调用视频：" + p.StartInfo.Arguments);
+                    }
+                    else if (BuddyGrid != null)
+                    {
+                        inject.injectPanel(BuddyGrid.GetNextAvailablePanel(),
+                            mFormMain.GetVideoFullScreenLocation(),
+                            BuddyGrid.GetFullScreenPanel(),
+                            mai.PlanInfo.Model265ID, "0");
+                    }
                 }
             }
         }
@@ -264,7 +286,6 @@ namespace HDDNCONIAMP.UI.Common
                     break;
                 case 1:
                     //处理设备节点的元素编辑事件
-                    ((BMeshPoint)editNode.Tag).Alias = e.NewText;
                     break;
             }
         }
@@ -282,6 +303,39 @@ namespace HDDNCONIAMP.UI.Common
                 //拖动设备
                 advTreeMeshList.DoDragDrop(selectNode, DragDropEffects.Copy);
             }
+        }
+
+        /// <summary>
+        /// 接收到GPS信号事件
+        /// </summary>
+        /// <param name="gpsInfo">GPS信息</param>
+        private void PGPSUDPListener_OnReceiveGPSInfo(GPSInfo gpsInfo)
+        {
+            MeshAllInfo mesh = mMeshAllInfo.Find(m => m.PlanInfo.Model265ID == gpsInfo.ID);
+
+            if (mesh.PlanInfo != null)
+            {
+                GPSInfo gi = mesh.MeshGPSInfo;
+                gi.Time = gpsInfo.Time;
+                gi.Lat = gpsInfo.Lat;
+                gi.Lon = gpsInfo.Lon;
+                mesh.MeshGPSInfo = gi;
+
+                BMeshPoint bmp = mesh.BuddyBMeshPoint;
+                bmp.Location = new LatLngPoint(gpsInfo.Lon, gpsInfo.Lat);
+                mesh.BuddyBMeshPoint = bmp;
+            }
+
+            BMeshPoint p = mBMeshPoints.Find(b => b.IPV4 == mesh.PlanInfo.MeshIP);
+            if (p != null)
+            {
+                p.Location = new LatLngPoint(gpsInfo.Lon, gpsInfo.Lat);
+                if (BuddyBMapControl != null)
+                {
+                    BuddyBMapControl.AddMeshDevicePlaces(mBMeshPoints);
+                }
+            }
+
         }
 
         #region 拖拽事件处理
@@ -370,7 +424,8 @@ namespace HDDNCONIAMP.UI.Common
                 if (this.advTreeMeshList.InvokeRequired)
                 {
                     updateAdvTreeMeshList uatml = new updateAdvTreeMeshList(doUpdateAdvTreeMeshList);
-                    this.Invoke(uatml, mai, args);
+                    //this.Invoke(uatml, mai, args);
+                    advTreeMeshList.BeginInvoke(uatml, mai, args);
                 }
                 else
                 {
@@ -441,7 +496,7 @@ namespace HDDNCONIAMP.UI.Common
                                 GroupName = item.GroupName,
                                 Alias = item.Alias,
                                 IPV4 = item.IPV4,
-                                VideoID = mpm.Model265ID,
+                                Model265ID = mpm.Model265ID,
                                 Power = item.Power,
                                 Frequency = item.Frequency,
                                 BandWidth = item.BandWidth,
@@ -484,8 +539,6 @@ namespace HDDNCONIAMP.UI.Common
                 }
             }
         }
-
-
 
         #endregion
 

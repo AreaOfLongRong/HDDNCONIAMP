@@ -39,7 +39,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
         /// 主窗体引用
         /// </summary>
         private FormMain mFormMain;
-        
+
         /// <summary>
         /// 当前Mesh设备操作类型
         /// </summary>
@@ -114,7 +114,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             InitializeComponent();
 
             mFormMain = formMain;
-            
+
             initMeshPlanControlsDefaultValue();
 
             setTableLayoutPanelDoubleBufferd();
@@ -143,15 +143,15 @@ namespace HDDNCONIAMP.UI.MeshManagement
             SendMessage(editHandle, EM_SETREADONLY, 1, 0);
 
             string[] cards = OperateNode.NetworkInterfaceCard();
-            if(cards != null)
+            if (cards != null)
             {
                 this.comboBoxNetworkCard.DataSource = cards;
-                this.comboBoxNetworkCard.SelectedIndex = 0;
+                //this.comboBoxNetworkCard.SelectedIndex = 0;
             }
             else
             {
                 MessageBox.Show("未找到网卡，请检查网卡是否正常开启！！！", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }            
+            }
         }
 
         /// <summary>
@@ -178,16 +178,23 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
         private void buttonXRefreshTopology_Click(object sender, EventArgs e)
         {
-            if (buttonXRefreshTopology.Text.Equals(startRefreshTopologyStr))
-            {
-                StartTopology();
-                buttonXRefreshTopology.Text = stopRefeshTopologyStr;
-            }
-            else
-            {
-                StopTopology();
-                buttonXRefreshTopology.Text = startRefreshTopologyStr;
-            }
+            StartTopology();
+            buttonXRefreshTopology.Enabled = false;
+            buttonXRefreshTopology.Text = "网络拓扑刷新中...";
+            buttonXStopRefresh.Enabled = true;
+        }
+
+        /// <summary>
+        /// 停止刷新网络拓扑
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonXStopRefresh_Click(object sender, EventArgs e)
+        {
+            StopTopology();
+            buttonXRefreshTopology.Enabled = true;
+            buttonXRefreshTopology.Text = "刷新网络拓扑";
+            buttonXStopRefresh.Enabled = false;
         }
 
         private void StartTopology()
@@ -196,10 +203,10 @@ namespace HDDNCONIAMP.UI.MeshManagement
             {
                 GetRealInfoThread.Abort();
             }
-            
+
             GetRealInfoThread = new Thread(GetRealInfo);
             GetRealInfoThread.Start();
-            
+
             if (RefreshPanelContext != null)
             {
                 RefreshPanelContext.Abort();
@@ -314,7 +321,8 @@ namespace HDDNCONIAMP.UI.MeshManagement
                     if (hashTable.ContainsKey(needInfoNode))
                     {
                         cacheNode = (node)hashTable[needInfoNode];
-                    }else
+                    }
+                    else
                     {
                         MeshDeviceInfo meshInfo = SQLiteHelper.GetInstance().MeshDeviceInfoQueryByIP(TheNode.IpAddress);
                         if (meshInfo != null)
@@ -563,9 +571,9 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                 //LogHelper.WriteLog("PingSubNet:" + SubNet);
 
-               // MyARPLIST.PingSubNet(SubNet);
+                // MyARPLIST.PingSubNet(SubNet);
 
-               // LogHelper.WriteLog("PingSubNet结束!!!");
+                // LogHelper.WriteLog("PingSubNet结束!!!");
 
                 LogHelper.WriteLog("ReloadARP开始！！！");
 
@@ -1712,9 +1720,9 @@ namespace HDDNCONIAMP.UI.MeshManagement
                 {
                     tn.close();
                 }
-                
+
             }//if end
-            
+
         }
 
 
@@ -1950,16 +1958,16 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
         private void buttonItemMPMDelete_Click(object sender, EventArgs e)
         {
-            if(dataGridViewXMeshPlan.SelectedRows != null)
+            if (dataGridViewXMeshPlan.SelectedRows != null)
             {
                 updateMeshPlanControlsState(false);
-               DialogResult result =  MessageBox.Show("确定删除该预案?", "询问", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                if(result == DialogResult.OK)
+                DialogResult result = MessageBox.Show("确定删除该预案?", "询问", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (result == DialogResult.OK)
                 {
                     //删除选中的预案
                     string meshIP = dataGridViewXMeshPlan.SelectedRows[0].Cells[2].Value.ToString();
                     int count = SQLiteHelper.GetInstance().MeshPlanDelete(meshIP);
-                    if(count == 1)
+                    if (count == 1)
                     {
                         logger.Info("成功删除Mesh设备IP为“" + meshIP + "”的预案");
                         MessageBox.Show("删除成功!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -2020,11 +2028,11 @@ namespace HDDNCONIAMP.UI.MeshManagement
                     mpm2.TCPToCOMIP = ipAddressInputMPMTCPToCOM.Value;
                     //mpm.HKVideoIP = ipAddressInputMeshPlanHKIP.Value;
                     int count = SQLiteHelper.GetInstance().MeshPlanUpdate(mpm2);
-                    if(count == 1)
+                    if (count == 1)
                     {
                         MessageBox.Show("修改成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         logger.Info("修改预案：" + mpm2.ToString());
-                    }                    
+                    }
                     break;
             }
             updateMeshPlanTable();
@@ -2041,14 +2049,16 @@ namespace HDDNCONIAMP.UI.MeshManagement
         private void dataGridViewXMeshPlan_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             //选中单行
-            if(e.RowIndex >= 0 && dataGridViewXMeshPlan.SelectedRows.Count == 1)
+            if (e.RowIndex >= 0 && dataGridViewXMeshPlan.SelectedRows.Count == 1)
             {
                 DataGridViewRow row = dataGridViewXMeshPlan.SelectedRows[0];
                 textBoxXMeshPlanAlias.Tag = row.Cells[0].Value.ToString();
-                textBoxXMeshPlanAlias.Text = row.Cells[1].Value.ToString();
-                ipAddressInputMeshPlanMeshIP.Value = row.Cells[2].Value.ToString();
-                textBoxXMeshPlanModel265ID.Text = row.Cells[3].Value.ToString();
+                comboBoxExMPMGroupName.SelectedItem = row.Cells[1].Value.ToString();
+                textBoxXMeshPlanAlias.Text = row.Cells[2].Value.ToString();
+                ipAddressInputMeshPlanMeshIP.Value = row.Cells[3].Value.ToString();
                 ipAddressInputMeshPlanModel265IP.Value = row.Cells[4].Value.ToString();
+                textBoxXMeshPlanModel265ID.Text = row.Cells[5].Value.ToString();
+                ipAddressInputMPMTCPToCOM.Value = row.Cells[6].Value.ToString();
                 mCurrentMPOType = MeshPlanOperatorType.Edit;
                 buttonXMeshPlanAdd.Text = "修改预案";
                 updateMeshPlanControlsState(true);
@@ -2159,7 +2169,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
         /// 修改指定网卡的IP地址
         /// </summary>
         private void modifyLocalIP()
-        { 
+        {
             if (NetUtils.ConfigNetworkCardIPAddress(comboBoxNetworkCard.SelectedItem.ToString(), ipAddressInputLocal.Text))
             {
                 MessageBox.Show("IP地址配置成功!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -2189,7 +2199,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             tableLayoutPanelMeshLocalhostSetting.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshLocalhostSetting, true, null);
             tableLayoutPanelMeshTCP.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshTCP, true, null);
         }
-        
+
         /// <summary>
         /// 初始化“Mesh基本参数配置”界面控件
         /// </summary>
