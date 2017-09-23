@@ -16,35 +16,40 @@ namespace HDDNCONIAMP.DB.Model
         [AutoIncrement]
         public virtual int ID { get; set; }
         /// <summary>
-        /// Mesh设备IP地址，字符串格式
+        /// Mesh设备分组名称，字符串格式
         /// </summary>
         [Column(DbType = DbType.String)]
-        public string MeshIP { get; set; }
+        public string GroupName { get; set; }
         /// <summary>
         /// Mesh设备IP地址，字符串格式
         /// </summary>
         [Column(DbType = DbType.String)]
         public string Alias { get; set; }
         /// <summary>
-        /// 音视频设备ID，字符串格式
+        /// Mesh设备IP地址，字符串格式
         /// </summary>
         [Column(DbType = DbType.String)]
-        public string AudioVideoID { get; set; }
+        public string MeshIP { get; set; }
         /// <summary>
         /// 265模块IP地址，字符串格式
         /// </summary>
         [Column(DbType = DbType.String)]
         public string Model265IP { get; set; }
         /// <summary>
-        /// 海康云台球机设备IP地址，字符串格式
+        /// 265模块ID，字符串格式
         /// </summary>
         [Column(DbType = DbType.String)]
-        public string HKVideoIP { get; set; }
+        public string Model265ID { get; set; }
         /// <summary>
         /// TCP转串口IP地址，字符串格式
         /// </summary>
         [Column(DbType = DbType.String)]
         public string TCPToCOMIP { get; set; }
+        /// <summary>
+        /// 海康云台球机设备IP地址，字符串格式
+        /// </summary>
+        [Column(DbType = DbType.String)]
+        public string HKVideoIP { get; set; }
 
         /// <summary>
         /// 字符串转换
@@ -53,12 +58,13 @@ namespace HDDNCONIAMP.DB.Model
         public override string ToString()
         {
             return "预案ID-" + ID +
-                "Mesh设备IP-" + MeshIP +
+                "分组名称-" + GroupName +
                 "别名-" + Alias +
-                "音视频ID-" + AudioVideoID +
+                "Mesh设备IP-" + MeshIP +
                 "265模块IP-" + Model265IP +
-                (HKVideoIP == null ? "" : "海康球机IP-" + HKVideoIP)+
-                "TCP转串口IP-"+TCPToCOMIP;
+                "265模块ID-" + Model265ID +
+                "TCP转串口IP-" + TCPToCOMIP +
+                (HKVideoIP == null ? "" : "海康球机IP-" + HKVideoIP);
         }
     }
 }
