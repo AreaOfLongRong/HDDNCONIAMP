@@ -158,6 +158,7 @@ namespace HDDNCONIAMP
             logger.Info("关闭监听线程...");
             if (NLM != null)
                 NLM.Stop();
+
             if (ucMeshManagement2 != null)
                 ucMeshManagement2.StopTopology();
             //通知各线程关闭
