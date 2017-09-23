@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows.Forms;
 using log4net;
 using log4net.Config;
+using System.Diagnostics;
 
 namespace HDDNCONIAMP
 {
@@ -14,6 +15,21 @@ namespace HDDNCONIAMP
         [STAThread]
         static void Main()
         {
+            Process currentProcess = Process.GetCurrentProcess();
+            string strProcessName = currentProcess.ProcessName;
+            ////获取版本号 
+            //CommonData.VersionNumber = Application.ProductVersion; 
+            //检查进程是否已经启动，已经启动则显示报错信息退出程序。 
+            Process[] processList = Process.GetProcessesByName(strProcessName);
+            foreach (Process process in processList)
+            {
+                if (currentProcess.Id != process.Id)
+                {
+                    process.Kill();
+                }
+            }
+
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
