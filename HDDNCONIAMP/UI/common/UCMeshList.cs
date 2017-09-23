@@ -49,12 +49,7 @@ namespace HDDNCONIAMP.UI.Common
         /// 设备标注点列表
         /// </summary>
         private List<BVideoPoint> mBVideoPoints = new List<BVideoPoint>();
-
-        /// <summary>
-        /// 视频封装
-        /// </summary>
-        private VideoInject inject = new VideoInject();
-
+        
         #endregion
 
         #region 属性

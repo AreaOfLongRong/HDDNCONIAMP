@@ -172,10 +172,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
         }
 
         #region 网络拓扑事件处理
-
-        private string startRefreshTopologyStr = "刷新网络拓扑";
-        private string stopRefeshTopologyStr = "停止刷新";
-
+        
         private void buttonXRefreshTopology_Click(object sender, EventArgs e)
         {
             StartTopology();
@@ -592,12 +589,11 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                 LogHelper.WriteLog("TestGetIniMACandIP结束！！！");
 
-                if (RootIp == null || RootIp.Equals(string.Empty))
-                {
-                    MessageBox.Show("未获取到根节点IP信息，请检查网络连接是否正常！");
-
-                    return;
-                }
+                //if (RootIp == null || RootIp.Equals(string.Empty))
+                //{
+                //    logger.Error(DateTime.Now.ToString() + "-未获取到根节点IP信息，请检查网络连接是否正常！");
+                //    continue;
+                //}
 
                 LogHelper.WriteLog("加入根节点AddNodes()开始！！！");
 
@@ -1213,7 +1209,14 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                 foreach (node Si in pnodelist)
                 {
-                    LogHelper.WriteLog(Si.IpAddress.PadLeft(20, ' ') + Si.MacAddress.PadLeft(20, ' ') + Si.BandWidth.ToString().PadLeft(10, ' ') + Si.TxPower.ToString().PadLeft(10, ' ') + Si.Frequency.ToString().PadLeft(10, ' ') + Si.Battery.ToString().PadLeft(10, ' '));
+                    try
+                    {
+                        LogHelper.WriteLog(Si.IpAddress.PadLeft(20, ' ') + Si.MacAddress.PadLeft(20, ' ') + Si.BandWidth.ToString().PadLeft(10, ' ') + Si.TxPower.ToString().PadLeft(10, ' ') + Si.Frequency.ToString().PadLeft(10, ' ') + Si.Battery.ToString().PadLeft(10, ' '));
+                    }
+                    catch(Exception e)
+                    {
+
+                    }
                 }
 
                 LogHelper.WriteLog(" Relation Discover Report");
@@ -2292,7 +2295,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
             else
             {
                 currentNodeName = null;
-
                 ipAddressInputMeshIP.Value = "";
             }
         }
