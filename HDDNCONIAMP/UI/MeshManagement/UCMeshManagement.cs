@@ -194,10 +194,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             //urinatedong 2017.3.5
             this.MYBlockNodes.Nodelist.Add(RootNode);
         }
-
-
-
-
+        
         public void TestSendTelnetTelegram(string needInfoNode)
         {
 
@@ -1258,10 +1255,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             }
         }
         #endregion
-
-
-
-
+        
         #region 离线测试
         /// <summary>
         /// urinatedong 20170314
