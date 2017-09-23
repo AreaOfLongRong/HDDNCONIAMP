@@ -49,6 +49,9 @@ namespace HDDNCONIAMP.DB
         public bool UserLogin(string userName, string password)
         {
             IQuery<User> q = context.Query<User>();
+            if (q == null)
+                return false;
+
             int count = q.Where(u => u.Name.Equals(userName) && u.Password.Equals(password)).Count();
             return count > 0;
         }
@@ -83,6 +86,7 @@ namespace HDDNCONIAMP.DB
         public User UserSearchByName(string userName)
         {
             IQuery<User> q = context.Query<User>();
+
             return q.Where(u => u.Name == userName).First();
         }
 
@@ -388,6 +392,20 @@ namespace HDDNCONIAMP.DB
         public MeshPlanManage MeshPlanQueryByMeshIP(string meshIP)
         {
             return context.Query<MeshPlanManage>().Where(m => m.MeshIP == meshIP).First();
+        }
+
+        /// <summary>
+        /// 检索指定的TCP转串口IP对应的预案
+        /// </summary>
+        /// <param name="tcpToCOMIP">TCP转串口IP</param>
+        /// <returns></returns>
+        public MeshPlanManage MeshPlanQuerByTCPToCOMIP(string tcpToCOMIP)
+        {
+            IQuery<MeshPlanManage> result = context.Query<MeshPlanManage>().Where(m => m.TCPToCOMIP == tcpToCOMIP);
+            if (result != null)
+                return result.First();
+            else
+                return null;
         }
 
         #endregion
