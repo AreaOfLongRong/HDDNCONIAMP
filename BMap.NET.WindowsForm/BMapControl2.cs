@@ -127,6 +127,25 @@ namespace BMap.NET.WindowsForm
             get;
             set;
         }
+
+        /// <summary>
+        /// 视频服务器IP地址
+        /// </summary>
+        [Description("视频服务器IP地址"), Category("BMap.NET")]
+        public string VideoServerIP { get; set; }
+
+        /// <summary>
+        /// 视频服务器用户名
+        /// </summary>
+        [Description("视频服务器IP地址"), Category("BMap.NET")]
+        public string VideoServerUserName { get; set; }
+
+        /// <summary>
+        /// 视频服务器密码
+        /// </summary>
+        [Description("视频服务器IP地址"), Category("BMap.NET")]
+        public string VideoServerPassword { get; set; }
+
         #endregion
 
         #region 字段
@@ -737,7 +756,8 @@ namespace BMap.NET.WindowsForm
                     {
                         this.Invoke((Action)delegate ()
                         {
-                            BMarker marker = new BMarker {
+                            BMarker marker = new BMarker
+                            {
                                 Index = _markers.Count,
                                 Location = p,
                                 Name = "热点" + _markers.Count,
@@ -1175,6 +1195,9 @@ namespace BMap.NET.WindowsForm
                     //Z-20170920：打开视频设备界面
                     _mUCVideosControl.Location = new Point(e.X - _mUCVideosControl.Width / 2, e.Y - _mUCVideosControl.Height - 36);
                     _mUCVideosControl.Visible = true;
+                    _mUCVideosControl.VideoServerIP = VideoServerIP;
+                    _mUCVideosControl.VideoServerUserName = VideoServerUserName;
+                    _mUCVideosControl.VideoServerPassword = VideoServerPassword;
 
                     foreach (KeyValuePair<string, BMeshPoint> vv in _meshPoints)
                     {
@@ -1728,7 +1751,9 @@ namespace BMap.NET.WindowsForm
             _meshPoints.Clear();
             foreach (BMeshPoint mesh in places)
             {
-                _meshPoints.Add(mesh.MACAddress, mesh);
+                //如果设备位置在（0,0），说明未获取到GPS信息，暂时不绘制
+                if (mesh.Location.Lat != 0 && mesh.Location.Lng != 0)
+                    _meshPoints.Add(mesh.IPV4, mesh);
             }
             Invalidate();
         }

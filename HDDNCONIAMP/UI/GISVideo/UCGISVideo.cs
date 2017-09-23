@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using HDDNCONIAMP.UI.Common;
+using HDDNCONIAMP.Utils;
 
 namespace HDDNCONIAMP.UI.GISVideo
 {
@@ -21,6 +22,13 @@ namespace HDDNCONIAMP.UI.GISVideo
             InitializeComponent();
             //initUCDeviceList(main);
             initUCMeshList(main);
+
+            this.bMapControl2Main.VideoServerIP = 
+                main.AllApplicationSetting[ApplicationSettingKey.VideoServerIPV4];
+            this.bMapControl2Main.VideoServerUserName =
+                main.AllApplicationSetting[ApplicationSettingKey.VideoServerUserName];
+            this.bMapControl2Main.VideoServerPassword =
+                main.AllApplicationSetting[ApplicationSettingKey.VideoServerPassword];
         }
 
         /// <summary>

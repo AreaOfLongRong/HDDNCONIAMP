@@ -41,7 +41,7 @@ namespace HDDNCONIAMP
             get;
             set;
         }
-        
+
         #endregion
 
         #region 自定义事件
@@ -111,7 +111,7 @@ namespace HDDNCONIAMP
             setTableLayoutPanelDoubleBufferd();
 
             labelXValidPeriod.Text = string.Format("测试版试用期截止时间：{0}", DEADLINE.ToShortDateString());
-            
+
         }
 
         /// <summary>
@@ -156,8 +156,10 @@ namespace HDDNCONIAMP
             //停止计时器
             timerUpdateTime.Stop();
             logger.Info("关闭监听线程...");
-            NLM.Stop();
-            ucMeshManagement2.StopTopology();
+            if (NLM != null)
+                NLM.Stop();
+            if (ucMeshManagement2 != null)
+                ucMeshManagement2.StopTopology();
             //通知各线程关闭
             LifeTimeControl.closing = true;
             if (MeshTcpConfigManager.HasInstance())
@@ -184,9 +186,9 @@ namespace HDDNCONIAMP
 
         public Point GetVideoFullScreenLocation()
         {
-            Point p = new Point();            
-            p.X = superTabControlMain.Location.X + 
-                superTabControlPanelAudioVideoProcess.Location.X + 
+            Point p = new Point();
+            p.X = superTabControlMain.Location.X +
+                superTabControlPanelAudioVideoProcess.Location.X +
                 ucAudioVideoProcess.GetGridLocationX();
             p.Y = superTabControlMain.Location.Y;
             return p;
@@ -431,7 +433,7 @@ namespace HDDNCONIAMP
             AllApplicationSetting = SQLiteHelper.GetInstance().ApplicationSettingAsDictionary();
             logger.Info("读取应用程序配置信息完毕！");
 
-            if(AllApplicationSetting[ApplicationSettingKey.BDMapCachePath].Trim() == "")
+            if (AllApplicationSetting[ApplicationSettingKey.BDMapCachePath].Trim() == "")
             {
                 AllApplicationSetting[ApplicationSettingKey.BDMapCachePath] =
                     PathUtils.BDMAP_CACHE_DEFAULT_PATH;

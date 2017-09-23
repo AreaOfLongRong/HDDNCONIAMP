@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCMeshManagement2));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.superTabControlMain = new DevComponents.DotNetBar.SuperTabControl();
             this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.tableLayoutPanelMeshPlan = new System.Windows.Forms.TableLayoutPanel();
@@ -44,6 +44,14 @@
             this.buttonItemMPMAddPlan = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemMPMDelete = new DevComponents.DotNetBar.ButtonItem();
             this.dataGridViewXMeshPlan = new DevComponents.DotNetBar.Controls.DataGridViewX();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnGroupName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnAlias = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MeshIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Model265ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Model265IP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnTCPToCOMIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HKVideoIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelX6 = new DevComponents.DotNetBar.LabelX();
             this.labelX7 = new DevComponents.DotNetBar.LabelX();
             this.labelX8 = new DevComponents.DotNetBar.LabelX();
@@ -101,14 +109,7 @@
             this.superTabItem3 = new DevComponents.DotNetBar.SuperTabItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnGroupName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnAlias = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MeshIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Model265ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Model265IP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnTCPToCOMIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HKVideoIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonXStopRefresh = new DevComponents.DotNetBar.ButtonX();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControlMain)).BeginInit();
             this.superTabControlMain.SuspendLayout();
             this.superTabControlPanel2.SuspendLayout();
@@ -153,8 +154,8 @@
             this.superTabControlMain.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.superTabControlMain.ControlBox.MenuBox,
             this.superTabControlMain.ControlBox.CloseBox});
-            this.superTabControlMain.Controls.Add(this.superTabControlPanel2);
             this.superTabControlMain.Controls.Add(this.superTabControlPanel1);
+            this.superTabControlMain.Controls.Add(this.superTabControlPanel2);
             this.superTabControlMain.Controls.Add(this.superTabControlPanel3);
             this.superTabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControlMain.Location = new System.Drawing.Point(0, 0);
@@ -329,14 +330,14 @@
             this.dataGridViewXMeshPlan.AllowUserToAddRows = false;
             this.dataGridViewXMeshPlan.AllowUserToDeleteRows = false;
             this.dataGridViewXMeshPlan.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewXMeshPlan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewXMeshPlan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridViewXMeshPlan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewXMeshPlan.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID,
@@ -347,14 +348,14 @@
             this.Model265IP,
             this.ColumnTCPToCOMIP,
             this.HKVideoIP});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewXMeshPlan.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewXMeshPlan.DefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridViewXMeshPlan.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewXMeshPlan.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dataGridViewXMeshPlan.Location = new System.Drawing.Point(3, 33);
@@ -367,6 +368,64 @@
             this.dataGridViewXMeshPlan.Size = new System.Drawing.Size(497, 424);
             this.dataGridViewXMeshPlan.TabIndex = 1;
             this.dataGridViewXMeshPlan.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewXMeshPlan_CellMouseClick);
+            // 
+            // ID
+            // 
+            this.ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.ID.HeaderText = "预案编码";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Width = 78;
+            // 
+            // ColumnGroupName
+            // 
+            this.ColumnGroupName.HeaderText = "分组名称";
+            this.ColumnGroupName.Name = "ColumnGroupName";
+            this.ColumnGroupName.ReadOnly = true;
+            // 
+            // ColumnAlias
+            // 
+            this.ColumnAlias.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.ColumnAlias.HeaderText = "别名";
+            this.ColumnAlias.Name = "ColumnAlias";
+            this.ColumnAlias.ReadOnly = true;
+            this.ColumnAlias.Width = 51;
+            // 
+            // MeshIP
+            // 
+            this.MeshIP.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.MeshIP.HeaderText = "Mesh设备IP";
+            this.MeshIP.Name = "MeshIP";
+            this.MeshIP.ReadOnly = true;
+            // 
+            // Model265ID
+            // 
+            this.Model265ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Model265ID.HeaderText = "265模块ID";
+            this.Model265ID.Name = "Model265ID";
+            this.Model265ID.ReadOnly = true;
+            // 
+            // Model265IP
+            // 
+            this.Model265IP.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Model265IP.HeaderText = "265模块IP";
+            this.Model265IP.Name = "Model265IP";
+            this.Model265IP.ReadOnly = true;
+            // 
+            // ColumnTCPToCOMIP
+            // 
+            this.ColumnTCPToCOMIP.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColumnTCPToCOMIP.HeaderText = "TCP转串口IP";
+            this.ColumnTCPToCOMIP.Name = "ColumnTCPToCOMIP";
+            this.ColumnTCPToCOMIP.ReadOnly = true;
+            // 
+            // HKVideoIP
+            // 
+            this.HKVideoIP.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.HKVideoIP.HeaderText = "海康视频IP";
+            this.HKVideoIP.Name = "HKVideoIP";
+            this.HKVideoIP.ReadOnly = true;
+            this.HKVideoIP.Visible = false;
             // 
             // labelX6
             // 
@@ -550,21 +609,24 @@
             // 
             // tableLayoutPanelMeshNodeTopology
             // 
-            this.tableLayoutPanelMeshNodeTopology.ColumnCount = 3;
+            this.tableLayoutPanelMeshNodeTopology.ColumnCount = 4;
             this.tableLayoutPanelMeshNodeTopology.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanelMeshNodeTopology.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelMeshNodeTopology.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 250F));
+            this.tableLayoutPanelMeshNodeTopology.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 125F));
+            this.tableLayoutPanelMeshNodeTopology.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 125F));
             this.tableLayoutPanelMeshNodeTopology.Controls.Add(this.groupPanel3, 2, 1);
             this.tableLayoutPanelMeshNodeTopology.Controls.Add(this.groupPanel2, 1, 1);
             this.tableLayoutPanelMeshNodeTopology.Controls.Add(this.groupPanel1, 0, 1);
             this.tableLayoutPanelMeshNodeTopology.Controls.Add(this.comboBoxNetworkCard, 0, 0);
             this.tableLayoutPanelMeshNodeTopology.Controls.Add(this.buttonXRefreshTopology, 2, 0);
+            this.tableLayoutPanelMeshNodeTopology.Controls.Add(this.buttonXStopRefresh, 3, 0);
             this.tableLayoutPanelMeshNodeTopology.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelMeshNodeTopology.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelMeshNodeTopology.Name = "tableLayoutPanelMeshNodeTopology";
             this.tableLayoutPanelMeshNodeTopology.RowCount = 2;
             this.tableLayoutPanelMeshNodeTopology.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanelMeshNodeTopology.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelMeshNodeTopology.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanelMeshNodeTopology.Size = new System.Drawing.Size(743, 460);
             this.tableLayoutPanelMeshNodeTopology.TabIndex = 1;
             // 
@@ -572,6 +634,7 @@
             // 
             this.groupPanel3.CanvasColor = System.Drawing.SystemColors.Control;
             this.groupPanel3.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
+            this.tableLayoutPanelMeshNodeTopology.SetColumnSpan(this.groupPanel3, 2);
             this.groupPanel3.Controls.Add(this.tableLayoutPanelMeshParameters);
             this.groupPanel3.DisabledBackColor = System.Drawing.Color.Empty;
             this.groupPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -933,10 +996,9 @@
             this.buttonXRefreshTopology.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.buttonXRefreshTopology.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonXRefreshTopology.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonXRefreshTopology.Image = global::HDDNCONIAMP.Properties.Resources.refresh_16;
             this.buttonXRefreshTopology.Location = new System.Drawing.Point(496, 3);
             this.buttonXRefreshTopology.Name = "buttonXRefreshTopology";
-            this.buttonXRefreshTopology.Size = new System.Drawing.Size(244, 24);
+            this.buttonXRefreshTopology.Size = new System.Drawing.Size(119, 24);
             this.buttonXRefreshTopology.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.buttonXRefreshTopology.TabIndex = 7;
             this.buttonXRefreshTopology.Text = "刷新网络拓扑";
@@ -1274,64 +1336,18 @@
             this.imageList1.Images.SetKeyName(3, "Router.png");
             this.imageList1.Images.SetKeyName(4, "NotOnling.png");
             // 
-            // ID
+            // buttonXStopRefresh
             // 
-            this.ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.ID.HeaderText = "预案编码";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Width = 78;
-            // 
-            // ColumnGroupName
-            // 
-            this.ColumnGroupName.HeaderText = "分组名称";
-            this.ColumnGroupName.Name = "ColumnGroupName";
-            this.ColumnGroupName.ReadOnly = true;
-            // 
-            // ColumnAlias
-            // 
-            this.ColumnAlias.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.ColumnAlias.HeaderText = "别名";
-            this.ColumnAlias.Name = "ColumnAlias";
-            this.ColumnAlias.ReadOnly = true;
-            this.ColumnAlias.Width = 54;
-            // 
-            // MeshIP
-            // 
-            this.MeshIP.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.MeshIP.HeaderText = "Mesh设备IP";
-            this.MeshIP.Name = "MeshIP";
-            this.MeshIP.ReadOnly = true;
-            // 
-            // Model265ID
-            // 
-            this.Model265ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Model265ID.HeaderText = "265模块ID";
-            this.Model265ID.Name = "Model265ID";
-            this.Model265ID.ReadOnly = true;
-            // 
-            // Model265IP
-            // 
-            this.Model265IP.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Model265IP.HeaderText = "265模块IP";
-            this.Model265IP.Name = "Model265IP";
-            this.Model265IP.ReadOnly = true;
-            // 
-            // ColumnTCPToCOMIP
-            // 
-            this.ColumnTCPToCOMIP.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColumnTCPToCOMIP.HeaderText = "TCP转串口IP";
-            this.ColumnTCPToCOMIP.Name = "ColumnTCPToCOMIP";
-            this.ColumnTCPToCOMIP.ReadOnly = true;
-            // 
-            // HKVideoIP
-            // 
-            this.HKVideoIP.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.HKVideoIP.HeaderText = "海康视频IP";
-            this.HKVideoIP.Name = "HKVideoIP";
-            this.HKVideoIP.ReadOnly = true;
-            this.HKVideoIP.Visible = false;
-            this.HKVideoIP.Width = 61;
+            this.buttonXStopRefresh.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXStopRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonXStopRefresh.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXStopRefresh.Location = new System.Drawing.Point(621, 3);
+            this.buttonXStopRefresh.Name = "buttonXStopRefresh";
+            this.buttonXStopRefresh.Size = new System.Drawing.Size(119, 23);
+            this.buttonXStopRefresh.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXStopRefresh.TabIndex = 8;
+            this.buttonXStopRefresh.Text = "停止刷新";
+            this.buttonXStopRefresh.Click += new System.EventHandler(this.buttonXStopRefresh_Click);
             // 
             // UCMeshManagement2
             // 
@@ -1450,5 +1466,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Model265IP;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnTCPToCOMIP;
         private System.Windows.Forms.DataGridViewTextBoxColumn HKVideoIP;
+        private DevComponents.DotNetBar.ButtonX buttonXStopRefresh;
     }
 }

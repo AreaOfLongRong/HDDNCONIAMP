@@ -14,6 +14,11 @@ namespace BMap.NET.WindowsForm.BMapElements
     {
 
         /// <summary>
+        /// 分组名称
+        /// </summary>
+        public string GroupName { get; set; }
+
+        /// <summary>
         /// 设备别名
         /// </summary>
         public string Alias
@@ -22,31 +27,20 @@ namespace BMap.NET.WindowsForm.BMapElements
             set;
         }
         /// <summary>
-        /// 分组名称
-        /// </summary>
-        public string GroupName { get; set; }
-
-        /// <summary>
         /// 设备IPV4地址
         /// </summary>
-        public string IPV4 { get; set; }
-        /// <summary>
-        /// 设备MAC地址
-        /// </summary>
-        public string MACAddress
-        {
+        public string IPV4 {
             get;
             set;
         }
         /// <summary>
-        /// 视频ID
+        /// 265模块ID
         /// </summary>
-        public string VideoID
+        public string Model265ID
         {
             get;
             set;
         }
-
         /// <summary>
         /// 设备功率
         /// </summary>
@@ -141,9 +135,9 @@ namespace BMap.NET.WindowsForm.BMapElements
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
+            sb.AppendLine("分   组：" + (GroupName == null ? "默认分组" : GroupName));
             sb.AppendLine("别   名：" + (Alias == null ? IPV4 : Alias));
             sb.AppendLine("IP 地址：" + IPV4);
-            sb.AppendLine("MAC地址：" + MACAddress);
             sb.AppendLine("功   率：" + Power + "W");
             sb.AppendLine("频   率：" + Frequency + "MHz");
             sb.AppendLine("带   宽：" + BandWidth + "Mb");
