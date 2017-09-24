@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkTest", "NetworkTest\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TcpServer", "TcpServer\TcpServer.csproj", "{DCCE4881-88E3-44D6-9533-8C9E5A9D42D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TcpClientTest", "TcpClientTest\TcpClientTest.csproj", "{4A2E1566-F2D4-4C1A-A4BD-ACFBC1EB0521}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -104,6 +106,18 @@ Global
 		{DCCE4881-88E3-44D6-9533-8C9E5A9D42D3}.Release|x64.Build.0 = Release|Any CPU
 		{DCCE4881-88E3-44D6-9533-8C9E5A9D42D3}.Release|x86.ActiveCfg = Release|Any CPU
 		{DCCE4881-88E3-44D6-9533-8C9E5A9D42D3}.Release|x86.Build.0 = Release|Any CPU
+		{4A2E1566-F2D4-4C1A-A4BD-ACFBC1EB0521}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A2E1566-F2D4-4C1A-A4BD-ACFBC1EB0521}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A2E1566-F2D4-4C1A-A4BD-ACFBC1EB0521}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4A2E1566-F2D4-4C1A-A4BD-ACFBC1EB0521}.Debug|x64.Build.0 = Debug|Any CPU
+		{4A2E1566-F2D4-4C1A-A4BD-ACFBC1EB0521}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4A2E1566-F2D4-4C1A-A4BD-ACFBC1EB0521}.Debug|x86.Build.0 = Debug|Any CPU
+		{4A2E1566-F2D4-4C1A-A4BD-ACFBC1EB0521}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A2E1566-F2D4-4C1A-A4BD-ACFBC1EB0521}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A2E1566-F2D4-4C1A-A4BD-ACFBC1EB0521}.Release|x64.ActiveCfg = Release|Any CPU
+		{4A2E1566-F2D4-4C1A-A4BD-ACFBC1EB0521}.Release|x64.Build.0 = Release|Any CPU
+		{4A2E1566-F2D4-4C1A-A4BD-ACFBC1EB0521}.Release|x86.ActiveCfg = Release|Any CPU
+		{4A2E1566-F2D4-4C1A-A4BD-ACFBC1EB0521}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
