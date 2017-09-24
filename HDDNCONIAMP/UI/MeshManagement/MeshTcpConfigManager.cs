@@ -23,14 +23,20 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
         private void Server_OnWelcomeMessage(TcpConnention conn)
         {
-            string ipAddr = conn.ipAddr;
-            MeshDeviceInfo meshInfo = SQLiteHelper.GetInstance().MeshDeviceInfoQueryByIP(ipAddr);
-
-            if (null != conn.ipAddr && null != meshInfo)
+            MeshDeviceInfo meshInfo = null;
+            string toCOMip = conn.ipAddr;
+            MeshPlanManage plan = SQLiteHelper.GetInstance().MeshPlanQuerByTCPToCOMIP(toCOMip);
+            if (plan != null)
             {
-                SendMessageTo(ipAddr, MeshTcpConfigManager.GetChangePowerCommand((int)meshInfo.Power));
-                SendMessageTo(ipAddr, MeshTcpConfigManager.GetChangeRateCommand((int)meshInfo.Frequency));
+                meshInfo = SQLiteHelper.GetInstance().MeshDeviceInfoQueryByIP(toCOMip);
             }
+
+            if ((meshInfo != null))
+            {
+                SendMessageTo(toCOMip, MeshTcpConfigManager.GetChangePowerCommand((int)meshInfo.Power));
+                SendMessageTo(toCOMip, MeshTcpConfigManager.GetChangeRateCommand((int)meshInfo.Frequency));
+            }
+            SendMessageTo(toCOMip, MeshTcpConfigManager.GetChangeRateCommand(656));
 
         }
 
@@ -84,7 +90,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             else
                 value = 10 * rate + 5 * bindWidth - 1728;
             if (value > 0)
-                return string.Format("[0] \r\n", value);
+                return string.Format("meshf{0}\r\n", ConvertToStringValue(value));
             return null;
         }
 
@@ -97,8 +103,29 @@ namespace HDDNCONIAMP.UI.MeshManagement
         {
             int value = power * 2;
             if (value > 0)
-                return String.Format("[0] \n\r", value);
+                return string.Format("meshl{0}\r\n", ConvertToStringValue(value));
             return null;
+        }
+
+        public static string ConvertToStringValue(int value)
+        {
+            string convertString = "";
+            if (value > 255 && value <65536)
+            {
+                int value_h = value / 256;
+                int value_l = value % 256;
+                byte[] bytes = new byte[2];
+                bytes[0] = (byte)value_l;
+                bytes[1] = (byte)value_h;
+                convertString = System.Text.Encoding.ASCII.GetString(bytes);
+            }
+            else if (value >= 0 && value<= 255)
+            {
+                byte[] bytes = new byte[1];
+                bytes[0] = (byte)value;
+                convertString = System.Text.Encoding.ASCII.GetString(bytes);
+            }
+            return convertString;
         }
     }
 }

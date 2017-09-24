@@ -293,13 +293,9 @@ namespace HDDNCONIAMP.UI.MeshManagement
             //urinatedong 2017.3.5
             this.MYBlockNodes.Nodelist.Add(RootNode);
         }
-
-
-
-
+        
         public void TestSendTelnetTelegram(string needInfoNode)
         {
-
             //需要在这里try catch finally 以关闭连接
             //必须关闭连接!!!!!! tn.close!!!!
 

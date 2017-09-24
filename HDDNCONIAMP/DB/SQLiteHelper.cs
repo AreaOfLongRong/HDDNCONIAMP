@@ -402,7 +402,8 @@ namespace HDDNCONIAMP.DB
         public MeshPlanManage MeshPlanQuerByTCPToCOMIP(string tcpToCOMIP)
         {
             IQuery<MeshPlanManage> result = context.Query<MeshPlanManage>().Where(m => m.TCPToCOMIP == tcpToCOMIP);
-            if (result != null)
+            int count = result.Count();
+            if (count > 0)
                 return result.First();
             else
                 return null;

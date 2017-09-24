@@ -28,7 +28,7 @@ namespace HDDNCONIAMP
                     process.Kill();
                 }
             }
-
+           
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
