@@ -12,6 +12,9 @@ using HDDNCONIAMP.Network;
 using HDDNCONIAMP.UI.AudioVideoProcess;
 using HDDNCONIAMP.Utils;
 using log4net;
+using NodeTopology;
+using System.Threading;
+using System.Net.NetworkInformation;
 
 namespace HDDNCONIAMP.UI.Common
 {
@@ -456,17 +459,25 @@ namespace HDDNCONIAMP.UI.Common
             Task.Factory.StartNew(
                 () =>
                 {
-                    //while (!LifeTimeControl.closing)
-                    //{   //定时刷新设备状态
-                    //    foreach (MeshAllInfo item in mMeshAllInfo)
-                    //    {
-                    //        myTelnet telnet = new myTelnet(item.DeviceInfo.IPV4);
-                    //        string receiveData = telnet.recvDataWaitWord("help", 1);
-                    //        doUpdateAdvTreeMeshList(item, receiveData.Length > 0 ? "在线" : "离线");
-                    //    }
-                    //    Thread.Sleep(int.Parse(mFormMain.AllApplicationSetting[ApplicationSettingKey.MeshListRefreshFrequency]));
-                    //}
+                    while (!LifeTimeControl.closing)
+                    {   
+                        foreach (MeshAllInfo item in mMeshAllInfo)
+                        {
+                            Ping myPing;
+                            myPing = new Ping();
+                            myPing.SendAsync(item.DeviceInfo.IPV4, item);
+                            myPing.PingCompleted += MyPing_PingCompleted;
+                            
+                        }
+                        Thread.Sleep(int.Parse(mFormMain.AllApplicationSetting[ApplicationSettingKey.MeshListRefreshFrequency]));
+                    }
                 });
+        }
+
+        private void MyPing_PingCompleted(object sender, PingCompletedEventArgs e)
+        {
+            MeshAllInfo item = (MeshAllInfo)e.UserState;
+            doUpdateAdvTreeMeshList(item, e.Reply.Status == IPStatus.Success ? "在线" : "离线");
         }
 
         /// <summary>
