@@ -1214,18 +1214,25 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                 foreach (relation R in prelationlist)
                 {
-                    LogHelper.WriteLog(R.Localnode.IpAddress.PadLeft(20, ' ') +
-                                              R.Localnode.MacAddress.PadLeft(20, ' ') +
-                                              R.Remotenode.IpAddress.PadLeft(20, ' ') +
-                                              R.Remotenode.MacAddress.ToString().PadLeft(20, ' ') +
-                                              R.Localport.ToString().PadLeft(10, ' ') +
-                                              R.Remoteport.ToString().PadLeft(10, ' ') +
-                                              R.Txspeed.ToString().PadLeft(10, ' ') +
-                                              R.Txsnr.ToString().PadLeft(10, ' ') +
-                                              R.Rxspeed.ToString().PadLeft(10, ' ') +
-                                              R.Rxsnr.ToString().PadLeft(10, ' ') +
-                                              R.Findtimes.ToString().PadLeft(10, ' ')
-                                              );
+                    try
+                    {
+                        LogHelper.WriteLog(R.Localnode.IpAddress.PadLeft(20, ' ') +
+                                                              R.Localnode.MacAddress.PadLeft(20, ' ') +
+                                                              R.Remotenode.IpAddress.PadLeft(20, ' ') +
+                                                              R.Remotenode.MacAddress.ToString().PadLeft(20, ' ') +
+                                                              R.Localport.ToString().PadLeft(10, ' ') +
+                                                              R.Remoteport.ToString().PadLeft(10, ' ') +
+                                                              R.Txspeed.ToString().PadLeft(10, ' ') +
+                                                              R.Txsnr.ToString().PadLeft(10, ' ') +
+                                                              R.Rxspeed.ToString().PadLeft(10, ' ') +
+                                                              R.Rxsnr.ToString().PadLeft(10, ' ') +
+                                                              R.Findtimes.ToString().PadLeft(10, ' ')
+                                                              );
+                    }
+                    catch (Exception)
+                    {
+                        
+                    }
                 }
             }
             else
@@ -1933,6 +1940,23 @@ namespace HDDNCONIAMP.UI.MeshManagement
             initMeshPlanControlsDefaultValue();
             mCurrentMPOType = MeshPlanOperatorType.Add;
             buttonXMeshPlanAdd.Text = "添加预案";
+        }
+
+        /// <summary>
+        /// 预案管理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonXGroupManage_Click(object sender, EventArgs e)
+        {
+            FGroupManage fgm = new FGroupManage();
+            if (DialogResult.OK == fgm.ShowDialog())
+            {
+                comboBoxExMPMGroupName.BeginUpdate();
+                comboBoxExMPMGroupName.Items.Clear();
+                initComboxExMPMGroupName();
+                comboBoxExMPMGroupName.EndUpdate();
+            }
         }
 
         private void buttonItemMPMDelete_Click(object sender, EventArgs e)

@@ -218,6 +218,12 @@
     <Compile Include="UI\MeshManagement\DrawingPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="UI\MeshManagement\FGroupManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MeshManagement\FGroupManage.Designer.cs">
+      <DependentUpon>FGroupManage.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\MeshManagement\MeshTcpConfigManager.cs" />
     <Compile Include="UI\MeshManagement\UCMeshManagement.cs">
       <SubType>UserControl</SubType>
@@ -277,6 +283,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\GISVideo\UCGISVideo.resx">
       <DependentUpon>UCGISVideo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MeshManagement\FGroupManage.resx">
+      <DependentUpon>FGroupManage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MeshManagement\UCMeshManagement.resx">
       <DependentUpon>UCMeshManagement.cs</DependentUpon>
@@ -351,6 +360,7 @@
     <Content Include="References\SQLite\System.Data.SQLite.Linq.xml" />
     <Content Include="References\SQLite\System.Data.SQLite.pdb" />
     <Content Include="References\SQLite\System.Data.SQLite.xml" />
+    <Content Include="Resources\settings_24.png" />
     <Content Include="Resources\gps_track_32.png" />
     <Content Include="Resources\gps_online_16.png" />
     <Content Include="Resources\add_32.png" />

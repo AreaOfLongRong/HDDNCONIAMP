@@ -19,5 +19,14 @@ namespace HDDNCONIAMP.DB.Model
         /// </summary>
         [Column(DbType = DbType.String)]
         public string GroupName { get; set; }
+
+        /// <summary>
+        /// 字符串转换
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return GroupName;
+        }
     }
 }
