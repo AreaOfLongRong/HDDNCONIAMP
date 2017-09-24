@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using HDDNCONIAMP.Network;
+using BMap.NET.WindowsForm.BMapElements;
+using BMap.NET.WindowsForm;
 
 namespace HDDNCONIAMP.Utils
 {
@@ -34,10 +36,10 @@ namespace HDDNCONIAMP.Utils
         public static string ReadFileToString(string filePath)
         {
             StringBuilder sb = new StringBuilder();
-            using(StreamReader sr = new StreamReader(filePath, Encoding.Default))
+            using (StreamReader sr = new StreamReader(filePath, Encoding.Default))
             {
                 string line = "";
-                while((line = sr.ReadLine()) != null)
+                while ((line = sr.ReadLine()) != null)
                 {
                     sb.AppendLine(line);
                 }
@@ -55,7 +57,7 @@ namespace HDDNCONIAMP.Utils
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
             string gpsFile = Path.Combine(dir, info.Time.Split(' ')[0].Replace('/', '-') + ".txt");
-            using(StreamWriter sw = new StreamWriter(gpsFile, true))
+            using (StreamWriter sw = new StreamWriter(gpsFile, true))
             {
                 sw.WriteLine(info.ToString());
             }
@@ -78,15 +80,45 @@ namespace HDDNCONIAMP.Utils
         public static string ReadAudioAndVideoInfo(string infoTxtPath)
         {
             StringBuilder sb = new StringBuilder();
-            using(StreamReader sr = new StreamReader(infoTxtPath))
+            using (StreamReader sr = new StreamReader(infoTxtPath))
             {
                 string line = "";
-                while((line = sr.ReadLine()) != null)
+                while ((line = sr.ReadLine()) != null)
                 {
                     sb.AppendLine(line);
                 }
             }
             return sb.ToString();
+        }
+
+        public static BMeshRoute ReadMeshRouteFromGPSLogs(string model265ID, DateTime startDT, DateTime stopDT)
+        {
+            BMeshRoute bmr = new BMeshRoute();
+            bmr.DeviceName = model265ID;
+            bmr.RouteColor = bmr.getNextColor();
+            bmr.DeviceLocationList = new List<LatLngPoint>();
+            string dir = Path.Combine(PathUtils.GPS_DATA_DEFAULT_PATH, model265ID);
+            DateTime tempDT = startDT;
+            while (tempDT <= stopDT)
+            {
+                string gpsFile = Path.Combine(dir, tempDT.ToString("yyyy-M-d") + ".txt");
+                if (File.Exists(gpsFile))
+                {
+                    using (StreamReader sr = new StreamReader(gpsFile))
+                    {
+                        //TODO:后续考虑增加GPS过滤，比如移动超过一定距离再画点。
+                        string line = "";
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            string[] temp = line.Split(',');
+                            bmr.DeviceLocationList.Add(
+                                new LatLngPoint(double.Parse(temp[3].Replace("°","")), double.Parse(temp[2].Replace("°", ""))));
+                        }
+                    }
+                }
+                tempDT = tempDT.AddDays(1);
+            }
+            return bmr;
         }
 
     }

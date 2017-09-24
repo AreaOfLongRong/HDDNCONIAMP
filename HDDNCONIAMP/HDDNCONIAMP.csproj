@@ -191,6 +191,12 @@
     <Compile Include="UI\AudioVideoProcess\UCVideoPanel.Designer.cs">
       <DependentUpon>UCVideoPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Common\FGPSTimeSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Common\FGPSTimeSelect.Designer.cs">
+      <DependentUpon>FGPSTimeSelect.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Common\UCDeviceList.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -271,6 +277,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AudioVideoProcess\UCGridVideo.resx">
       <DependentUpon>UCGridVideo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Common\FGPSTimeSelect.resx">
+      <DependentUpon>FGPSTimeSelect.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Common\UCDeviceList.resx">
       <DependentUpon>UCDeviceList.cs</DependentUpon>

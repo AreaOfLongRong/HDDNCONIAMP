@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -40,7 +39,7 @@ namespace HDDNCONIAMP.UI.Common
         /// Mesh设备标注点列表
         /// </summary>
         private List<BMeshPoint> mBMeshPoints = new List<BMeshPoint>();
-        
+
         #endregion
 
         #region 结构体
@@ -106,16 +105,16 @@ namespace HDDNCONIAMP.UI.Common
             buttonItemExpandAll_Click(null, null);
 
             mFormMain.NLM.PGPSUDPListener.OnReceiveGPSInfo += PGPSUDPListener_OnReceiveGPSInfo;
-            
+
             //注册地图Mesh设备点击打开视频事件
-            if(BuddyBMapControl != null)
+            if (BuddyBMapControl != null)
             {
                 BuddyBMapControl.OnOpenVideo += BuddyBMapControl_OnOpenVideo;
             }
 
             startTaskToRefreshMeshList();
         }
-        
+
         #region 设备列表事件
 
 
@@ -241,7 +240,6 @@ namespace HDDNCONIAMP.UI.Common
             Node selectNode = advTreeMeshList.SelectedNode;
 
             //设备不在线，不执行后续操作
-            //if (selectNode.Level != 1 || selectNode.Cells[1].Text.Equals("离线"))
             if (selectNode.Level != 1)
             {
                 return;
@@ -278,9 +276,42 @@ namespace HDDNCONIAMP.UI.Common
                             mai.PlanInfo.Model265ID, "0"));
                     }
                 }
-                else if(selectCell.Images.ImageIndex == 11)
+                else if (selectCell.Images.ImageIndex == 11)
                 {
-                    //在地图上绘制轨迹记录
+                    bool isDrawingRoute = (bool)selectCell.Tag;
+                    if (isDrawingRoute)
+                    {//已经绘制，再次点击的时候隐藏已绘制的轨迹
+                        BuddyBMapControl.DeleteDeviceRoute(mai.PlanInfo.Model265ID);
+                        selectCell.Tag = false;
+                    }
+                    else
+                    {
+                        //在地图上绘制轨迹记录
+                        FGPSTimeSelect fgpsts = new FGPSTimeSelect();
+                        fgpsts.StartDateTime = DateTime.Today.Subtract(new TimeSpan(1, 0, 0, 0));
+                        fgpsts.StopDateTime = DateTime.Today;
+                        if (DialogResult.OK == fgpsts.ShowDialog() && BuddyBMapControl != null)
+                        {
+                            BMeshRoute bmr = FileUtils.ReadMeshRouteFromGPSLogs(
+                                    mai.PlanInfo.Model265ID,
+                                    fgpsts.StartDateTime, fgpsts.StopDateTime);
+                            if (bmr.DeviceLocationList.Count > 0)
+                            {
+                                BuddyBMapControl.AddDeviceRoute(bmr);
+                                //地图上跳转到设备所在的位置
+                                BuddyBMapControl.Center = bmr.DeviceLocationList[0];
+                                BuddyBMapControl.Locate(false);
+                                BuddyBMapControl.Zoom = 16;
+                                selectCell.Tag = true;  //标识已经绘制了路径
+                                logger.Info(string.Format("查看{0}设备的GPS轨迹记录，供{1}条GPS记录。", 
+                                    mai.PlanInfo.Model265ID, bmr.DeviceLocationList.Count));
+                            }
+                            else
+                            {
+                                MessageBox.Show("无历史轨迹记录。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -519,6 +550,7 @@ namespace HDDNCONIAMP.UI.Common
                         Cell cellGPSTrack = new Cell();
                         cellGPSTrack.Images.ImageIndex = 11;
                         cellGPSTrack.ImageAlignment = eCellPartAlignment.NearBottom;
+                        cellGPSTrack.Tag = false;  //标识是否在界面上绘制了历史轨迹
                         subNode.Cells.Add(cellGPSTrack);
 
                         MeshPlanManage mpm = SQLiteHelper.GetInstance().MeshPlanQueryByMeshIP(item.IPV4);

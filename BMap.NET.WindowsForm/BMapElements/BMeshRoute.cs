@@ -9,7 +9,7 @@ namespace BMap.NET.WindowsForm.BMapElements
     /// <summary>
     /// 设备路线
     /// </summary>
-    public class BDeviceRoute : BMapElement
+    public class BMeshRoute : BMapElement
     {
 
         /// <summary>
@@ -31,6 +31,28 @@ namespace BMap.NET.WindowsForm.BMapElements
         }
 
         /// <summary>
+        /// 路径颜色
+        /// </summary>
+        public Color RouteColor
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 路径颜色数组
+        /// </summary>
+        private static Color[] _RouteColors = {
+            Color.Red, Color.Orange,
+            Color.Yellow, Color.Green,
+            Color.Cyan, Color.Blue };
+
+        /// <summary>
+        /// 当前路径颜色索引
+        /// </summary>
+        private static int _CurrentColorIndex = -1;
+
+        /// <summary>
         /// 设备路线绘制
         /// </summary>
         /// <param name="g"></param>
@@ -41,21 +63,32 @@ namespace BMap.NET.WindowsForm.BMapElements
         {
             LatLngPoint first, second;
             Point s_first = new Point(), s_second = new Point();
-            using (Pen p = new Pen(Color.FromArgb(250, Color.DeepSkyBlue), 2))
+
+            using (Pen p = new Pen(RouteColor, 2))
             {
                 p.StartCap = System.Drawing.Drawing2D.LineCap.Round; //连接圆滑
                 p.EndCap = System.Drawing.Drawing2D.LineCap.Round;
                 p.LineJoin = System.Drawing.Drawing2D.LineJoin.Round;
                 for (int i = DeviceLocationList.Count - 1; i > 0; --i)
                 {
-                    first = DeviceLocationList[i-1];
+                    first = DeviceLocationList[i - 1];
                     second = DeviceLocationList[i];
                     s_first = MapHelper.GetScreenLocationByLatLng(first, center, zoom, screen_size);
                     s_second = MapHelper.GetScreenLocationByLatLng(second, center, zoom, screen_size);
                     //if (new Rectangle(new Point(0, 0), screen_size).Contains(s_first) || new Rectangle(new Point(0, 0), screen_size).Contains(s_second)) //在屏幕范围内
-                        g.DrawLine(p, s_first, s_second);
+                    g.DrawLine(p, s_first, s_second);
                 }
             }
+        }
+
+        /// <summary>
+        /// 获取下一个可用的颜色
+        /// </summary>
+        /// <returns></returns>
+        public Color getNextColor()
+        {
+            _CurrentColorIndex = _CurrentColorIndex > (_RouteColors.Length - 1) ? 0 : _CurrentColorIndex + 1;
+            return _RouteColors[_CurrentColorIndex];
         }
     }
 }

@@ -153,7 +153,7 @@
             this.Name = "FGroupManage";
             this.Padding = new System.Windows.Forms.Padding(6);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "FGroupManage";
+            this.Text = "分组管理";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.FGroupManage_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
