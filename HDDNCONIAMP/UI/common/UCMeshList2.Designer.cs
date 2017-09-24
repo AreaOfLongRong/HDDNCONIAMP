@@ -45,7 +45,9 @@
             this.buttonItemFoldAll = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemAddGroup = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemDeleteGroup = new DevComponents.DotNetBar.ButtonItem();
+            this.buttonItemRefreshTree = new DevComponents.DotNetBar.ButtonItem();
             this.buttonXSearch = new DevComponents.DotNetBar.ButtonX();
+            this.columnHeaderGPSTrack = new DevComponents.AdvTree.ColumnHeader();
             this.tableLayoutPanelMeshDeviceList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.advTreeMeshList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barDeviceList)).BeginInit();
@@ -100,11 +102,11 @@
             // 
             this.advTreeMeshList.BackgroundStyle.Class = "TreeBorderKey";
             this.advTreeMeshList.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.advTreeMeshList.CellEdit = true;
             this.advTreeMeshList.Columns.Add(this.columnHeaderGroup);
             this.advTreeMeshList.Columns.Add(this.columnHeaderState);
             this.advTreeMeshList.Columns.Add(this.columnHeaderGPS);
             this.advTreeMeshList.Columns.Add(this.columnHeaderVideo);
+            this.advTreeMeshList.Columns.Add(this.columnHeaderGPSTrack);
             this.tableLayoutPanelMeshDeviceList.SetColumnSpan(this.advTreeMeshList, 2);
             this.advTreeMeshList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.advTreeMeshList.ExpandImage = global::HDDNCONIAMP.Properties.Resources.folder_expand_19;
@@ -135,13 +137,13 @@
             // 
             this.columnHeaderState.Name = "columnHeaderState";
             this.columnHeaderState.Text = "状态";
-            this.columnHeaderState.Width.Absolute = 50;
+            this.columnHeaderState.Width.Absolute = 40;
             // 
             // columnHeaderGPS
             // 
             this.columnHeaderGPS.Name = "columnHeaderGPS";
             this.columnHeaderGPS.Text = "GPS";
-            this.columnHeaderGPS.Width.Absolute = 50;
+            this.columnHeaderGPS.Width.Absolute = 30;
             // 
             // columnHeaderVideo
             // 
@@ -164,6 +166,7 @@
             this.imageListMesh.Images.SetKeyName(8, "mesh_person_offline_32.png");
             this.imageListMesh.Images.SetKeyName(9, "gps_online_16.png");
             this.imageListMesh.Images.SetKeyName(10, "video_camera_32.png");
+            this.imageListMesh.Images.SetKeyName(11, "gps_track_32.png");
             // 
             // nodeConnectorMain
             // 
@@ -187,7 +190,8 @@
             this.buttonItemExpandAll,
             this.buttonItemFoldAll,
             this.buttonItemAddGroup,
-            this.buttonItemDeleteGroup});
+            this.buttonItemDeleteGroup,
+            this.buttonItemRefreshTree});
             this.barDeviceList.Location = new System.Drawing.Point(3, 33);
             this.barDeviceList.Name = "barDeviceList";
             this.barDeviceList.Size = new System.Drawing.Size(251, 25);
@@ -230,6 +234,13 @@
             this.buttonItemDeleteGroup.Tooltip = "删除分组";
             this.buttonItemDeleteGroup.Click += new System.EventHandler(this.buttonItemDeleteGroup_Click);
             // 
+            // buttonItemRefreshTree
+            // 
+            this.buttonItemRefreshTree.BeginGroup = true;
+            this.buttonItemRefreshTree.ImageIndex = 7;
+            this.buttonItemRefreshTree.Name = "buttonItemRefreshTree";
+            this.buttonItemRefreshTree.Click += new System.EventHandler(this.buttonItemRefreshTree_Click);
+            // 
             // buttonXSearch
             // 
             this.buttonXSearch.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
@@ -241,6 +252,12 @@
             this.buttonXSearch.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.buttonXSearch.TabIndex = 4;
             this.buttonXSearch.Click += new System.EventHandler(this.buttonXSearch_Click);
+            // 
+            // columnHeaderGPSTrack
+            // 
+            this.columnHeaderGPSTrack.Name = "columnHeaderGPSTrack";
+            this.columnHeaderGPSTrack.Text = "轨迹";
+            this.columnHeaderGPSTrack.Width.Absolute = 50;
             // 
             // UCMeshList2
             // 
@@ -275,5 +292,7 @@
         private DevComponents.AdvTree.ColumnHeader columnHeaderGPS;
         private DevComponents.AdvTree.ColumnHeader columnHeaderVideo;
         private DevComponents.AdvTree.ColumnHeader columnHeaderState;
+        private DevComponents.DotNetBar.ButtonItem buttonItemRefreshTree;
+        private DevComponents.AdvTree.ColumnHeader columnHeaderGPSTrack;
     }
 }

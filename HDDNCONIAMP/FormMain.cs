@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using BMap.NET;
@@ -41,6 +42,11 @@ namespace HDDNCONIAMP
             get;
             set;
         }
+
+        /// <summary>
+        /// 获取或设置所有视频进程
+        /// </summary>
+        public List<Process> VideoProcesses { get; set; }
 
         #endregion
 
@@ -112,6 +118,7 @@ namespace HDDNCONIAMP
 
             labelXValidPeriod.Text = string.Format("测试版试用期截止时间：{0}", DEADLINE.ToShortDateString());
 
+            VideoProcesses = new List<Process>();
         }
 
         /// <summary>
@@ -137,8 +144,7 @@ namespace HDDNCONIAMP
             logger.Info("开启监听...");
             NLM = new NetworkListenerManage();
             NLM.Start();
-
-
+            
             //注册用户登陆/登出事件处理
             OnUserLoginOrOutEventHandler += FormMain_OnUserLoginOrOutEventHandler;
 
@@ -167,6 +173,10 @@ namespace HDDNCONIAMP
             {
                 MeshTcpConfigManager.GetInstance().CloseServer();
             }
+
+            //杀死视频进程
+            KillAllVideoProcess();
+
             logger.Info("退出应用程序...");
         }
 
@@ -448,6 +458,25 @@ namespace HDDNCONIAMP
                     PathUtils.VIDEO_DATA_DEFAULT_PATH;
                 SQLiteHelper.GetInstance().ApplicationSettingUpdate(ApplicationSettingKey.VideoCachePath, PathUtils.VIDEO_DATA_DEFAULT_PATH);
             }
+        }
+
+        /// <summary>
+        /// 杀死所有视频进程
+        /// </summary>
+        private void KillAllVideoProcess()
+        {
+            if(VideoProcesses != null)
+            {
+                foreach (Process p in VideoProcesses)
+                {
+                    logger.Info("关闭进程“" + p.Id + "”");
+                    if (!p.HasExited)
+                    {
+                        p.Kill();
+                        p.WaitForExit();
+                    }                    
+                }
+            }            
         }
 
         #endregion

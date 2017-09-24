@@ -297,8 +297,22 @@ namespace BMap.NET.WindowsForm
         /// 当前选择的位置点（没有则为null）
         /// </summary>
         private BPoint _current_selected_point;
+        
+        #endregion
 
-        private VideoInject inject = new VideoInject();
+        #region 事件
+
+        /// <summary>
+        /// 打开视频委托
+        /// </summary>
+        /// <param name="p"></param>
+        public delegate void OpenVideoDeleget(BMeshPoint p);
+
+        /// <summary>
+        /// 打开视频事件
+        /// </summary>
+        public event OpenVideoDeleget OnOpenVideo;
+
         #endregion
 
         /// <summary>
@@ -1167,11 +1181,7 @@ namespace BMap.NET.WindowsForm
                     _current_selected_video_place = v.Value;
                     //显示信息控件
                     v.Value.Selected = true;
-
-                    //Z-20170904：调用C++ EXE，显示视频信息
-                    //inject.injectWindow();
-                    inject.injectWindow(v.Value.Name);
-
+                    
                     foreach (KeyValuePair<string, BVideoPoint> vv in _videoPoints)
                     {
                         if (vv.Value != v.Value)
@@ -1195,9 +1205,12 @@ namespace BMap.NET.WindowsForm
                     //Z-20170920：打开视频设备界面
                     _mUCVideosControl.Location = new Point(e.X - _mUCVideosControl.Width / 2, e.Y - _mUCVideosControl.Height - 36);
                     _mUCVideosControl.Visible = true;
+                    _mUCVideosControl.UCBMeshPoint = v.Value;
                     _mUCVideosControl.VideoServerIP = VideoServerIP;
                     _mUCVideosControl.VideoServerUserName = VideoServerUserName;
                     _mUCVideosControl.VideoServerPassword = VideoServerPassword;
+                    _mUCVideosControl.OnUCVCOpenVideo += _mUCVideosControl_OnUCVCOpenVideo;
+
 
                     foreach (KeyValuePair<string, BMeshPoint> vv in _meshPoints)
                     {
@@ -1211,6 +1224,15 @@ namespace BMap.NET.WindowsForm
                 }
             }
             Invalidate();
+        }
+
+        /// <summary>
+        /// 上报打开视频事件
+        /// </summary>
+        /// <param name="p"></param>
+        private void _mUCVideosControl_OnUCVCOpenVideo(BMeshPoint p)
+        {
+            OnOpenVideo?.Invoke(p);
         }
         #endregion
 
@@ -1591,9 +1613,16 @@ namespace BMap.NET.WindowsForm
             {
                 v.Value.Draw(g, _center, _zoom, ClientSize);
             }
-            foreach (KeyValuePair<string, BMeshPoint> v in _meshPoints)  //Mesh设备点
+            try
             {
-                v.Value.Draw(g, _center, _zoom, ClientSize);
+                foreach (KeyValuePair<string, BMeshPoint> v in _meshPoints)  //Mesh设备点
+                {
+                    v.Value.Draw(g, _center, _zoom, ClientSize);
+                }
+            }
+            catch(Exception e)
+            {
+
             }
             foreach (KeyValuePair<string, BDeviceRoute> v in _deviceRoutes)
             {
