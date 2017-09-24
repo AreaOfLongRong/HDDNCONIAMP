@@ -1,17 +1,39 @@
 ﻿using System;
 using System.Windows.Forms;
+using BMap.NET.WindowsForm.BMapElements;
 using BMap.NET.WindowsForm.Video;
 
 namespace BMap.NET.WindowsForm
 {
     public partial class UCVideosControl : UserControl
     {
+
+        #region 事件
+
+        /// <summary>
+        /// 打开视频委托
+        /// </summary>
+        /// <param name="p">地图上的Mesh设备点</param>
+        public delegate void UCVCOpenVideoDeleget(BMeshPoint p);
+
+        /// <summary>
+        /// 打开视频事件
+        /// </summary>
+        public event UCVCOpenVideoDeleget OnUCVCOpenVideo;
+
+        #endregion
+
         public UCVideosControl()
         {
             InitializeComponent();
             buttonX265Video.Image = Properties.BMap.video_camera_shoulder_64;
             //buttonXHK.Image = Properties.BMap.video_camera_ball_64;
         }
+
+        /// <summary>
+        /// 获取或设置与之绑定的地图上的Mesh设备点
+        /// </summary>
+        public BMeshPoint UCBMeshPoint { get; set; }
 
         /// <summary>
         /// 获取或设置265模块的ID
@@ -40,8 +62,10 @@ namespace BMap.NET.WindowsForm
         /// <param name="e"></param>
         private void buttonX265Video_Click(object sender, EventArgs e)
         {
-            VideoInject vi = new VideoInject(VideoServerIP, VideoServerUserName, VideoServerPassword);
-            vi.injectWindow(Model265ID);
+            //VideoInject vi = new VideoInject(VideoServerIP, VideoServerUserName, VideoServerPassword);
+            //vi.injectWindow(Model265ID);
+            if (UCBMeshPoint != null)
+                OnUCVCOpenVideo?.Invoke(UCBMeshPoint);
         }
 
         /// <summary>

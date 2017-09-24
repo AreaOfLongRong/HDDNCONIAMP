@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BMap.NET.WindowsForm;
 using BMap.NET.WindowsForm.BMapElements;
-using BMap.NET.WindowsForm.Video;
 using DevComponents.AdvTree;
 using HDDNCONIAMP.DB;
 using HDDNCONIAMP.DB.Model;
@@ -15,7 +13,6 @@ using HDDNCONIAMP.Network;
 using HDDNCONIAMP.UI.AudioVideoProcess;
 using HDDNCONIAMP.Utils;
 using log4net;
-using NodeTopology;
 
 namespace HDDNCONIAMP.UI.Common
 {
@@ -43,7 +40,7 @@ namespace HDDNCONIAMP.UI.Common
         /// Mesh设备标注点列表
         /// </summary>
         private List<BMeshPoint> mBMeshPoints = new List<BMeshPoint>();
-
+        
         #endregion
 
         #region 结构体
@@ -109,10 +106,16 @@ namespace HDDNCONIAMP.UI.Common
             buttonItemExpandAll_Click(null, null);
 
             mFormMain.NLM.PGPSUDPListener.OnReceiveGPSInfo += PGPSUDPListener_OnReceiveGPSInfo;
+            
+            //注册地图Mesh设备点击打开视频事件
+            if(BuddyBMapControl != null)
+            {
+                BuddyBMapControl.OnOpenVideo += BuddyBMapControl_OnOpenVideo;
+            }
 
             startTaskToRefreshMeshList();
         }
-
+        
         #region 设备列表事件
 
 
@@ -217,6 +220,18 @@ namespace HDDNCONIAMP.UI.Common
         }
 
         /// <summary>
+        /// 刷新树形列表
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonItemRefreshTree_Click(object sender, EventArgs e)
+        {
+            advTreeMeshList.Nodes.Clear();
+            loadMeshDeviceGroupFromDB();
+            loadMeshDeviceFromDB();
+        }
+
+        /// <summary>
         /// 单击节点，跳转到设备所在的位置。
         /// </summary>
         /// <param name="sender"></param>
@@ -253,17 +268,35 @@ namespace HDDNCONIAMP.UI.Common
                         mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerPassword]);
                     if (BuddyBMapControl != null)
                     {
-                        Process p = inject.injectWindow(mai.PlanInfo.Model265ID);
-                        logger.Info("调用视频：" + p.StartInfo.Arguments);
+                        mFormMain.VideoProcesses.Add(inject.injectWindow(mai.PlanInfo.Model265ID));
                     }
                     else if (BuddyGrid != null)
                     {
-                        inject.injectPanel(BuddyGrid.GetNextAvailablePanel(),
+                        mFormMain.VideoProcesses.Add(inject.injectPanel(BuddyGrid.GetNextAvailablePanel(),
                             mFormMain.GetVideoFullScreenLocation(),
                             BuddyGrid.GetFullScreenPanel(),
-                            mai.PlanInfo.Model265ID, "0");
+                            mai.PlanInfo.Model265ID, "0"));
                     }
                 }
+                else if(selectCell.Images.ImageIndex == 11)
+                {
+                    //在地图上绘制轨迹记录
+                }
+            }
+        }
+
+        /// <summary>
+        /// GIS地图上点击打开视频事件
+        /// </summary>
+        /// <param name="p"></param>
+        private void BuddyBMapControl_OnOpenVideo(BMeshPoint p)
+        {
+            VideoInject inject = new VideoInject(mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerIPV4],
+                        mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerUserName],
+                        mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerPassword]);
+            if (BuddyBMapControl != null)
+            {
+                mFormMain.VideoProcesses.Add(inject.injectWindow(p.Model265ID));
             }
         }
 
@@ -392,16 +425,16 @@ namespace HDDNCONIAMP.UI.Common
             Task.Factory.StartNew(
                 () =>
                 {
-                    while (!LifeTimeControl.closing)
-                    {   //定时刷新设备状态
-                        foreach (MeshAllInfo item in mMeshAllInfo)
-                        {
-                            myTelnet telnet = new myTelnet(item.DeviceInfo.IPV4);
-                            string receiveData = telnet.recvDataWaitWord("help", 1);
-                            doUpdateAdvTreeMeshList(item, receiveData.Length > 0 ? "在线" : "离线");
-                        }
-                        Thread.Sleep(int.Parse(mFormMain.AllApplicationSetting[ApplicationSettingKey.MeshListRefreshFrequency]));
-                    }
+                    //while (!LifeTimeControl.closing)
+                    //{   //定时刷新设备状态
+                    //    foreach (MeshAllInfo item in mMeshAllInfo)
+                    //    {
+                    //        myTelnet telnet = new myTelnet(item.DeviceInfo.IPV4);
+                    //        string receiveData = telnet.recvDataWaitWord("help", 1);
+                    //        doUpdateAdvTreeMeshList(item, receiveData.Length > 0 ? "在线" : "离线");
+                    //    }
+                    //    Thread.Sleep(int.Parse(mFormMain.AllApplicationSetting[ApplicationSettingKey.MeshListRefreshFrequency]));
+                    //}
                 });
         }
 
@@ -483,6 +516,10 @@ namespace HDDNCONIAMP.UI.Common
                         Cell cellVideo = new Cell();
                         cellVideo.Images.ImageIndex = 10;
                         subNode.Cells.Add(cellVideo);
+                        Cell cellGPSTrack = new Cell();
+                        cellGPSTrack.Images.ImageIndex = 11;
+                        cellGPSTrack.ImageAlignment = eCellPartAlignment.NearBottom;
+                        subNode.Cells.Add(cellGPSTrack);
 
                         MeshPlanManage mpm = SQLiteHelper.GetInstance().MeshPlanQueryByMeshIP(item.IPV4);
                         MeshAllInfo nodeMAI = new MeshAllInfo()

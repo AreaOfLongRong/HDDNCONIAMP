@@ -14,7 +14,6 @@ using HDDNCONIAMP.Mesh;
 using HDDNCONIAMP.UI.Common;
 using HDDNCONIAMP.Utils;
 using log4net;
-using MindFusion.Graphs;
 using NodeTopology;
 using DevComponents.DotNetBar.Controls;
 
@@ -139,13 +138,13 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
 
 
-            IntPtr editHandle = GetWindow(this.comboBoxNetworkCard.Handle, GW_CHILD);
+            IntPtr editHandle = GetWindow(this.NIC.Handle, GW_CHILD);
             SendMessage(editHandle, EM_SETREADONLY, 1, 0);
 
             string[] cards = OperateNode.NetworkInterfaceCard();
             if (cards != null)
             {
-                this.comboBoxNetworkCard.DataSource = cards;
+                this.NIC.DataSource = cards;
                 //this.comboBoxNetworkCard.SelectedIndex = 0;
             }
             else
@@ -172,10 +171,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
         }
 
         #region 网络拓扑事件处理
-
-        private string startRefreshTopologyStr = "刷新网络拓扑";
-        private string stopRefeshTopologyStr = "停止刷新";
-
+        
         private void buttonXRefreshTopology_Click(object sender, EventArgs e)
         {
             StartTopology();
@@ -228,6 +224,8 @@ namespace HDDNCONIAMP.UI.MeshManagement
             }
         }
 
+        #region 拓扑发现
+
 
         /// <summary>
         /// 1)获取ARP列表(一个单独线程)==>完成（暂时写在主线程里）       
@@ -238,6 +236,8 @@ namespace HDDNCONIAMP.UI.MeshManagement
         /// 6)逐一操作这些NODE
         /// 7)日志和异常处理
         /// </summary>
+        /// 
+
         private delegate void DGetIniMAC();
 
         private void RunGetIniMAC()
@@ -245,7 +245,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             // InvokeRequired required compares the thread ID of the
             // calling thread to the thread ID of the creating thread.
             // If these threads are different, it returns true.
-            if (this.comboBoxNetworkCard.InvokeRequired)
+            if (this.NIC.InvokeRequired)
             {
                 DGetIniMAC d = new DGetIniMAC(RunGetIniMAC);
                 this.Invoke(d);
@@ -253,7 +253,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             else
             {
                 //return OperateNode.GetIniMAC(this.NIC.SelectedItem.ToString());
-                RootMAC = OperateNode.GetIniMAC(this.comboBoxNetworkCard.SelectedItem.ToString());
+                RootMAC = OperateNode.GetIniMAC(this.NIC.SelectedItem.ToString());
             }
 
             //return OperateNode.GetIniMAC(this.NIC.SelectedItem.ToString());
@@ -321,19 +321,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
                     if (hashTable.ContainsKey(needInfoNode))
                     {
                         cacheNode = (node)hashTable[needInfoNode];
-                    }
-                    else
-                    {
-                        MeshDeviceInfo meshInfo = SQLiteHelper.GetInstance().MeshDeviceInfoQueryByIP(TheNode.IpAddress);
-                        if (meshInfo != null)
-                        {
-                            cacheNode = new node();
-                            cacheNode.IpAddress = meshInfo.IPV4;
-                            cacheNode.Frequency = (double)meshInfo.Frequency;
-                            cacheNode.BandWidth = (double)meshInfo.BandWidth;
-                            cacheNode.TxPower = (double)meshInfo.Power;
-                            cacheNode.Battery = (double)meshInfo.Battery;
-                        }
                     }
                     string recvStr = tn.recvDataWaitWord("help", 1);
 
@@ -556,9 +543,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
 
         private ReaderWriterLock _rwlock = new ReaderWriterLock();
-
-
-
+        
         private void GetRealInfo()
         {
 
@@ -569,11 +554,11 @@ namespace HDDNCONIAMP.UI.MeshManagement
             {
                 LogHelper.WriteLog("循环扫描开始！！！");
 
-                //LogHelper.WriteLog("PingSubNet:" + SubNet);
+                LogHelper.WriteLog("PingSubNet:" + SubNet);
 
-                // MyARPLIST.PingSubNet(SubNet);
+                MyARPLIST.PingSubNet(SubNet);
 
-                // LogHelper.WriteLog("PingSubNet结束!!!");
+                LogHelper.WriteLog("PingSubNet结束!!!");
 
                 LogHelper.WriteLog("ReloadARP开始！！！");
 
@@ -592,7 +577,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                 LogHelper.WriteLog("TestGetIniMACandIP结束！！！");
 
-                if (RootIp == null || RootIp.Equals(string.Empty))
+                if (RootIp.Equals(string.Empty))
                 {
                     MessageBox.Show("未获取到根节点IP信息，请检查网络连接是否正常！");
 
@@ -673,9 +658,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                         }
 
                     }
-
-
-
+                    
                     LogHelper.WriteLog("RealTimeNode全部拓扑信息读取完成");
 
 
@@ -729,10 +712,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
 
         private delegate void AddNode(node Pnode);
-
-
-
-
+        
         private void AddNodeMethod(node Pnode)
         {
             if (this.treeView1.InvokeRequired)
@@ -902,7 +882,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                     ///首先分割界面！！！
                     ///获取区间宽度
-                    int ColumnWidth = this.myPanelMeshTopology.Width / RepeatTimeForRead;
+                    int ColumnWidth = this.drawPanel.Width / RepeatTimeForRead;
 
                     int nodecount = 0;
 
@@ -917,7 +897,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                         if (j > 0)
                         {
                             //每行占据的高度
-                            int CellHeight = this.myPanelMeshTopology.Height / j;
+                            int CellHeight = this.drawPanel.Height / j;
 
                             for (int k = 0; k < j; k++)
                             {
@@ -1055,9 +1035,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                     this.StoreBlockNodes.Nodelist = this.ShowBlockNodes.Nodelist.ToArray().ToList();
                     this.StoreBlockNodes.Relationlist = this.ShowBlockNodes.Relationlist.ToArray().ToList();
-
-
-
+                    
                 }
 
 
@@ -1065,14 +1043,11 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
 
                 Thread.Sleep(this.ShowRate * 1000);
-
-
-
-
+                
             }
 
         }
-
+        
         private void drawPanel_MouseUp(object sender, MouseEventArgs e)
         {
             int H = 0;
@@ -1173,7 +1148,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                 //Cursor.Current = Cursors.Hand;
                 //CurrObjDragIndx = Container;
 
-                this.toolTip1.SetToolTip(this.myPanelMeshTopology, GContainer.AddInfo);
+                this.toolTip1.SetToolTip(this.drawPanel, GContainer.AddInfo);
                 //this.toolTip1.ShowAlways = true;
                 //this.toolTip1.Show(this);
 
@@ -1213,7 +1188,14 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                 foreach (node Si in pnodelist)
                 {
-                    LogHelper.WriteLog(Si.IpAddress.PadLeft(20, ' ') + Si.MacAddress.PadLeft(20, ' ') + Si.BandWidth.ToString().PadLeft(10, ' ') + Si.TxPower.ToString().PadLeft(10, ' ') + Si.Frequency.ToString().PadLeft(10, ' ') + Si.Battery.ToString().PadLeft(10, ' '));
+                    try
+                    {
+                        LogHelper.WriteLog(Si.IpAddress.PadLeft(20, ' ') + Si.MacAddress.PadLeft(20, ' ') + Si.BandWidth.ToString().PadLeft(10, ' ') + Si.TxPower.ToString().PadLeft(10, ' ') + Si.Frequency.ToString().PadLeft(10, ' ') + Si.Battery.ToString().PadLeft(10, ' '));
+                    }
+                    catch(Exception e)
+                    {
+
+                    }
                 }
 
                 LogHelper.WriteLog(" Relation Discover Report");
@@ -1252,23 +1234,20 @@ namespace HDDNCONIAMP.UI.MeshManagement
             }
         }
 
-        #region 画布处理
 
+        #endregion
+
+        #region 画布处理
 
         //这里是创建一个画布 
 
         private void ReDrawAll()
         {
 
-            Bitmap bmp = new Bitmap(this.myPanelMeshTopology.Width, this.myPanelMeshTopology.Height);
+            Bitmap bmp = new Bitmap(this.drawPanel.Width, this.drawPanel.Height);
             Graphics g = Graphics.FromImage(bmp);
-            g.Clear(this.myPanelMeshTopology.BackColor);
-
-
-
-
-
-
+            g.Clear(this.drawPanel.BackColor);
+            
             //Graphics g = this.CreateGraphics();
             //Graphics g = this.drawPanel.CreateGraphics();
             g.SmoothingMode = SmoothingMode.AntiAlias;  //使绘图质量最高，即消除锯齿
@@ -1276,7 +1255,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             g.CompositingQuality = CompositingQuality.HighQuality;
 
             GObject CurrObj = new GObject();
-            System.Drawing.Rectangle Rct = new System.Drawing.Rectangle();
+            Rectangle Rct = new Rectangle();
 
 
 
@@ -1380,7 +1359,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
             //g1.DrawEllipse(new Pen(System.Drawing.Color.Red), 10, 10, 100, 100); 
             //g1.DrawImage(Image.FromFile("E:/down.png"), x, 10);//这是在画布上绘制图形 
-            this.myPanelMeshTopology.CreateGraphics().DrawImage(bmp, 0, 0);//这句是将图形显示到窗口上
+            this.drawPanel.CreateGraphics().DrawImage(bmp, 0, 0);//这句是将图形显示到窗口上
 
             bmp.Dispose();
             g.Dispose();
@@ -1416,9 +1395,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
         }
         private Image FindGObjectTypeImage(string ObjType)
         {
-            if (imageList1.Images.Count == 0)
-                return null;
-
             Image RetImg = null;
             switch (ObjType)
             {
@@ -1521,7 +1497,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             //g.InterpolationMode = InterpolationMode.HighQualityBicubic;
             //g.CompositingQuality = CompositingQuality.HighQuality;
 
-            System.Drawing.Rectangle ObjRct = new System.Drawing.Rectangle();
+            Rectangle ObjRct = new Rectangle();
             //Pen p = new Pen(Color.Blue);
             Image ObjImg;
 
@@ -1610,12 +1586,12 @@ namespace HDDNCONIAMP.UI.MeshManagement
         public void AddGObject(int x1, int y1, int x2, int y2, string ObjType, string addinfo)
         {
 
-            Graphics g = this.myPanelMeshTopology.CreateGraphics();//this.CreateGraphics();
+            Graphics g = this.drawPanel.CreateGraphics();//this.CreateGraphics();
             g.SmoothingMode = SmoothingMode.AntiAlias;  //使绘图质量最高，即消除锯齿
             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
             g.CompositingQuality = CompositingQuality.HighQuality;
 
-            System.Drawing.Rectangle ObjRct = new System.Drawing.Rectangle();
+            Rectangle ObjRct = new Rectangle();
 
 
             Pen p = new Pen(Color.Blue);
@@ -1721,10 +1697,13 @@ namespace HDDNCONIAMP.UI.MeshManagement
                     tn.close();
                 }
 
+
+
             }//if end
 
-        }
 
+
+        }
 
         #endregion
 
@@ -2170,7 +2149,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
         /// </summary>
         private void modifyLocalIP()
         {
-            if (NetUtils.ConfigNetworkCardIPAddress(comboBoxNetworkCard.SelectedItem.ToString(), ipAddressInputLocal.Text))
+            if (NetUtils.ConfigNetworkCardIPAddress(NIC.SelectedItem.ToString(), ipAddressInputLocal.Text))
             {
                 MessageBox.Show("IP地址配置成功!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -2292,7 +2271,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
             else
             {
                 currentNodeName = null;
-
                 ipAddressInputMeshIP.Value = "";
             }
         }

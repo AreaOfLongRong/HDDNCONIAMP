@@ -41,11 +41,6 @@ namespace HDDNCONIAMP.UI.Common
         /// 主窗口引用
         /// </summary>
         private FormMain mFormMain;
-
-        /// <summary>
-        /// 视频封装
-        /// </summary>
-        VideoInject inject = new VideoInject();
         
         #endregion
 
@@ -221,9 +216,7 @@ namespace HDDNCONIAMP.UI.Common
 
             if (selectNode.Level == 1 && BuddyGrid != null)
             {
-                //TODO：目前只支持一路信号输入，后续需修改
-                BVideoPoint vp = (BVideoPoint)selectNode.Tag;
-                inject.injectPanel(BuddyGrid.GetPanelByIndex(1), vp.Name, "0");
+                //TODO：添加视频信号
             }
         }
 

@@ -1,17 +1,26 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
+using log4net;
 
-namespace BMap.NET.WindowsForm.Video
+namespace HDDNCONIAMP.Utils
 {
     public class VideoInject
     {
+
+        /// <summary>
+        /// 日志记录器
+        /// </summary>
+        private ILog logger = LogManager.GetLogger(typeof(VideoInject));
+
+
         private const int SWP_NOOWNERZORDER = 0x200;
         private const int SWP_NOREDRAW = 0x8;
         private const int SWP_NOZORDER = 0x4;
@@ -90,26 +99,21 @@ namespace BMap.NET.WindowsForm.Video
         /// </summary>
         private static VideoInject instance;
 
-        public VideoInject()
-        {
-            appWin = IntPtr.Zero;
-            foreach (IPAddress address in Dns.GetHostAddresses(Dns.GetHostName()))
-            {
-                if(address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                {
-                    localIP = address.ToString();
-                }
-            }
-        }
-
+        /// <summary>
+        /// 查看视频EXE路径
+        /// </summary>
+        private string mVideoExePath;
+        
         public VideoInject(string videoServerIP, string userName, string password)
         {
             appWin = IntPtr.Zero;
             localIP = videoServerIP;
             mVideoServerUserName = userName;
             mVideoServerPassword = password;
+            mVideoExePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                "SamplePlayClient\\SamplePlayClient.exe");
         }
-        
+
         /// <summary>
         /// 带边框视频窗口
         /// </summary>
@@ -117,7 +121,7 @@ namespace BMap.NET.WindowsForm.Video
         /// <returns></returns>
         public Process injectWindow(string deviceID)
         {
-            ProcessStartInfo psi = new ProcessStartInfo("SamplePlayClient\\SamplePlayClient.exe");
+            ProcessStartInfo psi = new ProcessStartInfo(mVideoExePath);
             psi.RedirectStandardInput = true;
             psi.RedirectStandardOutput = true;
             psi.UseShellExecute = false;
@@ -130,6 +134,8 @@ namespace BMap.NET.WindowsForm.Video
             _windowProcess = new Process();
             _windowProcess.StartInfo = psi;
             _windowProcess.EnableRaisingEvents = true;
+            _windowProcess.Exited += _process_Exited;
+            logger.Info("打开带边框视频查看视频；参数：" + psi.Arguments);
             _windowProcess.Start();
 
             return _windowProcess;
@@ -147,7 +153,7 @@ namespace BMap.NET.WindowsForm.Video
         {
             if (appWin != IntPtr.Zero)
                 return null;
-            ProcessStartInfo psi = new ProcessStartInfo("SamplePlayClient\\SamplePlayClient.exe");
+            ProcessStartInfo psi = new ProcessStartInfo(mVideoExePath);
             psi.RedirectStandardInput = true;
             psi.RedirectStandardOutput = true;
             psi.UseShellExecute = false;
@@ -163,6 +169,8 @@ namespace BMap.NET.WindowsForm.Video
             _panelProcess.EnableRaisingEvents = true;
             _panelProcess.Exited += _process_Exited;
             _panelProcess.Start();
+
+            logger.Info("打开无边框视频查看视频；参数：" + psi.Arguments);
 
             if (_panelProcess.WaitForInputIdle())
             {
@@ -189,7 +197,7 @@ namespace BMap.NET.WindowsForm.Video
 
         ~VideoInject()
         {
-            if(_windowProcess != null && !_windowProcess.HasExited)
+            if (_windowProcess != null && !_windowProcess.HasExited)
             {
                 _windowProcess.Kill();
             }
