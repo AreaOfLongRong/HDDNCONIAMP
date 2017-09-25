@@ -209,9 +209,6 @@
     <Compile Include="UI\GISVideo\UCGISVideo.Designer.cs">
       <DependentUpon>UCGISVideo.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\MeshManagement\DrawingPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="UI\MeshManagement\FGroupManage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -219,12 +216,6 @@
       <DependentUpon>FGroupManage.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MeshManagement\MeshTcpConfigManager.cs" />
-    <Compile Include="UI\MeshManagement\UCMeshManagement.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\MeshManagement\UCMeshManagement.Designer.cs">
-      <DependentUpon>UCMeshManagement.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\MeshManagement\UCMeshManagement2.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -283,9 +274,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MeshManagement\FGroupManage.resx">
       <DependentUpon>FGroupManage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\MeshManagement\UCMeshManagement.resx">
-      <DependentUpon>UCMeshManagement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MeshManagement\UCMeshManagement2.resx">
       <DependentUpon>UCMeshManagement2.cs</DependentUpon>

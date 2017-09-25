@@ -140,6 +140,20 @@ namespace HDDNCONIAMP.UI.MeshManagement
         /// <param name="e"></param>
         private void UCMeshManagement2_Load(object sender, EventArgs e)
         {
+            bool enable = mFormMain.CurrentUser.Authority.Equals(EUserAuthority.Administrator.ToString());
+
+            buttonItemMPMAddPlan.Enabled = enable;
+            buttonItemMPMDelete.Enabled = enable;
+            comboBoxExMPMGroupName.Enabled = enable;
+            buttonXGroupManage.Enabled = enable;
+            textBoxXMeshPlanAlias.Enabled = enable;
+            ipAddressInputMeshPlanMeshIP.Enabled = enable;
+            textBoxXMeshPlanModel265ID.Enabled = enable;
+            ipAddressInputMeshPlanModel265IP.Enabled = enable;
+            ipAddressInputMPMTCPToCOM.Enabled = enable;
+            ipAddressInputMeshPlanHKIP.Enabled = enable;
+            buttonXMeshPlanAdd.Enabled = enable;
+
             initMeshPlanTable();
             initComboxExMPMGroupName();
             initMeshBaseParamConfit();
@@ -1767,10 +1781,10 @@ namespace HDDNCONIAMP.UI.MeshManagement
                 ipAddressInputMPMTCPToCOM.Value = row.Cells[6].Value.ToString();
                 mCurrentMPOType = MeshPlanOperatorType.Edit;
                 buttonXMeshPlanAdd.Text = "修改预案";
-                updateMeshPlanControlsState(true);
+                updateMeshPlanControlsState(mFormMain.CurrentUser.Authority.Equals(EUserAuthority.Administrator.ToString()));
             }
         }
-
+        
         /// <summary>
         /// 初始化Mesh设备预案管理表格
         /// </summary>

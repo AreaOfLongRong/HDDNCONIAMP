@@ -8,7 +8,6 @@ using DevComponents.DotNetBar;
 using HDDNCONIAMP.DB;
 using HDDNCONIAMP.DB.Model;
 using HDDNCONIAMP.Events;
-using HDDNCONIAMP.Mesh;
 using HDDNCONIAMP.Network;
 using HDDNCONIAMP.UI.AudioVideoProcess;
 using HDDNCONIAMP.UI.GISVideo;
@@ -92,12 +91,7 @@ namespace HDDNCONIAMP
         /// 音视频综合处理控件
         /// </summary>
         private UCAudioVideoProcess ucAudioVideoProcess;
-
-        /// <summary>
-        /// Mesh设备管理控件
-        /// </summary>
-        private UCMeshManagement ucMeshManagement;
-
+        
         /// <summary>
         /// Mesh设备管理控件
         /// </summary>
@@ -337,6 +331,11 @@ namespace HDDNCONIAMP
                 labelXUserName.Text = "";
                 this.CurrentUser = null;
                 updateSuperTabControlPanel(OpenUCType.OpenLogin);
+
+                ucGISVideo = null;
+                ucAudioVideoProcess = null;
+                ucMeshManagement2 = null;
+                ucUserSettings = null;
             }
         }
 
@@ -406,13 +405,6 @@ namespace HDDNCONIAMP
                         updateSuperTabControlPanel(OpenUCType.OpenLogin);
                     else
                     {
-                        //if (ucMeshManagement == null)
-                        //{
-                        //    ucMeshManagement = new UCMeshManagement();
-                        //    ucMeshManagement.Dock = DockStyle.Fill;
-                        //    superTabControlPanelMeshManagement.Controls.Clear();  //清空所有控件
-                        //    superTabControlPanelMeshManagement.Controls.Add(ucMeshManagement);
-                        //}
                         if (ucMeshManagement2 == null)
                         {
                             ucMeshManagement2 = new UCMeshManagement2(this);

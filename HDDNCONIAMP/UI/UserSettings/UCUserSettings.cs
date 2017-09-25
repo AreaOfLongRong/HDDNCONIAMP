@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -68,6 +66,16 @@ namespace HDDNCONIAMP.UI.UserSettings
         /// <param name="e"></param>
         private void UCUserSettings_Load(object sender, EventArgs e)
         {
+
+            if (mFormMain.CurrentUser.Authority.Equals(EUserAuthority.Administrator.ToString()))
+            {
+                superTabItemAuthorityManage.Visible = true;
+            }
+            else
+            {
+                superTabItemAuthorityManage.Visible = false;
+            }
+
             initAdvTreeLogManage();
 
             //设置“权限管理”标签页的可见性
