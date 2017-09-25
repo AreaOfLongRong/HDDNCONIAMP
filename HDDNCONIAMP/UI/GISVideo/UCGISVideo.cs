@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
+﻿using System.Drawing;
 using System.Windows.Forms;
 using HDDNCONIAMP.UI.Common;
 using HDDNCONIAMP.Utils;
@@ -13,14 +7,12 @@ namespace HDDNCONIAMP.UI.GISVideo
 {
     public partial class UCGISVideo : UserControl
     {
-        private UCDeviceList ucDeviceListmain;
-
         private UCMeshList2 ucMeshDeviceListMain;
 
         public UCGISVideo(FormMain main)
         {
             InitializeComponent();
-            //initUCDeviceList(main);
+
             initUCMeshList(main);
 
             this.bMapControl2Main.VideoServerIP = 
@@ -51,25 +43,6 @@ namespace HDDNCONIAMP.UI.GISVideo
             this.collapsibleSplitContainerMain.Panel1MinSize = 5;
 
         }
-
-        /// <summary>
-        /// 初始化GPS设备列表，被废弃
-        /// </summary>
-        /// <param name="main"></param>
-        private void initUCDeviceList(FormMain main)
-        {
-            ucDeviceListmain = new HDDNCONIAMP.UI.Common.UCDeviceList(main);
-            ucDeviceListmain.BuddyBMapControl = this.bMapControl2Main;
-            ucDeviceListmain.Dock = System.Windows.Forms.DockStyle.Fill;
-            ucDeviceListmain.Location = new System.Drawing.Point(0, 0);
-            ucDeviceListmain.Name = "ucDeviceListmain";
-            ucDeviceListmain.Size = new System.Drawing.Size(150, 439);
-            ucDeviceListmain.TabIndex = 0;
-            // 
-            // collapsibleSplitContainerMain.Panel1
-            // 
-            this.collapsibleSplitContainerMain.Panel1.Controls.Add(this.ucDeviceListmain);
-            this.collapsibleSplitContainerMain.Panel1MinSize = 5;
-        }
+        
     }
 }

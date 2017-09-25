@@ -124,7 +124,6 @@
             this.advTreeMeshList.Styles.Add(this.elementStyleMain);
             this.advTreeMeshList.TabIndex = 1;
             this.advTreeMeshList.Text = "advTree1";
-            this.advTreeMeshList.AfterCellEditComplete += new DevComponents.AdvTree.CellEditEventHandler(this.advTreeMeshList_AfterCellEditComplete);
             this.advTreeMeshList.NodeClick += new DevComponents.AdvTree.TreeNodeMouseEventHandler(this.advTreeMeshList_NodeClick);
             // 
             // columnHeaderGroup
@@ -172,7 +171,7 @@
             this.imageListMesh.Images.SetKeyName(8, "mesh_person_offline_32.png");
             this.imageListMesh.Images.SetKeyName(9, "gps_online_16.png");
             this.imageListMesh.Images.SetKeyName(10, "video_camera_32.png");
-            this.imageListMesh.Images.SetKeyName(11, "gps_track_32.png");
+            this.imageListMesh.Images.SetKeyName(11, "gps_route_32.png");
             // 
             // nodeConnectorMain
             // 

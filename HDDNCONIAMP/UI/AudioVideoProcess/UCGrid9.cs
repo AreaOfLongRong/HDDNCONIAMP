@@ -18,6 +18,11 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
         /// </summary>
         private Dictionary<Panel, bool> mPanelDictionary;
 
+        /// <summary>
+        /// 面板列表
+        /// </summary>
+        private List<Panel> mPanelList;
+
         public UCGrid9()
         {
             InitializeComponent();
@@ -81,7 +86,8 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
         /// </summary>
         public void InitPanelDictionary()
         {
-            mPanelDictionary = new Dictionary<Panel, bool>();
+            //mPanelDictionary = new Dictionary<Panel, bool>();
+            mPanelList = new List<Panel>();
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
@@ -97,7 +103,8 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
                     panel.Controls.Add(pb);
                     panel.ResumeLayout(false);
                     this.tableLayoutPanelMain.Controls.Add(panel, j, i);                    
-                    this.mPanelDictionary.Add(panel, false);
+                    //this.mPanelDictionary.Add(panel, false);
+                    this.mPanelList.Add(panel);
                 }
             }
             this.tableLayoutPanelMain.ResumeLayout(false);
@@ -119,23 +126,7 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
         {
             tableLayoutPanelMain.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMain, true, null);
         }
-
-        private void tableLayoutPanelMain_DragDrop(object sender, DragEventArgs e)
-        {
-            Node node = (Node)e.Data;
-            if(node != null)
-            {
-                Panel targetPanel = GetPanelAtPoint(new Point(e.X, e.Y));
-                if (targetPanel != null)
-                {
-                    TextBox temp = new TextBox();
-                    temp.Text = node.Text;
-                    temp.Dock = DockStyle.Fill;
-                    targetPanel.Controls.Add(temp);
-                }
-            }
-        }
-
+        
         /// <summary>
         /// 获取全屏面板
         /// </summary>

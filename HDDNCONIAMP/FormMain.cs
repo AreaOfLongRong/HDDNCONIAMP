@@ -48,6 +48,11 @@ namespace HDDNCONIAMP
         /// </summary>
         public List<Process> VideoProcesses { get; set; }
 
+        /// <summary>
+        /// 获取或设置所有窗口视频进程
+        /// </summary>
+        public List<Process> VideoWindowProcesses { get; set; }
+
         #endregion
 
         #region 自定义事件

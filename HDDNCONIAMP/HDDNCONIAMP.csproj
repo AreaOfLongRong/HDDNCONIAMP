@@ -197,18 +197,6 @@
     <Compile Include="UI\Common\FGPSTimeSelect.Designer.cs">
       <DependentUpon>FGPSTimeSelect.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Common\UCDeviceList.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Common\UCDeviceList.Designer.cs">
-      <DependentUpon>UCDeviceList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Common\UCMeshList.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Common\UCMeshList.Designer.cs">
-      <DependentUpon>UCMeshList.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Common\UCMeshList2.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -242,6 +230,12 @@
     </Compile>
     <Compile Include="UI\MeshManagement\UCMeshManagement2.Designer.cs">
       <DependentUpon>UCMeshManagement2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserSettings\FSearchLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\UserSettings\FSearchLog.Designer.cs">
+      <DependentUpon>FSearchLog.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\UserSettings\UCUserSettings.cs">
       <SubType>UserControl</SubType>
@@ -281,12 +275,6 @@
     <EmbeddedResource Include="UI\Common\FGPSTimeSelect.resx">
       <DependentUpon>FGPSTimeSelect.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Common\UCDeviceList.resx">
-      <DependentUpon>UCDeviceList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Common\UCMeshList.resx">
-      <DependentUpon>UCMeshList.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\Common\UCMeshList2.resx">
       <DependentUpon>UCMeshList2.cs</DependentUpon>
     </EmbeddedResource>
@@ -301,6 +289,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MeshManagement\UCMeshManagement2.resx">
       <DependentUpon>UCMeshManagement2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UserSettings\FSearchLog.resx">
+      <DependentUpon>FSearchLog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserSettings\UCUserSettings.resx">
       <DependentUpon>UCUserSettings.cs</DependentUpon>
@@ -369,8 +360,8 @@
     <Content Include="References\SQLite\System.Data.SQLite.Linq.xml" />
     <Content Include="References\SQLite\System.Data.SQLite.pdb" />
     <Content Include="References\SQLite\System.Data.SQLite.xml" />
+    <Content Include="Resources\gps_route_32.png" />
     <Content Include="Resources\settings_24.png" />
-    <Content Include="Resources\gps_track_32.png" />
     <Content Include="Resources\gps_online_16.png" />
     <Content Include="Resources\add_32.png" />
     <Content Include="Resources\delete_32.png" />

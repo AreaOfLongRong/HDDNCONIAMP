@@ -31,20 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCUserSettings));
             this.superTabControlUserSettings = new DevComponents.DotNetBar.SuperTabControl();
-            this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.tableLayoutPanelLogManage = new System.Windows.Forms.TableLayoutPanel();
-            this.advTreeLogList = new DevComponents.AdvTree.AdvTree();
-            this.nodeConnector1 = new DevComponents.AdvTree.NodeConnector();
-            this.elementStyle1 = new DevComponents.DotNetBar.ElementStyle();
-            this.barLog = new DevComponents.DotNetBar.Bar();
-            this.imageListUserSettings = new System.Windows.Forms.ImageList(this.components);
-            this.buttonItemExpandAll = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItemFoldAll = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItemRefresh = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItemExportLogs = new DevComponents.DotNetBar.ButtonItem();
-            this.superTabControlLogs = new DevComponents.DotNetBar.SuperTabControl();
-            this.superTabControlPanel5 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.superTabItemLogManage = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel4 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.tableLayoutPanelSoftSettings = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -61,9 +47,22 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanelSSAbout = new System.Windows.Forms.TableLayoutPanel();
             this.labelX8 = new DevComponents.DotNetBar.LabelX();
-            this.labelX7 = new DevComponents.DotNetBar.LabelX();
-            this.reflectionImage1 = new DevComponents.DotNetBar.Controls.ReflectionImage();
+            this.labelXSoftwareVision = new DevComponents.DotNetBar.LabelX();
             this.superTabItemSoftwareSetting = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.tableLayoutPanelLogManage = new System.Windows.Forms.TableLayoutPanel();
+            this.advTreeLogList = new DevComponents.AdvTree.AdvTree();
+            this.nodeConnector1 = new DevComponents.AdvTree.NodeConnector();
+            this.elementStyle1 = new DevComponents.DotNetBar.ElementStyle();
+            this.barLog = new DevComponents.DotNetBar.Bar();
+            this.imageListUserSettings = new System.Windows.Forms.ImageList(this.components);
+            this.buttonItemExpandAll = new DevComponents.DotNetBar.ButtonItem();
+            this.buttonItemFoldAll = new DevComponents.DotNetBar.ButtonItem();
+            this.buttonItemRefresh = new DevComponents.DotNetBar.ButtonItem();
+            this.buttonItemExportLogs = new DevComponents.DotNetBar.ButtonItem();
+            this.superTabControlLogs = new DevComponents.DotNetBar.SuperTabControl();
+            this.superTabControlPanel5 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.superTabItemLogManage = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.tableLayoutPanelModifyPassword = new System.Windows.Forms.TableLayoutPanel();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
@@ -99,20 +98,22 @@
             this.superTabItemAuthorityManage = new DevComponents.DotNetBar.SuperTabItem();
             this.buttonItemHelp = new DevComponents.DotNetBar.ButtonItem();
             this.folderBrowserDialogCache = new System.Windows.Forms.FolderBrowserDialog();
+            this.buttonItemLogSearch = new DevComponents.DotNetBar.ButtonItem();
+            this.reflectionImage1 = new DevComponents.DotNetBar.Controls.ReflectionImage();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControlUserSettings)).BeginInit();
             this.superTabControlUserSettings.SuspendLayout();
-            this.superTabControlPanel1.SuspendLayout();
-            this.tableLayoutPanelLogManage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.advTreeLogList)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barLog)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.superTabControlLogs)).BeginInit();
-            this.superTabControlLogs.SuspendLayout();
             this.superTabControlPanel4.SuspendLayout();
             this.tableLayoutPanelSoftSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanelSSCacheSettings.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tableLayoutPanelSSAbout.SuspendLayout();
+            this.superTabControlPanel1.SuspendLayout();
+            this.tableLayoutPanelLogManage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.advTreeLogList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barLog)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.superTabControlLogs)).BeginInit();
+            this.superTabControlLogs.SuspendLayout();
             this.superTabControlPanel2.SuspendLayout();
             this.tableLayoutPanelModifyPassword.SuspendLayout();
             this.superTabControlPanel3.SuspendLayout();
@@ -138,8 +139,8 @@
             this.superTabControlUserSettings.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.superTabControlUserSettings.ControlBox.MenuBox,
             this.superTabControlUserSettings.ControlBox.CloseBox});
-            this.superTabControlUserSettings.Controls.Add(this.superTabControlPanel4);
             this.superTabControlUserSettings.Controls.Add(this.superTabControlPanel1);
+            this.superTabControlUserSettings.Controls.Add(this.superTabControlPanel4);
             this.superTabControlUserSettings.Controls.Add(this.superTabControlPanel2);
             this.superTabControlUserSettings.Controls.Add(this.superTabControlPanel3);
             this.superTabControlUserSettings.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -158,177 +159,6 @@
             this.superTabItemAuthorityManage,
             this.superTabItemSoftwareSetting,
             this.buttonItemHelp});
-            // 
-            // superTabControlPanel1
-            // 
-            this.superTabControlPanel1.Controls.Add(this.tableLayoutPanelLogManage);
-            this.superTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel1.Location = new System.Drawing.Point(0, 28);
-            this.superTabControlPanel1.Name = "superTabControlPanel1";
-            this.superTabControlPanel1.Size = new System.Drawing.Size(567, 402);
-            this.superTabControlPanel1.TabIndex = 1;
-            this.superTabControlPanel1.TabItem = this.superTabItemLogManage;
-            // 
-            // tableLayoutPanelLogManage
-            // 
-            this.tableLayoutPanelLogManage.BackColor = System.Drawing.Color.Transparent;
-            this.tableLayoutPanelLogManage.ColumnCount = 2;
-            this.tableLayoutPanelLogManage.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanelLogManage.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanelLogManage.Controls.Add(this.advTreeLogList, 0, 1);
-            this.tableLayoutPanelLogManage.Controls.Add(this.barLog, 0, 0);
-            this.tableLayoutPanelLogManage.Controls.Add(this.superTabControlLogs, 1, 1);
-            this.tableLayoutPanelLogManage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelLogManage.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanelLogManage.Name = "tableLayoutPanelLogManage";
-            this.tableLayoutPanelLogManage.RowCount = 2;
-            this.tableLayoutPanelLogManage.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanelLogManage.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelLogManage.Size = new System.Drawing.Size(567, 402);
-            this.tableLayoutPanelLogManage.TabIndex = 0;
-            // 
-            // advTreeLogList
-            // 
-            this.advTreeLogList.AccessibleRole = System.Windows.Forms.AccessibleRole.Outline;
-            this.advTreeLogList.AllowDrop = true;
-            this.advTreeLogList.BackColor = System.Drawing.SystemColors.Window;
-            // 
-            // 
-            // 
-            this.advTreeLogList.BackgroundStyle.Class = "TreeBorderKey";
-            this.advTreeLogList.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.advTreeLogList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.advTreeLogList.Location = new System.Drawing.Point(3, 33);
-            this.advTreeLogList.MultiSelect = true;
-            this.advTreeLogList.Name = "advTreeLogList";
-            this.advTreeLogList.NodesConnector = this.nodeConnector1;
-            this.advTreeLogList.NodeStyle = this.elementStyle1;
-            this.advTreeLogList.PathSeparator = ";";
-            this.advTreeLogList.Size = new System.Drawing.Size(135, 366);
-            this.advTreeLogList.Styles.Add(this.elementStyle1);
-            this.advTreeLogList.TabIndex = 0;
-            this.advTreeLogList.Text = "advTree1";
-            this.advTreeLogList.NodeDoubleClick += new DevComponents.AdvTree.TreeNodeMouseEventHandler(this.advTreeLogList_NodeDoubleClick);
-            // 
-            // nodeConnector1
-            // 
-            this.nodeConnector1.LineColor = System.Drawing.SystemColors.ControlText;
-            // 
-            // elementStyle1
-            // 
-            this.elementStyle1.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.elementStyle1.Name = "elementStyle1";
-            this.elementStyle1.TextColor = System.Drawing.SystemColors.ControlText;
-            // 
-            // barLog
-            // 
-            this.barLog.AntiAlias = true;
-            this.tableLayoutPanelLogManage.SetColumnSpan(this.barLog, 2);
-            this.barLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.barLog.DockSide = DevComponents.DotNetBar.eDockSide.Document;
-            this.barLog.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
-            this.barLog.Images = this.imageListUserSettings;
-            this.barLog.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.buttonItemExpandAll,
-            this.buttonItemFoldAll,
-            this.buttonItemRefresh,
-            this.buttonItemExportLogs});
-            this.barLog.Location = new System.Drawing.Point(3, 3);
-            this.barLog.Name = "barLog";
-            this.barLog.Size = new System.Drawing.Size(561, 26);
-            this.barLog.Stretch = true;
-            this.barLog.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.barLog.TabIndex = 2;
-            this.barLog.TabStop = false;
-            // 
-            // imageListUserSettings
-            // 
-            this.imageListUserSettings.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListUserSettings.ImageStream")));
-            this.imageListUserSettings.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageListUserSettings.Images.SetKeyName(0, "expand_all_16.png");
-            this.imageListUserSettings.Images.SetKeyName(1, "fold_all_16.png");
-            this.imageListUserSettings.Images.SetKeyName(2, "folder_expand_19.png");
-            this.imageListUserSettings.Images.SetKeyName(3, "folder_fold_17.png");
-            this.imageListUserSettings.Images.SetKeyName(4, "refresh_16.png");
-            this.imageListUserSettings.Images.SetKeyName(5, "user_add_32.png");
-            this.imageListUserSettings.Images.SetKeyName(6, "user_delete_32.png");
-            this.imageListUserSettings.Images.SetKeyName(7, "user_edit.png");
-            this.imageListUserSettings.Images.SetKeyName(8, "help_32.png");
-            // 
-            // buttonItemExpandAll
-            // 
-            this.buttonItemExpandAll.ImageIndex = 1;
-            this.buttonItemExpandAll.Name = "buttonItemExpandAll";
-            this.buttonItemExpandAll.Text = "展开所有";
-            this.buttonItemExpandAll.Tooltip = "展开所有";
-            this.buttonItemExpandAll.Click += new System.EventHandler(this.buttonItemExpandAll_Click);
-            // 
-            // buttonItemFoldAll
-            // 
-            this.buttonItemFoldAll.ImageIndex = 0;
-            this.buttonItemFoldAll.Name = "buttonItemFoldAll";
-            this.buttonItemFoldAll.Tooltip = "折叠所有";
-            this.buttonItemFoldAll.Click += new System.EventHandler(this.buttonItemFoldAll_Click);
-            // 
-            // buttonItemRefresh
-            // 
-            this.buttonItemRefresh.BeginGroup = true;
-            this.buttonItemRefresh.ImageIndex = 4;
-            this.buttonItemRefresh.Name = "buttonItemRefresh";
-            this.buttonItemRefresh.Tooltip = "刷新日志列表";
-            this.buttonItemRefresh.Click += new System.EventHandler(this.buttonItemRefresh_Click);
-            // 
-            // buttonItemExportLogs
-            // 
-            this.buttonItemExportLogs.BeginGroup = true;
-            this.buttonItemExportLogs.Name = "buttonItemExportLogs";
-            this.buttonItemExportLogs.Text = "导出日志";
-            this.buttonItemExportLogs.Click += new System.EventHandler(this.buttonItemExportLogs_Click);
-            // 
-            // superTabControlLogs
-            // 
-            this.superTabControlLogs.CloseButtonOnTabsVisible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.superTabControlLogs.ControlBox.CloseBox.Name = "";
-            // 
-            // 
-            // 
-            this.superTabControlLogs.ControlBox.MenuBox.Name = "";
-            this.superTabControlLogs.ControlBox.Name = "";
-            this.superTabControlLogs.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.superTabControlLogs.ControlBox.MenuBox,
-            this.superTabControlLogs.ControlBox.CloseBox});
-            this.superTabControlLogs.Controls.Add(this.superTabControlPanel5);
-            this.superTabControlLogs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlLogs.Location = new System.Drawing.Point(144, 33);
-            this.superTabControlLogs.Name = "superTabControlLogs";
-            this.superTabControlLogs.ReorderTabsEnabled = true;
-            this.superTabControlLogs.SelectedTabFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
-            this.superTabControlLogs.SelectedTabIndex = -1;
-            this.superTabControlLogs.Size = new System.Drawing.Size(420, 366);
-            this.superTabControlLogs.TabFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.superTabControlLogs.TabIndex = 3;
-            this.superTabControlLogs.Text = "superTabControl1";
-            // 
-            // superTabControlPanel5
-            // 
-            this.superTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel5.Location = new System.Drawing.Point(0, 0);
-            this.superTabControlPanel5.Name = "superTabControlPanel5";
-            this.superTabControlPanel5.Size = new System.Drawing.Size(420, 366);
-            this.superTabControlPanel5.TabIndex = 1;
-            // 
-            // superTabItemLogManage
-            // 
-            this.superTabItemLogManage.AttachedControl = this.superTabControlPanel1;
-            this.superTabItemLogManage.GlobalItem = false;
-            this.superTabItemLogManage.Name = "superTabItemLogManage";
-            this.superTabItemLogManage.Text = "日志管理";
             // 
             // superTabControlPanel4
             // 
@@ -535,7 +365,7 @@
             this.tableLayoutPanelSSAbout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanelSSAbout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelSSAbout.Controls.Add(this.labelX8, 1, 1);
-            this.tableLayoutPanelSSAbout.Controls.Add(this.labelX7, 1, 0);
+            this.tableLayoutPanelSSAbout.Controls.Add(this.labelXSoftwareVision, 1, 0);
             this.tableLayoutPanelSSAbout.Controls.Add(this.reflectionImage1, 0, 0);
             this.tableLayoutPanelSSAbout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelSSAbout.Location = new System.Drawing.Point(3, 17);
@@ -561,35 +391,20 @@
             this.labelX8.Text = "北京信威通信技术股份有限公司  版权所有\r\nCopyright © 2017. All Rights Reserved.";
             this.labelX8.TextLineAlignment = System.Drawing.StringAlignment.Near;
             // 
-            // labelX7
+            // labelXSoftwareVision
             // 
             // 
             // 
             // 
-            this.labelX7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelX7.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX7.Location = new System.Drawing.Point(203, 3);
-            this.labelX7.Name = "labelX7";
-            this.labelX7.Size = new System.Drawing.Size(349, 81);
-            this.labelX7.TabIndex = 1;
-            this.labelX7.Text = "高清动态无中心自组网综合应用管理平台软件 v1.0";
-            this.labelX7.TextLineAlignment = System.Drawing.StringAlignment.Far;
-            // 
-            // reflectionImage1
-            // 
-            // 
-            // 
-            // 
-            this.reflectionImage1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.reflectionImage1.BackgroundStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center;
-            this.reflectionImage1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.reflectionImage1.Image = ((System.Drawing.Image)(resources.GetObject("reflectionImage1.Image")));
-            this.reflectionImage1.Location = new System.Drawing.Point(3, 3);
-            this.reflectionImage1.Name = "reflectionImage1";
-            this.tableLayoutPanelSSAbout.SetRowSpan(this.reflectionImage1, 2);
-            this.reflectionImage1.Size = new System.Drawing.Size(194, 169);
-            this.reflectionImage1.TabIndex = 3;
+            this.labelXSoftwareVision.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelXSoftwareVision.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelXSoftwareVision.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelXSoftwareVision.Location = new System.Drawing.Point(203, 3);
+            this.labelXSoftwareVision.Name = "labelXSoftwareVision";
+            this.labelXSoftwareVision.Size = new System.Drawing.Size(349, 81);
+            this.labelXSoftwareVision.TabIndex = 1;
+            this.labelXSoftwareVision.Text = "高清动态无中心自组网综合应用管理平台软件 v";
+            this.labelXSoftwareVision.TextLineAlignment = System.Drawing.StringAlignment.Far;
             // 
             // superTabItemSoftwareSetting
             // 
@@ -597,6 +412,179 @@
             this.superTabItemSoftwareSetting.GlobalItem = false;
             this.superTabItemSoftwareSetting.Name = "superTabItemSoftwareSetting";
             this.superTabItemSoftwareSetting.Text = "软件设置";
+            // 
+            // superTabControlPanel1
+            // 
+            this.superTabControlPanel1.Controls.Add(this.tableLayoutPanelLogManage);
+            this.superTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel1.Location = new System.Drawing.Point(0, 28);
+            this.superTabControlPanel1.Name = "superTabControlPanel1";
+            this.superTabControlPanel1.Size = new System.Drawing.Size(567, 402);
+            this.superTabControlPanel1.TabIndex = 1;
+            this.superTabControlPanel1.TabItem = this.superTabItemLogManage;
+            // 
+            // tableLayoutPanelLogManage
+            // 
+            this.tableLayoutPanelLogManage.BackColor = System.Drawing.Color.Transparent;
+            this.tableLayoutPanelLogManage.ColumnCount = 2;
+            this.tableLayoutPanelLogManage.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanelLogManage.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.tableLayoutPanelLogManage.Controls.Add(this.advTreeLogList, 0, 1);
+            this.tableLayoutPanelLogManage.Controls.Add(this.barLog, 0, 0);
+            this.tableLayoutPanelLogManage.Controls.Add(this.superTabControlLogs, 1, 1);
+            this.tableLayoutPanelLogManage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelLogManage.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelLogManage.Name = "tableLayoutPanelLogManage";
+            this.tableLayoutPanelLogManage.RowCount = 2;
+            this.tableLayoutPanelLogManage.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanelLogManage.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelLogManage.Size = new System.Drawing.Size(567, 402);
+            this.tableLayoutPanelLogManage.TabIndex = 0;
+            // 
+            // advTreeLogList
+            // 
+            this.advTreeLogList.AccessibleRole = System.Windows.Forms.AccessibleRole.Outline;
+            this.advTreeLogList.AllowDrop = true;
+            this.advTreeLogList.BackColor = System.Drawing.SystemColors.Window;
+            // 
+            // 
+            // 
+            this.advTreeLogList.BackgroundStyle.Class = "TreeBorderKey";
+            this.advTreeLogList.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.advTreeLogList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.advTreeLogList.Location = new System.Drawing.Point(3, 33);
+            this.advTreeLogList.MultiSelect = true;
+            this.advTreeLogList.Name = "advTreeLogList";
+            this.advTreeLogList.NodesConnector = this.nodeConnector1;
+            this.advTreeLogList.NodeStyle = this.elementStyle1;
+            this.advTreeLogList.PathSeparator = ";";
+            this.advTreeLogList.Size = new System.Drawing.Size(135, 366);
+            this.advTreeLogList.Styles.Add(this.elementStyle1);
+            this.advTreeLogList.TabIndex = 0;
+            this.advTreeLogList.Text = "advTree1";
+            this.advTreeLogList.NodeDoubleClick += new DevComponents.AdvTree.TreeNodeMouseEventHandler(this.advTreeLogList_NodeDoubleClick);
+            // 
+            // nodeConnector1
+            // 
+            this.nodeConnector1.LineColor = System.Drawing.SystemColors.ControlText;
+            // 
+            // elementStyle1
+            // 
+            this.elementStyle1.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.elementStyle1.Name = "elementStyle1";
+            this.elementStyle1.TextColor = System.Drawing.SystemColors.ControlText;
+            // 
+            // barLog
+            // 
+            this.barLog.AntiAlias = true;
+            this.tableLayoutPanelLogManage.SetColumnSpan(this.barLog, 2);
+            this.barLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.barLog.DockSide = DevComponents.DotNetBar.eDockSide.Document;
+            this.barLog.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
+            this.barLog.Images = this.imageListUserSettings;
+            this.barLog.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.buttonItemExpandAll,
+            this.buttonItemFoldAll,
+            this.buttonItemRefresh,
+            this.buttonItemExportLogs,
+            this.buttonItemLogSearch});
+            this.barLog.Location = new System.Drawing.Point(3, 3);
+            this.barLog.Name = "barLog";
+            this.barLog.Size = new System.Drawing.Size(561, 26);
+            this.barLog.Stretch = true;
+            this.barLog.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.barLog.TabIndex = 2;
+            this.barLog.TabStop = false;
+            // 
+            // imageListUserSettings
+            // 
+            this.imageListUserSettings.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListUserSettings.ImageStream")));
+            this.imageListUserSettings.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListUserSettings.Images.SetKeyName(0, "expand_all_16.png");
+            this.imageListUserSettings.Images.SetKeyName(1, "fold_all_16.png");
+            this.imageListUserSettings.Images.SetKeyName(2, "folder_expand_19.png");
+            this.imageListUserSettings.Images.SetKeyName(3, "folder_fold_17.png");
+            this.imageListUserSettings.Images.SetKeyName(4, "refresh_16.png");
+            this.imageListUserSettings.Images.SetKeyName(5, "user_add_32.png");
+            this.imageListUserSettings.Images.SetKeyName(6, "user_delete_32.png");
+            this.imageListUserSettings.Images.SetKeyName(7, "user_edit.png");
+            this.imageListUserSettings.Images.SetKeyName(8, "help_32.png");
+            this.imageListUserSettings.Images.SetKeyName(9, "search_32.png");
+            // 
+            // buttonItemExpandAll
+            // 
+            this.buttonItemExpandAll.ImageIndex = 1;
+            this.buttonItemExpandAll.Name = "buttonItemExpandAll";
+            this.buttonItemExpandAll.Text = "展开所有";
+            this.buttonItemExpandAll.Tooltip = "展开所有";
+            this.buttonItemExpandAll.Click += new System.EventHandler(this.buttonItemExpandAll_Click);
+            // 
+            // buttonItemFoldAll
+            // 
+            this.buttonItemFoldAll.ImageIndex = 0;
+            this.buttonItemFoldAll.Name = "buttonItemFoldAll";
+            this.buttonItemFoldAll.Tooltip = "折叠所有";
+            this.buttonItemFoldAll.Click += new System.EventHandler(this.buttonItemFoldAll_Click);
+            // 
+            // buttonItemRefresh
+            // 
+            this.buttonItemRefresh.BeginGroup = true;
+            this.buttonItemRefresh.ImageIndex = 4;
+            this.buttonItemRefresh.Name = "buttonItemRefresh";
+            this.buttonItemRefresh.Tooltip = "刷新日志列表";
+            this.buttonItemRefresh.Click += new System.EventHandler(this.buttonItemRefresh_Click);
+            // 
+            // buttonItemExportLogs
+            // 
+            this.buttonItemExportLogs.BeginGroup = true;
+            this.buttonItemExportLogs.Name = "buttonItemExportLogs";
+            this.buttonItemExportLogs.Text = "导出日志";
+            this.buttonItemExportLogs.Click += new System.EventHandler(this.buttonItemExportLogs_Click);
+            // 
+            // superTabControlLogs
+            // 
+            this.superTabControlLogs.CloseButtonOnTabsVisible = true;
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.superTabControlLogs.ControlBox.CloseBox.Name = "";
+            // 
+            // 
+            // 
+            this.superTabControlLogs.ControlBox.MenuBox.Name = "";
+            this.superTabControlLogs.ControlBox.Name = "";
+            this.superTabControlLogs.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.superTabControlLogs.ControlBox.MenuBox,
+            this.superTabControlLogs.ControlBox.CloseBox});
+            this.superTabControlLogs.Controls.Add(this.superTabControlPanel5);
+            this.superTabControlLogs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlLogs.Location = new System.Drawing.Point(144, 33);
+            this.superTabControlLogs.Name = "superTabControlLogs";
+            this.superTabControlLogs.ReorderTabsEnabled = true;
+            this.superTabControlLogs.SelectedTabFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.superTabControlLogs.SelectedTabIndex = -1;
+            this.superTabControlLogs.Size = new System.Drawing.Size(420, 366);
+            this.superTabControlLogs.TabFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.superTabControlLogs.TabIndex = 3;
+            this.superTabControlLogs.Text = "superTabControl1";
+            // 
+            // superTabControlPanel5
+            // 
+            this.superTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel5.Location = new System.Drawing.Point(0, 0);
+            this.superTabControlPanel5.Name = "superTabControlPanel5";
+            this.superTabControlPanel5.Size = new System.Drawing.Size(420, 366);
+            this.superTabControlPanel5.TabIndex = 1;
+            // 
+            // superTabItemLogManage
+            // 
+            this.superTabItemLogManage.AttachedControl = this.superTabControlPanel1;
+            this.superTabItemLogManage.GlobalItem = false;
+            this.superTabItemLogManage.Name = "superTabItemLogManage";
+            this.superTabItemLogManage.Text = "日志管理";
             // 
             // superTabControlPanel2
             // 
@@ -847,7 +835,7 @@
             this.buttonItemUserDelete});
             this.barAuthorityManage.Location = new System.Drawing.Point(3, 3);
             this.barAuthorityManage.Name = "barAuthorityManage";
-            this.barAuthorityManage.Size = new System.Drawing.Size(561, 39);
+            this.barAuthorityManage.Size = new System.Drawing.Size(561, 25);
             this.barAuthorityManage.Stretch = true;
             this.barAuthorityManage.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.barAuthorityManage.TabIndex = 0;
@@ -1045,6 +1033,29 @@
             this.buttonItemHelp.Tooltip = "查看帮助文档";
             this.buttonItemHelp.Click += new System.EventHandler(this.buttonItemHelp_Click);
             // 
+            // buttonItemLogSearch
+            // 
+            this.buttonItemLogSearch.BeginGroup = true;
+            this.buttonItemLogSearch.ImageIndex = 9;
+            this.buttonItemLogSearch.Name = "buttonItemLogSearch";
+            this.buttonItemLogSearch.Text = "buttonItem1";
+            this.buttonItemLogSearch.Click += new System.EventHandler(this.buttonItemLogSearch_Click);
+            // 
+            // reflectionImage1
+            // 
+            // 
+            // 
+            // 
+            this.reflectionImage1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.reflectionImage1.BackgroundStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center;
+            this.reflectionImage1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.reflectionImage1.Image = ((System.Drawing.Image)(resources.GetObject("reflectionImage1.Image")));
+            this.reflectionImage1.Location = new System.Drawing.Point(3, 3);
+            this.reflectionImage1.Name = "reflectionImage1";
+            this.tableLayoutPanelSSAbout.SetRowSpan(this.reflectionImage1, 2);
+            this.reflectionImage1.Size = new System.Drawing.Size(194, 169);
+            this.reflectionImage1.TabIndex = 3;
+            // 
             // UCUserSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1055,18 +1066,18 @@
             this.Load += new System.EventHandler(this.UCUserSettings_Load);
             ((System.ComponentModel.ISupportInitialize)(this.superTabControlUserSettings)).EndInit();
             this.superTabControlUserSettings.ResumeLayout(false);
-            this.superTabControlPanel1.ResumeLayout(false);
-            this.tableLayoutPanelLogManage.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.advTreeLogList)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barLog)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.superTabControlLogs)).EndInit();
-            this.superTabControlLogs.ResumeLayout(false);
             this.superTabControlPanel4.ResumeLayout(false);
             this.tableLayoutPanelSoftSettings.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanelSSCacheSettings.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.tableLayoutPanelSSAbout.ResumeLayout(false);
+            this.superTabControlPanel1.ResumeLayout(false);
+            this.tableLayoutPanelLogManage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.advTreeLogList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barLog)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.superTabControlLogs)).EndInit();
+            this.superTabControlLogs.ResumeLayout(false);
             this.superTabControlPanel2.ResumeLayout(false);
             this.tableLayoutPanelModifyPassword.ResumeLayout(false);
             this.superTabControlPanel3.ResumeLayout(false);
@@ -1145,9 +1156,10 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelSSAbout;
         private DevComponents.DotNetBar.LabelX labelX8;
-        private DevComponents.DotNetBar.LabelX labelX7;
+        private DevComponents.DotNetBar.LabelX labelXSoftwareVision;
         private DevComponents.DotNetBar.Controls.ReflectionImage reflectionImage1;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogCache;
         private DevComponents.DotNetBar.ButtonX buttonXSSCSResetDefault;
+        private DevComponents.DotNetBar.ButtonItem buttonItemLogSearch;
     }
 }

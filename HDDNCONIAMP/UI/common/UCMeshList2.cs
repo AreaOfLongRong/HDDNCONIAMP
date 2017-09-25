@@ -243,12 +243,12 @@ namespace HDDNCONIAMP.UI.Common
             Node selectNode = advTreeMeshList.SelectedNode;
 
             //设备不在线，不执行后续操作
-            if (selectNode.Level != 1)
-            {
+            if (selectNode == null || selectNode.Level != 1)
                 return;
-            }
 
             Cell selectCell = selectNode.GetCellAt(e.X, e.Y);
+            if (selectCell == null)
+                return;
             if (selectNode.Level == 1 && selectCell.Images != null)
             {
                 MeshAllInfo mai = (MeshAllInfo)selectNode.Tag;
@@ -306,7 +306,7 @@ namespace HDDNCONIAMP.UI.Common
                                 BuddyBMapControl.Locate(false);
                                 BuddyBMapControl.Zoom = 16;
                                 selectCell.Tag = true;  //标识已经绘制了路径
-                                logger.Info(string.Format("查看{0}设备的GPS轨迹记录，供{1}条GPS记录。", 
+                                logger.Info(string.Format("查看{0}设备的GPS轨迹记录，供{1}条GPS记录。",
                                     mai.PlanInfo.Model265ID, bmr.DeviceLocationList.Count));
                             }
                             else
@@ -333,30 +333,7 @@ namespace HDDNCONIAMP.UI.Common
                 mFormMain.VideoProcesses.Add(inject.injectWindow(p.Model265ID));
             }
         }
-
-        /// <summary>
-        /// 子元素编辑完成事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void advTreeMeshList_AfterCellEditComplete(object sender, CellEditEventArgs e)
-        {
-            Node editNode = e.Cell.Parent;
-            switch (editNode.Level)
-            {
-                case 0:
-                    MeshDeviceGroup group = (MeshDeviceGroup)editNode.Tag;
-                    //处理设备分组元素编辑事件
-                    SQLiteHelper.GetInstance().MeshDeviceGroupUpdate(
-                        group.ID, editNode.Text);
-                    logger.Info("修改分组“" + group.ID.ToString() + "”的组名为“" + editNode.Text + "”");
-                    break;
-                case 1:
-                    //处理设备节点的元素编辑事件
-                    break;
-            }
-        }
-
+        
         /// <summary>
         /// 鼠标按下事件
         /// </summary>
@@ -460,14 +437,14 @@ namespace HDDNCONIAMP.UI.Common
                 () =>
                 {
                     while (!LifeTimeControl.closing)
-                    {   
+                    {
                         foreach (MeshAllInfo item in mMeshAllInfo)
                         {
                             Ping myPing;
                             myPing = new Ping();
                             myPing.SendAsync(item.DeviceInfo.IPV4, item);
                             myPing.PingCompleted += MyPing_PingCompleted;
-                            
+
                         }
                         Thread.Sleep(int.Parse(mFormMain.AllApplicationSetting[ApplicationSettingKey.MeshListRefreshFrequency]));
                     }
@@ -505,6 +482,8 @@ namespace HDDNCONIAMP.UI.Common
                 else
                 {
                     mai.BuddyNode.Cells[1].Text = args[0].ToString();
+                    mai.BuddyNode.Cells[1].StyleNormal.TextColor = args[0].ToString().Equals("离线") ? Color.Gray : Color.Black;
+                    mai.BuddyNode.Cells[1].StyleNormal.Font = args[0].ToString().Equals("离线") ? new Font("宋体", 9, FontStyle.Regular) : new Font("宋体", 9, FontStyle.Bold);
                 }
             }
             catch (Exception ex)
@@ -550,6 +529,8 @@ namespace HDDNCONIAMP.UI.Common
                         subNode.ImageIndex = 8;
                         Cell cellState = new Cell();
                         cellState.Text = "离线";
+                        cellState.StyleNormal = new DevComponents.DotNetBar.ElementStyle();
+                        cellState.StyleNormal.TextColor = cellState.Text.Equals("离线") ? Color.Gray : Color.DarkGreen;
                         subNode.Cells.Add(cellState);
                         Cell cellGPS = new Cell();
                         cellGPS.Images.ImageIndex = 9;

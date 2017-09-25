@@ -8,14 +8,12 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
+using DevComponents.DotNetBar.Controls;
 using HDDNCONIAMP.DB;
 using HDDNCONIAMP.DB.Model;
-using HDDNCONIAMP.Mesh;
-using HDDNCONIAMP.UI.Common;
 using HDDNCONIAMP.Utils;
 using log4net;
 using NodeTopology;
-using DevComponents.DotNetBar.Controls;
 
 namespace HDDNCONIAMP.UI.MeshManagement
 {
@@ -88,7 +86,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
         Thread GetRealInfoThread;
         Thread RefreshPanelContext;
-        Thread DrawNodeTestThread;
 
         public NodeTopology.GScenario GNetwork;
         private const int XTextPixelOffset = -10;
@@ -118,25 +115,8 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
             setTableLayoutPanelDoubleBufferd();
 
-            try
-            {
-                this.ScanRate = 3;
-            }
-            catch (Exception ex)
-            {
-                LogHelper.WriteLog("未在配置文件中找到刷新速率！！！" + ex.Message.ToString());
-            }
-
-            try
-            {
-                this.ShowRate = 3;
-            }
-            catch (Exception ex)
-            {
-                LogHelper.WriteLog("未在配置文件中找到显示速率！！！" + ex.Message.ToString());
-            }
-
-
+            this.ScanRate = 3;
+            this.ShowRate = 3;
 
             IntPtr editHandle = GetWindow(this.NIC.Handle, GW_CHILD);
             SendMessage(editHandle, EM_SETREADONLY, 1, 0);
@@ -171,7 +151,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
         }
 
         #region 网络拓扑事件处理
-        
+
         private void buttonXRefreshTopology_Click(object sender, EventArgs e)
         {
             StartTopology();
@@ -293,7 +273,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             //urinatedong 2017.3.5
             this.MYBlockNodes.Nodelist.Add(RootNode);
         }
-        
+
         public void TestSendTelnetTelegram(string needInfoNode)
         {
             //需要在这里try catch finally 以关闭连接
@@ -539,22 +519,13 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
 
         private ReaderWriterLock _rwlock = new ReaderWriterLock();
-        
+
         private void GetRealInfo()
         {
-
-            string SubNet = "192.168.0.";
-
 
             while (!LifeTimeControl.closing)
             {
                 LogHelper.WriteLog("循环扫描开始！！！");
-
-                LogHelper.WriteLog("PingSubNet:" + SubNet);
-
-                MyARPLIST.PingSubNet(SubNet);
-
-                LogHelper.WriteLog("PingSubNet结束!!!");
 
                 LogHelper.WriteLog("ReloadARP开始！！！");
 
@@ -573,9 +544,11 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                 LogHelper.WriteLog("TestGetIniMACandIP结束！！！");
 
-                if (RootIp.Equals(string.Empty))
+                if (RootIp == null || RootIp.Equals(string.Empty))
                 {
-                    MessageBox.Show("未获取到根节点IP信息，请检查网络连接是否正常！");
+                    //MessageBox.Show("未获取到根节点IP信息，请检查网络连接是否正常！");
+
+                    buttonXStopRefresh_Click(null, null);
 
                     return;
                 }
@@ -610,7 +583,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
 
 
-                while (search)
+                while (!LifeTimeControl.closing && search)
                 {
 
                     ///用NeedtoClear来控制这一轮要找的NODE,用NeedResearchMac来控制下一轮要找的NODE
@@ -654,7 +627,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                         }
 
                     }
-                    
+
                     LogHelper.WriteLog("RealTimeNode全部拓扑信息读取完成");
 
 
@@ -708,7 +681,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
 
         private delegate void AddNode(node Pnode);
-        
+
         private void AddNodeMethod(node Pnode)
         {
             if (this.treeView1.InvokeRequired)
@@ -786,11 +759,8 @@ namespace HDDNCONIAMP.UI.MeshManagement
         /// </summary>
         private void RefreshPanelInfo()
         {
-
-
             while (!LifeTimeControl.closing)
             {
-
                 //争取在左上角加一个时间显示！！！
 
                 ///争取画面不闪烁的关键是一次性画出所有控件！！！
@@ -808,7 +778,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
                 //RepeatTime 代表最多有几层
                 //FindNodeNumber 代表每层最多有几个，这两个数据需要在显示之前传进来
 
-
                 //int RepeatTime = 6;
 
                 //int[] FindNodeNumber = new int[5] { 1, 2, 3, 4, 6 };
@@ -819,16 +788,10 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                 //List<int> EveryColumnNodeCountForRead = new List<int>();
 
-
-
                 if (this.ShowBlockNodes.Nodelist.Count > 0)
                 {
 
-
-
                     _rwlock.AcquireReaderLock(100);
-
-
 
                     ///首先删除那些已经不存在的关系和节点!!!
                     ///urinatedong 20170325
@@ -871,18 +834,13 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                     //var NoneNodes = this.ShowBlockNodes.Nodelist.Where(x=>x.IpAddress)
 
-
                     ///需要在这里判断出来哪些是在这个循环中没有出现的节点???
-
-
 
                     ///首先分割界面！！！
                     ///获取区间宽度
                     int ColumnWidth = this.drawPanel.Width / RepeatTimeForRead;
 
                     int nodecount = 0;
-
-
 
                     for (int i = 0; i < RepeatTimeForRead; i++)
                     {
@@ -901,11 +859,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                                 //AddGObject(x, y, node);
 
-
-
-
                                 node TempNode = ShowBlockNodes.Nodelist[nodecount];
-
 
                                 //urinatedog 向TREEVIEW中加入节点
                                 //TreeNode NewNode = this.treeView1.Nodes.Add(TempNode.IpAddress);
@@ -923,15 +877,12 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                                 //AddGobject(ColumnWidth / 2 + i * ColumnWidth - 30, CellHeight / 2 + k * CellHeight - 30, TempNode);
 
-
                                 ///使用双缓存后，这里就很重要，必须每个循环后判断哪些变化了，哪些没有变化！！！
 
                                 AddGObject(ColumnWidth / 2 + i * ColumnWidth - this.imageList1.ImageSize.Width / 2, CellHeight / 2 + k * CellHeight - this.imageList1.ImageSize.Height / 2, TempNode);
                             }
 
                         }
-
-
                     }
 
 
@@ -1031,7 +982,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                     this.StoreBlockNodes.Nodelist = this.ShowBlockNodes.Nodelist.ToArray().ToList();
                     this.StoreBlockNodes.Relationlist = this.ShowBlockNodes.Relationlist.ToArray().ToList();
-                    
+
                 }
 
 
@@ -1039,11 +990,11 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
 
                 Thread.Sleep(this.ShowRate * 1000);
-                
+
             }
 
         }
-        
+
         private void drawPanel_MouseUp(object sender, MouseEventArgs e)
         {
             int H = 0;
@@ -1188,7 +1139,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                     {
                         LogHelper.WriteLog(Si.IpAddress.PadLeft(20, ' ') + Si.MacAddress.PadLeft(20, ' ') + Si.BandWidth.ToString().PadLeft(10, ' ') + Si.TxPower.ToString().PadLeft(10, ' ') + Si.Frequency.ToString().PadLeft(10, ' ') + Si.Battery.ToString().PadLeft(10, ' '));
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
 
                     }
@@ -1227,7 +1178,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                     }
                     catch (Exception)
                     {
-                        
+
                     }
                 }
             }
@@ -1250,7 +1201,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             Bitmap bmp = new Bitmap(this.drawPanel.Width, this.drawPanel.Height);
             Graphics g = Graphics.FromImage(bmp);
             g.Clear(this.drawPanel.BackColor);
-            
+
             //Graphics g = this.CreateGraphics();
             //Graphics g = this.drawPanel.CreateGraphics();
             g.SmoothingMode = SmoothingMode.AntiAlias;  //使绘图质量最高，即消除锯齿
@@ -1259,11 +1210,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
             GObject CurrObj = new GObject();
             Rectangle Rct = new Rectangle();
-
-
-
-
-
 
             //Pen p = new Pen(Color.Blue);
             Image ObjImg;
@@ -1284,7 +1230,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
                 {
                     case "Y":
                         // g.DrawLine(p, CurrObj.x1, CurrObj.y1, CurrObj.x2, CurrObj.y2);
-
 
                         AdjustableArrowCap lineCap = new AdjustableArrowCap(5, 6, true);
 
@@ -1307,7 +1252,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
                         p.CustomStartCap = lineCap;
 
                         g.DrawLine(p, CurrObj.x1, CurrObj.y1, CurrObj.x2, CurrObj.y2);
-
 
                         xm = (CurrObj.x1 + CurrObj.x2) / 2;
                         ym = (CurrObj.y1 + CurrObj.y2) / 2;
@@ -1335,9 +1279,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
                         Rct.Height = CurrObj.y2 - CurrObj.y1;
                         if (CurrObj.Type != String.Empty)
                         {
-
-
-
                             if (double.Parse(MyNodeInfo[4].Replace("Battery", "")) > 0)
                             {
                                 ObjImg = FindGObjectTypeImage("Router");
@@ -1366,11 +1307,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
             bmp.Dispose();
             g.Dispose();
-
-
         }
-
-
 
 
         private void AddText(int Xbase, int Ybase, string Msg, bool UseOffset, Graphics UsingGraphics)
@@ -1486,7 +1423,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
         public void AddGObject(int x1, int y1, node pnode)
         {
 
-
             #region 为了防止刷新，不在此时画图形!!! urinatedong 20170322
 
             //Graphics g = this.drawPanel.CreateGraphics();//
@@ -1529,7 +1465,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
             #endregion
 
-
             GObject TempGObject = new GObject();
 
             //在数组中查找是否已经有该子节点了！！！
@@ -1549,9 +1484,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                 TempGObject.AddInfo = AddInfo;
             }
-
-
-
 
             //string ObjName = ObjType + "_" + GNetwork.LastIndexOfGObject(ObjType).ToString();
             ////
@@ -1580,10 +1512,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
             //p.Dispose(); 
             //g.Dispose();
 
-
-
-
-
         }
 
         public void AddGObject(int x1, int y1, int x2, int y2, string ObjType, string addinfo)
@@ -1600,8 +1528,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
             Pen p = new Pen(Color.Blue);
             p.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;//恢复实线  
             p.EndCap = System.Drawing.Drawing2D.LineCap.ArrowAnchor;
-
-
 
             Image ObjImg;
             string ObjName = ObjType + "_" + GNetwork.LastIndexOfGObject(ObjType).ToString();
@@ -1686,8 +1612,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
                     //recvStr = tn.recvDataWaitWord("MHz", 1);
                     //TheNode.Frequency = double.Parse(recvStr.Replace("OK\n#user@/>", "").Replace("MHz", ""));
 
-
-
                 }
 
                 catch (Exception ex)
@@ -1699,224 +1623,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                 {
                     tn.close();
                 }
-
-
-
             }//if end
-
-
-
-        }
-
-        #endregion
-
-        #region 一键改频
-        /// <summary>
-        /// urinatedong 20170312
-        /// 新增一键改频后台代码
-        /// </summary>
-        /// <param name="frequency">新频率</param>
-        private void updatefrequency(object frequency)
-        {
-
-            GNetwork.Clear();
-            GNetwork = new NodeTopology.GScenario(Nmax);
-            GNetwork.CurrObjIndx = 0;
-
-            //this.panel2.Refresh();
-            this.Invoke(new DPanel2Refresh(Panel2Refresh));
-
-
-
-
-            List<node> updatefrequencynodelist = new List<node>();
-
-
-
-            _rwlock.AcquireWriterLock(100);
-
-            updatefrequencynodelist = this.ShowBlockNodes.Nodelist.ToArray().ToList();
-
-            _rwlock.ReleaseWriterLock();
-
-
-
-
-
-
-            if (updatefrequencynodelist.Count > 0)
-            {
-                ///尝试关闭进程
-                try
-                {
-                    if (GetRealInfoThread != null)
-                    {
-                        GetRealInfoThread.Abort();
-                        GetRealInfoThread = null;
-                    }
-
-                    if (RefreshPanelContext != null)
-                    {
-                        RefreshPanelContext.Abort();
-                        RefreshPanelContext = null;
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    LogHelper.WriteLog("关闭前后台现成时异常：" + ex.Message.ToString());
-                    MessageBox.Show("无法关闭前后台现成，不能进行一键改频操作");
-                    return;
-                }
-
-                double param = (double)frequency;
-
-                int nodecount = updatefrequencynodelist.Count;
-
-
-                for (int i = nodecount - 1; i >= 0; i--)
-                {
-
-                    LogHelper.WriteLog("开始修改IP为" + updatefrequencynodelist[i].IpAddress + " 节点的frequency 信息!");
-                    LogHelper.WriteLog("当前频率: " + updatefrequencynodelist[i].Frequency.ToString() + " 计划修改频率: " + param.ToString());
-                    try
-                    {
-                        if (updatefrequencynodelist[i].Frequency.Equals(param))
-                        {
-                            LogHelper.WriteLog("频率与原来频率相同无需修改!!!");
-                        }
-                        else
-                        {
-                            UpdateFrequencyTelnetTelegram(updatefrequencynodelist[i].IpAddress, param);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        LogHelper.WriteLog("该IP修改频率未成功,不再修改其他节点频率!!!");
-                        MessageBox.Show("IP为" + updatefrequencynodelist[i].IpAddress + " 节点的频率信息未修改成功!");
-                        break;
-                    }
-
-                }
-                this.MYBlockNodes.Nodelist.Clear();
-                this.MYBlockNodes.Relationlist.Clear();
-                this.ShowBlockNodes.Nodelist.Clear();
-                this.ShowBlockNodes.Relationlist.Clear();
-                this.StoreBlockNodes.Nodelist.Clear();
-                this.StoreBlockNodes.Relationlist.Clear();
-                MessageBox.Show("更改频率完成，请重新扫描拓扑检查信息!!!");
-
-            }
-            else
-            {
-                MessageBox.Show("没有发现节点，请检查拓扑结构！");
-
-            }
-        }
-
-        #endregion
-
-        #region 离线测试
-        /// <summary>
-        /// urinatedong 20170314
-        /// 新增离线测试功能，用来测试绘图部分的优化
-        /// </summary>
-        private void DrawNodeTest()
-        {
-
-            while (!LifeTimeControl.closing)
-            {
-
-                ///随机增加层数和NODE数量，关系
-                node TestNode1 = new node("AAAAAAAAAAAA");
-
-                TestNode1.IpAddress = "192.168.0.9";
-
-                TestNode1.Battery = 1900;
-
-                node TestNode2 = new node("AAAAAAAAAAAB");
-
-                TestNode2.IpAddress = "192.168.0.10";
-
-                TestNode2.Battery = 1900;
-
-                node TestNode3 = new node("AAAAAAAAAAAC");
-
-                TestNode3.IpAddress = "192.168.0.11";
-
-                TestNode3.Battery = 1900;
-
-                node TestNode4 = new node("AAAAAAAAAAAD");
-
-                TestNode4.IpAddress = "192.168.0.18";
-
-
-                this.MYBlockNodes.Nodelist.Add(TestNode1);
-                this.MYBlockNodes.Nodelist.Add(TestNode2);
-                this.MYBlockNodes.Nodelist.Add(TestNode3);
-                this.MYBlockNodes.Nodelist.Add(TestNode4);
-
-
-                relation relation1 = new relation(TestNode1, TestNode2);
-
-                relation1.Findtimes = 2;
-
-                relation relation2 = new relation(TestNode2, TestNode3);
-
-                relation2.Findtimes = 2;
-
-                relation relation3 = new relation(TestNode2, TestNode4);
-
-                relation3.Findtimes = 1;
-
-
-                this.MYBlockNodes.Relationlist.Add(relation1);
-                this.MYBlockNodes.Relationlist.Add(relation2);
-                this.MYBlockNodes.Relationlist.Add(relation3);
-
-                this.RepeatTime = 3;
-
-                this.EveryColumnNodeCount = new List<int>() { 1, 1, 2 };
-
-
-
-                LogHelper.WriteLog("DrawNodeTest全部拓扑信息读取完成");
-
-
-                // this.PrintStatues(this.MYBlockNodes.Nodelist.ToList(), this.MYBlockNodes.Relationlist.ToList(), true);
-
-
-
-
-                ///锁定信息并进行复制
-                _rwlock.AcquireWriterLock(100);
-
-                ///全部复制
-                this.RepeatTimeForRead = this.RepeatTime;
-                this.EveryColumnNodeCountForRead = this.EveryColumnNodeCount.ToArray().ToList();
-                this.ShowBlockNodes.Nodelist = this.MYBlockNodes.Nodelist.ToArray().ToList();
-                this.ShowBlockNodes.Relationlist = this.MYBlockNodes.Relationlist.ToArray().ToList();
-
-                // = new List<string>(NeedResearchMac.ToArray());
-
-                _rwlock.ReleaseWriterLock();
-
-                ///打印信息
-
-
-                ///清除所有内容
-                this.MYBlockNodes.Nodelist.Clear();
-                this.MYBlockNodes.Relationlist.Clear();
-
-
-                ///将所有实时的拓扑节点复制到MYBlockNodes用于显示
-                ///清空实时拓扑用于显示
-
-
-
-                //初步定为每隔1分钟总体扫描1次
-                Thread.Sleep(this.ScanRate * 1000);
-            }
         }
 
         #endregion
@@ -2181,7 +1888,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
 
         #endregion
-
 
         #region 私有方法
 

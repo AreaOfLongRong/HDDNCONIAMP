@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BMap.NET;
@@ -54,6 +55,10 @@ namespace HDDNCONIAMP.UI.UserSettings
             mFormMain = formMain;
             //双缓冲设置，防止界面闪烁
             setTableLayoutPanelDoubleBufferd();
+
+            //实时显示版本信息
+            Version v = Assembly.GetExecutingAssembly().GetName().Version;
+            labelXSoftwareVision.Text += string.Format("{0}.{1}", v.Major, v.Minor);
         }
 
         /// <summary>
@@ -207,6 +212,28 @@ namespace HDDNCONIAMP.UI.UserSettings
             else
             {
                 MessageBox.Show("请选择要导出的日志!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        /// <summary>
+        /// 检索日志
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonItemLogSearch_Click(object sender, EventArgs e)
+        {
+            if(superTabControlLogs.SelectedTabIndex >= 0)
+            {
+                foreach (var item in superTabControlLogs.SelectedTab.AttachedControl.Controls)
+                {
+                    if(item is RichTextBoxEx)
+                    {
+                        RichTextBoxEx rtbe = (RichTextBoxEx)item;
+                        FSearchLog fsl = new FSearchLog();
+                        fsl.BindingRTBE = rtbe;
+                        fsl.Show();
+                        fsl.TopMost = true;
+                    }
+                }
             }
         }
 
