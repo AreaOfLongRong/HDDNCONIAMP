@@ -1855,6 +1855,29 @@ namespace HDDNCONIAMP.UI.MeshManagement
             ipAddressInputMeshPlanHKIP.Value = prefix + "4";
         }
 
+        /// <summary>
+        /// 预案检索
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonItemMPSearch_Click(object sender, EventArgs e)
+        {
+            FMPSearchText fmpst = new FMPSearchText();            
+            if(DialogResult.OK == fmpst.ShowDialog())
+            {
+                string searchText = fmpst.MPSearchText;
+                foreach (DataGridViewRow row in dataGridViewXMeshPlan.Rows)
+                {
+                    bool visible = false;
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        visible |= cell.Value != null ? cell.Value.ToString().Contains(searchText) : false;
+                    }
+                    row.Visible = visible;
+                }
+            }
+        }
+
         private enum MeshPlanOperatorType
         {
             /// <summary>

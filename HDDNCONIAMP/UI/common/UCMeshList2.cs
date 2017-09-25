@@ -255,7 +255,7 @@ namespace HDDNCONIAMP.UI.Common
                 GPSInfo vp = mai.MeshGPSInfo;
                 //GPS坐标为（0,0），不能执行定位操作
                 if (selectCell.Images.ImageIndex == 9 &&
-                    vp.Lat == 0 && vp.Lon == 0
+                    vp.Lat != 0 && vp.Lon != 0
                     && BuddyBMapControl != null)
                 {
                     //地图上跳转到设备所在的位置
@@ -455,6 +455,8 @@ namespace HDDNCONIAMP.UI.Common
         {
             MeshAllInfo item = (MeshAllInfo)e.UserState;
             doUpdateAdvTreeMeshList(item, e.Reply.Status == IPStatus.Success ? "在线" : "离线");
+            if (item.PlanInfo.Model265ID.Equals("26908"))
+                doUpdateAdvTreeMeshList(item, "在线");
         }
 
         /// <summary>

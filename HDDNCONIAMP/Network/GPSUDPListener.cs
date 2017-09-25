@@ -192,11 +192,11 @@ namespace HDDNCONIAMP.Network
         {
             for (;;)
             {
-                AudioAndVideoDevice device = new AudioAndVideoDevice();
-                device.Name = "26089";
-                device.Lat = 40.8;
-                device.Lon = 116.3;
-                device.Alias = device.Name;
+                GPSInfo device = new GPSInfo();
+                device.ID = "26908";
+                device.Lat = 40.04933;
+                device.Lon = 116.31224;
+                device.Time = DateTime.Now.ToString();
                 RaiseReceiveGPS(device);
                 Thread.Sleep(10 * 1000);
             }

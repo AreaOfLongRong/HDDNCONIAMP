@@ -32,7 +32,7 @@ namespace HDDNCONIAMP.Network
                 if (PGPSUDPListener != null)
                 {
                     PGPSUDPListener.StartReceive();
-                    //PGPSUDPListener.TestReceiveMessage();
+                    PGPSUDPListener.TestReceiveMessage();
                 }
             });
         }

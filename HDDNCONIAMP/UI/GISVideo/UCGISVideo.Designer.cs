@@ -29,10 +29,8 @@
         private void InitializeComponent()
         {
             this.collapsibleSplitContainerMain = new DevComponents.DotNetBar.Controls.CollapsibleSplitContainer();
-            
             this.bMapControl2Main = new BMap.NET.WindowsForm.BMapControl2();
             ((System.ComponentModel.ISupportInitialize)(this.collapsibleSplitContainerMain)).BeginInit();
-            this.collapsibleSplitContainerMain.Panel1.SuspendLayout();
             this.collapsibleSplitContainerMain.Panel2.SuspendLayout();
             this.collapsibleSplitContainerMain.SuspendLayout();
             this.SuspendLayout();
@@ -51,7 +49,6 @@
             this.collapsibleSplitContainerMain.SplitterDistance = 150;
             this.collapsibleSplitContainerMain.SplitterWidth = 10;
             this.collapsibleSplitContainerMain.TabIndex = 0;
-           
             // 
             // bMapControl2Main
             // 
@@ -59,12 +56,15 @@
             this.bMapControl2Main.BPlaceBox = null;
             this.bMapControl2Main.BPlacesBoard = null;
             this.bMapControl2Main.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bMapControl2Main.LoadMode = BMap.NET.LoadMapMode.Cache;
+            this.bMapControl2Main.LoadMode = BMap.NET.LoadMapMode.CacheServer;
             this.bMapControl2Main.Location = new System.Drawing.Point(0, 0);
             this.bMapControl2Main.Mode = BMap.NET.MapMode.Normal;
             this.bMapControl2Main.Name = "bMapControl2Main";
             this.bMapControl2Main.Size = new System.Drawing.Size(440, 439);
             this.bMapControl2Main.TabIndex = 0;
+            this.bMapControl2Main.VideoServerIP = null;
+            this.bMapControl2Main.VideoServerPassword = null;
+            this.bMapControl2Main.VideoServerUserName = null;
             this.bMapControl2Main.Zoom = 9;
             // 
             // UCGISVideo
@@ -74,7 +74,6 @@
             this.Controls.Add(this.collapsibleSplitContainerMain);
             this.Name = "UCGISVideo";
             this.Size = new System.Drawing.Size(600, 439);
-            this.collapsibleSplitContainerMain.Panel1.ResumeLayout(false);
             this.collapsibleSplitContainerMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.collapsibleSplitContainerMain)).EndInit();
             this.collapsibleSplitContainerMain.ResumeLayout(false);

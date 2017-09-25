@@ -48,8 +48,6 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.labelXValidPeriod = new DevComponents.DotNetBar.LabelX();
             this.superTabControlMain = new DevComponents.DotNetBar.SuperTabControl();
-            this.superTabControlPanelAudioVideoProcess = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.superTabItemAudioVideoProcess = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanelGISVideo = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.tableLayoutPanelLogin = new System.Windows.Forms.TableLayoutPanel();
             this.textBoxXPassword = new DevComponents.DotNetBar.Controls.TextBoxX();
@@ -59,6 +57,8 @@
             this.textBoxXUserName = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.buttonLogin = new DevComponents.DotNetBar.ButtonX();
             this.superTabItemGISVideo = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanelAudioVideoProcess = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.superTabItemAudioVideoProcess = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanelUserSettings = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.superTabItemUserSettings = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanelMeshManagement = new DevComponents.DotNetBar.SuperTabControlPanel();
@@ -132,7 +132,7 @@
             this.labelX1.Name = "labelX1";
             this.labelX1.Size = new System.Drawing.Size(376, 88);
             this.labelX1.TabIndex = 0;
-            this.labelX1.Text = "高清动态无中心自组网综合应用管理平台——<i>演示版</i>";
+            this.labelX1.Text = "高清动态无中心自组网综合应用管理平台";
             // 
             // pictureBox1
             // 
@@ -363,6 +363,7 @@
             this.labelXValidPeriod.Name = "labelXValidPeriod";
             this.labelXValidPeriod.Size = new System.Drawing.Size(141, 25);
             this.labelXValidPeriod.TabIndex = 10;
+            this.labelXValidPeriod.Visible = false;
             // 
             // superTabControlMain
             // 
@@ -406,22 +407,6 @@
             this.superTabControlMain.TabVerticalSpacing = 20;
             this.superTabControlMain.Text = "superTabControl1";
             this.superTabControlMain.SelectedTabChanged += new System.EventHandler<DevComponents.DotNetBar.SuperTabStripSelectedTabChangedEventArgs>(this.superTabControlMain_SelectedTabChanged);
-            // 
-            // superTabControlPanelAudioVideoProcess
-            // 
-            this.superTabControlPanelAudioVideoProcess.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanelAudioVideoProcess.Location = new System.Drawing.Point(138, 0);
-            this.superTabControlPanelAudioVideoProcess.Name = "superTabControlPanelAudioVideoProcess";
-            this.superTabControlPanelAudioVideoProcess.Size = new System.Drawing.Size(616, 321);
-            this.superTabControlPanelAudioVideoProcess.TabIndex = 0;
-            this.superTabControlPanelAudioVideoProcess.TabItem = this.superTabItemAudioVideoProcess;
-            // 
-            // superTabItemAudioVideoProcess
-            // 
-            this.superTabItemAudioVideoProcess.AttachedControl = this.superTabControlPanelAudioVideoProcess;
-            this.superTabItemAudioVideoProcess.GlobalItem = false;
-            this.superTabItemAudioVideoProcess.Name = "superTabItemAudioVideoProcess";
-            this.superTabItemAudioVideoProcess.Text = "音视频综合处理";
             // 
             // superTabControlPanelGISVideo
             // 
@@ -564,6 +549,22 @@
             this.superTabItemGISVideo.GlobalItem = false;
             this.superTabItemGISVideo.Name = "superTabItemGISVideo";
             this.superTabItemGISVideo.Text = "GIS定位关联视频";
+            // 
+            // superTabControlPanelAudioVideoProcess
+            // 
+            this.superTabControlPanelAudioVideoProcess.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanelAudioVideoProcess.Location = new System.Drawing.Point(138, 0);
+            this.superTabControlPanelAudioVideoProcess.Name = "superTabControlPanelAudioVideoProcess";
+            this.superTabControlPanelAudioVideoProcess.Size = new System.Drawing.Size(616, 321);
+            this.superTabControlPanelAudioVideoProcess.TabIndex = 0;
+            this.superTabControlPanelAudioVideoProcess.TabItem = this.superTabItemAudioVideoProcess;
+            // 
+            // superTabItemAudioVideoProcess
+            // 
+            this.superTabItemAudioVideoProcess.AttachedControl = this.superTabControlPanelAudioVideoProcess;
+            this.superTabItemAudioVideoProcess.GlobalItem = false;
+            this.superTabItemAudioVideoProcess.Name = "superTabItemAudioVideoProcess";
+            this.superTabItemAudioVideoProcess.Text = "音视频综合处理";
             // 
             // superTabControlPanelUserSettings
             // 

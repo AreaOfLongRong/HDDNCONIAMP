@@ -215,6 +215,12 @@
     <Compile Include="UI\MeshManagement\FGroupManage.Designer.cs">
       <DependentUpon>FGroupManage.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\MeshManagement\FMPSearchText.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MeshManagement\FMPSearchText.Designer.cs">
+      <DependentUpon>FMPSearchText.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\MeshManagement\MeshTcpConfigManager.cs" />
     <Compile Include="UI\MeshManagement\UCMeshManagement2.cs">
       <SubType>UserControl</SubType>
@@ -274,6 +280,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MeshManagement\FGroupManage.resx">
       <DependentUpon>FGroupManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MeshManagement\FMPSearchText.resx">
+      <DependentUpon>FMPSearchText.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MeshManagement\UCMeshManagement2.resx">
       <DependentUpon>UCMeshManagement2.cs</DependentUpon>
