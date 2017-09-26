@@ -263,7 +263,7 @@ namespace HDDNCONIAMP.UI.Common
                     BuddyBMapControl.Center = new LatLngPoint(vp.Lon, vp.Lat);
                     BuddyBMapControl.Locate(false);
                 }
-                else if (selectCell.Images.ImageIndex == 10)
+                else if (selectCell.Images.ImageIndex == 10 && selectNode.Cells[1].Text.Equals("在线"))
                 {
                     VideoInject inject = new VideoInject(mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerIPV4],
                         mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerUserName],
@@ -499,6 +499,8 @@ namespace HDDNCONIAMP.UI.Common
                     mai.BuddyNode.Cells[1].Text = args[0].ToString();
                     mai.BuddyNode.Cells[1].StyleNormal.TextColor = args[0].ToString().Equals("离线") ? Color.Gray : Color.Black;
                     mai.BuddyNode.Cells[1].StyleNormal.Font = args[0].ToString().Equals("离线") ? new Font("宋体", 9, FontStyle.Regular) : new Font("宋体", 9, FontStyle.Bold);
+                    mai.BuddyNode.Cells[2].Images.ImageIndex = args[0].ToString().Equals("离线") ? 9 : 10;
+                    mai.BuddyNode.Cells[3].Images.ImageIndex = args[0].ToString().Equals("离线") ? 11 : 12;
                 }
             }
             catch (Exception ex)
@@ -552,10 +554,10 @@ namespace HDDNCONIAMP.UI.Common
                         cellGPS.ImageAlignment = eCellPartAlignment.NearCenter;
                         subNode.Cells.Add(cellGPS);
                         Cell cellVideo = new Cell();
-                        cellVideo.Images.ImageIndex = 10;
+                        cellVideo.Images.ImageIndex = 11;
                         subNode.Cells.Add(cellVideo);
                         Cell cellGPSTrack = new Cell();
-                        cellGPSTrack.Images.ImageIndex = 11;
+                        cellGPSTrack.Images.ImageIndex = 13;
                         cellGPSTrack.ImageAlignment = eCellPartAlignment.NearBottom;
                         cellGPSTrack.Tag = false;  //标识是否在界面上绘制了历史轨迹
                         subNode.Cells.Add(cellGPSTrack);

@@ -169,9 +169,11 @@
             this.imageListMesh.Images.SetKeyName(6, "bmap_drag_16.png");
             this.imageListMesh.Images.SetKeyName(7, "refresh_16.png");
             this.imageListMesh.Images.SetKeyName(8, "mesh_person_offline_32.png");
-            this.imageListMesh.Images.SetKeyName(9, "gps_online_16.png");
-            this.imageListMesh.Images.SetKeyName(10, "video_camera_32.png");
-            this.imageListMesh.Images.SetKeyName(11, "gps_route_32.png");
+            this.imageListMesh.Images.SetKeyName(9, "gps_offline_16.png");
+            this.imageListMesh.Images.SetKeyName(10, "gps_online_16.png");
+            this.imageListMesh.Images.SetKeyName(11, "video_camera_offline_32.png");
+            this.imageListMesh.Images.SetKeyName(12, "video_camera_32.png");
+            this.imageListMesh.Images.SetKeyName(13, "gps_route_32.png");
             // 
             // nodeConnectorMain
             // 

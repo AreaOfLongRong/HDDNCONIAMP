@@ -357,6 +357,7 @@
     <Content Include="References\SQLite\System.Data.SQLite.Linq.xml" />
     <Content Include="References\SQLite\System.Data.SQLite.pdb" />
     <Content Include="References\SQLite\System.Data.SQLite.xml" />
+    <Content Include="Resources\gps_offline_16.png" />
     <Content Include="Resources\gps_route_32.png" />
     <Content Include="Resources\settings_24.png" />
     <Content Include="Resources\gps_online_16.png" />
@@ -389,6 +390,10 @@
     <Content Include="Resources\add_16.png" />
     <Content Include="Resources\bmap_measure_16.png" />
     <Content Include="Resources\search_clear_32.png" />
+    <Content Include="Resources\user_add_32.png" />
+    <Content Include="Resources\user_delete_32.png" />
+    <Content Include="Resources\user_edit.png" />
+    <Content Include="Resources\video_camera_offline_32.png" />
     <Content Include="Resources\video_no_signal_512.jpg" />
     <Content Include="Resources\search_32.png" />
     <Content Include="Resources\logo_xinwei.png" />
