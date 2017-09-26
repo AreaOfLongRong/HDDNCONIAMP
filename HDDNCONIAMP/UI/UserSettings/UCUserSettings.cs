@@ -288,6 +288,9 @@ namespace HDDNCONIAMP.UI.UserSettings
 
         #region 权限管理事件处理
 
+        private string mAddUser = "添  加";
+        private string mEditUser = "修  改";
+
         /// <summary>
         /// 添加用户
         /// </summary>
@@ -297,7 +300,7 @@ namespace HDDNCONIAMP.UI.UserSettings
         {
             //开启添加用户功能
             updateUAControlsEnableState(true, true);
-            buttonXOK.Text = "添  加";
+            buttonXOK.Text = mAddUser;
         }
 
         /// <summary>
@@ -307,7 +310,12 @@ namespace HDDNCONIAMP.UI.UserSettings
         /// <param name="e"></param>
         private void buttonItemUserEdit_Click(object sender, EventArgs e)
         {
-
+            if(advTreeUsers.SelectedNode != null)
+            {
+                //开启用户信息编辑
+                updateUAControlsEnableState(true, false);
+                buttonXUAOK.Text = mEditUser;
+            }
         }
 
         /// <summary>
@@ -337,7 +345,7 @@ namespace HDDNCONIAMP.UI.UserSettings
         /// <param name="e"></param>
         private void buttonXUAOK_Click(object sender, EventArgs e)
         {
-            if (buttonXUAOK.Text.Equals("添  加"))
+            if (buttonXUAOK.Text.Equals(mAddUser))
             {  //添加用户
                 if (textBoxXUAUserName.Text.Trim() != "" && textBoxXUAUserPassword.Text.Trim() != null)
                 {
@@ -367,9 +375,27 @@ namespace HDDNCONIAMP.UI.UserSettings
                     MessageBox.Show("用户名或密码不能为空！", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-            else
+            else if(buttonXUAOK.Text.Equals(mEditUser))
             {//修改用户信息
-
+                User user = new User();
+                user.ID = int.Parse(advTreeUsers.SelectedNode.Cells[0].Text);
+                user.Name = textBoxXUAUserName.Text;
+                user.Password = textBoxXUAUserPassword.Text;
+                user.Authority = radioButtonUAAdministrator.Checked ? 
+                    EUserAuthority.Administrator.ToString() : 
+                    EUserAuthority.GeneralUser.ToString();
+                int count = SQLiteHelper.GetInstance().UserUpdate(user);
+                if(count > 0)
+                {
+                    logger.Info("编辑用户：“" + user.Name + "”，权限：“" + user.Authority + "”。");
+                    MessageBox.Show("编辑修改用户信息成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    updateUAControlsEnableState(false, true);
+                }
+                else
+                {
+                    MessageBox.Show("编辑修改用户信息失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    updateUAControlsEnableState(false, true);
+                }
             }
         }
 

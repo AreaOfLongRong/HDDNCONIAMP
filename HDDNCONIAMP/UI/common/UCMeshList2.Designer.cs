@@ -246,6 +246,7 @@
             this.buttonItemRefreshTree.BeginGroup = true;
             this.buttonItemRefreshTree.ImageIndex = 7;
             this.buttonItemRefreshTree.Name = "buttonItemRefreshTree";
+            this.buttonItemRefreshTree.Visible = false;
             this.buttonItemRefreshTree.Click += new System.EventHandler(this.buttonItemRefreshTree_Click);
             // 
             // buttonXSearch

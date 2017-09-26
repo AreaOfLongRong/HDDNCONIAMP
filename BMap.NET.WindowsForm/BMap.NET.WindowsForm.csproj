@@ -370,6 +370,7 @@
     <Content Include="Resources\ico_camera_online_64.png" />
     <Content Include="Resources\ico_camera_offline_32.png" />
     <Content Include="Resources\ico_camera_online_32.png" />
+    <Content Include="Resources\ico_setmarker.png" />
     <None Include="Resources\ico_screenshotCancel.gif" />
     <None Include="Resources\video_camera_shoulder_64.png" />
     <None Include="Resources\video_camera_ball_64.png" />
@@ -421,7 +422,6 @@
     <None Include="Resources\ico_service.png" />
     <None Include="Resources\ico_happy.png" />
     <None Include="Resources\ico_cursor_locate.png" />
-    <None Include="Resources\ico_setmarker.png" />
     <None Include="Resources\ico_search_in_bound.png" />
     <None Include="Resources\ico_screenshot.png" />
     <None Include="Resources\ico_rectangle.png" />

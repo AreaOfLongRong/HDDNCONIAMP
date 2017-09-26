@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -48,5 +49,11 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
         /// <returns>全屏面板</returns>
         Panel GetFullScreenPanel();
 
+        /// <summary>
+        /// 绑定面板及其进程
+        /// </summary>
+        /// <param name="panel">面板</param>
+        /// <param name="process">面板进程</param>
+        void BindPanelProcess(Panel panel, Process process);
     }
 }

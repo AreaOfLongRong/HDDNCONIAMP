@@ -87,7 +87,10 @@ namespace BMap.NET.WindowsForm.BMapElements
         /// <returns></returns>
         public Color getNextColor()
         {
-            _CurrentColorIndex = _CurrentColorIndex > (_RouteColors.Length - 1) ? 0 : _CurrentColorIndex + 1;
+            _CurrentColorIndex++;
+            if (_CurrentColorIndex > (_RouteColors.Length - 1))
+                _CurrentColorIndex = 0;
+            Console.WriteLine("当前颜色：" + _RouteColors[_CurrentColorIndex]);
             return _RouteColors[_CurrentColorIndex];
         }
     }

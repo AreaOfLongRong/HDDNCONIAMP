@@ -15,6 +15,7 @@ using log4net;
 using NodeTopology;
 using System.Threading;
 using System.Net.NetworkInformation;
+using System.Diagnostics;
 
 namespace HDDNCONIAMP.UI.Common
 {
@@ -273,10 +274,13 @@ namespace HDDNCONIAMP.UI.Common
                     }
                     else if (BuddyGrid != null)
                     {
-                        mFormMain.VideoProcesses.Add(inject.injectPanel(BuddyGrid.GetNextAvailablePanel(),
+                        Panel panel = BuddyGrid.GetNextAvailablePanel();
+                        Process process = inject.injectPanel(panel,
                             mFormMain.GetVideoFullScreenLocation(),
                             BuddyGrid.GetFullScreenPanel(),
-                            mai.PlanInfo.Model265ID, "0"));
+                            mai.PlanInfo.Model265ID, "0");
+                        BuddyGrid.BindPanelProcess(panel, process);
+                        mFormMain.VideoProcesses.Add(process);
                     }
                 }
                 else if (selectCell.Images.ImageIndex == 11)
@@ -442,9 +446,20 @@ namespace HDDNCONIAMP.UI.Common
                         {
                             Ping myPing;
                             myPing = new Ping();
-                            myPing.SendAsync(item.DeviceInfo.IPV4, item);
-                            myPing.PingCompleted += MyPing_PingCompleted;
-
+                            
+                            try
+                            {
+                                myPing.SendAsync(item.DeviceInfo.IPV4, 1000, item);
+                                myPing.PingCompleted += MyPing_PingCompleted;
+                            }
+                            catch (PingException pe)
+                            {
+                                logger.Error(string.Format("Ping {0}过程中发生异常。", item.DeviceInfo.IPV4), pe);
+                            }
+                            finally
+                            {
+                                myPing.Dispose();
+                            }
                         }
                         Thread.Sleep(int.Parse(mFormMain.AllApplicationSetting[ApplicationSettingKey.MeshListRefreshFrequency]));
                     }
@@ -455,8 +470,6 @@ namespace HDDNCONIAMP.UI.Common
         {
             MeshAllInfo item = (MeshAllInfo)e.UserState;
             doUpdateAdvTreeMeshList(item, e.Reply.Status == IPStatus.Success ? "在线" : "离线");
-            if (item.PlanInfo.Model265ID.Equals("26908"))
-                doUpdateAdvTreeMeshList(item, "在线");
         }
 
         /// <summary>
