@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using BMap.NET.WindowsForm.Utils;
-using HDDNCONIAMP.DB.Model;
 using HDDNCONIAMP.Utils;
 using log4net;
 
@@ -23,18 +20,7 @@ namespace HDDNCONIAMP.Network
         /// 日志记录器
         /// </summary>
         private ILog logger = LogManager.GetLogger(typeof(GPSUDPListener));
-
-        /// <summary>
-        /// 接收到GPS消息委托
-        /// </summary>
-        /// <param name="device"></param>
-        public delegate void OnReceiveGPSDelegate(AudioAndVideoDevice device);
-
-        /// <summary>
-        /// 接收到GPS信号事件
-        /// </summary>
-        public event OnReceiveGPSDelegate OnReceiveGPS;
-
+        
         /// <summary>
         /// 接收到GPS消息委托
         /// </summary>
@@ -51,6 +37,9 @@ namespace HDDNCONIAMP.Network
         /// </summary>
         private const int Port = 8340;
 
+        /// <summary>
+        /// GSP消息头的长度
+        /// </summary>
         private const int GPS_MESSAGE_HEADER_LENGTH = 16;
 
         /// <summary>
@@ -165,16 +154,7 @@ namespace HDDNCONIAMP.Network
                 }
             }
         }
-
-        /// <summary>
-        /// 上报接收到GPS信号事件
-        /// </summary>
-        /// <param name="device"></param>
-        private void RaiseReceiveGPS(AudioAndVideoDevice device)
-        {
-            OnReceiveGPS?.Invoke(device);
-        }
-
+        
         /// <summary>
         /// 上报接收到GPS信号事件
         /// </summary>

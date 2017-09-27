@@ -26,12 +26,12 @@ namespace NodeTopology
             Bitmap bmp = new Bitmap(this.panel2.Width, this.panel2.Height);
             Graphics g = Graphics.FromImage(bmp);
             g.Clear(this.panel2.BackColor);
-            
 
 
 
-            
-            
+
+
+
             //Graphics g = this.CreateGraphics();
             //Graphics g = this.panel2.CreateGraphics();
             g.SmoothingMode = SmoothingMode.AntiAlias;  //使绘图质量最高，即消除锯齿
@@ -53,7 +53,7 @@ namespace NodeTopology
             string IsLine = "";
             //for (int i = 0; i < GNetwork.Nobj; i++)
             //urinatedong 只显示需要显示的
-             for (int i = 0; i < GNetwork.Nobj; i++)
+            for (int i = 0; i < GNetwork.Nobj; i++)
             {
                 CurrObj = GNetwork.GObjects[i];
                 //
@@ -64,32 +64,32 @@ namespace NodeTopology
                 switch (IsLine)
                 {
                     case "Y":
-                       // g.DrawLine(p, CurrObj.x1, CurrObj.y1, CurrObj.x2, CurrObj.y2);
+                        // g.DrawLine(p, CurrObj.x1, CurrObj.y1, CurrObj.x2, CurrObj.y2);
 
 
-            AdjustableArrowCap lineCap = new AdjustableArrowCap(5, 6, true);
+                        AdjustableArrowCap lineCap = new AdjustableArrowCap(5, 6, true);
 
-            Pen p;
+                        Pen p;
 
-            string[] MyRelationInfo = CurrObj.AddInfo.Split("\n".ToCharArray());
+                        string[] MyRelationInfo = CurrObj.AddInfo.Split("\n".ToCharArray());
 
-            if ( MyRelationInfo[6].IndexOf("2")>0)
-            {
-                p = new Pen(Color.Blue, 3);
-            }
-            else
-            {
-                p = new Pen(Color.Orange, 3);
-                p.DashStyle = DashStyle.Custom;
-                p.DashPattern = new float[] { 6, 3 };
-            }
+                        if (MyRelationInfo[6].IndexOf("2") > 0)
+                        {
+                            p = new Pen(Color.Blue, 3);
+                        }
+                        else
+                        {
+                            p = new Pen(Color.Orange, 3);
+                            p.DashStyle = DashStyle.Custom;
+                            p.DashPattern = new float[] { 6, 3 };
+                        }
 
-            p.CustomEndCap = lineCap;
-            p.CustomStartCap = lineCap;
+                        p.CustomEndCap = lineCap;
+                        p.CustomStartCap = lineCap;
 
-            g.DrawLine(p, CurrObj.x1, CurrObj.y1, CurrObj.x2, CurrObj.y2);
+                        g.DrawLine(p, CurrObj.x1, CurrObj.y1, CurrObj.x2, CurrObj.y2);
 
-                        
+
                         xm = (CurrObj.x1 + CurrObj.x2) / 2;
                         ym = (CurrObj.y1 + CurrObj.y2) / 2;
                         //AddText(xm, ym, CurrObj.Name, false,g);
@@ -100,7 +100,7 @@ namespace NodeTopology
                         int x2 = (CurrObj.x2 + xm) / 2;
                         int y2 = (CurrObj.y2 + ym) / 2;
 
-                        AddText(x1, y1, MyRelationInfo[0] + "\n" + MyRelationInfo[1] +  "\n" + MyRelationInfo[2] , false, g);
+                        AddText(x1, y1, MyRelationInfo[0] + "\n" + MyRelationInfo[1] + "\n" + MyRelationInfo[2], false, g);
 
                         AddText(x2, y2, MyRelationInfo[3] + "\n" + MyRelationInfo[4] + "\n" + MyRelationInfo[5], false, g);
 
@@ -119,7 +119,7 @@ namespace NodeTopology
 
 
 
-                            if (double.Parse(MyNodeInfo[4].Replace("Battery","")) > 0)
+                            if (double.Parse(MyNodeInfo[4].Replace("Battery", "")) > 0)
                             {
                                 ObjImg = FindGObjectTypeImage("Router");
                             }
@@ -141,14 +141,14 @@ namespace NodeTopology
                 }
             }
 
-             //g1.DrawEllipse(new Pen(System.Drawing.Color.Red), 10, 10, 100, 100); 
-             //g1.DrawImage(Image.FromFile("E:/down.png"), x, 10);//这是在画布上绘制图形 
-             this.panel2.CreateGraphics().DrawImage(bmp, 0, 0);//这句是将图形显示到窗口上
+            //g1.DrawEllipse(new Pen(System.Drawing.Color.Red), 10, 10, 100, 100); 
+            //g1.DrawImage(Image.FromFile("E:/down.png"), x, 10);//这是在画布上绘制图形 
+            this.panel2.CreateGraphics().DrawImage(bmp, 0, 0);//这句是将图形显示到窗口上
 
             bmp.Dispose();
             g.Dispose();
-            
-            
+
+
         }
 
 
@@ -201,10 +201,10 @@ namespace NodeTopology
             return RetImg;
         }
 
-        public void AddGobject(int x1, int y1, int x2,int y2, relation prelation)
+        public void AddGobject(int x1, int y1, int x2, int y2, relation prelation)
         {
-            
-#region 为了防止刷新，不在此时画线!!! urinatedong  20170322
+
+            #region 为了防止刷新，不在此时画线!!! urinatedong  20170322
 
             //Graphics g = this.panel2.CreateGraphics();//this.CreateGraphics();
             //g.SmoothingMode = SmoothingMode.AntiAlias;  //使绘图质量最高，即消除锯齿
@@ -214,7 +214,7 @@ namespace NodeTopology
             //AdjustableArrowCap lineCap = new AdjustableArrowCap(5, 6, true);
 
             //Pen p;
-            
+
             //if (prelation.Findtimes == 2)
             //{
             //     p = new Pen(Color.Blue,3);
@@ -230,7 +230,7 @@ namespace NodeTopology
 
             //g.DrawLine(p, x1, y1, x2, y2);
 
-#endregion
+            #endregion
 
             ///新需求中不再强调这些信息
             ///urinatedong 20170314
@@ -248,7 +248,7 @@ namespace NodeTopology
             //AddText(xm, ym, "Rx Tx", false);
 
             GObject TempGObject = new GObject();
-            
+
             //在数组中查找是否已经有该关系了
             GNetwork.FindGObjectByName(prelation.Localnode.MacAddress + prelation.Remotenode.MacAddress, ref TempGObject);
 
@@ -257,14 +257,14 @@ namespace NodeTopology
                 GNetwork.AddGObject(prelation.Localnode.MacAddress + prelation.Remotenode.MacAddress, "Line", x1, y1, x2, y2, relationinfo);
             }
             else
-            {   
+            {
                 ///更新关系信息！！！
                 TempGObject.AddInfo = relationinfo;
             }
-        
+
         }
 
-        public void AddGObject(  int x1, int y1, node pnode)
+        public void AddGObject(int x1, int y1, node pnode)
         {
 
 
@@ -288,7 +288,7 @@ namespace NodeTopology
 
             ///新需求中不在要求更多的节点信息
 
-            string AddInfo =  pnode.IpAddress +
+            string AddInfo = pnode.IpAddress +
             "\nTxPower " + pnode.TxPower +
             "\nFrequency " + pnode.Frequency +
             "\nBandWidth " + pnode.BandWidth +
@@ -327,8 +327,8 @@ namespace NodeTopology
                 {
                     LogHelper.WriteLog("MAC地址为:" + pnode.MacAddress + " 的终端 IP地址由:" + NodeInfo[0] + " 改变为:" + pnode.IpAddress);
                 }
-                
-                TempGObject.AddInfo = AddInfo;                
+
+                TempGObject.AddInfo = AddInfo;
             }
 
 
@@ -367,9 +367,9 @@ namespace NodeTopology
 
         }
 
-        public void AddGObject(int x1, int y1, int x2, int y2, string ObjType,string addinfo)
+        public void AddGObject(int x1, int y1, int x2, int y2, string ObjType, string addinfo)
         {
-            
+
             Graphics g = this.panel2.CreateGraphics();//this.CreateGraphics();
             g.SmoothingMode = SmoothingMode.AntiAlias;  //使绘图质量最高，即消除锯齿
             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
@@ -404,7 +404,7 @@ namespace NodeTopology
                 ObjRct.Height = ObjImg.Height;
                 ObjRct.Width = ObjImg.Width;
                 g.DrawImage(ObjImg, ObjRct);
-                AddText(x1, y1, ObjName, true,g);
+                AddText(x1, y1, ObjName, true, g);
                 x2 = x1 + ObjRct.Width;
                 y2 = y1 + ObjRct.Height;
             }
@@ -449,9 +449,9 @@ namespace NodeTopology
 
                     LogHelper.WriteLog(recvStr);
 
-                    string receive =  recvStr.Replace("OK\n#user@/>", "").Replace("MHz", "");
+                    string receive = recvStr.Replace("OK\n#user@/>", "").Replace("MHz", "");
 
-                    double result =  double.Parse(receive);
+                    double result = double.Parse(receive);
 
                     if (newfrequency.Equals(result))
                     {
@@ -467,9 +467,9 @@ namespace NodeTopology
                     //recvStr = tn.recvDataWaitWord("MHz", 1);
                     //TheNode.Frequency = double.Parse(recvStr.Replace("OK\n#user@/>", "").Replace("MHz", ""));
 
-                    
 
-                    }
+
+                }
 
                 catch (Exception ex)
                 {

@@ -255,7 +255,7 @@ namespace HDDNCONIAMP.UI.Common
                 MeshAllInfo mai = (MeshAllInfo)selectNode.Tag;
                 GPSInfo vp = mai.MeshGPSInfo;
                 //GPS坐标为（0,0），不能执行定位操作
-                if (selectCell.Images.ImageIndex == 9 &&
+                if (selectCell.Images.ImageIndex == 10 &&
                     vp.Lat != 0 && vp.Lon != 0
                     && BuddyBMapControl != null)
                 {
@@ -263,7 +263,11 @@ namespace HDDNCONIAMP.UI.Common
                     BuddyBMapControl.Center = new LatLngPoint(vp.Lon, vp.Lat);
                     BuddyBMapControl.Locate(false);
                 }
-                else if (selectCell.Images.ImageIndex == 10 && selectNode.Cells[1].Text.Equals("在线"))
+                else if(selectCell.Images.ImageIndex == 11)
+                {
+                    MessageBox.Show("设备不在线！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (selectCell.Images.ImageIndex == 12 && selectNode.Cells[1].Text.Equals("在线"))
                 {
                     VideoInject inject = new VideoInject(mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerIPV4],
                         mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerUserName],
@@ -283,7 +287,7 @@ namespace HDDNCONIAMP.UI.Common
                         mFormMain.VideoProcesses.Add(process);
                     }
                 }
-                else if (selectCell.Images.ImageIndex == 11)
+                else if (selectCell.Images.ImageIndex == 13 && BuddyBMapControl != null)
                 {
                     bool isDrawingRoute = (bool)selectCell.Tag;
                     if (isDrawingRoute)
@@ -360,6 +364,10 @@ namespace HDDNCONIAMP.UI.Common
         private void PGPSUDPListener_OnReceiveGPSInfo(GPSInfo gpsInfo)
         {
             MeshAllInfo mesh = mMeshAllInfo.Find(m => m.PlanInfo.Model265ID == gpsInfo.ID);
+
+            //如果ID不存在，则退出
+            if (mesh == null)
+                return;
 
             if (mesh.PlanInfo != null)
             {
