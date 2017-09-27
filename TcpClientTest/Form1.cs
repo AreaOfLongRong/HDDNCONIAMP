@@ -25,7 +25,7 @@ namespace TcpClientTest
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            client = new TcpClient("192.168.0.60", 9200);
+            client = new TcpClient("192.168.0.61", 9200);
             sWriter = new StreamWriter(client.GetStream(), Encoding.ASCII);
             sReader = new StreamReader(client.GetStream(), Encoding.ASCII);
            
@@ -39,8 +39,15 @@ namespace TcpClientTest
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string content = sReader.ReadLine();
-            Console.WriteLine(content );
+            while (true)
+            {
+                string content = sReader.ReadLine();
+                foreach (char c in content)
+                    Console.Write("{0:X} ", Convert.ToInt32(c));
+                Console.WriteLine();
+                Console.WriteLine(content);
+            }
+            
         }
     }
 }

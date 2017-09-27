@@ -1996,7 +1996,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                 //带宽 5-20
                 int ibindwidth = slider3.Value;
 
-                if (itx < 10 || itx > 30)
+                if (itx < 10 || itx > 33)
                     throw new Exception();
                 if (irate < 616 || irate > 656)
                     throw new Exception();
