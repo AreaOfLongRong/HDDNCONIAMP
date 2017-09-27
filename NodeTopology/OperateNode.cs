@@ -40,6 +40,11 @@ namespace NodeTopology
         {
             // NeedIPNode.IpAddress = "AAAAAAAAAAAA";
             //  ArpList.Where(x => x. == i.Key)
+
+            //Z-20170927：如果MAC地址为null，则直接返回
+            if (MacAddress == null)
+                return null;
+
             var a = ArpList.UsingArpList.Where(x => x.PhysicalAddress.Replace("-", "").ToUpper() == MacAddress).ToList().FirstOrDefault();
             return a == null ? null : a.InternetAddress;
         }
@@ -111,10 +116,6 @@ namespace NodeTopology
 
             //var device = devices[0];
 
-
-
-
-
             //if (devices.Count == 1)
             //{
             //    device = devices[0];
@@ -126,10 +127,10 @@ namespace NodeTopology
 
             //}
 
-
-
             device.OnPacketArrival +=
                 new PacketArrivalEventHandler(device_OnPacketArrival);
+
+            device.OnCaptureStopped += Device_OnCaptureStopped;
 
             // Open the device for capturing
             ///应该判断设备必须为WinPcapDevice
@@ -160,9 +161,6 @@ namespace NodeTopology
             //Open the device
             device.Open();
 
-
-
-
             //使用本机MAC地址发包!!!
 
             //Generate a random packet
@@ -183,17 +181,22 @@ namespace NodeTopology
 
                 byte[] bytes = StringToByte(MyDiscoverTel);
 
+                System.Timers.Timer t = new System.Timers.Timer(30 * 1000);
+                t.Elapsed += T_Elapsed;
+                t.Start();
+                Lock = true;
+
                 device.SendPacket(bytes);
+                device.StopCaptureTimeout = new TimeSpan(0, 0, 1);
 
                 device.StartCapture();
-
 
                 Console.WriteLine("-- Packet MacDiscoverTel sent successfuly.");
 
 
                 while (Lock)
                 {
-                    Thread.Sleep(30);
+                    Thread.Sleep(100);
                 }
 
 
@@ -210,6 +213,7 @@ namespace NodeTopology
             catch (Exception e)
             {
                 Console.WriteLine("-- " + e.Message);
+                LogHelper.WriteLog("根节点MAC地址获取超时或发生异常：" + e.Message);
             }
 
             //Close the pcap device
@@ -218,7 +222,30 @@ namespace NodeTopology
             //Console.Write("Hit 'Enter' to exit...");
             //Console.ReadLine();
 
-            return BytetoString(macbyte);
+            //return BytetoString(macbyte);
+
+            //Z-20170927：如果获取到的MAC地址全为0，是不正确的。
+            string macStr = BytetoString(macbyte);
+            return macStr.Equals("000000000000") ? null : macStr;
+        }
+
+        private static void T_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            Lock = false;
+        }
+
+        private static void Device_OnCaptureStopped(object sender, CaptureStoppedEventStatus status)
+        {
+            //switch (status)
+            //{
+            //    case CaptureStoppedEventStatus.CompletedWithoutError:
+            //        LogHelper.WriteLog("成功获取根节点MAC地址。");
+            //        break;
+            //    case CaptureStoppedEventStatus.ErrorWhileCapturing:
+            //        LogHelper.WriteLog("根节点MAC地址获取超时或发生异常。");
+            //        break;
+            //}
+            //Lock = false;
         }
 
 
@@ -262,6 +289,8 @@ namespace NodeTopology
                         //&& string.Format("{0:X2}", e.Packet.Data[19]) == "9D"
                         )
                     {
+                        //Z-20170927:如果接收不到网络内的Mesh设备响应，此处会一直阻塞整个线程
+
                         //foreach (byte bt in e.Packet.Data)
                         //{
                         //    stringOut = stringOut + " " + string.Format("{0:X2}", bt);

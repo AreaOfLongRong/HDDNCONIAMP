@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace HDDNCONIAMP.Network
@@ -16,10 +17,15 @@ namespace HDDNCONIAMP.Network
         /// GPS UDP监听器
         /// </summary>
         public GPSUDPListener PGPSUDPListener { get; set; }
+        
+        CancellationTokenSource mCTS;
+        CancellationToken mCT;
 
         public NetworkListenerManage()
         {
             PGPSUDPListener = new GPSUDPListener();
+            mCTS = new CancellationTokenSource();
+            mCT = mCTS.Token;
         }
 
         /// <summary>
@@ -31,7 +37,8 @@ namespace HDDNCONIAMP.Network
             {
                 if (PGPSUDPListener != null)
                 {
-                    PGPSUDPListener.StartReceive();
+                    //PGPSUDPListener.StartReceive();
+                    PGPSUDPListener.StartReceive(mCT);
                     //PGPSUDPListener.TestReceiveMessage();
                 }
             });
@@ -44,7 +51,9 @@ namespace HDDNCONIAMP.Network
         {
             if (PGPSUDPListener != null)
             {
-                PGPSUDPListener.StopReceive();
+                //PGPSUDPListener.StopReceive();
+                mCTS.Cancel();
+                //PGPSUDPListener.StopReceive(mCT);
             }
         }
 

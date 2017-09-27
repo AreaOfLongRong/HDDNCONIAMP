@@ -55,7 +55,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
         public const int EM_SETREADONLY = 0xcf;
 
 
-        ARPList MyARPLIST = new ARPList();
+        ARPList mARPList = new ARPList();
 
         string RootMAC = string.Empty;
 
@@ -105,6 +105,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
 
         private ReaderWriterLock _rReaderWriterLockwlock = new ReaderWriterLock();
+
 
 
         #endregion
@@ -173,9 +174,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
         private void buttonXRefreshTopology_Click(object sender, EventArgs e)
         {
             StartTopology();
-            buttonXRefreshTopology.Enabled = false;
-            buttonXRefreshTopology.Text = "网络拓扑刷新中...";
-            buttonXStopRefresh.Enabled = true;
+            updateButtonXState(false);
         }
 
         /// <summary>
@@ -186,34 +185,61 @@ namespace HDDNCONIAMP.UI.MeshManagement
         private void buttonXStopRefresh_Click(object sender, EventArgs e)
         {
             StopTopology();
-            buttonXRefreshTopology.Enabled = true;
-            buttonXRefreshTopology.Text = "刷新网络拓扑";
-            buttonXStopRefresh.Enabled = false;
+            updateButtonXState(true);
         }
+
+        private delegate void UpdateButtonXStateDelegate(bool cancelRefresh);
+
+        private void updateButtonXState(bool cancelRefresh)
+        {
+            if (buttonXRefreshTopology.InvokeRequired)
+            {
+                UpdateButtonXStateDelegate ubxsd = new UpdateButtonXStateDelegate(updateButtonXState);
+                buttonXRefreshTopology.Invoke(ubxsd, cancelRefresh);
+            }
+            else
+            {
+                buttonXRefreshTopology.Enabled = cancelRefresh;
+                buttonXRefreshTopology.Text = cancelRefresh ? "刷新网络拓扑" : "网络拓扑刷新中...";
+                buttonXStopRefresh.Enabled = !cancelRefresh;
+            }
+        }
+
+        private CancellationTokenSource mCTS;
+        private CancellationToken mCT;
 
         /// <summary>
         /// 开始刷新网络拓扑
         /// </summary>
         private void StartTopology()
         {
+            mCTS = new CancellationTokenSource();
+            mCT = mCTS.Token;
+
             Task.Factory.StartNew(() =>
             {
-                if (GetRealInfoThread != null)
-                {
-                    GetRealInfoThread.Abort();
-                }
+                Task.Factory.StartNew(() => GetRealInfo(mCT), mCT);
+                Task.Factory.StartNew(() => RefreshPanelInfo(mCT), mCT);
+            }, mCT);
 
-                GetRealInfoThread = new Thread(GetRealInfo);
-                GetRealInfoThread.Start();
+            //Task.Factory.StartNew(() =>
+            //{
+            //    if (GetRealInfoThread != null)
+            //    {
+            //        GetRealInfoThread.Abort();
+            //    }
 
-                if (RefreshPanelContext != null)
-                {
-                    RefreshPanelContext.Abort();
-                }
+            //    GetRealInfoThread = new Thread(GetRealInfo);
+            //    GetRealInfoThread.Start();
 
-                RefreshPanelContext = new Thread(RefreshPanelInfo);
-                RefreshPanelContext.Start();
-            });
+            //    if (RefreshPanelContext != null)
+            //    {
+            //        RefreshPanelContext.Abort();
+            //    }
+
+            //    RefreshPanelContext = new Thread(RefreshPanelInfo);
+            //    RefreshPanelContext.Start();
+            //});
         }
 
         /// <summary>
@@ -221,18 +247,33 @@ namespace HDDNCONIAMP.UI.MeshManagement
         /// </summary>
         public void StopTopology()
         {
-            if (GetRealInfoThread != null)
-            {
-                GetRealInfoThread.Abort();
-            }
-            if (RefreshPanelContext != null)
-            {
-                RefreshPanelContext.Abort();
-            }
+            mCTS.Cancel();
+            //if (GetRealInfoThread != null)
+            //{
+            //    try
+            //    {
+            //        GetRealInfoThread.Abort();
+            //    }
+            //    catch (ThreadAbortException abortException)
+            //    {
+            //        while (GetRealInfoThread.IsAlive) ;
+            //    }
+            //}
+            //if (RefreshPanelContext != null)
+            //{
+            //    try
+            //    {
+            //        RefreshPanelContext.Abort();
+            //    }
+            //    catch (ThreadAbortException abortException)
+            //    {
+            //        while (GetRealInfoThread.IsAlive) ;
+            //    }
+            //}
         }
 
         #region 拓扑发现
-        
+
         /// <summary>
         /// 1)获取ARP列表(一个单独线程)==>完成（暂时写在主线程里）       
         /// 2)发送初始化报文，获取连接到PC的MAC地址（自动连接单点或者操作者手工输入）
@@ -246,6 +287,9 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
         private delegate void DGetIniMAC();
 
+        /// <summary>
+        /// 获取初始MAC地址
+        /// </summary>
         private void RunGetIniMAC()
         {
             // InvokeRequired required compares the thread ID of the
@@ -259,11 +303,18 @@ namespace HDDNCONIAMP.UI.MeshManagement
             else
             {
                 //return OperateNode.GetIniMAC(this.NIC.SelectedItem.ToString());
+                //Z-20170927:该方法通过本机的网卡向网络内的Mesh设备发包，然后监听设备响应，
+                //如果满足一定条件，则以第一次接收到响应的设备为根节点，去扩展其他节点，
+                //如果一直没有收到响应，则该方法会阻塞整个程序线程，导致界面卡死，
+                //界面所有内容都操作不了。
                 RootMAC = OperateNode.GetIniMAC(this.NIC.SelectedItem.ToString());
             }
             //return OperateNode.GetIniMAC(this.NIC.SelectedItem.ToString());
         }
 
+        /// <summary>
+        /// 获取初始MAC和IP地址
+        /// </summary>
         public void TestGetIniMACandIP()
         {
 
@@ -278,13 +329,16 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
             LogHelper.WriteLog("获取ROOT的IP地址");
 
-            RootIp = OperateNode.getIPaddress(RootMAC, MyARPLIST);
+            RootIp = OperateNode.getIPaddress(RootMAC, mARPList);
 
             ///未获取到IP的时候需要结束！！！
 
             LogHelper.WriteLog("获取ROOT的IP地址结束");
         }
 
+        /// <summary>
+        /// 添加节点
+        /// </summary>
         public void AddNodes()
         {
             //在这里增加根节点Node???
@@ -297,6 +351,10 @@ namespace HDDNCONIAMP.UI.MeshManagement
             this.MYBlockNodes.Nodelist.Add(RootNode);
         }
 
+        /// <summary>
+        /// Telnet测试Mesh设备的信息
+        /// </summary>
+        /// <param name="needInfoNode"></param>
         public void TestSendTelnetTelegram(string needInfoNode)
         {
             //需要在这里try catch finally 以关闭连接
@@ -307,7 +365,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             MeshNode TheNode = null;
             if (MYBlockNodes.Nodelist != null && MYBlockNodes.Nodelist.Count > 0)
                 TheNode = MYBlockNodes.Nodelist.Where(n => n.MacAddress.Equals(needInfoNode)).ToList().First();
-            
+
             if (TheNode != null)
             {
                 MyTelnet tn = new MyTelnet(TheNode.IpAddress);
@@ -392,7 +450,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                                 ///如果用子节点登录?不再访问其根节点
                                 string NeedToCheckMac = MeshInfo[6].Substring(0, 12);
-                                string NeedToCheckIP = OperateNode.getIPaddress(NeedToCheckMac, MyARPLIST);
+                                string NeedToCheckIP = OperateNode.getIPaddress(NeedToCheckMac, mARPList);
 
                                 if (MYBlockNodes.Nodelist.Count > 1)
                                 {
@@ -517,18 +575,25 @@ namespace HDDNCONIAMP.UI.MeshManagement
         /// <summary>
         /// 获取实时信息
         /// </summary>
-        private void GetRealInfo()
+        private void GetRealInfo(CancellationToken ct)
         {
 
             while (!LifeTimeControl.closing)
             {
+
+                if (ct.IsCancellationRequested)
+                {
+                    LogHelper.WriteLog("停止扫描！！！");
+                    return;
+                }
+
                 LogHelper.WriteLog("循环扫描开始！！！");
 
                 //ZL-20170925：删除不必要的ping操作
 
                 LogHelper.WriteLog("ReloadARP开始！！！");
 
-                MyARPLIST.ReloadARP();
+                mARPList.ReloadARP();
 
                 LogHelper.WriteLog("ReloadARP结束！！！");
 
@@ -640,19 +705,19 @@ namespace HDDNCONIAMP.UI.MeshManagement
                 _rwlock.ReleaseWriterLock();
 
                 ///打印信息
-                
+
                 ///清除所有内容
                 this.MYBlockNodes.Nodelist.Clear();
                 this.MYBlockNodes.Relationlist.Clear();
-                
+
                 ///将所有实时的拓扑节点复制到MYBlockNodes用于显示
                 ///清空实时拓扑用于显示
-                
+
                 //初步定为每隔1分钟总体扫描1次
                 Thread.Sleep(this.ScanRate * 1000);
             }
         }
-        
+
         /// <summary>
         /// 添加节点委托
         /// </summary>
@@ -732,10 +797,16 @@ namespace HDDNCONIAMP.UI.MeshManagement
         /// <summary>
         /// 首先判断ShowBlockNodes和StoreBlockNodes的比对关系
         /// </summary>
-        private void RefreshPanelInfo()
+        private void RefreshPanelInfo(CancellationToken ct)
         {
             while (!LifeTimeControl.closing)
             {
+                if (ct.IsCancellationRequested)
+                {
+                    LogHelper.WriteLog("停止刷新界面！！！");
+                    return;
+                }
+
                 //争取在左上角加一个时间显示！！！
 
                 ///争取画面不闪烁的关键是一次性画出所有控件！！！
@@ -1278,7 +1349,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             bmp.Dispose();
             g.Dispose();
         }
-        
+
         private void AddText(int Xbase, int Ybase, string Msg, bool UseOffset, Graphics UsingGraphics)
         {
             //Graphics g = this.CreateGraphics();
@@ -1306,7 +1377,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
         private Image FindGObjectTypeImage(string ObjType)
         {
             Image RetImg = null;
-            if(imageList1 != null)
+            if (imageList1 != null)
             {
                 switch (ObjType)
                 {
@@ -1326,7 +1397,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                         RetImg = imageList1.Images[4];
                         break;
                 }
-            }            
+            }
             return RetImg;
         }
 
@@ -1527,7 +1598,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             p.Dispose();
             g.Dispose();
         }
-        
+
         public void UpdateFrequencyTelnetTelegram(string needupdateNodeIP, double newfrequency)
         {
             //需要在这里try catch finally 以关闭连接
@@ -1536,7 +1607,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             //LogHelper.WriteLog("开始获取MAC为:" + needInfoNode + " 的NODE的信息！！！ ");
 
             //node TheNode = MYBlockNodes.Nodelist.Where(n => n.MacAddress.Equals(needInfoNode)).ToList().First();
-            
+
             if (!string.IsNullOrEmpty(needupdateNodeIP))
             {
                 MyTelnet tn = new MyTelnet(needupdateNodeIP);
