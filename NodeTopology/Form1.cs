@@ -23,13 +23,13 @@ namespace NodeTopology
         public const int EM_SETREADONLY = 0xcf;
         
         
-        ARPLIST MyARPLIST = new ARPLIST();
+        ARPList MyARPLIST = new ARPList();
 
         string RootMAC = string.Empty;
 
         string RootIp = string.Empty;
 
-        node RootNode = new node();
+        MeshNode RootNode = new MeshNode();
 
         BlockNodes MYBlockNodes = new BlockNodes();  //用于实时存储
 
@@ -193,13 +193,13 @@ namespace NodeTopology
 
             LogHelper.WriteLog("开始获取MAC为:" + needInfoNode + " 的NODE的信息！！！ ");
 
-            node TheNode = MYBlockNodes.Nodelist.Where(n => n.MacAddress.Equals(needInfoNode)).ToList().First();
+            MeshNode TheNode = MYBlockNodes.Nodelist.Where(n => n.MacAddress.Equals(needInfoNode)).ToList().First();
 
 
                 if (TheNode != null)
                 {
 
-                    myTelnet tn = new myTelnet(TheNode.IpAddress);
+                    MyTelnet tn = new MyTelnet(TheNode.IpAddress);
 
                     try
                     {
@@ -277,11 +277,11 @@ namespace NodeTopology
 
                                             if (samenode == 0) //这是首次发现的NODE
                                             {
-                                                node NewNode = new node(NeedToCheckMac);
+                                        MeshNode NewNode = new MeshNode(NeedToCheckMac);
 
                                                 NewNode.IpAddress = NeedToCheckIP;
 
-                                                relation NewRelation = new relation(TheNode, NewNode);
+                                                MeshRelation NewRelation = new MeshRelation(TheNode, NewNode);
 
                                                 NewRelation.Localport = int.Parse(MeshInfo[0]);
                                                 NewRelation.Txspeed = int.Parse(MeshInfo[2]);
@@ -318,7 +318,7 @@ namespace NodeTopology
 
                                                     if (needupdaterelation.Count > 0)
                                                     {
-                                                        relation TheRelation = needupdaterelation.FirstOrDefault();
+                                                        MeshRelation TheRelation = needupdaterelation.FirstOrDefault();
                                                         TheRelation.Remoteport = int.Parse(MeshInfo[0]);
 
                                                         TheRelation.Findtimes = 2;
@@ -329,7 +329,7 @@ namespace NodeTopology
                                                     {
                                                         var theOtherNode = MYBlockNodes.Nodelist.Where(x => x.MacAddress.Equals(NeedToCheckMac) && x.IpAddress.Equals(NeedToCheckIP)).ToList().First();
 
-                                                        relation NewRelation = new relation(TheNode, theOtherNode);
+                                                        MeshRelation NewRelation = new MeshRelation(TheNode, theOtherNode);
 
                                                         NewRelation.Localport = int.Parse(MeshInfo[0]);
                                                         NewRelation.Txspeed = int.Parse(MeshInfo[2]);
@@ -349,11 +349,11 @@ namespace NodeTopology
                                         }
                                         else //刚开始从根目录查找
                                         {
-                                            node NewNode = new node(NeedToCheckMac);
+                                    MeshNode NewNode = new MeshNode(NeedToCheckMac);
 
                                             NewNode.IpAddress = NeedToCheckIP;
 
-                                            relation NewRelation = new relation(TheNode, NewNode);
+                                            MeshRelation NewRelation = new MeshRelation(TheNode, NewNode);
 
                                             NewRelation.Localport = int.Parse(MeshInfo[0]);
                                             NewRelation.Txspeed = int.Parse(MeshInfo[2]);
@@ -711,12 +711,12 @@ namespace NodeTopology
         }
 
 
-        private delegate void AddNode(node Pnode);
+        private delegate void AddNode(MeshNode Pnode);
 
         
 
         
-        private void AddNodeMethod(node Pnode)
+        private void AddNodeMethod(MeshNode Pnode)
         {
             if (this.treeView1.InvokeRequired)
             {
@@ -845,7 +845,7 @@ namespace NodeTopology
 
                  if (NoneNodes.Count() > 0)
                  {
-                     foreach (node n in NoneNodes)
+                     foreach (MeshNode n in NoneNodes)
                      { 
                          GObject obj = new GObject();
                          GNetwork.FindGObjectByName(n.MacAddress, ref obj);
@@ -864,7 +864,7 @@ namespace NodeTopology
 
                  if (NoneRelations.Count() > 0)
                  {
-                     foreach (relation r in NoneRelations)
+                     foreach (MeshRelation r in NoneRelations)
                      {
                          GObject obj = new GObject();
                          GNetwork.FindGObjectByName(r.Localnode.MacAddress + r.Remotenode.MacAddress, ref obj);
@@ -904,14 +904,14 @@ namespace NodeTopology
 
                          for (int k = 0; k < j; k++)
                          {
-                             //y坐标为 CellHeight/2 + k*CellHeight - 30(图片高度的一半)
+                                //y坐标为 CellHeight/2 + k*CellHeight - 30(图片高度的一半)
 
-                             //AddGObject(x, y, node);
+                                //AddGObject(x, y, node);
 
-                             
-                             
 
-                             node TempNode = ShowBlockNodes.Nodelist[nodecount];
+
+
+                                MeshNode TempNode = ShowBlockNodes.Nodelist[nodecount];
 
 
                              //urinatedog 向TREEVIEW中加入节点
@@ -951,7 +951,7 @@ namespace NodeTopology
 
                  if (ShowBlockNodes.Relationlist.Count > 0)
                  {
-                     foreach (relation r in ShowBlockNodes.Relationlist)
+                     foreach (MeshRelation r in ShowBlockNodes.Relationlist)
                      {
                          GNetwork.FindGObjectByName(r.Localnode.MacAddress, ref TempGObject);
                          int x1 = TempGObject.x1;
@@ -1233,7 +1233,7 @@ namespace NodeTopology
         /// <param name="pnodelist">nodelist</param>
         /// <param name="prelationlist">relationlist</param>
         /// <param name="isonline">是否为实时数据，如果为前台显示用，则该项为否</param>
-        private void PrintStatues(List<node> pnodelist, List<relation> prelationlist , bool isonline)
+        private void PrintStatues(List<MeshNode> pnodelist, List<MeshRelation> prelationlist , bool isonline)
         {
             if (isonline)
             {
@@ -1241,7 +1241,7 @@ namespace NodeTopology
 
                 LogHelper.WriteLog("IP".PadLeft(20, ' ') + "MAC".PadLeft(20, ' ') + "BandWidth".PadLeft(10, ' ') + "TxPower".PadLeft(10, ' ') + "Frequency".PadLeft(10, ' ') + "Battery".PadLeft(10, ' '));
 
-                foreach (node Si in pnodelist)
+                foreach (MeshNode Si in pnodelist)
                 {
             LogHelper.WriteLog(Si.IpAddress.PadLeft(20, ' ')  + Si.MacAddress.PadLeft(20, ' ') + Si.BandWidth.ToString().PadLeft(10, ' ')  + Si.TxPower.ToString().PadLeft(10, ' ')  + Si.Frequency.ToString().PadLeft(10, ' ')  + Si.Battery.ToString().PadLeft(10, ' '));
                 }
@@ -1260,7 +1260,7 @@ namespace NodeTopology
                                    "Rxsnr".PadLeft(10, ' ') + 
                                    "Findtimes".PadLeft(10, ' '));
 
-                foreach (relation R in prelationlist)
+                foreach (MeshRelation R in prelationlist)
                 {
               LogHelper.WriteLog(R.Localnode.IpAddress.PadLeft(20, ' ') +  
                                         R.Localnode.MacAddress.PadLeft(20, ' ') + 
@@ -1350,7 +1350,7 @@ namespace NodeTopology
             
             
             
-            List<node> updatefrequencynodelist = new List<node>();
+            List<MeshNode> updatefrequencynodelist = new List<MeshNode>();
 
             
 
@@ -1461,25 +1461,25 @@ namespace NodeTopology
             {
 
                 ///随机增加层数和NODE数量，关系
-                node TestNode1 = new node("AAAAAAAAAAAA");
+                MeshNode TestNode1 = new MeshNode("AAAAAAAAAAAA");
 
                 TestNode1.IpAddress = "192.168.0.9";
 
                 TestNode1.Battery = 1900;
 
-                node TestNode2 = new node("AAAAAAAAAAAB");
+                MeshNode TestNode2 = new MeshNode("AAAAAAAAAAAB");
 
                 TestNode2.IpAddress = "192.168.0.10";
 
                 TestNode2.Battery = 1900;
 
-                node TestNode3 = new node("AAAAAAAAAAAC");
+                MeshNode TestNode3 = new MeshNode("AAAAAAAAAAAC");
 
                 TestNode3.IpAddress = "192.168.0.11";
 
                 TestNode3.Battery = 1900;
 
-                node TestNode4 = new node("AAAAAAAAAAAD");
+                MeshNode TestNode4 = new MeshNode("AAAAAAAAAAAD");
 
                 TestNode4.IpAddress = "192.168.0.18";
 
@@ -1490,15 +1490,15 @@ namespace NodeTopology
                 this.MYBlockNodes.Nodelist.Add(TestNode4);
 
 
-                relation relation1 = new relation(TestNode1,TestNode2);
+                MeshRelation relation1 = new MeshRelation(TestNode1,TestNode2);
 
                 relation1.Findtimes = 2;
 
-                relation relation2 = new relation(TestNode2, TestNode3);
+                MeshRelation relation2 = new MeshRelation(TestNode2, TestNode3);
 
                 relation2.Findtimes = 2;
 
-                relation relation3 = new relation(TestNode2,TestNode4);
+                MeshRelation relation3 = new MeshRelation(TestNode2,TestNode4);
 
                 relation3.Findtimes = 1;
 

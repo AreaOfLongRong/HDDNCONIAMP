@@ -201,7 +201,7 @@ namespace NodeTopology
             return RetImg;
         }
 
-        public void AddGobject(int x1, int y1, int x2, int y2, relation prelation)
+        public void AddGobject(int x1, int y1, int x2, int y2, MeshRelation prelation)
         {
 
             #region 为了防止刷新，不在此时画线!!! urinatedong  20170322
@@ -264,7 +264,7 @@ namespace NodeTopology
 
         }
 
-        public void AddGObject(int x1, int y1, node pnode)
+        public void AddGObject(int x1, int y1, MeshNode pnode)
         {
 
 
@@ -429,7 +429,7 @@ namespace NodeTopology
             if (!string.IsNullOrEmpty(needupdateNodeIP))
             {
 
-                myTelnet tn = new myTelnet(needupdateNodeIP);
+                MyTelnet tn = new MyTelnet(needupdateNodeIP);
 
                 try
                 {

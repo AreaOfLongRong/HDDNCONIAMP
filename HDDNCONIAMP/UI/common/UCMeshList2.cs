@@ -191,7 +191,7 @@ namespace HDDNCONIAMP.UI.Common
         /// <param name="e"></param>
         private void buttonItemDeleteGroup_Click(object sender, EventArgs e)
         {
-            Node selectedNode = advTreeMeshList.SelectedNode;
+            DevComponents.AdvTree.Node selectedNode = advTreeMeshList.SelectedNode;
             if (selectedNode == null)
             {
                 MessageBox.Show("未选择任何分组！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -241,7 +241,7 @@ namespace HDDNCONIAMP.UI.Common
         /// <param name="e"></param>
         private void advTreeMeshList_NodeClick(object sender, TreeNodeMouseEventArgs e)
         {
-            Node selectNode = advTreeMeshList.SelectedNode;
+            DevComponents.AdvTree.Node selectNode = advTreeMeshList.SelectedNode;
 
             //设备不在线，不执行后续操作
             if (selectNode == null || selectNode.Level != 1)
@@ -349,7 +349,7 @@ namespace HDDNCONIAMP.UI.Common
         /// <param name="e"></param>
         private void advTreeMeshList_MouseDown(object sender, MouseEventArgs e)
         {
-            Node selectNode = advTreeMeshList.SelectedNode;
+            DevComponents.AdvTree.Node selectNode = advTreeMeshList.SelectedNode;
             if (selectNode != null && selectNode.Level == 0)
             {
                 //拖动设备
@@ -416,8 +416,8 @@ namespace HDDNCONIAMP.UI.Common
         {
             AdvTree tree = (AdvTree)sender;
             Point point = tree.PointToClient(new Point(e.X, e.Y));
-            Node targetNode = tree.GetNodeAt(point);
-            Node dragNode = (Node)e.Data.GetData("DevComponents.AdvTree.Node");
+            DevComponents.AdvTree.Node targetNode = tree.GetNodeAt(point);
+            DevComponents.AdvTree.Node dragNode = (DevComponents.AdvTree.Node)e.Data.GetData("DevComponents.AdvTree.Node");
             if (targetNode != null)
             {
                 targetNode.Nodes.Insert(targetNode.Nodes.Count, dragNode);
@@ -614,9 +614,9 @@ namespace HDDNCONIAMP.UI.Common
         private void onSearchMeshDevice()
         {
             string searchText = textBoxXSearch.Text.Trim();
-            foreach (Node group in advTreeMeshList.Nodes)
+            foreach (DevComponents.AdvTree.Node group in advTreeMeshList.Nodes)
             {
-                foreach (Node device in group.Nodes)
+                foreach (DevComponents.AdvTree.Node device in group.Nodes)
                 {
                     if (searchText.Length > 0)
                         device.Visible = device.Text.Contains(searchText);

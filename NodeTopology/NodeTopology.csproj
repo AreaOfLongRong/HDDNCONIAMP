@@ -71,8 +71,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ARPitem.cs" />
-    <Compile Include="ARPLIST.cs" />
+    <Compile Include="ARPItem.cs" />
+    <Compile Include="ARPList.cs" />
     <Compile Include="BlockNodes.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="Drawing.cs">
@@ -89,8 +89,8 @@
     <Compile Include="MyPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="myTelnet.cs" />
-    <Compile Include="node.cs" />
+    <Compile Include="MyTelnet.cs" />
+    <Compile Include="MeshNode.cs" />
     <Compile Include="NodeTopologyController.cs" />
     <Compile Include="OperateNode.cs" />
     <Compile Include="Program.cs" />

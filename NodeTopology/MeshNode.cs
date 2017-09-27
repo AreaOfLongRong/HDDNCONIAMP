@@ -6,7 +6,7 @@ using System.Text;
 namespace NodeTopology
 {
     [Serializable]
-    public class node
+    public class MeshNode
     {
         //所有收发功率均为父节点传递给当前节点的！
         //string[] portnumber; //端口号
@@ -50,7 +50,7 @@ namespace NodeTopology
 
 
         //构造子节点,子节点必须有父节点
-        public node(string inimacaddress)
+        public MeshNode(string inimacaddress)
         {
             this.macaddress = inimacaddress;
             //this.fathernode = Pfathernode;
@@ -58,7 +58,7 @@ namespace NodeTopology
         }
 
         //构造根节点(根节点无父节点)
-        public node()
+        public MeshNode()
         {
             isRoot = true;
             //fathernode = null;
@@ -143,25 +143,25 @@ namespace NodeTopology
     }
 
     [Serializable]
-    public class relation 
+    public class MeshRelation 
     {
-        node localnode;
+        MeshNode localnode;
 
-        public node Localnode
+        public MeshNode Localnode
         {
             get { return localnode; }
             set { localnode = value; }
         }
-        node remotenode;
+        MeshNode remotenode;
 
-        public node Remotenode
+        public MeshNode Remotenode
         {
             get { return remotenode; }
             set { remotenode = value; }
         }
        
 
-        public relation(node fromnode, node tonode)
+        public MeshRelation(MeshNode fromnode, MeshNode tonode)
         {
             this.localnode = fromnode;
             this.remotenode = tonode;

@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace NodeTopology
 {
-    public class myTelnet
+    public class MyTelnet
     {
         TcpClient client;
         IPEndPoint remote;
@@ -31,7 +31,7 @@ namespace NodeTopology
         /// </summary>
         /// <param name="host">域名或者ip</param>
         /// <param name="port">端口号</param>
-        public myTelnet(string host, int port)
+        public MyTelnet(string host, int port)
         {
             if (port < 1 || port > 65536)
             {
@@ -58,7 +58,7 @@ namespace NodeTopology
             }
 
         }
-        public myTelnet(string host)
+        public MyTelnet(string host)
             : this(host, 40000)
         {
         }
@@ -67,7 +67,7 @@ namespace NodeTopology
             if (client != null)
                 client.Close();
         }
-        ~myTelnet()
+        ~MyTelnet()
         {
             if (client != null)
                 client.Close();

@@ -55,13 +55,13 @@ namespace HDDNCONIAMP.UI.MeshManagement
         public const int EM_SETREADONLY = 0xcf;
 
 
-        ARPLIST MyARPLIST = new ARPLIST();
+        ARPList MyARPLIST = new ARPList();
 
         string RootMAC = string.Empty;
 
         string RootIp = string.Empty;
 
-        node RootNode = new node();
+        MeshNode RootNode = new MeshNode();
 
         BlockNodes MYBlockNodes = new BlockNodes();  //用于实时存储
 
@@ -304,19 +304,19 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
             LogHelper.WriteLog("开始获取MAC为:" + needInfoNode + " 的NODE的信息！！！ ");
 
-            node TheNode = null;
+            MeshNode TheNode = null;
             if (MYBlockNodes.Nodelist != null && MYBlockNodes.Nodelist.Count > 0)
                 TheNode = MYBlockNodes.Nodelist.Where(n => n.MacAddress.Equals(needInfoNode)).ToList().First();
             
             if (TheNode != null)
             {
-                myTelnet tn = new myTelnet(TheNode.IpAddress);
+                MyTelnet tn = new MyTelnet(TheNode.IpAddress);
                 try
                 {
-                    node cacheNode = null;
+                    MeshNode cacheNode = null;
                     if (hashTable.ContainsKey(needInfoNode))
                     {
-                        cacheNode = (node)hashTable[needInfoNode];
+                        cacheNode = (MeshNode)hashTable[needInfoNode];
                     }
 
                     string recvStr = tn.recvDataWaitWord("help", 1);
@@ -342,7 +342,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                     recvStr = tn.recvDataWaitWord("MHz", 1);
                     TheNode.BandWidth = (cacheNode != null) ? cacheNode.BandWidth : double.Parse(recvStr.Replace("OK\n#user@/>", "").Replace("MHz", ""));
 
-                    node cacheNod = new node();
+                    MeshNode cacheNod = new MeshNode();
                     cacheNod.IpAddress = TheNode.IpAddress;
                     cacheNod.Frequency = TheNode.Frequency;
                     cacheNod.BandWidth = TheNode.BandWidth;
@@ -400,11 +400,11 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                                     if (samenode == 0) //这是首次发现的NODE
                                     {
-                                        node NewNode = new node(NeedToCheckMac);
+                                        MeshNode NewNode = new MeshNode(NeedToCheckMac);
 
                                         NewNode.IpAddress = NeedToCheckIP;
 
-                                        relation NewRelation = new relation(TheNode, NewNode);
+                                        MeshRelation NewRelation = new MeshRelation(TheNode, NewNode);
                                         NewRelation.Localport = int.Parse(MeshInfo[0]);
                                         NewRelation.Txspeed = int.Parse(MeshInfo[2]);
                                         NewRelation.Txsnr = int.Parse(MeshInfo[3]);
@@ -425,7 +425,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                                             if (needupdaterelation.Count > 0)
                                             {
-                                                relation TheRelation = needupdaterelation.FirstOrDefault();
+                                                MeshRelation TheRelation = needupdaterelation.FirstOrDefault();
                                                 TheRelation.Remoteport = int.Parse(MeshInfo[0]);
                                                 TheRelation.Findtimes = 2;
                                                 //这里需要确认以下是否需要更新RX和TX的信息！！！
@@ -434,7 +434,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                                             {
                                                 var theOtherNode = MYBlockNodes.Nodelist.Where(x => x.MacAddress.Equals(NeedToCheckMac) && x.IpAddress.Equals(NeedToCheckIP)).ToList().First();
 
-                                                relation NewRelation = new relation(TheNode, theOtherNode);
+                                                MeshRelation NewRelation = new MeshRelation(TheNode, theOtherNode);
 
                                                 NewRelation.Localport = int.Parse(MeshInfo[0]);
                                                 NewRelation.Txspeed = int.Parse(MeshInfo[2]);
@@ -450,10 +450,10 @@ namespace HDDNCONIAMP.UI.MeshManagement
                                 }
                                 else //刚开始从根目录查找
                                 {
-                                    node NewNode = new node(NeedToCheckMac);
+                                    MeshNode NewNode = new MeshNode(NeedToCheckMac);
                                     NewNode.IpAddress = NeedToCheckIP;
 
-                                    relation NewRelation = new relation(TheNode, NewNode);
+                                    MeshRelation NewRelation = new MeshRelation(TheNode, NewNode);
                                     NewRelation.Localport = int.Parse(MeshInfo[0]);
                                     NewRelation.Txspeed = int.Parse(MeshInfo[2]);
                                     NewRelation.Txsnr = int.Parse(MeshInfo[3]);
@@ -657,13 +657,13 @@ namespace HDDNCONIAMP.UI.MeshManagement
         /// 添加节点委托
         /// </summary>
         /// <param name="Pnode"></param>
-        private delegate void AddNode(node Pnode);
+        private delegate void AddNode(MeshNode Pnode);
 
         /// <summary>
         /// 添加节点方法
         /// </summary>
         /// <param name="Pnode"></param>
-        private void AddNodeMethod(node Pnode)
+        private void AddNodeMethod(MeshNode Pnode)
         {
             if (this.treeView1.InvokeRequired)
             {
@@ -774,7 +774,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                     if (NoneNodes.Count() > 0)
                     {
-                        foreach (node n in NoneNodes)
+                        foreach (MeshNode n in NoneNodes)
                         {
                             GObject obj = new GObject();
                             GNetwork.FindGObjectByName(n.MacAddress, ref obj);
@@ -793,7 +793,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                     if (NoneRelations.Count() > 0)
                     {
-                        foreach (relation r in NoneRelations)
+                        foreach (MeshRelation r in NoneRelations)
                         {
                             GObject obj = new GObject();
                             GNetwork.FindGObjectByName(r.Localnode.MacAddress + r.Remotenode.MacAddress, ref obj);
@@ -830,7 +830,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                                 //AddGObject(x, y, node);
 
-                                node TempNode = ShowBlockNodes.Nodelist[nodecount];
+                                MeshNode TempNode = ShowBlockNodes.Nodelist[nodecount];
 
                                 //urinatedog 向TREEVIEW中加入节点
                                 //TreeNode NewNode = this.treeView1.Nodes.Add(TempNode.IpAddress);
@@ -865,7 +865,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                     if (ShowBlockNodes.Relationlist.Count > 0)
                     {
-                        foreach (relation r in ShowBlockNodes.Relationlist)
+                        foreach (MeshRelation r in ShowBlockNodes.Relationlist)
                         {
                             GNetwork.FindGObjectByName(r.Localnode.MacAddress, ref TempGObject);
                             int x1 = TempGObject.x1;
@@ -1096,7 +1096,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
         /// <param name="pnodelist">nodelist</param>
         /// <param name="prelationlist">relationlist</param>
         /// <param name="isonline">是否为实时数据，如果为前台显示用，则该项为否</param>
-        private void PrintStatues(List<node> pnodelist, List<relation> prelationlist, bool isonline)
+        private void PrintStatues(List<MeshNode> pnodelist, List<MeshRelation> prelationlist, bool isonline)
         {
             if (isonline)
             {
@@ -1104,7 +1104,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                 LogHelper.WriteLog("IP".PadLeft(20, ' ') + "MAC".PadLeft(20, ' ') + "BandWidth".PadLeft(10, ' ') + "TxPower".PadLeft(10, ' ') + "Frequency".PadLeft(10, ' ') + "Battery".PadLeft(10, ' '));
 
-                foreach (node Si in pnodelist)
+                foreach (MeshNode Si in pnodelist)
                 {
                     try
                     {
@@ -1130,7 +1130,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                                    "Rxsnr".PadLeft(10, ' ') +
                                    "Findtimes".PadLeft(10, ' '));
 
-                foreach (relation R in prelationlist)
+                foreach (MeshRelation R in prelationlist)
                 {
                     try
                     {
@@ -1330,7 +1330,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             return RetImg;
         }
 
-        public void AddGobject(int x1, int y1, int x2, int y2, relation prelation)
+        public void AddGobject(int x1, int y1, int x2, int y2, MeshRelation prelation)
         {
 
             #region 为了防止刷新，不在此时画线!!! urinatedong  20170322
@@ -1392,7 +1392,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             }
         }
 
-        public void AddGObject(int x1, int y1, node pnode)
+        public void AddGObject(int x1, int y1, MeshNode pnode)
         {
 
             #region 为了防止刷新，不在此时画图形!!! urinatedong 20170322
@@ -1539,7 +1539,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             
             if (!string.IsNullOrEmpty(needupdateNodeIP))
             {
-                myTelnet tn = new myTelnet(needupdateNodeIP);
+                MyTelnet tn = new MyTelnet(needupdateNodeIP);
                 try
                 {
                     string recvStr = tn.recvDataWaitWord("help", 1);
@@ -1934,7 +1934,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                 if (hashTable.Contains(name))
                 {
-                    node info = (node)hashTable[name];
+                    MeshNode info = (MeshNode)hashTable[name];
                     info.TxPower = itx;
                     info.Frequency = irate;
                     info.BandWidth = ibindwidth;
@@ -1969,7 +1969,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             if (hashTable.Contains(name))
             {
                 currentNodeName = name;
-                node info = (node)hashTable[name];
+                MeshNode info = (MeshNode)hashTable[name];
                 ipAddressInputMeshIP.Value = info.IpAddress;
                 slider1.Value = (int)info.TxPower;
                 slider2.Value = (int)info.Frequency;

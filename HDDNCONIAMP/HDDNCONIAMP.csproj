@@ -125,16 +125,6 @@
     <Compile Include="DB\Model\EUserAuthority.cs" />
     <Compile Include="DB\Model\MeshDeviceInfo.cs" />
     <Compile Include="DB\Model\AudioAndVideoDevice.cs" />
-    <Compile Include="Mesh\ARPItem.cs" />
-    <Compile Include="Mesh\ARPList.cs" />
-    <Compile Include="Mesh\GScenario.cs" />
-    <Compile Include="Mesh\MeshCommon.cs" />
-    <Compile Include="Mesh\MeshGObject.cs" />
-    <Compile Include="Mesh\MeshBlockNodes.cs" />
-    <Compile Include="Mesh\MeshDeviceManage.cs" />
-    <Compile Include="Mesh\MeshNode.cs" />
-    <Compile Include="Mesh\MeshRelation.cs" />
-    <Compile Include="Mesh\MeshTelnet.cs" />
     <Compile Include="Network\GPSInfo.cs" />
     <Compile Include="Network\GPSUDPListener.cs" />
     <Compile Include="Network\NetworkListenerManage.cs" />

@@ -12,9 +12,9 @@ namespace NodeTopology
 
         }
 
-        List<node> nodelist = new List<node>();
+        List<MeshNode> nodelist = new List<MeshNode>();
 
-        public List<node> Nodelist
+        public List<MeshNode> Nodelist
         {
             get { return nodelist; }
             set { nodelist = value; }
@@ -23,9 +23,9 @@ namespace NodeTopology
 
 
 
-        List<relation> relationlist = new List<relation>();
+        List<MeshRelation> relationlist = new List<MeshRelation>();
 
-        public List<relation> Relationlist
+        public List<MeshRelation> Relationlist
         {
             get { return relationlist; }
             set { relationlist = value; }

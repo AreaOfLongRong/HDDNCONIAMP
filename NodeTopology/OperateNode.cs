@@ -36,7 +36,7 @@ namespace NodeTopology
         }
 
 
-        public static string getIPaddress(string MacAddress, ARPLIST ArpList)
+        public static string getIPaddress(string MacAddress, ARPList ArpList)
         {
             // NeedIPNode.IpAddress = "AAAAAAAAAAAA";
             //  ArpList.Where(x => x. == i.Key)
