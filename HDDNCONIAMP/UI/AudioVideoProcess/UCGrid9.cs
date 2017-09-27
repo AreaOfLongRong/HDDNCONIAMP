@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using DevComponents.AdvTree;
+using System.Diagnostics;
 
 namespace HDDNCONIAMP.UI.AudioVideoProcess
 {
@@ -17,6 +18,16 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
         /// 面板字典
         /// </summary>
         private Dictionary<Panel, bool> mPanelDictionary;
+
+        /// <summary>
+        /// 面板及其关联进程字典
+        /// </summary>
+        private Dictionary<Panel, Process> mPanelProcessDictionary;
+
+        /// <summary>
+        /// 当前面板索引
+        /// </summary>
+        private int mCurrentPanelIndex = 0;
 
         public UCGrid9()
         {
@@ -44,15 +55,45 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
         /// <returns>下一个可用的面板</returns>
         public Panel GetNextAvailablePanel()
         {
-            foreach(KeyValuePair<Panel, bool> kvp in mPanelDictionary)
+            int tempIndex = 0;
+            foreach (KeyValuePair<Panel, Process> kvp in mPanelProcessDictionary)
             {
-                if(kvp.Value == false)
+                if ((tempIndex++) > mCurrentPanelIndex)
                 {
-                    mPanelDictionary[kvp.Key] = true;
+                    //    continue;
+                    //}
+                    //else
+                    //{
+                    if (kvp.Value != null)
+                    {
+                        kvp.Value.Kill();
+                        kvp.Value.WaitForExit();
+                    }
+
+                    mCurrentPanelIndex++;
+                    mCurrentPanelIndex = mCurrentPanelIndex >= mPanelProcessDictionary.Count ? 0 : mCurrentPanelIndex;
+
                     return kvp.Key;
                 }
             }
-            return null;
+            return mPanelProcessDictionary.First().Key;  //默认返回第一个面板
+        }
+
+        /// <summary>
+        /// 绑定面板及其进程
+        /// </summary>
+        /// <param name="panel"></param>
+        /// <param name="process"></param>
+        public void BindPanelProcess(Panel panel, Process process)
+        {
+            foreach (KeyValuePair<Panel, Process> kvp in mPanelProcessDictionary)
+            {
+                if (kvp.Key == panel)
+                {
+                    mPanelProcessDictionary[panel] = process;
+                    return;
+                }
+            }
         }
 
 
@@ -82,6 +123,7 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
         public void InitPanelDictionary()
         {
             mPanelDictionary = new Dictionary<Panel, bool>();
+            mPanelProcessDictionary = new Dictionary<Panel, Process>();
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
@@ -96,8 +138,9 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
                     panel.Dock = DockStyle.Fill;
                     panel.Controls.Add(pb);
                     panel.ResumeLayout(false);
-                    this.tableLayoutPanelMain.Controls.Add(panel, j, i);                    
+                    this.tableLayoutPanelMain.Controls.Add(panel, j, i);
                     this.mPanelDictionary.Add(panel, false);
+                    this.mPanelProcessDictionary.Add(panel, null);
                 }
             }
             this.tableLayoutPanelMain.ResumeLayout(false);
@@ -118,22 +161,6 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
         private void setTableLayoutPanelDoubleBufferd()
         {
             tableLayoutPanelMain.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMain, true, null);
-        }
-
-        private void tableLayoutPanelMain_DragDrop(object sender, DragEventArgs e)
-        {
-            Node node = (Node)e.Data;
-            if(node != null)
-            {
-                Panel targetPanel = GetPanelAtPoint(new Point(e.X, e.Y));
-                if (targetPanel != null)
-                {
-                    TextBox temp = new TextBox();
-                    temp.Text = node.Text;
-                    temp.Dock = DockStyle.Fill;
-                    targetPanel.Controls.Add(temp);
-                }
-            }
         }
 
         /// <summary>

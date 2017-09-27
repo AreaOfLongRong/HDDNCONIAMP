@@ -48,8 +48,6 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.labelXValidPeriod = new DevComponents.DotNetBar.LabelX();
             this.superTabControlMain = new DevComponents.DotNetBar.SuperTabControl();
-            this.superTabControlPanelAudioVideoProcess = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.superTabItemAudioVideoProcess = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanelGISVideo = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.tableLayoutPanelLogin = new System.Windows.Forms.TableLayoutPanel();
             this.textBoxXPassword = new DevComponents.DotNetBar.Controls.TextBoxX();
@@ -59,6 +57,8 @@
             this.textBoxXUserName = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.buttonLogin = new DevComponents.DotNetBar.ButtonX();
             this.superTabItemGISVideo = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanelAudioVideoProcess = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.superTabItemAudioVideoProcess = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanelUserSettings = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.superTabItemUserSettings = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanelMeshManagement = new DevComponents.DotNetBar.SuperTabControlPanel();
@@ -407,22 +407,6 @@
             this.superTabControlMain.Text = "superTabControl1";
             this.superTabControlMain.SelectedTabChanged += new System.EventHandler<DevComponents.DotNetBar.SuperTabStripSelectedTabChangedEventArgs>(this.superTabControlMain_SelectedTabChanged);
             // 
-            // superTabControlPanelAudioVideoProcess
-            // 
-            this.superTabControlPanelAudioVideoProcess.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanelAudioVideoProcess.Location = new System.Drawing.Point(138, 0);
-            this.superTabControlPanelAudioVideoProcess.Name = "superTabControlPanelAudioVideoProcess";
-            this.superTabControlPanelAudioVideoProcess.Size = new System.Drawing.Size(616, 321);
-            this.superTabControlPanelAudioVideoProcess.TabIndex = 0;
-            this.superTabControlPanelAudioVideoProcess.TabItem = this.superTabItemAudioVideoProcess;
-            // 
-            // superTabItemAudioVideoProcess
-            // 
-            this.superTabItemAudioVideoProcess.AttachedControl = this.superTabControlPanelAudioVideoProcess;
-            this.superTabItemAudioVideoProcess.GlobalItem = false;
-            this.superTabItemAudioVideoProcess.Name = "superTabItemAudioVideoProcess";
-            this.superTabItemAudioVideoProcess.Text = "音视频综合处理";
-            // 
             // superTabControlPanelGISVideo
             // 
             this.superTabControlPanelGISVideo.BackgroundImage = global::HDDNCONIAMP.Properties.Resources.login_background;
@@ -564,6 +548,22 @@
             this.superTabItemGISVideo.GlobalItem = false;
             this.superTabItemGISVideo.Name = "superTabItemGISVideo";
             this.superTabItemGISVideo.Text = "GIS定位关联视频";
+            // 
+            // superTabControlPanelAudioVideoProcess
+            // 
+            this.superTabControlPanelAudioVideoProcess.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanelAudioVideoProcess.Location = new System.Drawing.Point(138, 0);
+            this.superTabControlPanelAudioVideoProcess.Name = "superTabControlPanelAudioVideoProcess";
+            this.superTabControlPanelAudioVideoProcess.Size = new System.Drawing.Size(616, 321);
+            this.superTabControlPanelAudioVideoProcess.TabIndex = 0;
+            this.superTabControlPanelAudioVideoProcess.TabItem = this.superTabItemAudioVideoProcess;
+            // 
+            // superTabItemAudioVideoProcess
+            // 
+            this.superTabItemAudioVideoProcess.AttachedControl = this.superTabControlPanelAudioVideoProcess;
+            this.superTabItemAudioVideoProcess.GlobalItem = false;
+            this.superTabItemAudioVideoProcess.Name = "superTabItemAudioVideoProcess";
+            this.superTabItemAudioVideoProcess.Text = "音视频综合处理";
             // 
             // superTabControlPanelUserSettings
             // 

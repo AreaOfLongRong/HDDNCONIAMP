@@ -177,8 +177,8 @@ namespace HDDNCONIAMP.Utils
 
                 while (_panelProcess.MainWindowHandle.ToInt32() == 0)
                 {
-                    Thread.Sleep(100);
                     _panelProcess.Refresh();//必须刷新状态才能重新获得TITLE
+                    Thread.Sleep(100);
                 }
                 _panelProcess.StartInfo = psi;
 

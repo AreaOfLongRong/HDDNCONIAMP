@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace HDDNCONIAMP.UI.AudioVideoProcess
 {
@@ -26,6 +27,11 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
             {
                 return 1;
             }
+        }
+
+        public void BindPanelProcess(Panel panel, Process process)
+        {
+            throw new NotImplementedException();
         }
 
 

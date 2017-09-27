@@ -10,15 +10,15 @@ using System.Threading;
 
 namespace NodeTopology
 {
-    public class ARPLIST
+    public class ARPList
     {
-        private List<ARPitem> usingarplist = new List<ARPitem>();
+        private List<ARPItem> usingarplist = new List<ARPItem>();
 
         [DllImport("iphlpapi.dll")]
 
         extern static int GetIpNetTable(IntPtr pTcpTable, ref int pdwSize, bool bOrder);
 
-        public List<ARPitem> UsingArpList
+        public List<ARPItem> UsingArpList
         {
             get { return usingarplist; }
             set { usingarplist = value; }
@@ -119,7 +119,7 @@ namespace NodeTopology
                         if (!typeStr[n.Type].Equals("无效"))
                         {
 
-                            ARPitem TempARP = new ARPitem();
+                            ARPItem TempARP = new ARPItem();
 
                             TempARP.InternetAddress = ipstr(n.Addr);
                             TempARP.PhysicalAddress = macstr(n.PhysAddr);

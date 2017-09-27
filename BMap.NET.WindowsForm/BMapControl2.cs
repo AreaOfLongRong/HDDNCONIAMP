@@ -216,7 +216,7 @@ namespace BMap.NET.WindowsForm
         /// <summary>
         /// 地图中视频设备轨迹集
         /// </summary>
-        private Dictionary<string, BDeviceRoute> _deviceRoutes = new Dictionary<string, BDeviceRoute>();
+        private Dictionary<string, BMeshRoute> _deviceRoutes = new Dictionary<string, BMeshRoute>();
         /// <summary>
         /// 当前绘制图形  没有则为null(包括截图矩形)
         /// </summary>
@@ -1624,7 +1624,7 @@ namespace BMap.NET.WindowsForm
             {
 
             }
-            foreach (KeyValuePair<string, BDeviceRoute> v in _deviceRoutes)
+            foreach (KeyValuePair<string, BMeshRoute> v in _deviceRoutes)
             {
                 v.Value.Draw(g, _center, _zoom, ClientSize);
             }
@@ -1800,13 +1800,42 @@ namespace BMap.NET.WindowsForm
         /// 添加设备路径
         /// </summary>
         /// <param name="routes"></param>
-        public void AddDeviceRoutes(List<BDeviceRoute> routes)
+        public void AddDeviceRoutes(List<BMeshRoute> routes)
         {
             _deviceRoutes.Clear();
-            foreach (BDeviceRoute r in routes)
+            foreach (BMeshRoute r in routes)
             {
                 _deviceRoutes.Add(r.DeviceName, r);
             }
+            Invalidate();
+        }
+
+        /// <summary>
+        /// 添加一个新的设备路径
+        /// </summary>
+        /// <param name="route"></param>
+        public void AddDeviceRoute(BMeshRoute route)
+        {
+            _deviceRoutes.Add(route.DeviceName, route);
+            Invalidate();
+        }
+
+        /// <summary>
+        /// 删除指定设备名称的路径
+        /// </summary>
+        /// <param name="deviceName">设备名称</param>
+        public void DeleteDeviceRoute(string deviceName)
+        {
+            _deviceRoutes.Remove(deviceName);
+            Invalidate();
+        }
+
+        /// <summary>
+        /// 清空所有设备的路径
+        /// </summary>
+        public void ClearAllDeviceRoutes()
+        {
+            _deviceRoutes.Clear();
             Invalidate();
         }
 

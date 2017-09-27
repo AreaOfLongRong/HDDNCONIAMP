@@ -37,6 +37,7 @@
             this.columnHeaderState = new DevComponents.AdvTree.ColumnHeader();
             this.columnHeaderGPS = new DevComponents.AdvTree.ColumnHeader();
             this.columnHeaderVideo = new DevComponents.AdvTree.ColumnHeader();
+            this.columnHeaderGPSTrack = new DevComponents.AdvTree.ColumnHeader();
             this.imageListMesh = new System.Windows.Forms.ImageList(this.components);
             this.nodeConnectorMain = new DevComponents.AdvTree.NodeConnector();
             this.elementStyleMain = new DevComponents.DotNetBar.ElementStyle();
@@ -47,7 +48,6 @@
             this.buttonItemDeleteGroup = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemRefreshTree = new DevComponents.DotNetBar.ButtonItem();
             this.buttonXSearch = new DevComponents.DotNetBar.ButtonX();
-            this.columnHeaderGPSTrack = new DevComponents.AdvTree.ColumnHeader();
             this.tableLayoutPanelMeshDeviceList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.advTreeMeshList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barDeviceList)).BeginInit();
@@ -124,13 +124,12 @@
             this.advTreeMeshList.Styles.Add(this.elementStyleMain);
             this.advTreeMeshList.TabIndex = 1;
             this.advTreeMeshList.Text = "advTree1";
-            this.advTreeMeshList.AfterCellEditComplete += new DevComponents.AdvTree.CellEditEventHandler(this.advTreeMeshList_AfterCellEditComplete);
             this.advTreeMeshList.NodeClick += new DevComponents.AdvTree.TreeNodeMouseEventHandler(this.advTreeMeshList_NodeClick);
             // 
             // columnHeaderGroup
             // 
             this.columnHeaderGroup.Name = "columnHeaderGroup";
-            this.columnHeaderGroup.Width.Absolute = 100;
+            this.columnHeaderGroup.Width.Absolute = 120;
             this.columnHeaderGroup.Width.AutoSizeMinHeader = true;
             // 
             // columnHeaderState
@@ -149,7 +148,13 @@
             // 
             this.columnHeaderVideo.Name = "columnHeaderVideo";
             this.columnHeaderVideo.Text = "视频";
-            this.columnHeaderVideo.Width.Absolute = 50;
+            this.columnHeaderVideo.Width.Absolute = 35;
+            // 
+            // columnHeaderGPSTrack
+            // 
+            this.columnHeaderGPSTrack.Name = "columnHeaderGPSTrack";
+            this.columnHeaderGPSTrack.Text = "轨迹";
+            this.columnHeaderGPSTrack.Width.Absolute = 50;
             // 
             // imageListMesh
             // 
@@ -164,9 +169,11 @@
             this.imageListMesh.Images.SetKeyName(6, "bmap_drag_16.png");
             this.imageListMesh.Images.SetKeyName(7, "refresh_16.png");
             this.imageListMesh.Images.SetKeyName(8, "mesh_person_offline_32.png");
-            this.imageListMesh.Images.SetKeyName(9, "gps_online_16.png");
-            this.imageListMesh.Images.SetKeyName(10, "video_camera_32.png");
-            this.imageListMesh.Images.SetKeyName(11, "gps_track_32.png");
+            this.imageListMesh.Images.SetKeyName(9, "gps_offline_16.png");
+            this.imageListMesh.Images.SetKeyName(10, "gps_online_16.png");
+            this.imageListMesh.Images.SetKeyName(11, "video_camera_offline_32.png");
+            this.imageListMesh.Images.SetKeyName(12, "video_camera_32.png");
+            this.imageListMesh.Images.SetKeyName(13, "gps_route_32.png");
             // 
             // nodeConnectorMain
             // 
@@ -224,6 +231,7 @@
             this.buttonItemAddGroup.Name = "buttonItemAddGroup";
             this.buttonItemAddGroup.Text = "添加分组";
             this.buttonItemAddGroup.Tooltip = "添加分组";
+            this.buttonItemAddGroup.Visible = false;
             this.buttonItemAddGroup.Click += new System.EventHandler(this.buttonItemAddGroup_Click);
             // 
             // buttonItemDeleteGroup
@@ -232,6 +240,7 @@
             this.buttonItemDeleteGroup.Name = "buttonItemDeleteGroup";
             this.buttonItemDeleteGroup.Text = "删除分组";
             this.buttonItemDeleteGroup.Tooltip = "删除分组";
+            this.buttonItemDeleteGroup.Visible = false;
             this.buttonItemDeleteGroup.Click += new System.EventHandler(this.buttonItemDeleteGroup_Click);
             // 
             // buttonItemRefreshTree
@@ -239,6 +248,7 @@
             this.buttonItemRefreshTree.BeginGroup = true;
             this.buttonItemRefreshTree.ImageIndex = 7;
             this.buttonItemRefreshTree.Name = "buttonItemRefreshTree";
+            this.buttonItemRefreshTree.Visible = false;
             this.buttonItemRefreshTree.Click += new System.EventHandler(this.buttonItemRefreshTree_Click);
             // 
             // buttonXSearch
@@ -252,12 +262,6 @@
             this.buttonXSearch.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.buttonXSearch.TabIndex = 4;
             this.buttonXSearch.Click += new System.EventHandler(this.buttonXSearch_Click);
-            // 
-            // columnHeaderGPSTrack
-            // 
-            this.columnHeaderGPSTrack.Name = "columnHeaderGPSTrack";
-            this.columnHeaderGPSTrack.Text = "轨迹";
-            this.columnHeaderGPSTrack.Width.Absolute = 50;
             // 
             // UCMeshList2
             // 

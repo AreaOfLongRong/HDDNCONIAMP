@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,6 +15,7 @@ using log4net;
 using NodeTopology;
 using System.Threading;
 using System.Net.NetworkInformation;
+using System.Diagnostics;
 
 namespace HDDNCONIAMP.UI.Common
 {
@@ -43,7 +43,7 @@ namespace HDDNCONIAMP.UI.Common
         /// Mesh设备标注点列表
         /// </summary>
         private List<BMeshPoint> mBMeshPoints = new List<BMeshPoint>();
-        
+
         #endregion
 
         #region 结构体
@@ -109,16 +109,16 @@ namespace HDDNCONIAMP.UI.Common
             buttonItemExpandAll_Click(null, null);
 
             mFormMain.NLM.PGPSUDPListener.OnReceiveGPSInfo += PGPSUDPListener_OnReceiveGPSInfo;
-            
+
             //注册地图Mesh设备点击打开视频事件
-            if(BuddyBMapControl != null)
+            if (BuddyBMapControl != null)
             {
                 BuddyBMapControl.OnOpenVideo += BuddyBMapControl_OnOpenVideo;
             }
 
             startTaskToRefreshMeshList();
         }
-        
+
         #region 设备列表事件
 
 
@@ -191,7 +191,7 @@ namespace HDDNCONIAMP.UI.Common
         /// <param name="e"></param>
         private void buttonItemDeleteGroup_Click(object sender, EventArgs e)
         {
-            Node selectedNode = advTreeMeshList.SelectedNode;
+            DevComponents.AdvTree.Node selectedNode = advTreeMeshList.SelectedNode;
             if (selectedNode == null)
             {
                 MessageBox.Show("未选择任何分组！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -241,30 +241,33 @@ namespace HDDNCONIAMP.UI.Common
         /// <param name="e"></param>
         private void advTreeMeshList_NodeClick(object sender, TreeNodeMouseEventArgs e)
         {
-            Node selectNode = advTreeMeshList.SelectedNode;
+            DevComponents.AdvTree.Node selectNode = advTreeMeshList.SelectedNode;
 
             //设备不在线，不执行后续操作
-            //if (selectNode.Level != 1 || selectNode.Cells[1].Text.Equals("离线"))
-            if (selectNode.Level != 1)
-            {
+            if (selectNode == null || selectNode.Level != 1)
                 return;
-            }
 
             Cell selectCell = selectNode.GetCellAt(e.X, e.Y);
+            if (selectCell == null)
+                return;
             if (selectNode.Level == 1 && selectCell.Images != null)
             {
                 MeshAllInfo mai = (MeshAllInfo)selectNode.Tag;
                 GPSInfo vp = mai.MeshGPSInfo;
                 //GPS坐标为（0,0），不能执行定位操作
-                if (selectCell.Images.ImageIndex == 9 &&
-                    vp.Lat == 0 && vp.Lon == 0
+                if (selectCell.Images.ImageIndex == 10 &&
+                    vp.Lat != 0 && vp.Lon != 0
                     && BuddyBMapControl != null)
                 {
                     //地图上跳转到设备所在的位置
                     BuddyBMapControl.Center = new LatLngPoint(vp.Lon, vp.Lat);
                     BuddyBMapControl.Locate(false);
                 }
-                else if (selectCell.Images.ImageIndex == 10)
+                else if(selectCell.Images.ImageIndex == 11)
+                {
+                    MessageBox.Show("设备不在线！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (selectCell.Images.ImageIndex == 12 && selectNode.Cells[1].Text.Equals("在线"))
                 {
                     VideoInject inject = new VideoInject(mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerIPV4],
                         mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerUserName],
@@ -275,15 +278,51 @@ namespace HDDNCONIAMP.UI.Common
                     }
                     else if (BuddyGrid != null)
                     {
-                        mFormMain.VideoProcesses.Add(inject.injectPanel(BuddyGrid.GetNextAvailablePanel(),
+                        Panel panel = BuddyGrid.GetNextAvailablePanel();
+                        Process process = inject.injectPanel(panel,
                             mFormMain.GetVideoFullScreenLocation(),
                             BuddyGrid.GetFullScreenPanel(),
-                            mai.PlanInfo.Model265ID, "0"));
+                            mai.PlanInfo.Model265ID, "0");
+                        BuddyGrid.BindPanelProcess(panel, process);
+                        mFormMain.VideoProcesses.Add(process);
                     }
                 }
-                else if(selectCell.Images.ImageIndex == 11)
+                else if (selectCell.Images.ImageIndex == 13 && BuddyBMapControl != null)
                 {
-                    //在地图上绘制轨迹记录
+                    bool isDrawingRoute = (bool)selectCell.Tag;
+                    if (isDrawingRoute)
+                    {//已经绘制，再次点击的时候隐藏已绘制的轨迹
+                        BuddyBMapControl.DeleteDeviceRoute(mai.PlanInfo.Model265ID);
+                        selectCell.Tag = false;
+                    }
+                    else
+                    {
+                        //在地图上绘制轨迹记录
+                        FGPSTimeSelect fgpsts = new FGPSTimeSelect();
+                        fgpsts.StartDateTime = DateTime.Today.Subtract(new TimeSpan(1, 0, 0, 0));
+                        fgpsts.StopDateTime = DateTime.Today;
+                        if (DialogResult.OK == fgpsts.ShowDialog() && BuddyBMapControl != null)
+                        {
+                            BMeshRoute bmr = FileUtils.ReadMeshRouteFromGPSLogs(
+                                    mai.PlanInfo.Model265ID,
+                                    fgpsts.StartDateTime, fgpsts.StopDateTime);
+                            if (bmr.DeviceLocationList.Count > 0)
+                            {
+                                BuddyBMapControl.AddDeviceRoute(bmr);
+                                //地图上跳转到设备所在的位置
+                                BuddyBMapControl.Center = bmr.DeviceLocationList[0];
+                                BuddyBMapControl.Locate(false);
+                                BuddyBMapControl.Zoom = 16;
+                                selectCell.Tag = true;  //标识已经绘制了路径
+                                logger.Info(string.Format("查看{0}设备的GPS轨迹记录，供{1}条GPS记录。",
+                                    mai.PlanInfo.Model265ID, bmr.DeviceLocationList.Count));
+                            }
+                            else
+                            {
+                                MessageBox.Show("无历史轨迹记录。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -302,30 +341,7 @@ namespace HDDNCONIAMP.UI.Common
                 mFormMain.VideoProcesses.Add(inject.injectWindow(p.Model265ID));
             }
         }
-
-        /// <summary>
-        /// 子元素编辑完成事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void advTreeMeshList_AfterCellEditComplete(object sender, CellEditEventArgs e)
-        {
-            Node editNode = e.Cell.Parent;
-            switch (editNode.Level)
-            {
-                case 0:
-                    MeshDeviceGroup group = (MeshDeviceGroup)editNode.Tag;
-                    //处理设备分组元素编辑事件
-                    SQLiteHelper.GetInstance().MeshDeviceGroupUpdate(
-                        group.ID, editNode.Text);
-                    logger.Info("修改分组“" + group.ID.ToString() + "”的组名为“" + editNode.Text + "”");
-                    break;
-                case 1:
-                    //处理设备节点的元素编辑事件
-                    break;
-            }
-        }
-
+        
         /// <summary>
         /// 鼠标按下事件
         /// </summary>
@@ -333,7 +349,7 @@ namespace HDDNCONIAMP.UI.Common
         /// <param name="e"></param>
         private void advTreeMeshList_MouseDown(object sender, MouseEventArgs e)
         {
-            Node selectNode = advTreeMeshList.SelectedNode;
+            DevComponents.AdvTree.Node selectNode = advTreeMeshList.SelectedNode;
             if (selectNode != null && selectNode.Level == 0)
             {
                 //拖动设备
@@ -348,6 +364,10 @@ namespace HDDNCONIAMP.UI.Common
         private void PGPSUDPListener_OnReceiveGPSInfo(GPSInfo gpsInfo)
         {
             MeshAllInfo mesh = mMeshAllInfo.Find(m => m.PlanInfo.Model265ID == gpsInfo.ID);
+
+            //如果ID不存在，则退出
+            if (mesh == null)
+                return;
 
             if (mesh.PlanInfo != null)
             {
@@ -396,8 +416,8 @@ namespace HDDNCONIAMP.UI.Common
         {
             AdvTree tree = (AdvTree)sender;
             Point point = tree.PointToClient(new Point(e.X, e.Y));
-            Node targetNode = tree.GetNodeAt(point);
-            Node dragNode = (Node)e.Data.GetData("DevComponents.AdvTree.Node");
+            DevComponents.AdvTree.Node targetNode = tree.GetNodeAt(point);
+            DevComponents.AdvTree.Node dragNode = (DevComponents.AdvTree.Node)e.Data.GetData("DevComponents.AdvTree.Node");
             if (targetNode != null)
             {
                 targetNode.Nodes.Insert(targetNode.Nodes.Count, dragNode);
@@ -429,14 +449,25 @@ namespace HDDNCONIAMP.UI.Common
                 () =>
                 {
                     while (!LifeTimeControl.closing)
-                    {   
+                    {
                         foreach (MeshAllInfo item in mMeshAllInfo)
                         {
                             Ping myPing;
                             myPing = new Ping();
-                            myPing.SendAsync(item.DeviceInfo.IPV4, item);
-                            myPing.PingCompleted += MyPing_PingCompleted;
                             
+                            try
+                            {
+                                myPing.SendAsync(item.DeviceInfo.IPV4, 1000, item);
+                                myPing.PingCompleted += MyPing_PingCompleted;
+                            }
+                            catch (PingException pe)
+                            {
+                                logger.Error(string.Format("Ping {0}过程中发生异常。", item.DeviceInfo.IPV4), pe);
+                            }
+                            finally
+                            {
+                                myPing.Dispose();
+                            }
                         }
                         Thread.Sleep(int.Parse(mFormMain.AllApplicationSetting[ApplicationSettingKey.MeshListRefreshFrequency]));
                     }
@@ -474,6 +505,10 @@ namespace HDDNCONIAMP.UI.Common
                 else
                 {
                     mai.BuddyNode.Cells[1].Text = args[0].ToString();
+                    mai.BuddyNode.Cells[1].StyleNormal.TextColor = args[0].ToString().Equals("离线") ? Color.Gray : Color.Black;
+                    mai.BuddyNode.Cells[1].StyleNormal.Font = args[0].ToString().Equals("离线") ? new Font("宋体", 9, FontStyle.Regular) : new Font("宋体", 9, FontStyle.Bold);
+                    mai.BuddyNode.Cells[2].Images.ImageIndex = args[0].ToString().Equals("离线") ? 9 : 10;
+                    mai.BuddyNode.Cells[3].Images.ImageIndex = args[0].ToString().Equals("离线") ? 11 : 12;
                 }
             }
             catch (Exception ex)
@@ -519,17 +554,20 @@ namespace HDDNCONIAMP.UI.Common
                         subNode.ImageIndex = 8;
                         Cell cellState = new Cell();
                         cellState.Text = "离线";
+                        cellState.StyleNormal = new DevComponents.DotNetBar.ElementStyle();
+                        cellState.StyleNormal.TextColor = cellState.Text.Equals("离线") ? Color.Gray : Color.DarkGreen;
                         subNode.Cells.Add(cellState);
                         Cell cellGPS = new Cell();
                         cellGPS.Images.ImageIndex = 9;
                         cellGPS.ImageAlignment = eCellPartAlignment.NearCenter;
                         subNode.Cells.Add(cellGPS);
                         Cell cellVideo = new Cell();
-                        cellVideo.Images.ImageIndex = 10;
+                        cellVideo.Images.ImageIndex = 11;
                         subNode.Cells.Add(cellVideo);
                         Cell cellGPSTrack = new Cell();
-                        cellGPSTrack.Images.ImageIndex = 11;
+                        cellGPSTrack.Images.ImageIndex = 13;
                         cellGPSTrack.ImageAlignment = eCellPartAlignment.NearBottom;
+                        cellGPSTrack.Tag = false;  //标识是否在界面上绘制了历史轨迹
                         subNode.Cells.Add(cellGPSTrack);
 
                         MeshPlanManage mpm = SQLiteHelper.GetInstance().MeshPlanQueryByMeshIP(item.IPV4);
@@ -576,9 +614,9 @@ namespace HDDNCONIAMP.UI.Common
         private void onSearchMeshDevice()
         {
             string searchText = textBoxXSearch.Text.Trim();
-            foreach (Node group in advTreeMeshList.Nodes)
+            foreach (DevComponents.AdvTree.Node group in advTreeMeshList.Nodes)
             {
-                foreach (Node device in group.Nodes)
+                foreach (DevComponents.AdvTree.Node device in group.Nodes)
                 {
                     if (searchText.Length > 0)
                         device.Visible = device.Text.Contains(searchText);

@@ -6,7 +6,7 @@ using System.Text;
 namespace NodeTopology
 {
     [Serializable]
-    public class ARPitem
+    public class ARPItem
     {
         string internetaddress; //IP
 

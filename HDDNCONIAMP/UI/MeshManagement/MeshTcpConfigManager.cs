@@ -36,7 +36,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                 SendMessageTo(toCOMip, MeshTcpConfigManager.GetChangePowerCommand((int)meshInfo.Power));
                 SendMessageTo(toCOMip, MeshTcpConfigManager.GetChangeRateCommand((int)meshInfo.Frequency));
             }
-            SendMessageTo(toCOMip, MeshTcpConfigManager.GetChangeRateCommand(656));
+            //SendMessageTo(toCOMip, MeshTcpConfigManager.GetChangeRateCommand(656));
 
         }
 

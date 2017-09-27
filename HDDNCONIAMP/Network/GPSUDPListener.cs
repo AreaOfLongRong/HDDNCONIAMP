@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using BMap.NET.WindowsForm.Utils;
-using HDDNCONIAMP.DB.Model;
 using HDDNCONIAMP.Utils;
 using log4net;
 
@@ -23,18 +21,7 @@ namespace HDDNCONIAMP.Network
         /// 日志记录器
         /// </summary>
         private ILog logger = LogManager.GetLogger(typeof(GPSUDPListener));
-
-        /// <summary>
-        /// 接收到GPS消息委托
-        /// </summary>
-        /// <param name="device"></param>
-        public delegate void OnReceiveGPSDelegate(AudioAndVideoDevice device);
-
-        /// <summary>
-        /// 接收到GPS信号事件
-        /// </summary>
-        public event OnReceiveGPSDelegate OnReceiveGPS;
-
+        
         /// <summary>
         /// 接收到GPS消息委托
         /// </summary>
@@ -51,6 +38,9 @@ namespace HDDNCONIAMP.Network
         /// </summary>
         private const int Port = 8340;
 
+        /// <summary>
+        /// GSP消息头的长度
+        /// </summary>
         private const int GPS_MESSAGE_HEADER_LENGTH = 16;
 
         /// <summary>
@@ -62,6 +52,11 @@ namespace HDDNCONIAMP.Network
         /// 线程：不断监听UDP报文
         /// </summary>
         Thread thrRecv;
+
+        /// <summary>
+        /// 监听UDP报文任务
+        /// </summary>
+        private Task mReceiveTask;
 
         public GPSUDPListener()
         {
@@ -91,6 +86,25 @@ namespace HDDNCONIAMP.Network
         }
 
         /// <summary>
+        /// 开启接收UDP消息
+        /// </summary>
+        public void StartReceive(CancellationToken ct)
+        {
+            try
+            {
+                udpcRecv = new UdpClient(Port);
+                mReceiveTask = Task.Factory.StartNew(() => ReceiveMessage(ct), ct);
+                logger.Info("GPS UDP监听器已成功启动!");
+            }
+            catch (SocketException se)
+            {
+                logger.Error("GPS UDP监听启动失败！", se);
+                MessageBox.Show("GPS UDP监听端口" +
+                    Port + "被占用！", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        /// <summary>
         /// 停止接收UDP消息
         /// </summary>
         public void StopReceive()
@@ -99,6 +113,18 @@ namespace HDDNCONIAMP.Network
                 thrRecv.Abort();  //先关闭线程
             if (udpcRecv != null)
                 udpcRecv.Close();
+            logger.Info("GPS UDP监听器已关闭");
+        }
+
+        /// <summary>
+        /// 停止接收UDP消息
+        /// </summary>
+        public void StopReceive(CancellationToken ct)
+        {
+            if (udpcRecv != null)
+                udpcRecv.Close();
+            //if (mReceiveTask != null)
+            //    mReceiveTask.Dispose();
             logger.Info("GPS UDP监听器已关闭");
         }
 
@@ -167,12 +193,74 @@ namespace HDDNCONIAMP.Network
         }
 
         /// <summary>
-        /// 上报接收到GPS信号事件
+        /// 接收消息处理
         /// </summary>
-        /// <param name="device"></param>
-        private void RaiseReceiveGPS(AudioAndVideoDevice device)
+        private void ReceiveMessage(CancellationToken ct)
         {
-            OnReceiveGPS?.Invoke(device);
+            //监听所有设备发来的UDP消息
+            IPEndPoint ipendpoint = new IPEndPoint(IPAddress.Any, Port);
+            while (!LifeTimeControl.closing)
+            {
+                if (ct.IsCancellationRequested)
+                {
+                    udpcRecv.Close();
+                    logger.Info("GPS UDP监听器已关闭");
+                    return;
+                }
+
+                try
+                {
+                    //UDP接收GPS数据格式：
+                    //4字节：Type = 5;
+                    //4字节：设备ID；
+                    //8字节：时间戳；
+                    //后续数据：标准的NMEA 0183协议GPS数据
+                    byte[] bytes = udpcRecv.Receive(ref ipendpoint);
+
+                    int deviceId = bytes[4] << 24 | bytes[5] << 16 | bytes[6] << 8 | bytes[7];
+
+                    byte[] gpsdata = new byte[bytes.Length - GPS_MESSAGE_HEADER_LENGTH];
+                    for (int i = GPS_MESSAGE_HEADER_LENGTH; i < bytes.Length; i++)
+                    {
+                        gpsdata[i - GPS_MESSAGE_HEADER_LENGTH] = bytes[i];
+                    }
+                    string message = Encoding.Default.GetString(gpsdata, 0, gpsdata.Length);
+                    logger.Info("收到来自ID为“" + deviceId +
+                        "”的UDP消息：“" + message + "”。");
+
+                    if (message.StartsWith("$GPRMC"))
+                    {
+                        //切割字符串
+                        string[] temp = message.Split(',');
+                        GPSInfo info = new GPSInfo();
+                        info.ID = (bytes[4] << 24 | bytes[5] << 16 | bytes[6] << 8 | bytes[7]).ToString();  //设备的ID
+                        try
+                        {
+                            double[] latLon = GPS2BD09.wgs2bd(Double.Parse(temp[3].Substring(0, 2))
+                                                + Double.Parse(temp[3].Substring(2)) / 60.0,
+                                                Double.Parse(temp[5].Substring(0, 3))
+                                                + Double.Parse(temp[5].Substring(3)) / 60.0);
+                            info.Lat = latLon[0];
+                            info.Lon = latLon[1];
+                        }
+                        catch (Exception ex)
+                        {
+                            //经纬度解析异常，继续下次数据接收
+                            logger.Error("接收到的GPS位置信号有问题!", ex);
+                            continue;
+                        }
+                        info.Time = DateTime.Now.ToString();
+                        //保存GPS信息到相应文件中
+                        FileUtils.AppendGPSInfoToFile(info);
+                        //上报GPS更新信息
+                        RaiseReceiveGPS(info);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.Error("接收数据出现异常", ex);
+                }
+            }
         }
 
         /// <summary>
@@ -192,11 +280,11 @@ namespace HDDNCONIAMP.Network
         {
             for (;;)
             {
-                AudioAndVideoDevice device = new AudioAndVideoDevice();
-                device.Name = "26089";
-                device.Lat = 40.8;
-                device.Lon = 116.3;
-                device.Alias = device.Name;
+                GPSInfo device = new GPSInfo();
+                device.ID = "26908";
+                device.Lat = 40.04933;
+                device.Lon = 116.31224;
+                device.Time = DateTime.Now.ToString();
                 RaiseReceiveGPS(device);
                 Thread.Sleep(10 * 1000);
             }

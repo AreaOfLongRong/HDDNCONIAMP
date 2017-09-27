@@ -114,7 +114,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AudioAndVideo\AAVDeviceManage.cs" />
     <Compile Include="DB\Model\ApplicationSettings.cs" />
     <Compile Include="DB\Model\IDEntity.cs" />
     <Compile Include="DB\Model\MeshDeviceGroup.cs" />
@@ -126,16 +125,6 @@
     <Compile Include="DB\Model\EUserAuthority.cs" />
     <Compile Include="DB\Model\MeshDeviceInfo.cs" />
     <Compile Include="DB\Model\AudioAndVideoDevice.cs" />
-    <Compile Include="Mesh\ARPItem.cs" />
-    <Compile Include="Mesh\ARPList.cs" />
-    <Compile Include="Mesh\GScenario.cs" />
-    <Compile Include="Mesh\MeshCommon.cs" />
-    <Compile Include="Mesh\MeshGObject.cs" />
-    <Compile Include="Mesh\MeshBlockNodes.cs" />
-    <Compile Include="Mesh\MeshDeviceManage.cs" />
-    <Compile Include="Mesh\MeshNode.cs" />
-    <Compile Include="Mesh\MeshRelation.cs" />
-    <Compile Include="Mesh\MeshTelnet.cs" />
     <Compile Include="Network\GPSInfo.cs" />
     <Compile Include="Network\GPSUDPListener.cs" />
     <Compile Include="Network\NetworkListenerManage.cs" />
@@ -191,17 +180,11 @@
     <Compile Include="UI\AudioVideoProcess\UCVideoPanel.Designer.cs">
       <DependentUpon>UCVideoPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Common\UCDeviceList.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="UI\Common\FGPSTimeSelect.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Common\UCDeviceList.Designer.cs">
-      <DependentUpon>UCDeviceList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Common\UCMeshList.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Common\UCMeshList.Designer.cs">
-      <DependentUpon>UCMeshList.cs</DependentUpon>
+    <Compile Include="UI\Common\FGPSTimeSelect.Designer.cs">
+      <DependentUpon>FGPSTimeSelect.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Common\UCMeshList2.cs">
       <SubType>UserControl</SubType>
@@ -215,21 +198,30 @@
     <Compile Include="UI\GISVideo\UCGISVideo.Designer.cs">
       <DependentUpon>UCGISVideo.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\MeshManagement\DrawingPanel.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="UI\MeshManagement\FGroupManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MeshManagement\FGroupManage.Designer.cs">
+      <DependentUpon>FGroupManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MeshManagement\FMPSearchText.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MeshManagement\FMPSearchText.Designer.cs">
+      <DependentUpon>FMPSearchText.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MeshManagement\MeshTcpConfigManager.cs" />
-    <Compile Include="UI\MeshManagement\UCMeshManagement.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\MeshManagement\UCMeshManagement.Designer.cs">
-      <DependentUpon>UCMeshManagement.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\MeshManagement\UCMeshManagement2.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UI\MeshManagement\UCMeshManagement2.Designer.cs">
       <DependentUpon>UCMeshManagement2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserSettings\FSearchLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\UserSettings\FSearchLog.Designer.cs">
+      <DependentUpon>FSearchLog.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\UserSettings\UCUserSettings.cs">
       <SubType>UserControl</SubType>
@@ -266,11 +258,8 @@
     <EmbeddedResource Include="UI\AudioVideoProcess\UCGridVideo.resx">
       <DependentUpon>UCGridVideo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Common\UCDeviceList.resx">
-      <DependentUpon>UCDeviceList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Common\UCMeshList.resx">
-      <DependentUpon>UCMeshList.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Common\FGPSTimeSelect.resx">
+      <DependentUpon>FGPSTimeSelect.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Common\UCMeshList2.resx">
       <DependentUpon>UCMeshList2.cs</DependentUpon>
@@ -278,11 +267,17 @@
     <EmbeddedResource Include="UI\GISVideo\UCGISVideo.resx">
       <DependentUpon>UCGISVideo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\MeshManagement\UCMeshManagement.resx">
-      <DependentUpon>UCMeshManagement.cs</DependentUpon>
+    <EmbeddedResource Include="UI\MeshManagement\FGroupManage.resx">
+      <DependentUpon>FGroupManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MeshManagement\FMPSearchText.resx">
+      <DependentUpon>FMPSearchText.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MeshManagement\UCMeshManagement2.resx">
       <DependentUpon>UCMeshManagement2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UserSettings\FSearchLog.resx">
+      <DependentUpon>FSearchLog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserSettings\UCUserSettings.resx">
       <DependentUpon>UCUserSettings.cs</DependentUpon>
@@ -313,6 +308,18 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="References\SQLite\System.Data.SQLite.dll.config" />
+    <None Include="SamplePlayClient\ControlCommand.lib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SamplePlayClient\mp4hint.no">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SamplePlayClient\PlaybackEngine.lib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SamplePlayClient\serverproxy.old\serverproxy.old">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -322,9 +329,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Readme.txt" />
-    <Content Include="References\GetVideoInfo\GetVideoInfo.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="References\GetVideoInfo\GetVideoInfo.exe" />
     <Content Include="References\log4net 2.0.8-newkey\log4net.dll" />
     <Content Include="References\log4net 2.0.8-newkey\log4net.pdb" />
     <Content Include="References\log4net 2.0.8-newkey\log4net.xml" />
@@ -351,7 +356,9 @@
     <Content Include="References\SQLite\System.Data.SQLite.Linq.xml" />
     <Content Include="References\SQLite\System.Data.SQLite.pdb" />
     <Content Include="References\SQLite\System.Data.SQLite.xml" />
-    <Content Include="Resources\gps_track_32.png" />
+    <Content Include="Resources\gps_offline_16.png" />
+    <Content Include="Resources\gps_route_32.png" />
+    <Content Include="Resources\settings_24.png" />
     <Content Include="Resources\gps_online_16.png" />
     <Content Include="Resources\add_32.png" />
     <Content Include="Resources\delete_32.png" />
@@ -382,6 +389,10 @@
     <Content Include="Resources\add_16.png" />
     <Content Include="Resources\bmap_measure_16.png" />
     <Content Include="Resources\search_clear_32.png" />
+    <Content Include="Resources\user_add_32.png" />
+    <Content Include="Resources\user_delete_32.png" />
+    <Content Include="Resources\user_edit.png" />
+    <Content Include="Resources\video_camera_offline_32.png" />
     <Content Include="Resources\video_no_signal_512.jpg" />
     <Content Include="Resources\search_32.png" />
     <Content Include="Resources\logo_xinwei.png" />
@@ -398,6 +409,63 @@
     <Content Include="Resources\logo_xinwei_1403.png" />
     <Content Include="Resources\video_camera_ball_64.png" />
     <Content Include="Resources\video_camera_shoulder_64.png" />
+    <Content Include="SamplePlayClient\avcodec-57.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SamplePlayClient\avformat-57.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SamplePlayClient\avutil-55.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SamplePlayClient\ControlCommand.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SamplePlayClient\ddraw_lib.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SamplePlayClient\GetVideoInfo.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SamplePlayClient\h264dec.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SamplePlayClient\hi_h264dec_w.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SamplePlayClient\HW_H265dec_Win32D.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SamplePlayClient\libfaad2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SamplePlayClient\lib_amr_dll.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SamplePlayClient\mp4mux.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SamplePlayClient\PlaybackEngine.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SamplePlayClient\Readme.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SamplePlayClient\SamplePlayClient.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SamplePlayClient\ServerProxy.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SamplePlayClient\swresample-2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SamplePlayClient\videodec.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SamplePlayClient\zlib1.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BMap.NET.WindowsForm\BMap.NET.WindowsForm.csproj">
@@ -413,7 +481,10 @@
       <Name>NodeTopology</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="SamplePlayClient\Data\" />
+    <Folder Include="SamplePlayClient\Logs\" />
+  </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>

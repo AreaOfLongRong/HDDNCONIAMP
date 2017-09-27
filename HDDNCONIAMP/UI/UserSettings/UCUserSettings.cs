@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net.NetworkInformation;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BMap.NET;
@@ -54,6 +53,10 @@ namespace HDDNCONIAMP.UI.UserSettings
             mFormMain = formMain;
             //双缓冲设置，防止界面闪烁
             setTableLayoutPanelDoubleBufferd();
+
+            //实时显示版本信息
+            Version v = Assembly.GetExecutingAssembly().GetName().Version;
+            labelXSoftwareVision.Text += string.Format("{0}.{1}", v.Major, v.Minor);
         }
 
         /// <summary>
@@ -63,6 +66,16 @@ namespace HDDNCONIAMP.UI.UserSettings
         /// <param name="e"></param>
         private void UCUserSettings_Load(object sender, EventArgs e)
         {
+
+            if (mFormMain.CurrentUser.Authority.Equals(EUserAuthority.Administrator.ToString()))
+            {
+                superTabItemAuthorityManage.Visible = true;
+            }
+            else
+            {
+                superTabItemAuthorityManage.Visible = false;
+            }
+
             initAdvTreeLogManage();
 
             //设置“权限管理”标签页的可见性
@@ -209,6 +222,28 @@ namespace HDDNCONIAMP.UI.UserSettings
                 MessageBox.Show("请选择要导出的日志!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+        /// <summary>
+        /// 检索日志
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonItemLogSearch_Click(object sender, EventArgs e)
+        {
+            if(superTabControlLogs.SelectedTabIndex >= 0)
+            {
+                foreach (var item in superTabControlLogs.SelectedTab.AttachedControl.Controls)
+                {
+                    if(item is RichTextBoxEx)
+                    {
+                        RichTextBoxEx rtbe = (RichTextBoxEx)item;
+                        FSearchLog fsl = new FSearchLog();
+                        fsl.BindingRTBE = rtbe;
+                        fsl.Show();
+                        fsl.TopMost = true;
+                    }
+                }
+            }
+        }
 
         #endregion
 
@@ -253,6 +288,9 @@ namespace HDDNCONIAMP.UI.UserSettings
 
         #region 权限管理事件处理
 
+        private string mAddUser = "添  加";
+        private string mEditUser = "修  改";
+
         /// <summary>
         /// 添加用户
         /// </summary>
@@ -262,7 +300,7 @@ namespace HDDNCONIAMP.UI.UserSettings
         {
             //开启添加用户功能
             updateUAControlsEnableState(true, true);
-            buttonXOK.Text = "添  加";
+            buttonXOK.Text = mAddUser;
         }
 
         /// <summary>
@@ -272,7 +310,12 @@ namespace HDDNCONIAMP.UI.UserSettings
         /// <param name="e"></param>
         private void buttonItemUserEdit_Click(object sender, EventArgs e)
         {
-
+            if(advTreeUsers.SelectedNode != null)
+            {
+                //开启用户信息编辑
+                updateUAControlsEnableState(true, false);
+                buttonXUAOK.Text = mEditUser;
+            }
         }
 
         /// <summary>
@@ -302,7 +345,7 @@ namespace HDDNCONIAMP.UI.UserSettings
         /// <param name="e"></param>
         private void buttonXUAOK_Click(object sender, EventArgs e)
         {
-            if (buttonXUAOK.Text.Equals("添  加"))
+            if (buttonXUAOK.Text.Equals(mAddUser))
             {  //添加用户
                 if (textBoxXUAUserName.Text.Trim() != "" && textBoxXUAUserPassword.Text.Trim() != null)
                 {
@@ -332,9 +375,27 @@ namespace HDDNCONIAMP.UI.UserSettings
                     MessageBox.Show("用户名或密码不能为空！", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-            else
+            else if(buttonXUAOK.Text.Equals(mEditUser))
             {//修改用户信息
-
+                User user = new User();
+                user.ID = int.Parse(advTreeUsers.SelectedNode.Cells[0].Text);
+                user.Name = textBoxXUAUserName.Text;
+                user.Password = textBoxXUAUserPassword.Text;
+                user.Authority = radioButtonUAAdministrator.Checked ? 
+                    EUserAuthority.Administrator.ToString() : 
+                    EUserAuthority.GeneralUser.ToString();
+                int count = SQLiteHelper.GetInstance().UserUpdate(user);
+                if(count > 0)
+                {
+                    logger.Info("编辑用户：“" + user.Name + "”，权限：“" + user.Authority + "”。");
+                    MessageBox.Show("编辑修改用户信息成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    updateUAControlsEnableState(false, true);
+                }
+                else
+                {
+                    MessageBox.Show("编辑修改用户信息失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    updateUAControlsEnableState(false, true);
+                }
             }
         }
 

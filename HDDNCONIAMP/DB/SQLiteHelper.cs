@@ -113,6 +113,22 @@ namespace HDDNCONIAMP.DB
         }
 
         /// <summary>
+        /// 用户更新操作
+        /// </summary>
+        /// <param name="user">用户信息</param>
+        /// <returns>影响到的行数</returns>
+        public int UserUpdate(User user)
+        {
+            return context.Update<User>(u => u.ID == user.ID,
+                u => new User()
+                {
+                    Name = user.Name,
+                    Password= user.Password,
+                    Authority = user.Authority
+                });
+        }
+
+        /// <summary>
         /// 删除用户
         /// </summary>
         /// <param name="userName">待删除的用户名</param>
