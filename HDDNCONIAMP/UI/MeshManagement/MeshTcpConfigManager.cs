@@ -36,6 +36,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                 SendMessageTo(toCOMip, MeshTcpConfigManager.GetChangePowerCommand((int)meshInfo.Power));
                 SendMessageTo(toCOMip, MeshTcpConfigManager.GetChangeRateCommand((int)meshInfo.Frequency));
             }
+            SendBytesTo(toCOMip, MeshTcpConfigManager.GetChangeRateBytesCommand(616));
             //SendMessageTo(toCOMip, MeshTcpConfigManager.GetChangeRateCommand(656));
 
         }
@@ -64,6 +65,11 @@ namespace HDDNCONIAMP.UI.MeshManagement
             server.SendMessageTo(ipAddr, message);
         }
 
+        public void SendBytesTo(String ipAddr, byte[] bytes)
+        {
+            server.SendBytesTo(ipAddr, bytes);
+        }
+
         public void DisconnectClientWithIPAddr(String ipAddr)
         {
             server.DisconnectClientWithIPAddr(ipAddr);
@@ -73,6 +79,48 @@ namespace HDDNCONIAMP.UI.MeshManagement
         {
             server.Close();
             server = null;
+        }
+
+        public static byte[] GetChangePowerBytesCommand(int power)
+        {
+            int value = power * 2;
+            if (value > 0)
+            {
+                byte[] bytes = new byte[8];
+                bytes[0] = 0x6d;
+                bytes[1] = 0x65;
+                bytes[2] = 0x73;
+                bytes[3] = 0x68;
+                bytes[4] = 0x66;
+                bytes[5] = (byte)(value);
+                bytes[7] = 0x0d;
+                bytes[8] = 0x0a;
+            }
+            return null;
+        }
+
+        public static byte[] GetChangeRateBytesCommand(int rate, int bindWidth = 20)
+        {
+            int value = 0;
+
+            if (rate > 636)
+                value = 10 * rate - 5 * bindWidth - 1728;
+            else
+                value = 10 * rate + 5 * bindWidth - 1728;
+            if (value > 0)
+            {
+                byte[] bytes = new byte[9];
+                bytes[0] = 0x6d;
+                bytes[1] = 0x65;
+                bytes[2] = 0x73;
+                bytes[3] = 0x68;
+                bytes[4] = 0x66;
+                bytes[5] = (byte)(value % 256);
+                bytes[6] = (byte)(value / 256);
+                bytes[7] = 0x0d;
+                bytes[8] = 0x0a;
+            }
+            return null;
         }
 
         /// <summary>

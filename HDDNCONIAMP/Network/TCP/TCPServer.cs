@@ -69,6 +69,26 @@ namespace TCPServer
                 
             }
         }
+        public bool SendBytesTo(String ipAddr, byte[] bytes)
+        {
+            try
+            {
+                if (_hashTable.ContainsKey(ipAddr))
+                {
+                    TcpConnention conn = (TcpConnention)_hashTable[ipAddr];
+                    foreach (byte abyte in bytes)
+                        conn.client.GetStream().WriteByte(abyte);
+                    conn.client.GetStream().Flush();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            return false;
+        }
+
 
         public bool SendMessageTo(String ipAddr, String message)
         {
@@ -127,7 +147,10 @@ namespace TCPServer
                 {
                     sData = conn.sReader.ReadLine();
                     // shows content on the console.
-                    Console.WriteLine("Client &gt; " + sData);
+                    foreach (char c in sData)
+                        Console.Write("{0:X} ",Convert.ToInt32(c));
+                    Console.WriteLine();
+                    Console.WriteLine(sData);
                 }
             }
             catch
