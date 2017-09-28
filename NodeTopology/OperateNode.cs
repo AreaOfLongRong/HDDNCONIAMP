@@ -14,15 +14,15 @@ using System.Management;
 namespace NodeTopology
 {
 
-    public static class OperateNode
+    public class OperateNode
     {
         //获取已知MAC地址的IP地址
-        static byte[] macbyte = new byte[6];
-        static bool HaveGetMAC = false;
+        byte[] macbyte = new byte[6];
+        bool HaveGetMAC = false;
 
-        static bool Lock = true;
+        bool Lock = true;
 
-        public static string getStringMAC()
+        public string getStringMAC()
         {
             if (HaveGetMAC)
             {
@@ -36,7 +36,7 @@ namespace NodeTopology
         }
 
 
-        public static string getIPaddress(string MacAddress, ARPList ArpList)
+        public string getIPaddress(string MacAddress, ARPList ArpList)
         {
             // NeedIPNode.IpAddress = "AAAAAAAAAAAA";
             //  ArpList.Where(x => x. == i.Key)
@@ -50,7 +50,7 @@ namespace NodeTopology
         }
 
 
-        public static string[] NetworkInterfaceCard()
+        public string[] NetworkInterfaceCard()
         {
             var devices = CaptureDeviceList.Instance;
             // Where(x=>x.LinkType);
@@ -72,7 +72,7 @@ namespace NodeTopology
         }
 
         //获取初始MAC
-        public static string GetIniMAC(string NICdescription)
+        public string GetIniMAC(string NICdescription)
         {
             //string ver = SharpPcap.Version.VersionString;
             //Console.WriteLine("SharpPcap {0}, Example9.SendPacket.cs\n", ver);
@@ -179,7 +179,7 @@ namespace NodeTopology
                            + "00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 "
                            + "00 00 00 00 00 00";
 
-                byte[] bytes = StringToByte(MyDiscoverTel);
+                byte[] bytes = StringToBytes(MyDiscoverTel);
 
                 System.Timers.Timer t = new System.Timers.Timer(30 * 1000);
                 t.Elapsed += T_Elapsed;
@@ -229,12 +229,12 @@ namespace NodeTopology
             return macStr.Equals("000000000000") ? null : macStr;
         }
 
-        private static void T_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        private void T_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             Lock = false;
         }
 
-        private static void Device_OnCaptureStopped(object sender, CaptureStoppedEventStatus status)
+        private void Device_OnCaptureStopped(object sender, CaptureStoppedEventStatus status)
         {
             //switch (status)
             //{
@@ -252,32 +252,17 @@ namespace NodeTopology
         /// <summary>
         /// Prints the time and length of each received packet
         /// </summary>
-        private static void device_OnPacketArrival(object sender, CaptureEventArgs e)
+        private void device_OnPacketArrival(object sender, CaptureEventArgs e)
         {
             var time = e.Packet.Timeval.Date;
             var len = e.Packet.Data.Length;
 
+            Console.WriteLine("{0}:{1}:{2},{3} Len={4}",
+                time.Hour, time.Minute, time.Second, time.Millisecond, len);
             if (len == 60)
-            {
-                string stringOut = string.Empty;
-
-
-                Console.WriteLine("{0}:{1}:{2},{3} Len={4}",
-                    time.Hour, time.Minute, time.Second, time.Millisecond, len);
-                // Console.WriteLine(e.Packet.ToString());
-
-
-
+            {           
                 if (len == 60)
                 {
-
-                    //string s1 = string.Format("{0:X2}", e.Packet.Data[12]);
-                    //string s2 = string.Format("{0:X2}", e.Packet.Data[13]);
-                    //string s3 = string.Format("{0:X2}", e.Packet.Data[14]);
-                    //string s4 = string.Format("{0:X2}", e.Packet.Data[15]);
-                    //string s5 = string.Format("{0:X2}", e.Packet.Data[16]);
-
-
                     //确认是MAC请求的回应
                     if (string.Format("{0:X2}", e.Packet.Data[12]) == "00"
                         && string.Format("{0:X2}", e.Packet.Data[13]) == "14"
@@ -289,63 +274,47 @@ namespace NodeTopology
                         //&& string.Format("{0:X2}", e.Packet.Data[19]) == "9D"
                         )
                     {
-                        //Z-20170927:如果接收不到网络内的Mesh设备响应，此处会一直阻塞整个线程
-
-                        //foreach (byte bt in e.Packet.Data)
-                        //{
-                        //    stringOut = stringOut + " " + string.Format("{0:X2}", bt);
-
-                        //}
-                        //Console.WriteLine(stringOut);
-                        //byte[] cmdData = { 85, 85, 83, 83, 255, 123, 99, 33, 55, 1, 1 };
-
+                        //Z-20170927:如果接收不到网络内的Mesh设备响应，此处会一直阻塞整个线程                        
                         Array.Copy(e.Packet.Data, 28, macbyte, 0, 6);
-
                         if (Lock)
                         {
                             Lock = false;
                         }
-
                         LogHelper.WriteLog("device_OnPacketArrival经通过监听截取到目标MAC地址:" + BytetoString(macbyte));
-
                     }
                 }
-
-
             }
         }
 
-
-        private static string BytetoString(byte[] Pbyte)
+        /// <summary>
+        /// 字节数组转字符串
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        private string BytetoString(byte[] bytes)
         {
             string s = string.Empty;
-            foreach (byte bt in Pbyte)
+            foreach (byte bt in bytes)
             {
-                //s = s + " " + string.Format("{0:X2}", bt);
                 s = s + string.Format("{0:X2}", bt);
-
             }
             return s;
         }
 
-
-        private static byte[] StringToByte(string InString)
+        /// <summary>
+        /// 字符串转字节数组
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        private byte[] StringToBytes(string str)
         {
-            string[] ByteStrings;
-
-            ByteStrings = InString.Split(" ".ToCharArray());
-
-            byte[] ByteOut;
-
-            ByteOut = new byte[ByteStrings.Length];
-
+            string[] ByteStrings = str.Split(" ".ToCharArray());
+            byte[] ByteOut = new byte[ByteStrings.Length];
             for (int i = 0; i < (ByteStrings.Length - 1); i++)
             {
-                //ByteOut[i] = Convert.ToByte(("Ox"+ ByteStrings[i]));
                 ByteOut[i] = (byte)Convert.ToByte(ByteStrings[i], 16);
             }
             return ByteOut;
-
         }
     }
 }

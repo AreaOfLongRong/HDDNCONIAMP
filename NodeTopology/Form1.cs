@@ -59,7 +59,9 @@ namespace NodeTopology
 
         //BufferedGraphics graphBuffer; 
 
-        
+        private OperateNode mOperateNode;
+
+
         public Form1()
         {
            
@@ -92,8 +94,10 @@ namespace NodeTopology
             IntPtr editHandle = GetWindow(this.NIC.Handle, GW_CHILD);
             SendMessage(editHandle, EM_SETREADONLY, 1, 0);
 
+            mOperateNode = new OperateNode();
 
-            this.NIC.DataSource = OperateNode.NetworkInterfaceCard();
+
+            this.NIC.DataSource = mOperateNode.NetworkInterfaceCard();
 
 
             LogHelper.WriteLog("程序启动");
@@ -141,7 +145,7 @@ namespace NodeTopology
             else
             {
                 //return OperateNode.GetIniMAC(this.NIC.SelectedItem.ToString());
-                RootMAC = OperateNode.GetIniMAC(this.NIC.SelectedItem.ToString());
+                RootMAC = mOperateNode.GetIniMAC(this.NIC.SelectedItem.ToString());
             }
 
             //return OperateNode.GetIniMAC(this.NIC.SelectedItem.ToString());
@@ -162,7 +166,7 @@ namespace NodeTopology
 
             LogHelper.WriteLog("获取ROOT的IP地址");
 
-            RootIp = OperateNode.getIPaddress(RootMAC, MyARPLIST);
+            RootIp = mOperateNode.getIPaddress(RootMAC, MyARPLIST);
 
             ///未获取到IP的时候需要结束！！！
 
@@ -269,7 +273,7 @@ namespace NodeTopology
 
                                         ///如果用子节点登录?不再访问其根节点
                                         string NeedToCheckMac = MeshInfo[6].Substring(0, 12);
-                                        string NeedToCheckIP = OperateNode.getIPaddress(NeedToCheckMac, MyARPLIST);
+                                        string NeedToCheckIP = mOperateNode.getIPaddress(NeedToCheckMac, MyARPLIST);
 
                                         if (MYBlockNodes.Nodelist.Count > 1)
                                         {
