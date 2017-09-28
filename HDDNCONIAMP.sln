@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TcpServer", "TcpServer\TcpS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TcpClientTest", "TcpClientTest\TcpClientTest.csproj", "{4A2E1566-F2D4-4C1A-A4BD-ACFBC1EB0521}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UDPBroadcastServer", "UDPBroadcastServer\UDPBroadcastServer.csproj", "{95C834F7-3427-410A-A3CE-F98A76891CD9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -118,6 +120,18 @@ Global
 		{4A2E1566-F2D4-4C1A-A4BD-ACFBC1EB0521}.Release|x64.Build.0 = Release|Any CPU
 		{4A2E1566-F2D4-4C1A-A4BD-ACFBC1EB0521}.Release|x86.ActiveCfg = Release|Any CPU
 		{4A2E1566-F2D4-4C1A-A4BD-ACFBC1EB0521}.Release|x86.Build.0 = Release|Any CPU
+		{95C834F7-3427-410A-A3CE-F98A76891CD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95C834F7-3427-410A-A3CE-F98A76891CD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95C834F7-3427-410A-A3CE-F98A76891CD9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{95C834F7-3427-410A-A3CE-F98A76891CD9}.Debug|x64.Build.0 = Debug|Any CPU
+		{95C834F7-3427-410A-A3CE-F98A76891CD9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{95C834F7-3427-410A-A3CE-F98A76891CD9}.Debug|x86.Build.0 = Debug|Any CPU
+		{95C834F7-3427-410A-A3CE-F98A76891CD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95C834F7-3427-410A-A3CE-F98A76891CD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95C834F7-3427-410A-A3CE-F98A76891CD9}.Release|x64.ActiveCfg = Release|Any CPU
+		{95C834F7-3427-410A-A3CE-F98A76891CD9}.Release|x64.Build.0 = Release|Any CPU
+		{95C834F7-3427-410A-A3CE-F98A76891CD9}.Release|x86.ActiveCfg = Release|Any CPU
+		{95C834F7-3427-410A-A3CE-F98A76891CD9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
