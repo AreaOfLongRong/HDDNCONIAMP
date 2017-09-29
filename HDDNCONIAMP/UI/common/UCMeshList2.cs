@@ -385,7 +385,8 @@ namespace HDDNCONIAMP.UI.Common
             VideoInject inject = new VideoInject(mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerIPV4],
                         mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerUserName],
                         mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerPassword]);
-            if (BuddyBMapControl != null)
+            Process process = mFormMain.VideoProcesses.Find(ps => ps.StartInfo.Arguments.Contains(p.Model265ID));
+            if (BuddyBMapControl != null && process == null)
             {
                 mFormMain.VideoProcesses.Add(inject.injectWindow(p.Model265ID));
             }

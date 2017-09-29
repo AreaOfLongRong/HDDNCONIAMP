@@ -80,7 +80,7 @@ namespace HDDNCONIAMP
         /// <summary>
         /// 程序截止日期
         /// </summary>
-        private DateTime DEADLINE = new DateTime(2017, 9, 30);
+        private DateTime DEADLINE = new DateTime(2017, 10, 2);
 
         /// <summary>
         /// GIS定位关联视频控件

@@ -91,7 +91,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
         Thread GetRealInfoThread;
         Thread RefreshPanelContext;
 
-        public NodeTopology.GScenario GNetwork;
+        public GScenario GNetwork;
         private const int XTextPixelOffset = -10;
         private const int YTextPixelOffset = 30;//80;
 
@@ -251,7 +251,8 @@ namespace HDDNCONIAMP.UI.MeshManagement
         /// </summary>
         public void StopTopology()
         {
-            mCTS.Cancel();
+            if (mCTS != null)
+                mCTS.Cancel();
             //if (GetRealInfoThread != null)
             //{
             //    try
@@ -569,7 +570,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
             ReDrawAll();
         }
-        
+
         /// <summary>
         /// 读写锁
         /// </summary>
@@ -740,6 +741,9 @@ namespace HDDNCONIAMP.UI.MeshManagement
             }
             else
             {
+                if (Pnode.IpAddress == null || Pnode.IpAddress.Trim() == "")
+                    return;
+
                 if (this.treeView1.Nodes.Count > 0)
                 {
                     TreeNode[] TempNodes = treeView1.Nodes.Find(Pnode.IpAddress, false);
@@ -903,6 +907,8 @@ namespace HDDNCONIAMP.UI.MeshManagement
                                 //y坐标为 CellHeight/2 + k*CellHeight - 30(图片高度的一半)
 
                                 //AddGObject(x, y, node);
+                                if (nodecount >= ShowBlockNodes.Nodelist.Count)
+                                    break;
 
                                 MeshNode TempNode = ShowBlockNodes.Nodelist[nodecount];
 
@@ -1176,22 +1182,22 @@ namespace HDDNCONIAMP.UI.MeshManagement
             {
                 LogHelper.WriteLog(" Node Discover Report");
 
-                LogHelper.WriteLog("IP".PadLeft(20, ' ') + 
-                    "MAC".PadLeft(20, ' ') + 
-                    "BandWidth".PadLeft(10, ' ') + 
-                    "TxPower".PadLeft(10, ' ') + 
-                    "Frequency".PadLeft(10, ' ') + 
+                LogHelper.WriteLog("IP".PadLeft(20, ' ') +
+                    "MAC".PadLeft(20, ' ') +
+                    "BandWidth".PadLeft(10, ' ') +
+                    "TxPower".PadLeft(10, ' ') +
+                    "Frequency".PadLeft(10, ' ') +
                     "Battery".PadLeft(10, ' '));
 
                 foreach (MeshNode Si in pnodelist)
                 {
                     try
                     {
-                        LogHelper.WriteLog(Si.IpAddress.PadLeft(20, ' ') + 
-                            Si.MacAddress.PadLeft(20, ' ') + 
-                            Si.BandWidth.ToString().PadLeft(10, ' ') + 
-                            Si.TxPower.ToString().PadLeft(10, ' ') + 
-                            Si.Frequency.ToString().PadLeft(10, ' ') + 
+                        LogHelper.WriteLog(Si.IpAddress.PadLeft(20, ' ') +
+                            Si.MacAddress.PadLeft(20, ' ') +
+                            Si.BandWidth.ToString().PadLeft(10, ' ') +
+                            Si.TxPower.ToString().PadLeft(10, ' ') +
+                            Si.Frequency.ToString().PadLeft(10, ' ') +
                             Si.Battery.ToString().PadLeft(10, ' '));
                     }
                     catch (Exception e)
