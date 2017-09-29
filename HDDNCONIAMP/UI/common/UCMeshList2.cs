@@ -44,6 +44,16 @@ namespace HDDNCONIAMP.UI.Common
         /// </summary>
         private List<BMeshPoint> mBMeshPoints = new List<BMeshPoint>();
 
+        /// <summary>
+        /// 视频转发服务
+        /// </summary>
+        private Process mVideoTransServerProcess;
+
+        /// <summary>
+        /// 是否处于视频转发过程中
+        /// </summary>
+        private bool mIsVideoTransferring = false;
+
         #endregion
 
         #region 结构体
@@ -115,6 +125,9 @@ namespace HDDNCONIAMP.UI.Common
             {
                 BuddyBMapControl.OnOpenVideo += BuddyBMapControl_OnOpenVideo;
             }
+
+            //视频转发按钮启用状态设置
+            buttonItemVideoTransfer.Visible = (BuddyGrid != null);
 
             startTaskToRefreshMeshList();
         }
@@ -235,6 +248,41 @@ namespace HDDNCONIAMP.UI.Common
         }
 
         /// <summary>
+        /// 开启/关闭视频转发服务
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonItemVideoTransfer_Click(object sender, EventArgs e)
+        {
+            if (!mIsVideoTransferring)
+            {
+                ProcessStartInfo psi = new ProcessStartInfo();
+                psi.FileName = FileUtils.VIDEO_TRANSFER_SERVER_EXE_PATH;
+                psi.RedirectStandardOutput = false;
+                psi.WindowStyle = ProcessWindowStyle.Hidden;
+                //psi.CreateNoWindow = false;
+                mVideoTransServerProcess = new Process();
+                mVideoTransServerProcess.StartInfo = psi;
+                mVideoTransServerProcess.Start();
+                logger.Info("开启视频转发服务，端口：58000");
+                MessageBox.Show("视频转发服务已启动，UDP监听端口：58000.", "提示", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                buttonItemVideoTransfer.Text = "停止转发服务";
+            }
+            else
+            {
+                if (mVideoTransServerProcess != null && !mVideoTransServerProcess.HasExited)
+                {
+                    mVideoTransServerProcess.Kill();
+                    mVideoTransServerProcess.WaitForExit();
+                    logger.Info("关闭视频转发服务。");
+                    buttonItemVideoTransfer.Text = "开启转发服务";
+                }
+            }
+            mIsVideoTransferring = !mIsVideoTransferring;
+        }
+
+        /// <summary>
         /// 单击节点，跳转到设备所在的位置。
         /// </summary>
         /// <param name="sender"></param>
@@ -250,6 +298,7 @@ namespace HDDNCONIAMP.UI.Common
             Cell selectCell = selectNode.GetCellAt(e.X, e.Y);
             if (selectCell == null)
                 return;
+
             if (selectNode.Level == 1 && selectCell.Images != null)
             {
                 MeshAllInfo mai = (MeshAllInfo)selectNode.Tag;
@@ -263,7 +312,7 @@ namespace HDDNCONIAMP.UI.Common
                     BuddyBMapControl.Center = new LatLngPoint(vp.Lon, vp.Lat);
                     BuddyBMapControl.Locate(false);
                 }
-                else if(selectCell.Images.ImageIndex == 11)
+                else if (selectCell.Images.ImageIndex == 11)
                 {
                     MessageBox.Show("设备不在线！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
@@ -341,7 +390,7 @@ namespace HDDNCONIAMP.UI.Common
                 mFormMain.VideoProcesses.Add(inject.injectWindow(p.Model265ID));
             }
         }
-        
+
         /// <summary>
         /// 鼠标按下事件
         /// </summary>
@@ -448,13 +497,17 @@ namespace HDDNCONIAMP.UI.Common
             Task.Factory.StartNew(
                 () =>
                 {
+                    //ping频率，至少5秒以上。
+                    int frequency = int.Parse(mFormMain.AllApplicationSetting[ApplicationSettingKey.MeshListRefreshFrequency]);
+                    frequency = frequency >= 5 * 1000 ? frequency : 5 * 1000;
+
                     while (!LifeTimeControl.closing)
                     {
                         foreach (MeshAllInfo item in mMeshAllInfo)
                         {
                             Ping myPing;
                             myPing = new Ping();
-                            
+
                             try
                             {
                                 myPing.SendAsync(item.DeviceInfo.IPV4, 1000, item);
@@ -469,7 +522,7 @@ namespace HDDNCONIAMP.UI.Common
                                 myPing.Dispose();
                             }
                         }
-                        Thread.Sleep(int.Parse(mFormMain.AllApplicationSetting[ApplicationSettingKey.MeshListRefreshFrequency]));
+                        Thread.Sleep(frequency);
                     }
                 });
         }
@@ -603,7 +656,7 @@ namespace HDDNCONIAMP.UI.Common
             //添加Mesh设备点到百度地图上
             if (BuddyBMapControl != null)
             {
-                BuddyBMapControl.AddMeshDevicePlaces(mBMeshPoints);
+                //BuddyBMapControl.AddMeshDevicePlaces(mBMeshPoints);
             }
             advTreeMeshList.EndUpdate();
         }

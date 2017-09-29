@@ -21,6 +21,11 @@ namespace HDDNCONIAMP.Utils
         public static string HELP_CHM_PATH = AppDomain.CurrentDomain.BaseDirectory + "Help.chm";
 
         /// <summary>
+        /// 视频转发服务EXE路径
+        /// </summary>
+        public static string VIDEO_TRANSFER_SERVER_EXE_PATH = AppDomain.CurrentDomain.BaseDirectory + "UDPBroadcastServer.exe";
+
+        /// <summary>
         /// 私有构造函数，防止被实例化
         /// </summary>
         private FileUtils()
