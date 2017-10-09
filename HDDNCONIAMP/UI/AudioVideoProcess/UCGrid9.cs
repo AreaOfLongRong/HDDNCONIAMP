@@ -60,7 +60,7 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
             {
                 if ((++tempIndex) > mCurrentPanelIndex)
                 {
-                    if (kvp.Value != null)
+                    if (kvp.Value != null && !kvp.Value.HasExited)
                     {
                         kvp.Value.Kill();
                         kvp.Value.WaitForExit();

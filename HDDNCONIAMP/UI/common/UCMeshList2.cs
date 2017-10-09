@@ -79,11 +79,14 @@ namespace HDDNCONIAMP.UI.Common
             /// 获取或设置与该Mesh设备绑定的树节点
             /// </summary>
             public Node BuddyNode { get; set; }
-
             /// <summary>
             /// 获取或设置与该Mesh设备绑定的百度地图点
             /// </summary>
             public BMeshPoint BuddyBMeshPoint { get; set; }
+            /// <summary>
+            /// 上次设备是否在线
+            /// </summary>
+            public string LastIsOnline { get; set; }
         }
 
         #endregion
@@ -265,7 +268,7 @@ namespace HDDNCONIAMP.UI.Common
                 mVideoTransServerProcess.StartInfo = psi;
                 mVideoTransServerProcess.Start();
                 logger.Info("开启视频转发服务，端口：58000");
-                MessageBox.Show("视频转发服务已启动，UDP监听端口：58000.", "提示", 
+                MessageBox.Show("视频转发服务已启动，UDP监听端口：58000.", "提示",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 buttonItemVideoTransfer.Text = "停止转发服务";
             }
@@ -386,9 +389,24 @@ namespace HDDNCONIAMP.UI.Common
                         mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerUserName],
                         mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerPassword]);
             Process process = mFormMain.VideoProcesses.Find(ps => ps.StartInfo.Arguments.Contains(p.Model265ID));
-            if (BuddyBMapControl != null && process == null)
+            if (BuddyBMapControl != null)
             {
-                mFormMain.VideoProcesses.Add(inject.injectWindow(p.Model265ID));
+                if (process == null)
+                    mFormMain.VideoProcesses.Add(inject.injectWindow(p.Model265ID));
+                else
+                {
+                    if (process.HasExited)
+                    {
+                        process.WaitForExit();
+                        mFormMain.VideoProcesses.Remove(process);
+                        mFormMain.VideoProcesses.Add(inject.injectWindow(p.Model265ID));
+                    }
+                    else
+                    {
+                        //如果已经打开过该视频，则直接将视频窗口置顶
+                        VideoInject.SetForegroundWindow(process.MainWindowHandle);
+                    }
+                }
             }
         }
 
@@ -430,6 +448,11 @@ namespace HDDNCONIAMP.UI.Common
                 BMeshPoint bmp = mesh.BuddyBMeshPoint;
                 bmp.Location = new LatLngPoint(gpsInfo.Lon, gpsInfo.Lat);
                 mesh.BuddyBMeshPoint = bmp;
+            }
+
+            if (mesh.BuddyNode != null)
+            {
+                doUpdateAdvTreeMeshList(mesh, "在线", "GPS在线");
             }
 
             BMeshPoint p = mBMeshPoints.Find(b => b.IPV4 == mesh.PlanInfo.MeshIP);
@@ -558,11 +581,13 @@ namespace HDDNCONIAMP.UI.Common
                 }
                 else
                 {
+                    advTreeMeshList.BeginUpdate();
                     mai.BuddyNode.Cells[1].Text = args[0].ToString();
                     mai.BuddyNode.Cells[1].StyleNormal.TextColor = args[0].ToString().Equals("离线") ? Color.Gray : Color.Black;
                     mai.BuddyNode.Cells[1].StyleNormal.Font = args[0].ToString().Equals("离线") ? new Font("宋体", 9, FontStyle.Regular) : new Font("宋体", 9, FontStyle.Bold);
-                    mai.BuddyNode.Cells[2].Images.ImageIndex = args[0].ToString().Equals("离线") ? 9 : 10;
+                    mai.BuddyNode.Cells[2].Images.ImageIndex = args[0].ToString().Equals("在线") && args.Length == 2 ? 10 : 9;
                     mai.BuddyNode.Cells[3].Images.ImageIndex = args[0].ToString().Equals("离线") ? 11 : 12;
+                    advTreeMeshList.EndUpdate();
                 }
             }
             catch (Exception ex)
@@ -643,7 +668,8 @@ namespace HDDNCONIAMP.UI.Common
                                 Battery = item.Battery,
                                 IsOnline = false,
                                 Location = new LatLngPoint(0, 0)
-                            }
+                            },
+                            LastIsOnline = "离线"
                         };
                         //添加进列表
                         mMeshAllInfo.Add(nodeMAI);
