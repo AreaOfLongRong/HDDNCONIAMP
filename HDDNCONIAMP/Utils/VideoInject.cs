@@ -66,22 +66,32 @@ namespace HDDNCONIAMP.Utils
         [DllImport("user32.dll")]
         public static extern void SetForegroundWindow(IntPtr hwnd);
 
-        IntPtr appWin;
+        [DllImport("user32.dll", EntryPoint = "ShowWindow", SetLastError = true)]
+        public static extern bool ShowWindow(IntPtr hWnd, uint nCmdShow);
 
         /// <summary>
-        /// 网卡接口数组
+        /// 窗口句柄
         /// </summary>
-        private NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
-
+        IntPtr appWin;
+        
         /// <summary>
-        /// 宽高比
+        /// 视频宽高比
         /// </summary>
         private double ratio = 1920.0 / 1080.0;
 
-        private string localIP;
+        /// <summary>
+        /// 视频服务器IP地址
+        /// </summary>
+        private string mVideoServerIP;
 
+        /// <summary>
+        /// 视频服务器用户名
+        /// </summary>
         private string mVideoServerUserName = "admin";
 
+        /// <summary>
+        /// 视频服务器用户密码
+        /// </summary>
         private string mVideoServerPassword = "admin";
 
         /// <summary>
@@ -93,12 +103,7 @@ namespace HDDNCONIAMP.Utils
         /// 面板进程
         /// </summary>
         private Process _panelProcess;
-
-        /// <summary>
-        /// 唯一实例
-        /// </summary>
-        private static VideoInject instance;
-
+        
         /// <summary>
         /// 查看视频EXE路径
         /// </summary>
@@ -107,7 +112,7 @@ namespace HDDNCONIAMP.Utils
         public VideoInject(string videoServerIP, string userName, string password)
         {
             appWin = IntPtr.Zero;
-            localIP = videoServerIP;
+            mVideoServerIP = videoServerIP;
             mVideoServerUserName = userName;
             mVideoServerPassword = password;
             mVideoExePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
@@ -128,7 +133,7 @@ namespace HDDNCONIAMP.Utils
             int screenWidth = Screen.PrimaryScreen.Bounds.Width;
             int screenHeight = Screen.PrimaryScreen.Bounds.Height;
             psi.Arguments = string.Format("{0} {1} {2} {3} 1 0 0 0 {4} {5} 0 0 {6} {7}",
-                localIP, mVideoServerUserName, mVideoServerUserName,
+                mVideoServerIP, mVideoServerUserName, mVideoServerUserName,
                 deviceID, (int)(500 * ratio), 500, screenWidth, screenHeight);
             
             _windowProcess = new Process();
@@ -158,7 +163,7 @@ namespace HDDNCONIAMP.Utils
             psi.RedirectStandardOutput = true;
             psi.UseShellExecute = false;
             psi.Arguments = string.Format("{0} {1} {2} {3} 0 {4} 0 0 {5} {6} {7} {8} {9} {10}",
-                localIP, mVideoServerUserName, mVideoServerUserName,
+                mVideoServerIP, mVideoServerUserName, mVideoServerUserName,
                 deviceID, isFullScreen,
                 panel.Width, panel.Height,
                 fullScreenLocation.X, fullScreenLocation.Y,
@@ -209,6 +214,16 @@ namespace HDDNCONIAMP.Utils
 
         private void _process_Exited(object sender, EventArgs e)
         {
+            if(_windowProcess != null && !_windowProcess.HasExited)
+            {
+                _windowProcess.Kill();
+                _windowProcess.WaitForExit();
+            }
+            if(_panelProcess != null && !_panelProcess.HasExited)
+            {
+                _panelProcess.Kill();
+                _panelProcess.WaitForExit();
+            }
             appWin = IntPtr.Zero;
         }
     }

@@ -56,7 +56,7 @@ namespace HDDNCONIAMP.UI.UserSettings
 
             //实时显示版本信息
             Version v = Assembly.GetExecutingAssembly().GetName().Version;
-            labelXSoftwareVision.Text += string.Format("{0}.{1}", v.Major, v.Minor);
+            labelXSoftwareVision.Text += string.Format("{0}.{1}.{2}.{3}", v.Major, v.Minor, v.Build, v.Revision);
         }
 
         /// <summary>

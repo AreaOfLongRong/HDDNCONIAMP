@@ -21,7 +21,7 @@ namespace HDDNCONIAMP.Network
         /// 日志记录器
         /// </summary>
         private ILog logger = LogManager.GetLogger(typeof(GPSUDPListener));
-        
+
         /// <summary>
         /// 接收到GPS消息委托
         /// </summary>
@@ -165,10 +165,15 @@ namespace HDDNCONIAMP.Network
                         info.ID = (bytes[4] << 24 | bytes[5] << 16 | bytes[6] << 8 | bytes[7]).ToString();  //设备的ID
                         try
                         {
+                            if (temp[3].Trim().Length == 0 || temp[5].Trim().Length == 0)
+                            {
+                                logger.Error("未接收到正确的GPS位置信号!");
+                                continue;
+                            }
                             double[] latLon = GPS2BD09.wgs2bd(Double.Parse(temp[3].Substring(0, 2))
-                                                + Double.Parse(temp[3].Substring(2)) / 60.0,
-                                                Double.Parse(temp[5].Substring(0, 3))
-                                                + Double.Parse(temp[5].Substring(3)) / 60.0);
+                                            + Double.Parse(temp[3].Substring(2)) / 60.0,
+                                            Double.Parse(temp[5].Substring(0, 3))
+                                            + Double.Parse(temp[5].Substring(3)) / 60.0);
                             info.Lat = latLon[0];
                             info.Lon = latLon[1];
                         }
@@ -281,7 +286,7 @@ namespace HDDNCONIAMP.Network
             for (;;)
             {
                 GPSInfo device = new GPSInfo();
-                device.ID = "26908";
+                device.ID = "26887";
                 device.Lat = 40.04933;
                 device.Lon = 116.31224;
                 device.Time = DateTime.Now.ToString();
