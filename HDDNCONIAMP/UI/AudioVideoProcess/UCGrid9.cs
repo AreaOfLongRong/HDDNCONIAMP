@@ -58,13 +58,9 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
             int tempIndex = 0;
             foreach (KeyValuePair<Panel, Process> kvp in mPanelProcessDictionary)
             {
-                if ((tempIndex++) > mCurrentPanelIndex)
+                if ((++tempIndex) > mCurrentPanelIndex)
                 {
-                    //    continue;
-                    //}
-                    //else
-                    //{
-                    if (kvp.Value != null)
+                    if (kvp.Value != null && !kvp.Value.HasExited)
                     {
                         kvp.Value.Kill();
                         kvp.Value.WaitForExit();

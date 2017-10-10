@@ -48,6 +48,7 @@
             this.buttonItemDeleteGroup = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemRefreshTree = new DevComponents.DotNetBar.ButtonItem();
             this.buttonXSearch = new DevComponents.DotNetBar.ButtonX();
+            this.buttonItemVideoTransfer = new DevComponents.DotNetBar.ButtonItem();
             this.tableLayoutPanelMeshDeviceList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.advTreeMeshList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barDeviceList)).BeginInit();
@@ -198,10 +199,11 @@
             this.buttonItemFoldAll,
             this.buttonItemAddGroup,
             this.buttonItemDeleteGroup,
-            this.buttonItemRefreshTree});
+            this.buttonItemRefreshTree,
+            this.buttonItemVideoTransfer});
             this.barDeviceList.Location = new System.Drawing.Point(3, 33);
             this.barDeviceList.Name = "barDeviceList";
-            this.barDeviceList.Size = new System.Drawing.Size(251, 25);
+            this.barDeviceList.Size = new System.Drawing.Size(251, 24);
             this.barDeviceList.Stretch = true;
             this.barDeviceList.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.barDeviceList.TabIndex = 3;
@@ -263,6 +265,13 @@
             this.buttonXSearch.TabIndex = 4;
             this.buttonXSearch.Click += new System.EventHandler(this.buttonXSearch_Click);
             // 
+            // buttonItemVideoTransfer
+            // 
+            this.buttonItemVideoTransfer.BeginGroup = true;
+            this.buttonItemVideoTransfer.Name = "buttonItemVideoTransfer";
+            this.buttonItemVideoTransfer.Text = "开启转发服务";
+            this.buttonItemVideoTransfer.Click += new System.EventHandler(this.buttonItemVideoTransfer_Click);
+            // 
             // UCMeshList2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -298,5 +307,6 @@
         private DevComponents.AdvTree.ColumnHeader columnHeaderState;
         private DevComponents.DotNetBar.ButtonItem buttonItemRefreshTree;
         private DevComponents.AdvTree.ColumnHeader columnHeaderGPSTrack;
+        private DevComponents.DotNetBar.ButtonItem buttonItemVideoTransfer;
     }
 }

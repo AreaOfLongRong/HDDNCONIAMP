@@ -80,7 +80,7 @@ namespace HDDNCONIAMP
         /// <summary>
         /// 程序截止日期
         /// </summary>
-        private DateTime DEADLINE = new DateTime(2017, 9, 30);
+        private DateTime DEADLINE = new DateTime(2017, 10, 13);
 
         /// <summary>
         /// GIS定位关联视频控件
@@ -260,9 +260,9 @@ namespace HDDNCONIAMP
         /// <param name="e"></param>
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            if (DateTime.Now >= DEADLINE)
+            if (DateTime.Now >= DEADLINE.AddDays(1))
             {
-                MessageBox.Show("测试版使用到期，请使用正式版软件！", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("演示版试用到期，请使用正式版软件！", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
