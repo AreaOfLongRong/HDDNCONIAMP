@@ -91,7 +91,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
         Thread GetRealInfoThread;
         Thread RefreshPanelContext;
 
-        public NodeTopology.GScenario GNetwork;
+        public GScenario GNetwork;
         private const int XTextPixelOffset = -10;
         private const int YTextPixelOffset = 30;//80;
 
@@ -102,6 +102,8 @@ namespace HDDNCONIAMP.UI.MeshManagement
         private int DragTimeMin = 300; //拖动的时间大于300毫秒,则认为是有拖拽的动作!!
         private bool Dragging = false;
         private int CurrObjDragIndx = 0;
+
+        private OperateNode mOperateNode;
 
 
         private ReaderWriterLock _rReaderWriterLockwlock = new ReaderWriterLock();
@@ -126,7 +128,9 @@ namespace HDDNCONIAMP.UI.MeshManagement
             IntPtr editHandle = GetWindow(this.NIC.Handle, GW_CHILD);
             SendMessage(editHandle, EM_SETREADONLY, 1, 0);
 
-            string[] cards = OperateNode.NetworkInterfaceCard();
+            mOperateNode = new OperateNode();
+
+            string[] cards = mOperateNode.NetworkInterfaceCard();
             if (cards != null)
             {
                 this.NIC.DataSource = cards;
@@ -247,7 +251,8 @@ namespace HDDNCONIAMP.UI.MeshManagement
         /// </summary>
         public void StopTopology()
         {
-            mCTS.Cancel();
+            if (mCTS != null)
+                mCTS.Cancel();
             //if (GetRealInfoThread != null)
             //{
             //    try
@@ -307,7 +312,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                 //如果满足一定条件，则以第一次接收到响应的设备为根节点，去扩展其他节点，
                 //如果一直没有收到响应，则该方法会阻塞整个程序线程，导致界面卡死，
                 //界面所有内容都操作不了。
-                RootMAC = OperateNode.GetIniMAC(this.NIC.SelectedItem.ToString());
+                RootMAC = mOperateNode.GetIniMAC(this.NIC.SelectedItem.ToString());
             }
             //return OperateNode.GetIniMAC(this.NIC.SelectedItem.ToString());
         }
@@ -329,7 +334,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
             LogHelper.WriteLog("获取ROOT的IP地址");
 
-            RootIp = OperateNode.getIPaddress(RootMAC, mARPList);
+            RootIp = mOperateNode.getIPaddress(RootMAC, mARPList);
 
             ///未获取到IP的时候需要结束！！！
 
@@ -450,7 +455,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                                 ///如果用子节点登录?不再访问其根节点
                                 string NeedToCheckMac = MeshInfo[6].Substring(0, 12);
-                                string NeedToCheckIP = OperateNode.getIPaddress(NeedToCheckMac, mARPList);
+                                string NeedToCheckIP = mOperateNode.getIPaddress(NeedToCheckMac, mARPList);
 
                                 if (MYBlockNodes.Nodelist.Count > 1)
                                 {
@@ -565,7 +570,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
             ReDrawAll();
         }
-
 
         /// <summary>
         /// 读写锁
@@ -737,6 +741,9 @@ namespace HDDNCONIAMP.UI.MeshManagement
             }
             else
             {
+                if (Pnode.IpAddress == null || Pnode.IpAddress.Trim() == "")
+                    return;
+
                 if (this.treeView1.Nodes.Count > 0)
                 {
                     TreeNode[] TempNodes = treeView1.Nodes.Find(Pnode.IpAddress, false);
@@ -900,6 +907,8 @@ namespace HDDNCONIAMP.UI.MeshManagement
                                 //y坐标为 CellHeight/2 + k*CellHeight - 30(图片高度的一半)
 
                                 //AddGObject(x, y, node);
+                                if (nodecount >= ShowBlockNodes.Nodelist.Count)
+                                    break;
 
                                 MeshNode TempNode = ShowBlockNodes.Nodelist[nodecount];
 
@@ -1173,13 +1182,23 @@ namespace HDDNCONIAMP.UI.MeshManagement
             {
                 LogHelper.WriteLog(" Node Discover Report");
 
-                LogHelper.WriteLog("IP".PadLeft(20, ' ') + "MAC".PadLeft(20, ' ') + "BandWidth".PadLeft(10, ' ') + "TxPower".PadLeft(10, ' ') + "Frequency".PadLeft(10, ' ') + "Battery".PadLeft(10, ' '));
+                LogHelper.WriteLog("IP".PadLeft(20, ' ') +
+                    "MAC".PadLeft(20, ' ') +
+                    "BandWidth".PadLeft(10, ' ') +
+                    "TxPower".PadLeft(10, ' ') +
+                    "Frequency".PadLeft(10, ' ') +
+                    "Battery".PadLeft(10, ' '));
 
                 foreach (MeshNode Si in pnodelist)
                 {
                     try
                     {
-                        LogHelper.WriteLog(Si.IpAddress.PadLeft(20, ' ') + Si.MacAddress.PadLeft(20, ' ') + Si.BandWidth.ToString().PadLeft(10, ' ') + Si.TxPower.ToString().PadLeft(10, ' ') + Si.Frequency.ToString().PadLeft(10, ' ') + Si.Battery.ToString().PadLeft(10, ' '));
+                        LogHelper.WriteLog(Si.IpAddress.PadLeft(20, ' ') +
+                            Si.MacAddress.PadLeft(20, ' ') +
+                            Si.BandWidth.ToString().PadLeft(10, ' ') +
+                            Si.TxPower.ToString().PadLeft(10, ' ') +
+                            Si.Frequency.ToString().PadLeft(10, ' ') +
+                            Si.Battery.ToString().PadLeft(10, ' '));
                     }
                     catch (Exception e)
                     {
@@ -1663,6 +1682,103 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
         #endregion
 
+        #region Mesh设备参数调整
+
+
+        string currentNodeName = null;
+        private void buttonX1_Click(object sender, EventArgs e)
+        {
+            if (currentNodeName == null)
+            {
+                MessageBox.Show("请先选择节点MAC地址");
+                return;
+            }
+            string name = currentNodeName;
+            try
+            {
+                //数字校验
+                //功率 10-30
+                int itx = slider1.Value;
+                //频率 616-656
+                int irate = slider2.Value;
+                //带宽 5-20
+                int ibindwidth = slider3.Value;
+
+                if (itx < 10 || itx > 30)
+                    throw new Exception();
+                if (irate < 616 || irate > 656)
+                    throw new Exception();
+                if (ibindwidth < 5 || ibindwidth > 20)
+                    throw new Exception();
+
+                if (hashTable.Contains(name))
+                {
+                    MeshNode info = (MeshNode)hashTable[name];
+                    info.TxPower = itx;
+                    info.Frequency = irate;
+                    info.BandWidth = ibindwidth;
+
+                    //todo database
+                    MeshDeviceInfo meshInfo = SQLiteHelper.GetInstance().MeshDeviceInfoQueryByIP(info.IpAddress);
+                    meshInfo.BandWidth = (decimal)info.BandWidth;
+                    meshInfo.Frequency = (decimal)info.Frequency;
+                    meshInfo.Power = (decimal)info.TxPower;
+
+                    SQLiteHelper.GetInstance().MeshDeviceInfoUpdate(meshInfo);
+
+                    MeshPlanManage meshPlan = SQLiteHelper.GetInstance().MeshPlanQueryByMeshIP(info.IpAddress);
+                    if (meshPlan != null)
+                    {
+                        meshTcpManager.SendBytesTo(meshPlan.TCPToCOMIP, MeshTcpConfigManager.GetChangePowerBytesCommand(itx));
+                        meshTcpManager.SendBytesTo(meshPlan.TCPToCOMIP, MeshTcpConfigManager.GetChangeRateBytesCommand(irate));
+                    }
+                    MessageBox.Show("设置成功");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("数据输入有误，请检查输入数据");
+            }
+        }
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            string name = e.Node.Text;
+            if (hashTable.Contains(name))
+            {
+                currentNodeName = name;
+                MeshNode info = (MeshNode)hashTable[name];
+                ipAddressInputMeshIP.Value = info.IpAddress;
+                slider1.Value = (int)info.TxPower;
+                slider2.Value = (int)info.Frequency;
+                slider3.Value = (int)info.BandWidth;
+                sliderUpdateText(slider1);
+                sliderUpdateText(slider2);
+                sliderUpdateText(slider3);
+                progressBarXMeshPower.Value = (int)(info.Battery * 100);
+            }
+            else
+            {
+                currentNodeName = null;
+                ipAddressInputMeshIP.Value = "";
+            }
+        }
+
+        private void sliderValueChanged(object sender, EventArgs e)
+        {
+            Slider slider = (Slider)sender;
+            sliderUpdateText(slider);
+        }
+
+        private void sliderUpdateText(Slider slider)
+        {
+            slider.Text = slider.Value.ToString();
+        }
+
+
+        #endregion
+
         #region 预案管理事件处理
 
         /// <summary>
@@ -1977,96 +2093,12 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
         #endregion
 
-        string currentNodeName = null;
-        private void buttonX1_Click(object sender, EventArgs e)
-        {
-            if (currentNodeName == null)
-            {
-                MessageBox.Show("请先选择节点MAC地址");
-                return;
-            }
-            string name = currentNodeName;
-            try
-            {
-                //数字校验
-                //功率 10-30
-                int itx = slider1.Value;
-                //频率 616-656
-                int irate = slider2.Value;
-                //带宽 5-20
-                int ibindwidth = slider3.Value;
-
-                if (itx < 10 || itx > 33)
-                    throw new Exception();
-                if (irate < 616 || irate > 656)
-                    throw new Exception();
-                if (ibindwidth < 5 || ibindwidth > 20)
-                    throw new Exception();
-
-                if (hashTable.Contains(name))
-                {
-                    MeshNode info = (MeshNode)hashTable[name];
-                    info.TxPower = itx;
-                    info.Frequency = irate;
-                    info.BandWidth = ibindwidth;
-
-                    //todo database
-                    MeshDeviceInfo meshInfo = SQLiteHelper.GetInstance().MeshDeviceInfoQueryByIP(info.IpAddress);
-                    meshInfo.BandWidth = (decimal)info.BandWidth;
-                    meshInfo.Frequency = (decimal)info.Frequency;
-                    meshInfo.Power = (decimal)info.TxPower;
-
-                    SQLiteHelper.GetInstance().MeshDeviceInfoUpdate(meshInfo);
-
-                    MeshPlanManage meshPlan = SQLiteHelper.GetInstance().MeshPlanQueryByMeshIP(info.IpAddress);
-                    if (meshPlan != null)
-                    {
-                        meshTcpManager.SendBytesTo(meshPlan.TCPToCOMIP, MeshTcpConfigManager.GetChangePowerBytesCommand(itx));
-                        meshTcpManager.SendBytesTo(meshPlan.TCPToCOMIP, MeshTcpConfigManager.GetChangeRateBytesCommand(irate));
-                    }
-                    MessageBox.Show("设置成功");
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("数据输入有误，请检查输入数据");
-            }
-        }
-
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            string name = e.Node.Text;
-            if (hashTable.Contains(name))
-            {
-                currentNodeName = name;
-                MeshNode info = (MeshNode)hashTable[name];
-                ipAddressInputMeshIP.Value = info.IpAddress;
-                slider1.Value = (int)info.TxPower;
-                slider2.Value = (int)info.Frequency;
-                slider3.Value = (int)info.BandWidth;
-                sliderUpdateText(slider1);
-                sliderUpdateText(slider2);
-                sliderUpdateText(slider3);
-                progressBarXMeshPower.Value = (int)(info.Battery * 100);
-            }
-            else
-            {
-                currentNodeName = null;
-                ipAddressInputMeshIP.Value = "";
-            }
-        }
-
-        private void sliderValueChanged(object sender, EventArgs e)
-        {
-            Slider slider = (Slider)sender;
-            sliderUpdateText(slider);
-        }
-
-        private void sliderUpdateText(Slider slider)
-        {
-            slider.Text = slider.Value.ToString();
-        }
-
     }
 }
+
+
+
+
+
+
+
