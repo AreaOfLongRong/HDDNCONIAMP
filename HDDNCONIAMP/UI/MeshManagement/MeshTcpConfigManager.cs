@@ -33,10 +33,10 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
             if ((meshInfo != null))
             {
-                SendMessageTo(toCOMip, MeshTcpConfigManager.GetChangePowerCommand((int)meshInfo.Power));
-                SendMessageTo(toCOMip, MeshTcpConfigManager.GetChangeRateCommand((int)meshInfo.Frequency));
+                SendBytesTo(toCOMip, MeshTcpConfigManager.GetChangePowerBytesCommand((int)meshInfo.Power));
+                SendBytesTo(toCOMip, MeshTcpConfigManager.GetChangeRateBytesCommand((int)meshInfo.Frequency));
             }
-            SendBytesTo(toCOMip, MeshTcpConfigManager.GetChangeRateBytesCommand(616));
+            //SendBytesTo(toCOMip, MeshTcpConfigManager.GetChangeRateBytesCommand(616));
             //SendMessageTo(toCOMip, MeshTcpConfigManager.GetChangeRateCommand(656));
 
         }
@@ -95,6 +95,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                 bytes[5] = (byte)(value);
                 bytes[7] = 0x0d;
                 bytes[8] = 0x0a;
+                return bytes;
             }
             return null;
         }
@@ -119,6 +120,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                 bytes[6] = (byte)(value / 256);
                 bytes[7] = 0x0d;
                 bytes[8] = 0x0a;
+                return bytes;
             }
             return null;
         }
