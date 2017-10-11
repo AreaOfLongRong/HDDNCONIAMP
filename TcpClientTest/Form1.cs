@@ -25,7 +25,8 @@ namespace TcpClientTest
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            client = new TcpClient("192.168.0.61", 9200);
+            client = new TcpClient("localhost", 9200);
+           // client = new TcpClient("192.168.0.1", 9200);
             sWriter = new StreamWriter(client.GetStream(), Encoding.ASCII);
             sReader = new StreamReader(client.GetStream(), Encoding.ASCII);
            
@@ -41,11 +42,10 @@ namespace TcpClientTest
         {
             while (true)
             {
-                string content = sReader.ReadLine();
-                foreach (char c in content)
-                    Console.Write("{0:X} ", Convert.ToInt32(c));
-                Console.WriteLine();
-                Console.WriteLine(content);
+                int b = client.GetStream().ReadByte();
+                if (b == -1)
+                    break;
+                Console.Write("{0:X} ", Convert.ToInt32(b));
             }
             
         }

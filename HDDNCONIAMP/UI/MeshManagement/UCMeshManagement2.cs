@@ -1729,8 +1729,8 @@ namespace HDDNCONIAMP.UI.MeshManagement
                     MeshPlanManage meshPlan = SQLiteHelper.GetInstance().MeshPlanQueryByMeshIP(info.IpAddress);
                     if (meshPlan != null)
                     {
-                        meshTcpManager.SendMessageTo(meshPlan.TCPToCOMIP, MeshTcpConfigManager.GetChangePowerCommand(itx));
-                        meshTcpManager.SendMessageTo(meshPlan.TCPToCOMIP, MeshTcpConfigManager.GetChangeRateCommand(irate));
+                        meshTcpManager.SendBytesTo(meshPlan.TCPToCOMIP, MeshTcpConfigManager.GetChangePowerBytesCommand(itx));
+                        meshTcpManager.SendBytesTo(meshPlan.TCPToCOMIP, MeshTcpConfigManager.GetChangeRateBytesCommand(irate));
                     }
                     MessageBox.Show("设置成功");
                 }
@@ -2095,3 +2095,10 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
     }
 }
+
+
+
+
+
+
+
