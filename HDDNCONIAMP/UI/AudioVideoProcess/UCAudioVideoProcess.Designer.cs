@@ -28,55 +28,60 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.collapsibleSplitContainer1 = new DevComponents.DotNetBar.Controls.CollapsibleSplitContainer();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.ucGrid9Main = new HDDNCONIAMP.UI.AudioVideoProcess.UCGrid9();
-            ((System.ComponentModel.ISupportInitialize)(this.collapsibleSplitContainer1)).BeginInit();
-            this.collapsibleSplitContainer1.Panel2.SuspendLayout();
-            this.collapsibleSplitContainer1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // collapsibleSplitContainer1
+            // tableLayoutPanel1
             // 
-            this.collapsibleSplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.collapsibleSplitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.collapsibleSplitContainer1.Name = "collapsibleSplitContainer1";
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 300F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.ucGrid9Main, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(617, 420);
+            this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // collapsibleSplitContainer1.Panel2
+            // panel1
             // 
-            this.collapsibleSplitContainer1.Panel2.Controls.Add(this.ucGrid9Main);
-            this.collapsibleSplitContainer1.Panel2MinSize = 5;
-            this.collapsibleSplitContainer1.Size = new System.Drawing.Size(617, 420);
-            this.collapsibleSplitContainer1.SplitterDistance = 150;
-            this.collapsibleSplitContainer1.SplitterWidth = 10;
-            this.collapsibleSplitContainer1.TabIndex = 0;
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(294, 414);
+            this.panel1.TabIndex = 2;
             // 
             // ucGrid9Main
             // 
             this.ucGrid9Main.AllowDrop = true;
             this.ucGrid9Main.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucGrid9Main.Location = new System.Drawing.Point(0, 0);
+            this.ucGrid9Main.Location = new System.Drawing.Point(303, 3);
             this.ucGrid9Main.Name = "ucGrid9Main";
-            this.ucGrid9Main.Size = new System.Drawing.Size(457, 420);
-            this.ucGrid9Main.TabIndex = 0;
-            this.ucGrid9Main.Load += new System.EventHandler(this.ucGrid9Main_Load);
+            this.ucGrid9Main.Size = new System.Drawing.Size(311, 414);
+            this.ucGrid9Main.TabIndex = 1;
             // 
             // UCAudioVideoProcess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.collapsibleSplitContainer1);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "UCAudioVideoProcess";
             this.Size = new System.Drawing.Size(617, 420);
-            this.collapsibleSplitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.collapsibleSplitContainer1)).EndInit();
-            this.collapsibleSplitContainer1.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private DevComponents.DotNetBar.Controls.CollapsibleSplitContainer collapsibleSplitContainer1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private UCGrid9 ucGrid9Main;
+        private System.Windows.Forms.Panel panel1;
     }
 }

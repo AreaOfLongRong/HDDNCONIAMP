@@ -321,15 +321,15 @@ namespace HDDNCONIAMP.UI.Common
                 }
                 else if (selectCell.Images.ImageIndex == 12 && selectNode.Cells[1].Text.Equals("在线"))
                 {
-                    VideoInject inject = new VideoInject(mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerIPV4],
-                        mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerUserName],
-                        mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerPassword]);
                     if (BuddyBMapControl != null)
                     {
-                        mFormMain.VideoProcesses.Add(inject.injectWindow(mai.PlanInfo.Model265ID));
+                        BuddyBMapControl_OnOpenVideo(mai.BuddyBMeshPoint);
                     }
                     else if (BuddyGrid != null)
                     {
+                        VideoInject inject = new VideoInject(mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerIPV4],
+                            mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerUserName],
+                            mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerPassword]);
                         Panel panel = BuddyGrid.GetNextAvailablePanel();
                         Process process = inject.injectPanel(panel,
                             mFormMain.GetVideoFullScreenLocation(),
@@ -388,18 +388,19 @@ namespace HDDNCONIAMP.UI.Common
             VideoInject inject = new VideoInject(mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerIPV4],
                         mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerUserName],
                         mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerPassword]);
-            Process process = mFormMain.VideoProcesses.Find(ps => ps.StartInfo.Arguments.Contains(p.Model265ID));
+            Process process = mFormMain.VideoWindowProcesses.Find(ps => ps.StartInfo.Arguments.Contains(p.Model265ID));
             if (BuddyBMapControl != null)
             {
                 if (process == null)
-                    mFormMain.VideoProcesses.Add(inject.injectWindow(p.Model265ID));
+                {
+                    mFormMain.VideoWindowProcesses.Add(inject.injectWindow(p.Model265ID));
+                }
                 else
                 {
                     if (process.HasExited)
                     {
-                        process.WaitForExit();
-                        mFormMain.VideoProcesses.Remove(process);
-                        mFormMain.VideoProcesses.Add(inject.injectWindow(p.Model265ID));
+                       mFormMain.VideoWindowProcesses.Remove(process);
+                        mFormMain.VideoWindowProcesses.Add(inject.injectWindow(p.Model265ID));
                     }
                     else
                     {
