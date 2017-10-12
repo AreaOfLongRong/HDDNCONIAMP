@@ -2068,8 +2068,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
         /// 启用TableLayoutPanel双缓冲，防止界面闪烁
         /// </summary>
         private void setTableLayoutPanelDoubleBufferd()
-        {
-            tableLayoutPanelMeshNodeTopology.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshNodeTopology, true, null);
+        {            
             tableLayoutPanelMeshParameters.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshParameters, true, null);
             tableLayoutPanelMeshPlan.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshPlan, true, null);
             tableLayoutPanelMeshBasicSetting.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshBasicSetting, true, null);

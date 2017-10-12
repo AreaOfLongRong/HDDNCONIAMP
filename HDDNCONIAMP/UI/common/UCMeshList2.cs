@@ -535,7 +535,7 @@ namespace HDDNCONIAMP.UI.Common
 
                             try
                             {
-                                myPing.SendAsync(item.DeviceInfo.IPV4, 1000, item);
+                                myPing.SendAsync(item.DeviceInfo.IPV4, 2000, item);
                                 myPing.PingCompleted += MyPing_PingCompleted;
                             }
                             catch (PingException pe)
@@ -555,6 +555,7 @@ namespace HDDNCONIAMP.UI.Common
         private void MyPing_PingCompleted(object sender, PingCompletedEventArgs e)
         {
             MeshAllInfo item = (MeshAllInfo)e.UserState;
+            Console.WriteLine(string.Format("Ping\"{0}\":{1}", item.PlanInfo.MeshIP, e.Reply.Status.ToString()));
             doUpdateAdvTreeMeshList(item, e.Reply.Status == IPStatus.Success ? "在线" : "离线");
         }
 
@@ -577,8 +578,8 @@ namespace HDDNCONIAMP.UI.Common
                 if (this.advTreeMeshList.InvokeRequired)
                 {
                     updateAdvTreeMeshList uatml = new updateAdvTreeMeshList(doUpdateAdvTreeMeshList);
-                    //this.Invoke(uatml, mai, args);
-                    advTreeMeshList.BeginInvoke(uatml, mai, args);
+                    this.Invoke(uatml, mai, args);
+                    //advTreeMeshList.BeginInvoke(uatml, mai, args);
                 }
                 else
                 {
