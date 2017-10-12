@@ -1615,14 +1615,26 @@ namespace BMap.NET.WindowsForm
             }
             try
             {
+                List<string> needToDelete = new List<string>();
                 foreach (KeyValuePair<string, BMeshPoint> v in _meshPoints)  //Mesh设备点
                 {
+                    //如果超过一定事件没有接收到GPS信号，则取消该设备点的绘制
+                    DateTime now = DateTime.Now;
+                    if ((now - v.Value.ReceiveGPSDT).TotalMilliseconds >= v.Value.Expiration)
+                    {
+                        needToDelete.Add(v.Key);
+                        continue;
+                    }
                     v.Value.Draw(g, _center, _zoom, ClientSize);
+                }
+                foreach (string key in needToDelete)
+                {
+                    _meshPoints.Remove(key);
                 }
             }
             catch(Exception e)
             {
-
+                Console.WriteLine(e.ToString());
             }
             foreach (KeyValuePair<string, BMeshRoute> v in _deviceRoutes)
             {

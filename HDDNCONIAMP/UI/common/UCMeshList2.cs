@@ -99,7 +99,7 @@ namespace HDDNCONIAMP.UI.Common
         public BMapControl2 BuddyBMapControl { get; set; }
 
         public IGrid BuddyGrid { get; set; }
-
+       
         #endregion
 
         public UCMeshList2(FormMain main)
@@ -123,16 +123,24 @@ namespace HDDNCONIAMP.UI.Common
 
             mFormMain.NLM.PGPSUDPListener.OnReceiveGPSInfo += PGPSUDPListener_OnReceiveGPSInfo;
 
+            //视频转发按钮启用状态设置
+            buttonItemVideoTransfer.Visible = (BuddyGrid != null);
+
+            startTaskToRefreshMeshList();
+        }
+
+        /// <summary>
+        /// 注册相关事件
+        /// </summary>
+        public void RegisterEvent()
+        {
+
             //注册地图Mesh设备点击打开视频事件
             if (BuddyBMapControl != null)
             {
                 BuddyBMapControl.OnOpenVideo += BuddyBMapControl_OnOpenVideo;
             }
 
-            //视频转发按钮启用状态设置
-            buttonItemVideoTransfer.Visible = (BuddyGrid != null);
-
-            startTaskToRefreshMeshList();
         }
 
         #region 设备列表事件
@@ -399,7 +407,7 @@ namespace HDDNCONIAMP.UI.Common
                 {
                     if (process.HasExited)
                     {
-                       mFormMain.VideoWindowProcesses.Remove(process);
+                        mFormMain.VideoWindowProcesses.Remove(process);
                         mFormMain.VideoWindowProcesses.Add(inject.injectWindow(p.Model265ID));
                     }
                     else
@@ -447,6 +455,8 @@ namespace HDDNCONIAMP.UI.Common
                 mesh.MeshGPSInfo = gi;
 
                 BMeshPoint bmp = mesh.BuddyBMeshPoint;
+                bmp.IsOnline = true;
+                bmp.ReceiveGPSDT = DateTime.Now;
                 bmp.Location = new LatLngPoint(gpsInfo.Lon, gpsInfo.Lat);
                 mesh.BuddyBMeshPoint = bmp;
             }
@@ -456,6 +466,7 @@ namespace HDDNCONIAMP.UI.Common
                 doUpdateAdvTreeMeshList(mesh, "在线", "GPS在线");
             }
 
+            //如果之前没有在地图上显示该设备则添加显示
             BMeshPoint p = mBMeshPoints.Find(b => b.IPV4 == mesh.PlanInfo.MeshIP);
             if (p != null)
             {
@@ -669,7 +680,9 @@ namespace HDDNCONIAMP.UI.Common
                                 BandWidth = item.BandWidth,
                                 Battery = item.Battery,
                                 IsOnline = false,
-                                Location = new LatLngPoint(0, 0)
+                                Location = new LatLngPoint(0, 0),
+                                Expiration = 5000,
+                                ReceiveGPSDT = DateTime.Now
                             },
                             LastIsOnline = "离线"
                         };
