@@ -28,16 +28,18 @@ namespace HDDNCONIAMP.UI.MeshManagement
             MeshPlanManage plan = SQLiteHelper.GetInstance().MeshPlanQuerByTCPToCOMIP(toCOMip);
             if (plan != null)
             {
-                meshInfo = SQLiteHelper.GetInstance().MeshDeviceInfoQueryByIP(toCOMip);
+                meshInfo = SQLiteHelper.GetInstance().MeshDeviceInfoQueryByIP(plan.MeshIP);
             }
 
             if ((meshInfo != null))
             {
-                SendBytesTo(toCOMip, MeshTcpConfigManager.GetChangePowerBytesCommand((int)meshInfo.Power));
+                //TODO:是否考虑启动时即设置频率
+                //SendBytesTo(toCOMip, MeshTcpConfigManager.GetChangePowerBytesCommand((int)meshInfo.Power));
                 SendBytesTo(toCOMip, MeshTcpConfigManager.GetChangeRateBytesCommand((int)meshInfo.Frequency));
             }
-            //SendBytesTo(toCOMip, MeshTcpConfigManager.GetChangeRateBytesCommand(616));
-            //SendMessageTo(toCOMip, MeshTcpConfigManager.GetChangeRateCommand(656));
+            //SendBytesTo(toCOMip, MeshTcpConfigManager.GetChangeRateBytesCommand(656));
+           // SendBytesTo(toCOMip, MeshTcpConfigManager.GetChangeRateBytesCommand(616));
+         
 
         }
 

@@ -241,6 +241,13 @@ namespace HDDNCONIAMP.Network
                         info.ID = (bytes[4] << 24 | bytes[5] << 16 | bytes[6] << 8 | bytes[7]).ToString();  //设备的ID
                         try
                         {
+                            //如果接收到的经纬度信息为空，则继续下次数据接收
+                            if (temp[3].Trim() == "" || temp[5].Trim() == "")
+                            {
+                                logger.Warn("接收到的GPS位置信号为空!");
+                                continue;
+                            }
+
                             double[] latLon = GPS2BD09.wgs2bd(Double.Parse(temp[3].Substring(0, 2))
                                                 + Double.Parse(temp[3].Substring(2)) / 60.0,
                                                 Double.Parse(temp[5].Substring(0, 3))

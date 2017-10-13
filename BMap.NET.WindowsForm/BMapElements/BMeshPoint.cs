@@ -61,6 +61,14 @@ namespace BMap.NET.WindowsForm.BMapElements
         /// </summary>
         public decimal Battery { get; set; }
         /// <summary>
+        /// GPS信号超时时间
+        /// </summary>
+        public int Expiration { get; set; }
+        /// <summary>
+        /// 接收到GPS信号的时间
+        /// </summary>
+        public DateTime ReceiveGPSDT { get; set; }
+        /// <summary>
         /// 位置坐标
         /// </summary>
         public LatLngPoint Location

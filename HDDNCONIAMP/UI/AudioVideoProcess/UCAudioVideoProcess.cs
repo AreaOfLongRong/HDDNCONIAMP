@@ -27,7 +27,7 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
         /// <returns></returns>
         public int GetGridLocationX()
         {
-            return collapsibleSplitContainer1.SplitterDistance + collapsibleSplitContainer1.SplitterWidth;
+            return 300;
         }
 
         /// <summary>
@@ -44,16 +44,26 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
             ucMeshDeviceListMain.Name = "ucMeshListmain";
             ucMeshDeviceListMain.Size = new Size(150, 439);
             ucMeshDeviceListMain.TabIndex = 0;
-            // 
-            // collapsibleSplitContainerMain.Panel1
-            // 
-            this.collapsibleSplitContainer1.Panel1.Controls.Add(ucMeshDeviceListMain);
-            this.collapsibleSplitContainer1.Panel1MinSize = 5;
+            panel1.Controls.Add(ucMeshDeviceListMain);
 
         }
         
         private void ucGrid9Main_Load(object sender, EventArgs e)
         {
+        }
+
+        /// <summary>
+        /// 重载Windows消息处理
+        /// </summary>
+        /// <param name="m"></param>
+        protected override void WndProc(ref Message m)
+        {
+            int WM_MOUSEWHEEL = 0x020A;
+            if (m.Msg == WM_MOUSEWHEEL)
+            {//禁用鼠标滚轮事件的处理
+                return;
+            }
+            base.WndProc(ref m);
         }
     }
 }

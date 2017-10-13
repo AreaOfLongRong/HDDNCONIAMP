@@ -99,7 +99,7 @@ namespace HDDNCONIAMP.UI.Common
         public BMapControl2 BuddyBMapControl { get; set; }
 
         public IGrid BuddyGrid { get; set; }
-
+       
         #endregion
 
         public UCMeshList2(FormMain main)
@@ -123,16 +123,24 @@ namespace HDDNCONIAMP.UI.Common
 
             mFormMain.NLM.PGPSUDPListener.OnReceiveGPSInfo += PGPSUDPListener_OnReceiveGPSInfo;
 
+            //视频转发按钮启用状态设置
+            buttonItemVideoTransfer.Visible = (BuddyGrid != null);
+
+            startTaskToRefreshMeshList();
+        }
+
+        /// <summary>
+        /// 注册相关事件
+        /// </summary>
+        public void RegisterEvent()
+        {
+
             //注册地图Mesh设备点击打开视频事件
             if (BuddyBMapControl != null)
             {
                 BuddyBMapControl.OnOpenVideo += BuddyBMapControl_OnOpenVideo;
             }
 
-            //视频转发按钮启用状态设置
-            buttonItemVideoTransfer.Visible = (BuddyGrid != null);
-
-            startTaskToRefreshMeshList();
         }
 
         #region 设备列表事件
@@ -321,15 +329,15 @@ namespace HDDNCONIAMP.UI.Common
                 }
                 else if (selectCell.Images.ImageIndex == 12 && selectNode.Cells[1].Text.Equals("在线"))
                 {
-                    VideoInject inject = new VideoInject(mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerIPV4],
-                        mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerUserName],
-                        mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerPassword]);
                     if (BuddyBMapControl != null)
                     {
-                        mFormMain.VideoProcesses.Add(inject.injectWindow(mai.PlanInfo.Model265ID));
+                        BuddyBMapControl_OnOpenVideo(mai.BuddyBMeshPoint);
                     }
                     else if (BuddyGrid != null)
                     {
+                        VideoInject inject = new VideoInject(mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerIPV4],
+                            mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerUserName],
+                            mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerPassword]);
                         Panel panel = BuddyGrid.GetNextAvailablePanel();
                         Process process = inject.injectPanel(panel,
                             mFormMain.GetVideoFullScreenLocation(),
@@ -388,18 +396,19 @@ namespace HDDNCONIAMP.UI.Common
             VideoInject inject = new VideoInject(mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerIPV4],
                         mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerUserName],
                         mFormMain.AllApplicationSetting[ApplicationSettingKey.VideoServerPassword]);
-            Process process = mFormMain.VideoProcesses.Find(ps => ps.StartInfo.Arguments.Contains(p.Model265ID));
+            Process process = mFormMain.VideoWindowProcesses.Find(ps => ps.StartInfo.Arguments.Contains(p.Model265ID));
             if (BuddyBMapControl != null)
             {
                 if (process == null)
-                    mFormMain.VideoProcesses.Add(inject.injectWindow(p.Model265ID));
+                {
+                    mFormMain.VideoWindowProcesses.Add(inject.injectWindow(p.Model265ID));
+                }
                 else
                 {
                     if (process.HasExited)
                     {
-                        process.WaitForExit();
-                        mFormMain.VideoProcesses.Remove(process);
-                        mFormMain.VideoProcesses.Add(inject.injectWindow(p.Model265ID));
+                        mFormMain.VideoWindowProcesses.Remove(process);
+                        mFormMain.VideoWindowProcesses.Add(inject.injectWindow(p.Model265ID));
                     }
                     else
                     {
@@ -446,6 +455,8 @@ namespace HDDNCONIAMP.UI.Common
                 mesh.MeshGPSInfo = gi;
 
                 BMeshPoint bmp = mesh.BuddyBMeshPoint;
+                bmp.IsOnline = true;
+                bmp.ReceiveGPSDT = DateTime.Now;
                 bmp.Location = new LatLngPoint(gpsInfo.Lon, gpsInfo.Lat);
                 mesh.BuddyBMeshPoint = bmp;
             }
@@ -455,6 +466,7 @@ namespace HDDNCONIAMP.UI.Common
                 doUpdateAdvTreeMeshList(mesh, "在线", "GPS在线");
             }
 
+            //如果之前没有在地图上显示该设备则添加显示
             BMeshPoint p = mBMeshPoints.Find(b => b.IPV4 == mesh.PlanInfo.MeshIP);
             if (p != null)
             {
@@ -534,7 +546,7 @@ namespace HDDNCONIAMP.UI.Common
 
                             try
                             {
-                                myPing.SendAsync(item.DeviceInfo.IPV4, 1000, item);
+                                myPing.SendAsync(item.DeviceInfo.IPV4, 2000, item);
                                 myPing.PingCompleted += MyPing_PingCompleted;
                             }
                             catch (PingException pe)
@@ -554,6 +566,7 @@ namespace HDDNCONIAMP.UI.Common
         private void MyPing_PingCompleted(object sender, PingCompletedEventArgs e)
         {
             MeshAllInfo item = (MeshAllInfo)e.UserState;
+            Console.WriteLine(string.Format("Ping\"{0}\":{1}", item.PlanInfo.MeshIP, e.Reply.Status.ToString()));
             doUpdateAdvTreeMeshList(item, e.Reply.Status == IPStatus.Success ? "在线" : "离线");
         }
 
@@ -576,8 +589,8 @@ namespace HDDNCONIAMP.UI.Common
                 if (this.advTreeMeshList.InvokeRequired)
                 {
                     updateAdvTreeMeshList uatml = new updateAdvTreeMeshList(doUpdateAdvTreeMeshList);
-                    //this.Invoke(uatml, mai, args);
-                    advTreeMeshList.BeginInvoke(uatml, mai, args);
+                    this.Invoke(uatml, mai, args);
+                    //advTreeMeshList.BeginInvoke(uatml, mai, args);
                 }
                 else
                 {
@@ -667,7 +680,9 @@ namespace HDDNCONIAMP.UI.Common
                                 BandWidth = item.BandWidth,
                                 Battery = item.Battery,
                                 IsOnline = false,
-                                Location = new LatLngPoint(0, 0)
+                                Location = new LatLngPoint(0, 0),
+                                Expiration = 5000,
+                                ReceiveGPSDT = DateTime.Now
                             },
                             LastIsOnline = "离线"
                         };

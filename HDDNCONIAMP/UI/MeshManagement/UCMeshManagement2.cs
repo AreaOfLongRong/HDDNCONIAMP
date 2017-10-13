@@ -1704,7 +1704,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                 //带宽 5-20
                 int ibindwidth = slider3.Value;
 
-                if (itx < 10 || itx > 30)
+                if (itx < 10 || itx > 33)
                     throw new Exception();
                 if (irate < 616 || irate > 656)
                     throw new Exception();
@@ -1729,7 +1729,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                     MeshPlanManage meshPlan = SQLiteHelper.GetInstance().MeshPlanQueryByMeshIP(info.IpAddress);
                     if (meshPlan != null)
                     {
-                        meshTcpManager.SendBytesTo(meshPlan.TCPToCOMIP, MeshTcpConfigManager.GetChangePowerBytesCommand(itx));
+                        //meshTcpManager.SendBytesTo(meshPlan.TCPToCOMIP, MeshTcpConfigManager.GetChangePowerBytesCommand(itx));
                         meshTcpManager.SendBytesTo(meshPlan.TCPToCOMIP, MeshTcpConfigManager.GetChangeRateBytesCommand(irate));
                     }
                     MessageBox.Show("设置成功");
@@ -2068,8 +2068,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
         /// 启用TableLayoutPanel双缓冲，防止界面闪烁
         /// </summary>
         private void setTableLayoutPanelDoubleBufferd()
-        {
-            tableLayoutPanelMeshNodeTopology.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshNodeTopology, true, null);
+        {            
             tableLayoutPanelMeshParameters.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshParameters, true, null);
             tableLayoutPanelMeshPlan.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshPlan, true, null);
             tableLayoutPanelMeshBasicSetting.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshBasicSetting, true, null);

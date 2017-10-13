@@ -118,6 +118,7 @@ namespace HDDNCONIAMP
             labelXValidPeriod.Text = string.Format("测试版试用期截止时间：{0}", DEADLINE.ToShortDateString());
 
             VideoProcesses = new List<Process>();
+            VideoWindowProcesses = new List<Process>();
         }
 
         /// <summary>
@@ -466,14 +467,26 @@ namespace HDDNCONIAMP
             {
                 foreach (Process p in VideoProcesses)
                 {
-                    logger.Info("关闭进程“" + p.Id + "”");
+                    logger.Info("关闭Panel进程“" + p.Id + "”");
                     if (!p.HasExited)
                     {
                         p.Kill();
                         p.WaitForExit();
                     }                    
                 }
-            }            
+            }
+            if (VideoWindowProcesses != null)
+            {
+                foreach (Process p in VideoWindowProcesses)
+                {
+                    logger.Info("关闭窗体进程“" + p.Id + "”");
+                    if (!p.HasExited)
+                    {
+                        p.Kill();
+                        p.WaitForExit();
+                    }
+                }
+            }
         }
 
         #endregion

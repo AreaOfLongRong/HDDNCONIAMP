@@ -37,6 +37,7 @@
             // 
             this.buttonX265Video.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.buttonX265Video.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonX265Video.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonX265Video.Location = new System.Drawing.Point(3, 3);
             this.buttonX265Video.Name = "buttonX265Video";
             this.buttonX265Video.Size = new System.Drawing.Size(64, 64);
@@ -63,7 +64,7 @@
             this.Controls.Add(this.pictureBoxClose);
             this.Controls.Add(this.buttonX265Video);
             this.Name = "UCVideosControl";
-            this.Size = new System.Drawing.Size(95, 71);
+            this.Size = new System.Drawing.Size(94, 71);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).EndInit();
             this.ResumeLayout(false);
 
