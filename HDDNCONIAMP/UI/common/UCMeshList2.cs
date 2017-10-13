@@ -99,7 +99,7 @@ namespace HDDNCONIAMP.UI.Common
         public BMapControl2 BuddyBMapControl { get; set; }
 
         public IGrid BuddyGrid { get; set; }
-       
+
         #endregion
 
         public UCMeshList2(FormMain main)
@@ -345,6 +345,7 @@ namespace HDDNCONIAMP.UI.Common
                             mai.PlanInfo.Model265ID, "0");
                         BuddyGrid.BindPanelProcess(panel, process);
                         mFormMain.VideoProcesses.Add(process);
+                        logger.Info(string.Format("在第{0}个Panel中打开了视频。", panel.Tag.ToString()));
                     }
                 }
                 else if (selectCell.Images.ImageIndex == 13 && BuddyBMapControl != null)
@@ -534,8 +535,9 @@ namespace HDDNCONIAMP.UI.Common
                 () =>
                 {
                     //ping频率，至少5秒以上。
-                    int frequency = int.Parse(mFormMain.AllApplicationSetting[ApplicationSettingKey.MeshListRefreshFrequency]);
-                    frequency = frequency >= 5 * 1000 ? frequency : 5 * 1000;
+                    //int frequency = int.Parse(mFormMain.AllApplicationSetting[ApplicationSettingKey.MeshListRefreshFrequency]);
+                    //frequency = frequency >= 5 * 1000 ? frequency : 5 * 1000;
+                    int frequency = 60 * 1000;  //默认1分钟刷新一次
 
                     while (!LifeTimeControl.closing)
                     {
@@ -546,7 +548,7 @@ namespace HDDNCONIAMP.UI.Common
 
                             try
                             {
-                                myPing.SendAsync(item.DeviceInfo.IPV4, 2000, item);
+                                myPing.SendAsync(item.DeviceInfo.IPV4, 5000, item);
                                 myPing.PingCompleted += MyPing_PingCompleted;
                             }
                             catch (PingException pe)
@@ -681,7 +683,7 @@ namespace HDDNCONIAMP.UI.Common
                                 Battery = item.Battery,
                                 IsOnline = false,
                                 Location = new LatLngPoint(0, 0),
-                                Expiration = 5000,
+                                Expiration = 30 * 1000,
                                 ReceiveGPSDT = DateTime.Now
                             },
                             LastIsOnline = "离线"

@@ -36,6 +36,7 @@ namespace HDDNCONIAMP.UI.GISVideo
             ucMeshDeviceListMain.Name = "ucMeshListmain";
             ucMeshDeviceListMain.Size = new Size(150, 439);
             ucMeshDeviceListMain.TabIndex = 0;
+            ucMeshDeviceListMain.RegisterEvent();
             // 
             // collapsibleSplitContainerMain.Panel1
             // 

@@ -68,7 +68,7 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
 
                     mCurrentPanelIndex++;
                     mCurrentPanelIndex = mCurrentPanelIndex >= mPanelProcessDictionary.Count ? 0 : mCurrentPanelIndex;
-
+                    kvp.Key.Tag = mCurrentPanelIndex;
                     return kvp.Key;
                 }
             }
