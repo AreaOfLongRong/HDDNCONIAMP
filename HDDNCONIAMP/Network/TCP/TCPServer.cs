@@ -138,26 +138,12 @@ namespace TCPServer
             // you could use the NetworkStream to read and write, 
             // but there is no forcing flush, even when requested
             
-            String sData = null;
-
             OnWelcomeMessage?.Invoke(conn);
-            try
+            while (client.Connected && _isRunning)
             {
-                while (client.Connected)
-                {
-                    sData = conn.sReader.ReadLine();
-                    // shows content on the console.
-                    foreach (char c in sData)
-                        Console.Write("{0:X} ",Convert.ToInt32(c));
-                    Console.WriteLine();
-                    Console.WriteLine(sData);
-                }
+                Thread.Sleep(1000);
             }
-            catch
-            {
 
-            }
-            
             _hashTable.Remove(conn.ipAddr);
         }
     }
