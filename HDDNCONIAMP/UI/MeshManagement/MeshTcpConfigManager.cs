@@ -34,7 +34,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             if ((meshInfo != null))
             {
                 //TODO:是否考虑启动时即设置频率
-                //SendBytesTo(toCOMip, MeshTcpConfigManager.GetChangePowerBytesCommand((int)meshInfo.Power));
+                SendBytesTo(toCOMip, MeshTcpConfigManager.GetChangePowerBytesCommand((int)meshInfo.Power));
                 SendBytesTo(toCOMip, MeshTcpConfigManager.GetChangeRateBytesCommand((int)meshInfo.Frequency));
             }
             //SendBytesTo(toCOMip, MeshTcpConfigManager.GetChangeRateBytesCommand(656));
@@ -93,7 +93,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                 bytes[1] = 0x65;
                 bytes[2] = 0x73;
                 bytes[3] = 0x68;
-                bytes[4] = 0x66;
+                bytes[4] = 0x6c;
                 bytes[5] = (byte)(value);
                 bytes[7] = 0x0d;
                 bytes[8] = 0x0a;
