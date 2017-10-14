@@ -85,9 +85,13 @@ namespace HDDNCONIAMP.UI.Common
             /// </summary>
             public BMeshPoint BuddyBMeshPoint { get; set; }
             /// <summary>
-            /// 上次设备是否在线
+            /// 设备离线次数，如果大于3次，则将设备置为离线状态
             /// </summary>
-            public string LastIsOnline { get; set; }
+            public int OfflineCount { get; set; }
+            /// <summary>
+            /// 设备是否在线过
+            /// </summary>
+            public bool WasOnline { get; set; }
         }
 
         #endregion
@@ -570,7 +574,32 @@ namespace HDDNCONIAMP.UI.Common
         {
             string ip = (string)e.UserState;
             logger.Info(string.Format("Ping\"{0}\":{1}", ip, e.Reply.Status.ToString()));
-            doUpdateAdvTreeMeshList(ip, e.Reply.Status == IPStatus.Success ? "在线" : "离线");
+            MeshAllInfo mai = mMeshAllInfo.Find(m => m.DeviceInfo.IPV4 == ip);
+            if (mai != null)
+            {
+                string status = e.Reply.Status == IPStatus.Success ? "在线" : "离线";
+                if (status.Equals("离线"))
+                {
+                    //如果之前有在线过，3次以内如果没有ping到该设备，仍然认为该设备在线，否则不在线
+                    if (mai.WasOnline && mai.OfflineCount < 3)
+                    {
+                        status = "在线";
+                        mai.OfflineCount++;
+                        mai.WasOnline = true;
+                    }
+                    else
+                    {
+                        mai.OfflineCount = 0;
+                        mai.WasOnline = false;
+                    }
+                }
+                else
+                {
+                    mai.OfflineCount = 0;
+                    mai.WasOnline = true;
+                }
+                doUpdateAdvTreeMeshList(ip, status);
+            }
         }
 
         /// <summary>
@@ -601,10 +630,10 @@ namespace HDDNCONIAMP.UI.Common
                     if(mai != null)
                     {
                         mai.BuddyNode.Cells[1].Text = args[0].ToString();
-                        mai.BuddyNode.Cells[1].StyleNormal.TextColor = args[0].ToString().Equals("离线") ? Color.Gray : Color.Black;
-                        mai.BuddyNode.Cells[1].StyleNormal.Font = args[0].ToString().Equals("离线") ? new Font("宋体", 9, FontStyle.Regular) : new Font("宋体", 9, FontStyle.Bold);
+                        mai.BuddyNode.Cells[1].StyleNormal.TextColor = args[0].ToString().Equals("在线") ? Color.Black : Color.Gray;
+                        mai.BuddyNode.Cells[1].StyleNormal.Font = args[0].ToString().Equals("在线") ? new Font("宋体", 9, FontStyle.Bold) : new Font("宋体", 9, FontStyle.Regular);
                         mai.BuddyNode.Cells[2].Images.ImageIndex = args[0].ToString().Equals("在线") && args.Length == 2 ? 10 : 9;
-                        mai.BuddyNode.Cells[3].Images.ImageIndex = args[0].ToString().Equals("离线") ? 11 : 12;
+                        mai.BuddyNode.Cells[3].Images.ImageIndex = args[0].ToString().Equals("在线") ? 12 : 11;
                     }
                     advTreeMeshList.EndUpdate();
                 }
@@ -690,7 +719,8 @@ namespace HDDNCONIAMP.UI.Common
                                 Expiration = 30 * 1000,
                                 ReceiveGPSDT = DateTime.Now
                             },
-                            LastIsOnline = "离线"
+                            OfflineCount = 0,
+                            WasOnline = false
                         };
                         //添加进列表
                         mMeshAllInfo.Add(nodeMAI);
