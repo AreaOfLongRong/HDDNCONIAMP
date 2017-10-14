@@ -1697,7 +1697,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             try
             {
                 //数字校验
-                //功率 10-30
+                //功率 10-33
                 int itx = slider1.Value;
                 //频率 616-656
                 int irate = slider2.Value;
