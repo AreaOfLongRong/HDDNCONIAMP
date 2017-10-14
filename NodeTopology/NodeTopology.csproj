@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="ARPItem.cs" />
     <Compile Include="ARPList.cs" />
+    <Compile Include="BindwidthCommandHelper.cs" />
     <Compile Include="BlockNodes.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="Drawing.cs">

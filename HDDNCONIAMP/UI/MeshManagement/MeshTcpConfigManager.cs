@@ -1,5 +1,6 @@
 ﻿using HDDNCONIAMP.DB;
 using HDDNCONIAMP.DB.Model;
+using NodeTopology;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +36,8 @@ namespace HDDNCONIAMP.UI.MeshManagement
             {
                 //TODO:是否考虑启动时即设置频率
                 SendBytesTo(toCOMip, MeshTcpConfigManager.GetChangePowerBytesCommand((int)meshInfo.Power));
-                SendBytesTo(toCOMip, MeshTcpConfigManager.GetChangeRateBytesCommand((int)meshInfo.Frequency));
+                SendBytesTo(toCOMip, MeshTcpConfigManager.GetChangeRateBytesCommand((int)meshInfo.Frequency,(int)meshInfo.BandWidth));
+               // BindwidthCommandHelper.ChangeBindwidth(plan.MeshIP, (int)meshInfo.BandWidth);
             }
             //SendBytesTo(toCOMip, MeshTcpConfigManager.GetChangeRateBytesCommand(656));
            // SendBytesTo(toCOMip, MeshTcpConfigManager.GetChangeRateBytesCommand(616));
@@ -95,8 +97,8 @@ namespace HDDNCONIAMP.UI.MeshManagement
                 bytes[3] = 0x68;
                 bytes[4] = 0x6c;
                 bytes[5] = (byte)(value);
-                bytes[7] = 0x0d;
-                bytes[8] = 0x0a;
+                bytes[6] = 0x0d;
+                bytes[7] = 0x0a;
                 return bytes;
             }
             return null;
