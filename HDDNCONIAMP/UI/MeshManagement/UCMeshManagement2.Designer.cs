@@ -30,15 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCMeshManagement2));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.superTabControlMain = new DevComponents.DotNetBar.SuperTabControl();
             this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.groupPanel2 = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.drawPanel = new NodeTopology.MyPanel();
             this.groupPanel3 = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.tableLayoutPanelMeshParameters = new System.Windows.Forms.TableLayoutPanel();
-            this.labelX5 = new DevComponents.DotNetBar.LabelX();
             this.slider3 = new DevComponents.DotNetBar.Controls.Slider();
             this.slider2 = new DevComponents.DotNetBar.Controls.Slider();
             this.labelX3 = new DevComponents.DotNetBar.LabelX();
@@ -47,7 +46,6 @@
             this.ipAddressInputMeshIP = new DevComponents.Editors.IpAddressInput();
             this.slider1 = new DevComponents.DotNetBar.Controls.Slider();
             this.labelX4 = new DevComponents.DotNetBar.LabelX();
-            this.progressBarXMeshPower = new DevComponents.DotNetBar.Controls.ProgressBarX();
             this.buttonX1 = new DevComponents.DotNetBar.ButtonX();
             this.groupPanel1 = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.treeView1 = new System.Windows.Forms.TreeView();
@@ -288,7 +286,6 @@
             this.tableLayoutPanelMeshParameters.ColumnCount = 2;
             this.tableLayoutPanelMeshParameters.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanelMeshParameters.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelMeshParameters.Controls.Add(this.labelX5, 0, 4);
             this.tableLayoutPanelMeshParameters.Controls.Add(this.slider3, 1, 3);
             this.tableLayoutPanelMeshParameters.Controls.Add(this.slider2, 1, 2);
             this.tableLayoutPanelMeshParameters.Controls.Add(this.labelX3, 0, 2);
@@ -297,7 +294,6 @@
             this.tableLayoutPanelMeshParameters.Controls.Add(this.ipAddressInputMeshIP, 1, 0);
             this.tableLayoutPanelMeshParameters.Controls.Add(this.slider1, 1, 1);
             this.tableLayoutPanelMeshParameters.Controls.Add(this.labelX4, 0, 3);
-            this.tableLayoutPanelMeshParameters.Controls.Add(this.progressBarXMeshPower, 1, 4);
             this.tableLayoutPanelMeshParameters.Controls.Add(this.buttonX1, 0, 5);
             this.tableLayoutPanelMeshParameters.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelMeshParameters.Location = new System.Drawing.Point(0, 0);
@@ -313,20 +309,6 @@
             this.tableLayoutPanelMeshParameters.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
             this.tableLayoutPanelMeshParameters.Size = new System.Drawing.Size(238, 402);
             this.tableLayoutPanelMeshParameters.TabIndex = 0;
-            // 
-            // labelX5
-            // 
-            this.labelX5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            // 
-            // 
-            // 
-            this.labelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX5.Location = new System.Drawing.Point(3, 245);
-            this.labelX5.Name = "labelX5";
-            this.labelX5.Size = new System.Drawing.Size(54, 23);
-            this.labelX5.TabIndex = 8;
-            this.labelX5.Text = "电量：";
-            this.labelX5.TextAlignment = System.Drawing.StringAlignment.Far;
             // 
             // slider3
             // 
@@ -461,18 +443,6 @@
             this.labelX4.TabIndex = 5;
             this.labelX4.Text = "带宽：\r\n(MB)";
             this.labelX4.TextAlignment = System.Drawing.StringAlignment.Far;
-            // 
-            // progressBarXMeshPower
-            // 
-            this.progressBarXMeshPower.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            // 
-            // 
-            // 
-            this.progressBarXMeshPower.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.progressBarXMeshPower.Location = new System.Drawing.Point(63, 245);
-            this.progressBarXMeshPower.Name = "progressBarXMeshPower";
-            this.progressBarXMeshPower.Size = new System.Drawing.Size(172, 23);
-            this.progressBarXMeshPower.TabIndex = 9;
             // 
             // buttonX1
             // 
@@ -1086,14 +1056,14 @@
             this.dataGridViewXMeshPlan.AllowUserToAddRows = false;
             this.dataGridViewXMeshPlan.AllowUserToDeleteRows = false;
             this.dataGridViewXMeshPlan.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewXMeshPlan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewXMeshPlan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewXMeshPlan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewXMeshPlan.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID,
@@ -1104,14 +1074,14 @@
             this.Model265IP,
             this.ColumnTCPToCOMIP,
             this.HKVideoIP});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewXMeshPlan.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewXMeshPlan.DefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewXMeshPlan.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewXMeshPlan.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dataGridViewXMeshPlan.Location = new System.Drawing.Point(3, 33);
@@ -1481,7 +1451,6 @@
         private DevComponents.DotNetBar.ButtonItem buttonItemMPSearch;
         private DevComponents.DotNetBar.Controls.GroupPanel groupPanel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelMeshParameters;
-        private DevComponents.DotNetBar.LabelX labelX5;
         private DevComponents.DotNetBar.Controls.Slider slider3;
         private DevComponents.DotNetBar.Controls.Slider slider2;
         private DevComponents.DotNetBar.LabelX labelX3;
@@ -1490,7 +1459,6 @@
         private DevComponents.Editors.IpAddressInput ipAddressInputMeshIP;
         private DevComponents.DotNetBar.Controls.Slider slider1;
         private DevComponents.DotNetBar.LabelX labelX4;
-        private DevComponents.DotNetBar.Controls.ProgressBarX progressBarXMeshPower;
         private DevComponents.DotNetBar.ButtonX buttonX1;
         private DevComponents.DotNetBar.Controls.GroupPanel groupPanel1;
         private System.Windows.Forms.TreeView treeView1;

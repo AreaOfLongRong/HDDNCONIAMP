@@ -404,19 +404,24 @@ namespace HDDNCONIAMP.UI.MeshManagement
                     tn.sendData("bandwidth");
                     recvStr = tn.recvDataWaitWord("MHz", 1);
                     TheNode.BandWidth = (cacheNode != null) ? cacheNode.BandWidth : double.Parse(recvStr.Replace("OK\n#user@/>", "").Replace("MHz", ""));
-
-                    MeshNode cacheNod = new MeshNode();
-                    cacheNod.IpAddress = TheNode.IpAddress;
-                    cacheNod.Frequency = TheNode.Frequency;
-                    cacheNod.BandWidth = TheNode.BandWidth;
-                    cacheNod.TxPower = TheNode.TxPower;
-                    cacheNod.Battery = TheNode.Battery;
+                    
                     if (hashTable.ContainsKey(needInfoNode))
                     {
+                        MeshNode cacheNod = (MeshNode)hashTable[needInfoNode];
+                        cacheNod.BandWidth = TheNode.BandWidth;
                         hashTable[needInfoNode] = cacheNod;
                     }
                     else
                     {
+                        MeshDeviceInfo meshInfo = SQLiteHelper.GetInstance().MeshDeviceInfoQueryByIP(TheNode.IpAddress);
+
+                        MeshNode cacheNod = new MeshNode();
+                        cacheNod.IpAddress = TheNode.IpAddress;
+                        cacheNod.Frequency = (double)meshInfo.Frequency;
+                        cacheNod.BandWidth = TheNode.BandWidth;
+                        cacheNod.TxPower = (double)meshInfo.Power;
+                        cacheNod.Battery = (double)meshInfo.Battery;
+
                         hashTable.Add(needInfoNode, cacheNod);
                     }
                     //Thread.Sleep(1);
@@ -1704,12 +1709,13 @@ namespace HDDNCONIAMP.UI.MeshManagement
                 //带宽 5-20
                 int ibindwidth = slider3.Value;
 
+                // 626-646
                 if (itx < 10 || itx > 33)
-                    throw new Exception();
-                if (irate < 616 || irate > 656)
-                    throw new Exception();
+                    throw new Exception("功率超出范围，请检查功率输入数据");
+                if (irate < 626 - ibindwidth/2 || irate> 646 + ibindwidth/2 )
+                    throw new Exception("频率无法覆盖，请检查带宽、频率输入数据");
                 if (ibindwidth < 5 || ibindwidth > 20)
-                    throw new Exception();
+                    throw new Exception("带宽超出范围，请检查带宽输入数据");
 
                 if (hashTable.Contains(name))
                 {
@@ -1730,7 +1736,8 @@ namespace HDDNCONIAMP.UI.MeshManagement
                     if (meshPlan != null)
                     {
                         meshTcpManager.SendBytesTo(meshPlan.TCPToCOMIP, MeshTcpConfigManager.GetChangePowerBytesCommand(itx));
-                        meshTcpManager.SendBytesTo(meshPlan.TCPToCOMIP, MeshTcpConfigManager.GetChangeRateBytesCommand(irate));
+                        meshTcpManager.SendBytesTo(meshPlan.TCPToCOMIP, MeshTcpConfigManager.GetChangeRateBytesCommand(irate,ibindwidth));
+                        BindwidthCommandHelper.ChangeBindwidth(meshPlan.MeshIP, ibindwidth);
                     }
                     MessageBox.Show("设置成功");
                 }
@@ -1738,7 +1745,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
             }
             catch (Exception ex)
             {
-                MessageBox.Show("数据输入有误，请检查输入数据");
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -1756,7 +1763,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                 sliderUpdateText(slider1);
                 sliderUpdateText(slider2);
                 sliderUpdateText(slider3);
-                progressBarXMeshPower.Value = (int)(info.Battery * 100);
+                //progressBarXMeshPower.Value = (int)(info.Battery * 100);
             }
             else
             {
