@@ -282,9 +282,7 @@
     <EmbeddedResource Include="UI\UserSettings\UCUserSettings.resx">
       <DependentUpon>UCUserSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="DB\HDDNCONIAMP.db3">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="DB\HDDNCONIAMP.db3" />
     <None Include="Documents\Help.docx" />
     <None Include="Documents\技术文档\GPS模块编程之NMEA0183协议.docx" />
     <None Include="Documents\软件开发进度表.xlsx" />

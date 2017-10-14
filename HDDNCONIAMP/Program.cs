@@ -41,8 +41,29 @@ namespace HDDNCONIAMP
             var logger = LogManager.GetLogger(typeof(Program));
             try
             {
-                logger.Info("启动程序...");
-                Application.Run(new FormMain());
+                FileInfo dbFile = new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DB\\HDDNCONIAMP.db3"));
+                if(dbFile.Exists)
+                {
+                    if(dbFile.Length > 0)
+                    {
+                        logger.Info("启动程序...");
+                        Application.Run(new FormMain());
+                    }
+                    else
+                    {
+                        string str = "数据库文件已损坏，无法正常启动程序！";
+                        logger.Info(str);
+                        MessageBox.Show(str, "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Application.Exit();
+                    }
+                }
+                else
+                {
+                    string str = "数据库文件缺失，无法正常启动程序！";
+                    logger.Info(str);
+                    MessageBox.Show(str, "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                }
             }
             catch(AccessViolationException ave) {
                 logger.Error(" 尝试读取或写入受保护的内存", ave);
