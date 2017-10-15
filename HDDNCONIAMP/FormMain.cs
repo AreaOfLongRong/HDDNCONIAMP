@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Net.NetworkInformation;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using BMap.NET;
 using DevComponents.DotNetBar;
@@ -51,6 +55,11 @@ namespace HDDNCONIAMP
         /// 获取或设置所有窗口视频进程
         /// </summary>
         public List<Process> VideoWindowProcesses { get; set; }
+
+        /// <summary>
+        /// 获取或设置网路监听管理器
+        /// </summary>
+        public NetworkListenerManage NLM { get; set; }
 
         #endregion
 
@@ -102,12 +111,16 @@ namespace HDDNCONIAMP
         /// </summary>
         private UCUserSettings ucUserSettings;
 
-        #endregion
-
         /// <summary>
-        /// 获取或设置网路监听管理器
+        /// 取消Token源
         /// </summary>
-        public NetworkListenerManage NLM { get; set; }
+        private CancellationTokenSource mCTS;
+        /// <summary>
+        /// 取消Token
+        /// </summary>
+        private CancellationToken mCT;
+
+        #endregion
 
         public FormMain()
         {
@@ -119,6 +132,10 @@ namespace HDDNCONIAMP
 
             VideoProcesses = new List<Process>();
             VideoWindowProcesses = new List<Process>();
+
+            mCTS = new CancellationTokenSource();
+            mCT = mCTS.Token;
+
         }
 
         /// <summary>
@@ -176,6 +193,10 @@ namespace HDDNCONIAMP
 
             //杀死视频进程
             KillAllVideoProcess();
+
+            //通知主窗体启动的线程
+            if (mCTS != null)
+                mCTS.Cancel();
 
             logger.Info("退出应用程序...");
         }
@@ -281,6 +302,10 @@ namespace HDDNCONIAMP
 
                 //更新主界面
                 OnRaiseUserLoginOroutEvent(this, new UserLoginOrOutEventArgs(CurrentUser, true));
+
+                //启动ping设备列表任务
+                Task.Factory.StartNew(() => PingMeshs(), mCT);
+
             }
             else
             {
@@ -385,7 +410,7 @@ namespace HDDNCONIAMP
                         }
                         tableLayoutPanelLogin.Visible = false;  //隐藏登陆界面
                         ucGISVideo.Visible = true;  //显示GIS定位视频界面
-                        
+
                         // 获取查找窗体句柄(通过窗体标题名)
                         IntPtr mainHandle = VideoInject.FindWindow(null, this.Text);
                         if (mainHandle != IntPtr.Zero)
@@ -504,6 +529,66 @@ namespace HDDNCONIAMP
                 }
             }
         }
+
+        
+        /// <summary>
+        /// Ping所有Mesh列表
+        /// </summary>
+        private void PingMeshs()
+        {
+            //ping频率，至少10秒以上。
+            int frequency = int.Parse(AllApplicationSetting[ApplicationSettingKey.MeshListRefreshFrequency]);
+            frequency = frequency >= 10 * 1000 ? frequency : 10 * 1000;
+            List<string> meshIPList = SQLiteHelper.GetInstance().MeshIPListQuery();
+            //循环Ping Mesh设备IP地址
+            while (true)
+            {
+                if (mCT.IsCancellationRequested)
+                {
+                    logger.Info("停止Ping扫描网络内Mesh设备。");
+                    return;
+                }
+
+                foreach (string ip in meshIPList)
+                {
+                    Ping ping = new Ping();
+                    PingOptions options = new PingOptions(64, true);
+                    byte[] buffer = Encoding.ASCII.GetBytes(ip);
+                    try
+                    {
+                        ping.SendAsync(ip, 5000, buffer, options, ip);
+                        ping.PingCompleted += Ping_PingCompleted; ;
+                    }
+                    catch (PingException pe)
+                    {
+                        logger.Error(string.Format("Ping {0}过程中发生异常:{1}", ip), pe);
+                    }
+                    finally
+                    {
+                        ping.Dispose();
+                    }
+                }
+                Thread.Sleep(frequency);
+            }
+        }
+
+        /// <summary>
+        /// Ping结束事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Ping_PingCompleted(object sender, PingCompletedEventArgs e)
+        {
+            //触发Mesh设备列表进行更新
+            string ip = (string)e.UserState;
+            logger.Info(string.Format("Ping\"{0}\":{1}", ip, e.Reply.Status.ToString()));
+            string status = e.Reply.Status == IPStatus.Success ? "在线" : "离线";
+            if (ucGISVideo != null)
+                ucGISVideo.UpdateMeshStatus(ip, status);
+            if (ucAudioVideoProcess != null)
+                ucAudioVideoProcess.UpdateMeshStatus(ip, status);
+        }
+
 
         #endregion
 

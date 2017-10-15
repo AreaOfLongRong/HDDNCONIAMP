@@ -7,6 +7,9 @@ namespace HDDNCONIAMP.UI.GISVideo
 {
     public partial class UCGISVideo : UserControl
     {
+        /// <summary>
+        /// Mesh设备列表控件
+        /// </summary>
         private UCMeshList2 ucMeshDeviceListMain;
 
         public UCGISVideo(FormMain main)
@@ -45,5 +48,15 @@ namespace HDDNCONIAMP.UI.GISVideo
 
         }
         
+        /// <summary>
+        /// 更新指定Mesh设备列表
+        /// </summary>
+        /// <param name="meshIp"></param>
+        /// <param name="status"></param>
+        public void UpdateMeshStatus(string meshIp, string status)
+        {
+            ucMeshDeviceListMain.UpdateMeshStatus(meshIp, status);
+        }
+
     }
 }

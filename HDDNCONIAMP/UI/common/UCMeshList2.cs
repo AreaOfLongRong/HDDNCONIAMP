@@ -129,9 +129,7 @@ namespace HDDNCONIAMP.UI.Common
             mFormMain.NLM.PGPSUDPListener.OnReceiveGPSInfo += PGPSUDPListener_OnReceiveGPSInfo;
 
             //视频转发按钮启用状态设置
-            buttonItemVideoTransfer.Visible = (BuddyGrid != null);
-
-            startTaskToRefreshMeshList();
+            buttonItemVideoTransfer.Visible = (BuddyGrid != null);            
         }
 
         /// <summary>
@@ -530,54 +528,17 @@ namespace HDDNCONIAMP.UI.Common
         {
             tableLayoutPanelMeshDeviceList.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshDeviceList, true, null);
         }
-
+        
         /// <summary>
-        /// 开始任务刷新Mesh设备在线状态
+        /// 更新Mesh设备状态
         /// </summary>
-        private void startTaskToRefreshMeshList()
+        /// <param name="meshIp">Mesh设备IP</param>
+        /// <param name="status">状态</param>
+        public void UpdateMeshStatus(string meshIp, string status)
         {
-            Task.Factory.StartNew(
-                () =>
-                {
-                    //ping频率，至少10秒以上。
-                    int frequency = int.Parse(mFormMain.AllApplicationSetting[ApplicationSettingKey.MeshListRefreshFrequency]);
-                    frequency = frequency >= 10 * 1000 ? frequency : 10 * 1000;
-
-                    while (!LifeTimeControl.closing)
-                    {
-                        foreach (MeshAllInfo item in mMeshAllInfo)
-                        {
-                            Ping myPing = new Ping();
-                            PingOptions options = new PingOptions(64, true);
-                            string ip = item.DeviceInfo.IPV4;
-                            byte[] buffer = Encoding.ASCII.GetBytes(ip);
-                            try
-                            {
-                                myPing.SendAsync(ip, 5000, buffer, options, ip);
-                                myPing.PingCompleted += MyPing_PingCompleted;
-                            }
-                            catch (PingException pe)
-                            {
-                                logger.Error(string.Format("Ping {0}过程中发生异常:{1}", ip), pe);
-                            }
-                            finally
-                            {
-                                myPing.Dispose();
-                            }
-                        }
-                        Thread.Sleep(frequency);
-                    }
-                });
-        }
-
-        private void MyPing_PingCompleted(object sender, PingCompletedEventArgs e)
-        {
-            string ip = (string)e.UserState;
-            logger.Info(string.Format("Ping\"{0}\":{1}", ip, e.Reply.Status.ToString()));
-            MeshAllInfo mai = mMeshAllInfo.Find(m => m.DeviceInfo.IPV4 == ip);
+            MeshAllInfo mai = mMeshAllInfo.Find(m => m.DeviceInfo.IPV4 == meshIp);
             if (mai != null)
             {
-                string status = e.Reply.Status == IPStatus.Success ? "在线" : "离线";
                 if (status.Equals("离线"))
                 {
                     //如果之前有在线过，3次以内如果没有ping到该设备，仍然认为该设备在线，否则不在线
@@ -598,7 +559,7 @@ namespace HDDNCONIAMP.UI.Common
                     mai.OfflineCount = 0;
                     mai.WasOnline = true;
                 }
-                doUpdateAdvTreeMeshList(ip, status);
+                doUpdateAdvTreeMeshList(meshIp, status);
             }
         }
 

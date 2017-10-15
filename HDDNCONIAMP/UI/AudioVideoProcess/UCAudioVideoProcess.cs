@@ -11,7 +11,9 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
     public partial class UCAudioVideoProcess : UserControl
     {
 
-        
+        /// <summary>
+        /// Mesh设备列表控件
+        /// </summary>
         private UCMeshList2 ucMeshDeviceListMain;
 
         public UCAudioVideoProcess(FormMain main)
@@ -48,10 +50,6 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
 
         }
         
-        private void ucGrid9Main_Load(object sender, EventArgs e)
-        {
-        }
-
         /// <summary>
         /// 重载Windows消息处理
         /// </summary>
@@ -65,5 +63,16 @@ namespace HDDNCONIAMP.UI.AudioVideoProcess
             }
             base.WndProc(ref m);
         }
+
+        /// <summary>
+        /// 更新指定Mesh设备列表
+        /// </summary>
+        /// <param name="meshIp"></param>
+        /// <param name="status"></param>
+        public void UpdateMeshStatus(string meshIp, string status)
+        {
+            ucMeshDeviceListMain.UpdateMeshStatus(meshIp, status);
+        }
+
     }
 }
