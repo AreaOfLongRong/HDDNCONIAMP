@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using log4net;
 using log4net.Config;
 using System.Diagnostics;
+using HDDNCONIAMP.Utils;
 
 namespace HDDNCONIAMP
 {
@@ -41,7 +42,21 @@ namespace HDDNCONIAMP
             var logger = LogManager.GetLogger(typeof(Program));
             try
             {
-                FileInfo dbFile = new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DB\\HDDNCONIAMP.db3"));
+                //查看是否存在视频进程ID文件，如果存在则删除
+                if (File.Exists(FileUtils.FILE_PROCESS_ID_PATH))
+                {
+                    try
+                    {
+                        File.Delete(FileUtils.FILE_PROCESS_ID_PATH);
+                        logger.Info("启动程序...");
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Error(string.Format("删除\"{0}\"文件出现异常：{1}", FileUtils.FILE_PROCESS_ID_PATH, ex.Message));
+                    }
+                }
+
+                FileInfo dbFile = new FileInfo(FileUtils.FILE_DB_PATH);
                 if(dbFile.Exists)
                 {
                     if(dbFile.Length > 0)

@@ -627,7 +627,7 @@ namespace HDDNCONIAMP.UI.Common
                 {
                     advTreeMeshList.BeginUpdate();
                     MeshAllInfo mai = mMeshAllInfo.Find(m => m.DeviceInfo.IPV4 == ip);
-                    if(mai != null)
+                    if (mai != null)
                     {
                         mai.BuddyNode.Cells[1].Text = args[0].ToString();
                         mai.BuddyNode.Cells[1].StyleNormal.TextColor = args[0].ToString().Equals("在线") ? Color.Black : Color.Gray;
@@ -745,14 +745,29 @@ namespace HDDNCONIAMP.UI.Common
         private void onSearchMeshDevice()
         {
             string searchText = textBoxXSearch.Text.Trim();
-            foreach (DevComponents.AdvTree.Node group in advTreeMeshList.Nodes)
+            foreach (Node group in advTreeMeshList.Nodes)
             {
-                foreach (DevComponents.AdvTree.Node device in group.Nodes)
+                bool groupVidible = false;
+                foreach (Node device in group.Nodes)
                 {
+                    //设置设备节点的可见性
                     if (searchText.Length > 0)
                         device.Visible = device.Text.Contains(searchText);
                     else
                         device.Visible = true;
+                    groupVidible |= device.Visible;  //处理分组节点的可见性
+                }
+                if (group.Text.Contains(searchText))
+                {
+                    group.Visible = true;
+                    foreach (Node device in group.Nodes)
+                    {
+                        device.Visible = true;
+                    }
+                }
+                else
+                {
+                    group.Visible = groupVidible;
                 }
             }
         }

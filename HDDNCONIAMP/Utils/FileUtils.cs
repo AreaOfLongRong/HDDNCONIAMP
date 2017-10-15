@@ -21,6 +21,16 @@ namespace HDDNCONIAMP.Utils
         public static string HELP_CHM_PATH = AppDomain.CurrentDomain.BaseDirectory + "Help.chm";
 
         /// <summary>
+        /// 用于处理视频全屏时切换处理时通信的进程ID文件路径
+        /// </summary>
+        public static string FILE_PROCESS_ID_PATH = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SamplePlayClient\\processId.txt");
+
+        /// <summary>
+        /// 数据库文件路径
+        /// </summary>
+        public static string FILE_DB_PATH = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DB\\HDDNCONIAMP.db3");
+
+        /// <summary>
         /// 视频转发服务EXE路径
         /// </summary>
         public static string VIDEO_TRANSFER_SERVER_EXE_PATH = AppDomain.CurrentDomain.BaseDirectory + "UDPBroadcastServer.exe";
@@ -96,6 +106,13 @@ namespace HDDNCONIAMP.Utils
             return sb.ToString();
         }
 
+        /// <summary>
+        /// 从GPS日志文件中读取Mesh设备轨迹
+        /// </summary>
+        /// <param name="model265ID">265模块ID</param>
+        /// <param name="startDT">开始时间</param>
+        /// <param name="stopDT">结束时间</param>
+        /// <returns></returns>
         public static BMeshRoute ReadMeshRouteFromGPSLogs(string model265ID, DateTime startDT, DateTime stopDT)
         {
             BMeshRoute bmr = new BMeshRoute();
@@ -124,6 +141,25 @@ namespace HDDNCONIAMP.Utils
                 tempDT = tempDT.AddDays(1);
             }
             return bmr;
+        }
+
+        /// <summary>
+        /// 从“processId.txt”文件中读取全屏视频的进程ID
+        /// </summary>
+        /// <returns>全屏视频的进程ID</returns>
+        public static string ReadFullScreenVideoProcessID()
+        {
+            if (File.Exists(FILE_PROCESS_ID_PATH))
+            {
+                using(StreamReader sr = new StreamReader(FILE_PROCESS_ID_PATH))
+                {
+                    return sr.ReadLine();
+                }
+            }
+            else
+            {
+                return null;
+            }
         }
 
     }

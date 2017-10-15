@@ -91,7 +91,7 @@ namespace HDDNCONIAMP
         /// 音视频综合处理控件
         /// </summary>
         private UCAudioVideoProcess ucAudioVideoProcess;
-        
+
         /// <summary>
         /// Mesh设备管理控件
         /// </summary>
@@ -144,7 +144,7 @@ namespace HDDNCONIAMP
             logger.Info("开启监听...");
             NLM = new NetworkListenerManage();
             NLM.Start();
-            
+
             //注册用户登陆/登出事件处理
             OnUserLoginOrOutEventHandler += FormMain_OnUserLoginOrOutEventHandler;
 
@@ -385,6 +385,14 @@ namespace HDDNCONIAMP
                         }
                         tableLayoutPanelLogin.Visible = false;  //隐藏登陆界面
                         ucGISVideo.Visible = true;  //显示GIS定位视频界面
+                        
+                        // 获取查找窗体句柄(通过窗体标题名)
+                        IntPtr mainHandle = VideoInject.FindWindow(null, this.Text);
+                        if (mainHandle != IntPtr.Zero)
+                        {
+                            //通过句柄设置当前窗体置顶
+                            VideoInject.SetForegroundWindow(mainHandle);
+                        }
                     }
                     break;
                 case OpenUCType.OpenAudioVideoProcess:
@@ -398,6 +406,14 @@ namespace HDDNCONIAMP
                             ucAudioVideoProcess.Dock = DockStyle.Fill;
                             superTabControlPanelAudioVideoProcess.Controls.Clear();  //清空所有控件
                             superTabControlPanelAudioVideoProcess.Controls.Add(ucAudioVideoProcess);
+                        }
+
+                        //如果存在已经打开的全屏视频，则继续恢复该全屏视频
+                        string fullScreenVideoProcessID = FileUtils.ReadFullScreenVideoProcessID();
+                        if (fullScreenVideoProcessID != null)
+                        {
+                            //通过句柄设置当前窗体置顶
+                            VideoInject.SetForegroundWindow(Process.GetProcessById(int.Parse(fullScreenVideoProcessID)).MainWindowHandle);
                         }
                     }
                     break;
@@ -463,7 +479,7 @@ namespace HDDNCONIAMP
         /// </summary>
         private void KillAllVideoProcess()
         {
-            if(VideoProcesses != null)
+            if (VideoProcesses != null)
             {
                 foreach (Process p in VideoProcesses)
                 {
@@ -472,7 +488,7 @@ namespace HDDNCONIAMP
                     {
                         p.Kill();
                         p.WaitForExit();
-                    }                    
+                    }
                 }
             }
             if (VideoWindowProcesses != null)
