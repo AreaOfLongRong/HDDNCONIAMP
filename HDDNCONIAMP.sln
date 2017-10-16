@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TcpClientTest", "TcpClientT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UDPBroadcastServer", "UDPBroadcastServer\UDPBroadcastServer.csproj", "{95C834F7-3427-410A-A3CE-F98A76891CD9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SamplePlayClient", "SamplePlayClient_VS2005\SamplePlayClient\SamplePlayClient.vcxproj", "{064E8713-505B-477A-B3C3-B86C7D8009C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -132,6 +134,14 @@ Global
 		{95C834F7-3427-410A-A3CE-F98A76891CD9}.Release|x64.Build.0 = Release|Any CPU
 		{95C834F7-3427-410A-A3CE-F98A76891CD9}.Release|x86.ActiveCfg = Release|Any CPU
 		{95C834F7-3427-410A-A3CE-F98A76891CD9}.Release|x86.Build.0 = Release|Any CPU
+		{064E8713-505B-477A-B3C3-B86C7D8009C4}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{064E8713-505B-477A-B3C3-B86C7D8009C4}.Debug|x64.ActiveCfg = Debug|Win32
+		{064E8713-505B-477A-B3C3-B86C7D8009C4}.Debug|x86.ActiveCfg = Debug|Win32
+		{064E8713-505B-477A-B3C3-B86C7D8009C4}.Debug|x86.Build.0 = Debug|Win32
+		{064E8713-505B-477A-B3C3-B86C7D8009C4}.Release|Any CPU.ActiveCfg = Release|Win32
+		{064E8713-505B-477A-B3C3-B86C7D8009C4}.Release|x64.ActiveCfg = Release|Win32
+		{064E8713-505B-477A-B3C3-B86C7D8009C4}.Release|x86.ActiveCfg = Release|Win32
+		{064E8713-505B-477A-B3C3-B86C7D8009C4}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
