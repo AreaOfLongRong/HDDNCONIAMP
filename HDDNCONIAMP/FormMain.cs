@@ -165,6 +165,9 @@ namespace HDDNCONIAMP
             //注册用户登陆/登出事件处理
             OnUserLoginOrOutEventHandler += FormMain_OnUserLoginOrOutEventHandler;
 
+            //杀死视频进程
+            KillAllVideoProcess();
+
         }
 
         /// <summary>
@@ -536,9 +539,22 @@ namespace HDDNCONIAMP
                     }
                 }
             }
+            Process[] ps = Process.GetProcesses();
+            foreach (Process p in ps)
+            {
+                if (p.ProcessName.Contains("SamplePlayClient"))
+                {
+                    logger.Info("关闭窗体进程“" + p.Id + "”");
+                    if (!p.HasExited)
+                    {
+                        p.Kill();
+                        p.WaitForExit();
+                    }
+                }
+            }
         }
 
-        
+
         /// <summary>
         /// Ping所有Mesh列表
         /// </summary>

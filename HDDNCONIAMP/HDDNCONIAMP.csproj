@@ -234,6 +234,7 @@
     <Compile Include="Utils\LifeTimeControl.cs" />
     <Compile Include="Utils\NetUtils.cs" />
     <Compile Include="Utils\PathUtils.cs" />
+    <Compile Include="Utils\ScreenUtils.cs" />
     <Compile Include="Utils\VideoInject.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

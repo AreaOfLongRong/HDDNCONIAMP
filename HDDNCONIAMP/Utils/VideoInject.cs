@@ -73,7 +73,7 @@ namespace HDDNCONIAMP.Utils
         /// 窗口句柄
         /// </summary>
         IntPtr appWin;
-        
+
         /// <summary>
         /// 视频宽高比
         /// </summary>
@@ -103,12 +103,12 @@ namespace HDDNCONIAMP.Utils
         /// 面板进程
         /// </summary>
         private Process _panelProcess;
-        
+
         /// <summary>
         /// 查看视频EXE路径
         /// </summary>
         private string mVideoExePath;
-        
+
         public VideoInject(string videoServerIP, string userName, string password)
         {
             appWin = IntPtr.Zero;
@@ -134,8 +134,10 @@ namespace HDDNCONIAMP.Utils
             int screenHeight = Screen.PrimaryScreen.Bounds.Height;
             psi.Arguments = string.Format("{0} {1} {2} {3} 1 0 0 0 {4} {5} 0 0 {6} {7}",
                 mVideoServerIP, mVideoServerUserName, mVideoServerUserName,
-                deviceID, (int)(500 * ratio), 500, screenWidth, screenHeight);
-            
+                deviceID, (int)(500 * ratio), 500, 
+                screenWidth * ScreenUtils.ScaleX, 
+                screenHeight * ScreenUtils.ScaleY);
+
             _windowProcess = new Process();
             _windowProcess.StartInfo = psi;
             _windowProcess.EnableRaisingEvents = true;
@@ -166,8 +168,10 @@ namespace HDDNCONIAMP.Utils
                 mVideoServerIP, mVideoServerUserName, mVideoServerUserName,
                 deviceID, isFullScreen,
                 panel.Width, panel.Height,
-                fullScreenLocation.X, fullScreenLocation.Y,
-                fullScreenPanel.Width, fullScreenPanel.Height);
+                ScreenUtils.ScaleX * fullScreenLocation.X, 
+                ScreenUtils.ScaleY * fullScreenLocation.Y,
+                ScreenUtils.ScaleX * (fullScreenPanel.Width + 6), 
+                ScreenUtils.ScaleY * (fullScreenPanel.Height + 8));
 
             _panelProcess = new Process();
             _panelProcess.StartInfo = psi;
@@ -214,12 +218,12 @@ namespace HDDNCONIAMP.Utils
 
         private void _process_Exited(object sender, EventArgs e)
         {
-            if(_windowProcess != null && !_windowProcess.HasExited)
+            if (_windowProcess != null && !_windowProcess.HasExited)
             {
                 _windowProcess.Kill();
                 _windowProcess.WaitForExit();
             }
-            if(_panelProcess != null && !_panelProcess.HasExited)
+            if (_panelProcess != null && !_panelProcess.HasExited)
             {
                 _panelProcess.Kill();
                 _panelProcess.WaitForExit();
