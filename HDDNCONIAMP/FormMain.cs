@@ -210,10 +210,7 @@ namespace HDDNCONIAMP
         /// <param name="e"></param>
         public void OnRaiseUserLoginOroutEvent(object sender, UserLoginOrOutEventArgs e)
         {
-            if (OnUserLoginOrOutEventHandler != null)
-            {
-                OnUserLoginOrOutEventHandler(sender, e);
-            }
+            OnUserLoginOrOutEventHandler?.Invoke(sender, e);
         }
 
         public Point GetVideoFullScreenLocation()
@@ -451,6 +448,7 @@ namespace HDDNCONIAMP
                         {
                             ucMeshManagement2 = new UCMeshManagement2(this);
                             ucMeshManagement2.Dock = DockStyle.Fill;
+                            ucMeshManagement2.OnMeshDeviceInfoModeified += UcMeshManagement2_OnMeshDeviceInfoModeified;
                             superTabControlPanelMeshManagement.Controls.Clear();  //清空所有控件
                             superTabControlPanelMeshManagement.Controls.Add(ucMeshManagement2);
                         }
@@ -472,6 +470,16 @@ namespace HDDNCONIAMP
                     }
                     break;
             }
+        }
+
+        /// <summary>
+        /// 更新Mesh设备信息事件
+        /// </summary>
+        /// <param name="mdi">Mesh设备信息</param>
+        private void UcMeshManagement2_OnMeshDeviceInfoModeified(MeshDeviceInfo mdi)
+        {
+            if (ucGISVideo != null)
+                ucGISVideo.UpdateMeshDeviceInfo(mdi);
         }
 
         /// <summary>

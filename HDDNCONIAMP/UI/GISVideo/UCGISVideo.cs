@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
+using HDDNCONIAMP.DB.Model;
 using HDDNCONIAMP.UI.Common;
 using HDDNCONIAMP.Utils;
 
@@ -56,6 +57,16 @@ namespace HDDNCONIAMP.UI.GISVideo
         public void UpdateMeshStatus(string meshIp, string status)
         {
             ucMeshDeviceListMain.UpdateMeshStatus(meshIp, status);
+        }
+
+
+        /// <summary>
+        /// 更新Mesh设备信息
+        /// </summary>
+        /// <param name="mdi">Mesh设备信息</param>
+        public void UpdateMeshDeviceInfo(MeshDeviceInfo mdi)
+        {
+            ucMeshDeviceListMain.UpdateMeshDeviceInfo(mdi);
         }
 
     }

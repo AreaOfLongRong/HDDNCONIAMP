@@ -564,6 +564,24 @@ namespace HDDNCONIAMP.UI.Common
         }
 
         /// <summary>
+        /// 更新Mesh设备信息
+        /// </summary>
+        /// <param name="mdi">Mesh设备信息</param>
+        public void UpdateMeshDeviceInfo(MeshDeviceInfo mdi)
+        {
+            MeshAllInfo mai = mMeshAllInfo.Find(m => m.DeviceInfo.IPV4.Equals(mdi.IPV4));
+            if(mai != null)
+            {
+                mai.DeviceInfo.Frequency = mdi.Frequency;
+                mai.DeviceInfo.Power = mdi.Power;
+                mai.DeviceInfo.BandWidth = mdi.BandWidth;
+                mai.BuddyBMeshPoint.Frequency = mdi.Frequency;
+                mai.BuddyBMeshPoint.Power = mdi.Power;
+                mai.BuddyBMeshPoint.BandWidth = mdi.BandWidth;
+            }
+        }
+
+        /// <summary>
         /// 异步更新Mesh设备列表树委托
         /// </summary>
         /// <param name="ip">Mesh设备IP地址</param>

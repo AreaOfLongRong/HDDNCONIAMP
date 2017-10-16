@@ -112,6 +112,21 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
         #endregion
 
+        #region 事件
+
+        /// <summary>
+        /// Mesh设备信息修改事件
+        /// </summary>
+        /// <param name="mdi">更新后的Mesh设备信息</param>
+        public delegate void MeshDeviceInfoModified(MeshDeviceInfo mdi);
+
+        /// <summary>
+        /// Mesh设备信息修改事件
+        /// </summary>
+        public event MeshDeviceInfoModified OnMeshDeviceInfoModeified;
+
+        #endregion
+
         public UCMeshManagement2(FormMain formMain)
         {
             InitializeComponent();
@@ -1740,6 +1755,17 @@ namespace HDDNCONIAMP.UI.MeshManagement
                         BindwidthCommandHelper.ChangeBindwidth(meshPlan.MeshIP, ibindwidth);
                     }
                     MessageBox.Show("设置成功");
+
+                    //Z-20171016:添加Mesh设备参数修改后的事件通知
+                    OnMeshDeviceInfoModeified?.Invoke(meshInfo);
+                    //Z-20171016:添加Mesh设备参数修改后，对拓扑列表中设备信息的修改。
+                    MeshNode mn = ShowBlockNodes.Nodelist.Find(m => m.IpAddress.Equals(meshInfo.IPV4));
+                    if(mn!=null)
+                    {
+                        mn.Frequency = (double)meshInfo.Frequency;
+                        mn.TxPower = (double)meshInfo.Power;
+                        mn.BandWidth = (double)meshInfo.BandWidth;
+                    }
                 }
 
             }

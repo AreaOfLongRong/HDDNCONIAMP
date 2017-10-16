@@ -146,12 +146,12 @@ namespace BMap.NET.WindowsForm.BMapElements
             sb.AppendLine("分   组：" + (GroupName == null ? "默认分组" : GroupName));
             sb.AppendLine("别   名：" + (Alias == null ? IPV4 : Alias));
             sb.AppendLine("IP 地址：" + IPV4);
-            sb.AppendLine("功   率：" + Power + "W");
+            sb.AppendLine("功   率：" + Power + "dbm");
             sb.AppendLine("频   率：" + Frequency + "MHz");
-            sb.AppendLine("带   宽：" + BandWidth + "Mb");
-            sb.AppendLine("电   压：" + Battery + "V");
+            sb.AppendLine("带   宽：" + BandWidth + "MB");
+            //sb.AppendLine("电   压：" + Battery + "V");
             sb.AppendLine(Location.ToString());
-            sb.AppendLine("状   态：" + (IsOnline ? "在线" : "离线"));
+            //sb.AppendLine("状   态：" + (IsOnline ? "在线" : "离线"));
             return sb.ToString();
         }
     }
