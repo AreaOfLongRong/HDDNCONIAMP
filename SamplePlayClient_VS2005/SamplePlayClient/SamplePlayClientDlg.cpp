@@ -5,6 +5,9 @@
 #include "SamplePlayClient.h"
 #include "SamplePlayClientDlg.h"
 #include "ControlCommand.h"
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
 
 //add this definition to use the server-oriented functions.
 #define MODE_NETWORK_SERVER 
@@ -95,6 +98,17 @@ BOOL CSamplePlayClientDlg::OnInitDialog()
 			*(strrchr(filePath, '\\')) = '\0';   // 删除文件名，只留下目录
 
 			strcat(filePath, "\\processId.txt");
+
+			fstream examplefile(filePath);
+			if (examplefile.is_open())
+			{
+				DWORD pid;
+				examplefile >> pid;
+				HANDLE process = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pid);
+				TerminateProcess(process, 4);
+			}
+			examplefile.close();
+
 			remove(filePath);
 
 			FILE *f = fopen(filePath, "w+");
