@@ -124,7 +124,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
         /// Mesh设备信息修改事件
         /// </summary>
         public event MeshDeviceInfoModified OnMeshDeviceInfoModeified;
-
+        
         #endregion
 
         public UCMeshManagement2(FormMain formMain)
@@ -1828,7 +1828,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
         }
 
         /// <summary>
-        /// 预案管理
+        /// 预案分组管理
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1841,9 +1841,15 @@ namespace HDDNCONIAMP.UI.MeshManagement
                 comboBoxExMPMGroupName.Items.Clear();
                 initComboxExMPMGroupName();
                 comboBoxExMPMGroupName.EndUpdate();
+                buttonItemRestart.Enabled = true;
             }
         }
 
+        /// <summary>
+        /// 删除Mesh预案
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonItemMPMDelete_Click(object sender, EventArgs e)
         {
             if (dataGridViewXMeshPlan.SelectedRows != null)
@@ -1860,6 +1866,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                         logger.Info("成功删除Mesh设备IP为“" + meshIP + "”的预案");
                         MessageBox.Show("删除成功!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         updateMeshPlanTable();
+                        buttonItemRestart.Enabled = true;
                     }
                     else
                     {
@@ -1897,13 +1904,13 @@ namespace HDDNCONIAMP.UI.MeshManagement
                     mdi.GroupName = mpm.GroupName;
                     mdi.Alias = mpm.Alias;
                     mdi.IPV4 = mpm.MeshIP;
-                    mdi.Power = 15;
+                    mdi.Power = 33;
                     mdi.Frequency = 616;
                     mdi.BandWidth = 20;
                     mdi.Battery = 0;
                     SQLiteHelper.GetInstance().MeshDeviceInfoInsert(mdi);
-
                     logger.Info("插入新的预案：" + mpm.ToString());
+                    buttonItemRestart.Enabled = true;
                     break;
                 case MeshPlanOperatorType.Edit:
                     MeshPlanManage mpm2 = new MeshPlanManage();
@@ -1921,6 +1928,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                         MessageBox.Show("修改成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         logger.Info("修改预案：" + mpm2.ToString());
                     }
+                    buttonItemRestart.Enabled = true;
                     break;
             }
             updateMeshPlanTable();
@@ -2045,7 +2053,21 @@ namespace HDDNCONIAMP.UI.MeshManagement
                 }
             }
         }
+        /// <summary>
+        /// 重新登录软件以使预案更改生效
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonItemRestart_Click(object sender, EventArgs e)
+        {
+            mFormMain.OnRaiseUserLoginOroutEvent(this, 
+                new HDDNCONIAMP.Events.UserLoginOrOutEventArgs(mFormMain.CurrentUser, false));
+        }
 
+
+        /// <summary>
+        /// 预案操作类型枚举
+        /// </summary>
         private enum MeshPlanOperatorType
         {
             /// <summary>
@@ -2061,7 +2083,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
             /// </summary>
             Delete
         }
-
         #endregion
 
         #region 基本配置事件处理

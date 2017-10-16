@@ -89,7 +89,7 @@ namespace HDDNCONIAMP
         /// <summary>
         /// 程序截止日期
         /// </summary>
-        private DateTime DEADLINE = new DateTime(2017, 10, 16);
+        private DateTime DEADLINE = new DateTime(2017, 10, 17);
 
         /// <summary>
         /// GIS定位关联视频控件
@@ -605,7 +605,8 @@ namespace HDDNCONIAMP
         {
             //触发Mesh设备列表进行更新
             string ip = (string)e.UserState;
-            logger.Info(string.Format("Ping\"{0}\":{1}", ip, e.Reply.Status.ToString()));
+            if (e.Reply.Status == IPStatus.Success)
+                logger.Info(string.Format("Ping\"{0}\":{1}", ip, e.Reply.Status.ToString()));
             string status = e.Reply.Status == IPStatus.Success ? "在线" : "离线";
             if (ucGISVideo != null)
                 ucGISVideo.UpdateMeshStatus(ip, status);

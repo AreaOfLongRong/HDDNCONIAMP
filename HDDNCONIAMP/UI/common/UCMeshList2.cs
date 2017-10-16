@@ -132,6 +132,8 @@ namespace HDDNCONIAMP.UI.Common
             buttonItemVideoTransfer.Visible = (BuddyGrid != null);            
         }
 
+        #region 公共方法
+
         /// <summary>
         /// 注册相关事件
         /// </summary>
@@ -145,6 +147,60 @@ namespace HDDNCONIAMP.UI.Common
             }
 
         }
+
+        /// <summary>
+        /// 更新Mesh设备状态
+        /// </summary>
+        /// <param name="meshIp">Mesh设备IP</param>
+        /// <param name="status">状态</param>
+        public void UpdateMeshStatus(string meshIp, string status)
+        {
+            MeshAllInfo mai = mMeshAllInfo.Find(m => m.DeviceInfo.IPV4 == meshIp);
+            if (mai != null)
+            {
+                if (status.Equals("离线"))
+                {
+                    //如果之前有在线过，3次以内如果没有ping到该设备，仍然认为该设备在线，否则不在线
+                    if (mai.WasOnline && mai.OfflineCount < 3)
+                    {
+                        status = "在线";
+                        mai.OfflineCount++;
+                        mai.WasOnline = true;
+                    }
+                    else
+                    {
+                        mai.OfflineCount = 0;
+                        mai.WasOnline = false;
+                    }
+                }
+                else
+                {
+                    mai.OfflineCount = 0;
+                    mai.WasOnline = true;
+                }
+                doUpdateAdvTreeMeshList(meshIp, status);
+            }
+        }
+
+        /// <summary>
+        /// 更新Mesh设备信息
+        /// </summary>
+        /// <param name="mdi">Mesh设备信息</param>
+        public void UpdateMeshDeviceInfo(MeshDeviceInfo mdi)
+        {
+            MeshAllInfo mai = mMeshAllInfo.Find(m => m.DeviceInfo.IPV4.Equals(mdi.IPV4));
+            if(mai != null)
+            {
+                mai.DeviceInfo.Frequency = mdi.Frequency;
+                mai.DeviceInfo.Power = mdi.Power;
+                mai.DeviceInfo.BandWidth = mdi.BandWidth;
+                mai.BuddyBMeshPoint.Frequency = mdi.Frequency;
+                mai.BuddyBMeshPoint.Power = mdi.Power;
+                mai.BuddyBMeshPoint.BandWidth = mdi.BandWidth;
+            }
+        }
+        
+        #endregion
 
         #region 设备列表事件
 
@@ -529,58 +585,6 @@ namespace HDDNCONIAMP.UI.Common
             tableLayoutPanelMeshDeviceList.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshDeviceList, true, null);
         }
         
-        /// <summary>
-        /// 更新Mesh设备状态
-        /// </summary>
-        /// <param name="meshIp">Mesh设备IP</param>
-        /// <param name="status">状态</param>
-        public void UpdateMeshStatus(string meshIp, string status)
-        {
-            MeshAllInfo mai = mMeshAllInfo.Find(m => m.DeviceInfo.IPV4 == meshIp);
-            if (mai != null)
-            {
-                if (status.Equals("离线"))
-                {
-                    //如果之前有在线过，3次以内如果没有ping到该设备，仍然认为该设备在线，否则不在线
-                    if (mai.WasOnline && mai.OfflineCount < 3)
-                    {
-                        status = "在线";
-                        mai.OfflineCount++;
-                        mai.WasOnline = true;
-                    }
-                    else
-                    {
-                        mai.OfflineCount = 0;
-                        mai.WasOnline = false;
-                    }
-                }
-                else
-                {
-                    mai.OfflineCount = 0;
-                    mai.WasOnline = true;
-                }
-                doUpdateAdvTreeMeshList(meshIp, status);
-            }
-        }
-
-        /// <summary>
-        /// 更新Mesh设备信息
-        /// </summary>
-        /// <param name="mdi">Mesh设备信息</param>
-        public void UpdateMeshDeviceInfo(MeshDeviceInfo mdi)
-        {
-            MeshAllInfo mai = mMeshAllInfo.Find(m => m.DeviceInfo.IPV4.Equals(mdi.IPV4));
-            if(mai != null)
-            {
-                mai.DeviceInfo.Frequency = mdi.Frequency;
-                mai.DeviceInfo.Power = mdi.Power;
-                mai.DeviceInfo.BandWidth = mdi.BandWidth;
-                mai.BuddyBMeshPoint.Frequency = mdi.Frequency;
-                mai.BuddyBMeshPoint.Power = mdi.Power;
-                mai.BuddyBMeshPoint.BandWidth = mdi.BandWidth;
-            }
-        }
-
         /// <summary>
         /// 异步更新Mesh设备列表树委托
         /// </summary>
