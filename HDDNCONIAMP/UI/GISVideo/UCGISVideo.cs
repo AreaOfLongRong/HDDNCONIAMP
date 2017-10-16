@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
+using HDDNCONIAMP.DB.Model;
 using HDDNCONIAMP.UI.Common;
 using HDDNCONIAMP.Utils;
 
@@ -7,6 +8,9 @@ namespace HDDNCONIAMP.UI.GISVideo
 {
     public partial class UCGISVideo : UserControl
     {
+        /// <summary>
+        /// Mesh设备列表控件
+        /// </summary>
         private UCMeshList2 ucMeshDeviceListMain;
 
         public UCGISVideo(FormMain main)
@@ -45,5 +49,25 @@ namespace HDDNCONIAMP.UI.GISVideo
 
         }
         
+        /// <summary>
+        /// 更新指定Mesh设备列表
+        /// </summary>
+        /// <param name="meshIp"></param>
+        /// <param name="status"></param>
+        public void UpdateMeshStatus(string meshIp, string status)
+        {
+            ucMeshDeviceListMain.UpdateMeshStatus(meshIp, status);
+        }
+
+
+        /// <summary>
+        /// 更新Mesh设备信息
+        /// </summary>
+        /// <param name="mdi">Mesh设备信息</param>
+        public void UpdateMeshDeviceInfo(MeshDeviceInfo mdi)
+        {
+            ucMeshDeviceListMain.UpdateMeshDeviceInfo(mdi);
+        }
+
     }
 }

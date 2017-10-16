@@ -16,6 +16,7 @@ using NodeTopology;
 using System.Threading;
 using System.Net.NetworkInformation;
 using System.Diagnostics;
+using System.Text;
 
 namespace HDDNCONIAMP.UI.Common
 {
@@ -84,9 +85,13 @@ namespace HDDNCONIAMP.UI.Common
             /// </summary>
             public BMeshPoint BuddyBMeshPoint { get; set; }
             /// <summary>
-            /// 上次设备是否在线
+            /// 设备离线次数，如果大于3次，则将设备置为离线状态
             /// </summary>
-            public string LastIsOnline { get; set; }
+            public int OfflineCount { get; set; }
+            /// <summary>
+            /// 设备是否在线过
+            /// </summary>
+            public bool WasOnline { get; set; }
         }
 
         #endregion
@@ -124,9 +129,7 @@ namespace HDDNCONIAMP.UI.Common
             mFormMain.NLM.PGPSUDPListener.OnReceiveGPSInfo += PGPSUDPListener_OnReceiveGPSInfo;
 
             //视频转发按钮启用状态设置
-            buttonItemVideoTransfer.Visible = (BuddyGrid != null);
-
-            startTaskToRefreshMeshList();
+            buttonItemVideoTransfer.Visible = (BuddyGrid != null);            
         }
 
         /// <summary>
@@ -464,7 +467,7 @@ namespace HDDNCONIAMP.UI.Common
 
             if (mesh.BuddyNode != null)
             {
-                doUpdateAdvTreeMeshList(mesh, "在线", "GPS在线");
+                doUpdateAdvTreeMeshList(mesh.DeviceInfo.IPV4, "在线", "GPS在线");
             }
 
             //如果之前没有在地图上显示该设备则添加显示
@@ -525,83 +528,92 @@ namespace HDDNCONIAMP.UI.Common
         {
             tableLayoutPanelMeshDeviceList.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshDeviceList, true, null);
         }
-
+        
         /// <summary>
-        /// 开始任务刷新Mesh设备在线状态
+        /// 更新Mesh设备状态
         /// </summary>
-        private void startTaskToRefreshMeshList()
+        /// <param name="meshIp">Mesh设备IP</param>
+        /// <param name="status">状态</param>
+        public void UpdateMeshStatus(string meshIp, string status)
         {
-            Task.Factory.StartNew(
-                () =>
+            MeshAllInfo mai = mMeshAllInfo.Find(m => m.DeviceInfo.IPV4 == meshIp);
+            if (mai != null)
+            {
+                if (status.Equals("离线"))
                 {
-                    //ping频率，至少5秒以上。
-                    //int frequency = int.Parse(mFormMain.AllApplicationSetting[ApplicationSettingKey.MeshListRefreshFrequency]);
-                    //frequency = frequency >= 5 * 1000 ? frequency : 5 * 1000;
-                    int frequency = 60 * 1000;  //默认1分钟刷新一次
-
-                    while (!LifeTimeControl.closing)
+                    //如果之前有在线过，3次以内如果没有ping到该设备，仍然认为该设备在线，否则不在线
+                    if (mai.WasOnline && mai.OfflineCount < 3)
                     {
-                        foreach (MeshAllInfo item in mMeshAllInfo)
-                        {
-                            Ping myPing;
-                            myPing = new Ping();
-
-                            try
-                            {
-                                myPing.SendAsync(item.DeviceInfo.IPV4, 5000, item);
-                                myPing.PingCompleted += MyPing_PingCompleted;
-                            }
-                            catch (PingException pe)
-                            {
-                                logger.Error(string.Format("Ping {0}过程中发生异常。", item.DeviceInfo.IPV4), pe);
-                            }
-                            finally
-                            {
-                                myPing.Dispose();
-                            }
-                        }
-                        Thread.Sleep(frequency);
+                        status = "在线";
+                        mai.OfflineCount++;
+                        mai.WasOnline = true;
                     }
-                });
+                    else
+                    {
+                        mai.OfflineCount = 0;
+                        mai.WasOnline = false;
+                    }
+                }
+                else
+                {
+                    mai.OfflineCount = 0;
+                    mai.WasOnline = true;
+                }
+                doUpdateAdvTreeMeshList(meshIp, status);
+            }
         }
 
-        private void MyPing_PingCompleted(object sender, PingCompletedEventArgs e)
+        /// <summary>
+        /// 更新Mesh设备信息
+        /// </summary>
+        /// <param name="mdi">Mesh设备信息</param>
+        public void UpdateMeshDeviceInfo(MeshDeviceInfo mdi)
         {
-            MeshAllInfo item = (MeshAllInfo)e.UserState;
-            Console.WriteLine(string.Format("Ping\"{0}\":{1}", item.PlanInfo.MeshIP, e.Reply.Status.ToString()));
-            doUpdateAdvTreeMeshList(item, e.Reply.Status == IPStatus.Success ? "在线" : "离线");
+            MeshAllInfo mai = mMeshAllInfo.Find(m => m.DeviceInfo.IPV4.Equals(mdi.IPV4));
+            if(mai != null)
+            {
+                mai.DeviceInfo.Frequency = mdi.Frequency;
+                mai.DeviceInfo.Power = mdi.Power;
+                mai.DeviceInfo.BandWidth = mdi.BandWidth;
+                mai.BuddyBMeshPoint.Frequency = mdi.Frequency;
+                mai.BuddyBMeshPoint.Power = mdi.Power;
+                mai.BuddyBMeshPoint.BandWidth = mdi.BandWidth;
+            }
         }
 
         /// <summary>
         /// 异步更新Mesh设备列表树委托
         /// </summary>
-        /// <param name="mai"></param>
-        /// <param name="args"></param>
-        private delegate void updateAdvTreeMeshList(MeshAllInfo mai, params object[] args);
+        /// <param name="ip">Mesh设备IP地址</param>
+        /// <param name="args">参数</param>
+        private delegate void updateAdvTreeMeshList(string ip, params object[] args);
 
         /// <summary>
         /// 异步更新Mesh设备列表
         /// </summary>
-        /// <param name="mai">Mesh设备所有信息</param>
+        /// <param name="ip">Mesh设备IP地址</param>
         /// <param name="args">参数</param>
-        private void doUpdateAdvTreeMeshList(MeshAllInfo mai, params object[] args)
+        private void doUpdateAdvTreeMeshList(string ip, params object[] args)
         {
             try
             {
                 if (this.advTreeMeshList.InvokeRequired)
                 {
                     updateAdvTreeMeshList uatml = new updateAdvTreeMeshList(doUpdateAdvTreeMeshList);
-                    this.Invoke(uatml, mai, args);
-                    //advTreeMeshList.BeginInvoke(uatml, mai, args);
+                    advTreeMeshList.BeginInvoke(uatml, ip, args);
                 }
                 else
                 {
                     advTreeMeshList.BeginUpdate();
-                    mai.BuddyNode.Cells[1].Text = args[0].ToString();
-                    mai.BuddyNode.Cells[1].StyleNormal.TextColor = args[0].ToString().Equals("离线") ? Color.Gray : Color.Black;
-                    mai.BuddyNode.Cells[1].StyleNormal.Font = args[0].ToString().Equals("离线") ? new Font("宋体", 9, FontStyle.Regular) : new Font("宋体", 9, FontStyle.Bold);
-                    mai.BuddyNode.Cells[2].Images.ImageIndex = args[0].ToString().Equals("在线") && args.Length == 2 ? 10 : 9;
-                    mai.BuddyNode.Cells[3].Images.ImageIndex = args[0].ToString().Equals("离线") ? 11 : 12;
+                    MeshAllInfo mai = mMeshAllInfo.Find(m => m.DeviceInfo.IPV4 == ip);
+                    if (mai != null)
+                    {
+                        mai.BuddyNode.Cells[1].Text = args[0].ToString();
+                        mai.BuddyNode.Cells[1].StyleNormal.TextColor = args[0].ToString().Equals("在线") ? Color.Black : Color.Gray;
+                        mai.BuddyNode.Cells[1].StyleNormal.Font = args[0].ToString().Equals("在线") ? new Font("宋体", 9, FontStyle.Bold) : new Font("宋体", 9, FontStyle.Regular);
+                        mai.BuddyNode.Cells[2].Images.ImageIndex = args[0].ToString().Equals("在线") && args.Length == 2 ? 10 : 9;
+                        mai.BuddyNode.Cells[3].Images.ImageIndex = args[0].ToString().Equals("在线") ? 12 : 11;
+                    }
                     advTreeMeshList.EndUpdate();
                 }
             }
@@ -686,7 +698,8 @@ namespace HDDNCONIAMP.UI.Common
                                 Expiration = 30 * 1000,
                                 ReceiveGPSDT = DateTime.Now
                             },
-                            LastIsOnline = "离线"
+                            OfflineCount = 0,
+                            WasOnline = false
                         };
                         //添加进列表
                         mMeshAllInfo.Add(nodeMAI);
@@ -711,14 +724,29 @@ namespace HDDNCONIAMP.UI.Common
         private void onSearchMeshDevice()
         {
             string searchText = textBoxXSearch.Text.Trim();
-            foreach (DevComponents.AdvTree.Node group in advTreeMeshList.Nodes)
+            foreach (Node group in advTreeMeshList.Nodes)
             {
-                foreach (DevComponents.AdvTree.Node device in group.Nodes)
+                bool groupVidible = false;
+                foreach (Node device in group.Nodes)
                 {
+                    //设置设备节点的可见性
                     if (searchText.Length > 0)
                         device.Visible = device.Text.Contains(searchText);
                     else
                         device.Visible = true;
+                    groupVidible |= device.Visible;  //处理分组节点的可见性
+                }
+                if (group.Text.Contains(searchText))
+                {
+                    group.Visible = true;
+                    foreach (Node device in group.Nodes)
+                    {
+                        device.Visible = true;
+                    }
+                }
+                else
+                {
+                    group.Visible = groupVidible;
                 }
             }
         }

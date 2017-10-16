@@ -42,7 +42,7 @@ namespace HDDNCONIAMP.Utils
         private static extern long GetWindowThreadProcessId(long hWnd, long lpdwProcessId);
 
         [DllImport("user32.dll", SetLastError = true)]
-        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
         [DllImport("user32.dll", SetLastError = true)]
         private static extern long SetParent(IntPtr hWndChild, IntPtr hWndNewParent);

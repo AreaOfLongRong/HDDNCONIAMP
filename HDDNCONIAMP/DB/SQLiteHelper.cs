@@ -425,6 +425,16 @@ namespace HDDNCONIAMP.DB
                 return null;
         }
 
+        /// <summary>
+        /// 获取所有Mesh设备IP列表
+        /// </summary>
+        /// <returns>所有Mesh设备IP列表</returns>
+        public List<string> MeshIPListQuery()
+        {
+            IQuery<MeshPlanManage> result = context.Query<MeshPlanManage>();
+            return result.Select(m => m.MeshIP).ToList();
+        }
+
         #endregion
 
         #region 应用程序配置相关

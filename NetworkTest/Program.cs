@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace NetworkTest
 {
@@ -20,9 +22,13 @@ namespace NetworkTest
             //    Thread.Sleep(10 * 1000);
             //}
 
-            GPSUDPListener li = new GPSUDPListener();
-            li.StartReceive2();
+            //GPSUDPListener li = new GPSUDPListener();
+            //li.StartReceive2();
 
+
+            PingTest();
+
+            Console.ReadLine();
         }
 
         /// <summary>
@@ -61,5 +67,46 @@ namespace NetworkTest
             udpcSend.Close();
         }
 
+        private static void PingTest()
+        {
+            string[] ipList = new string[200];
+            for (int i = 0; i < 200; i++)
+            {
+                ipList[i] = "192.168.1." + (i + 1);
+            }
+            Task.Factory.StartNew(() =>
+            {
+                while (true)
+                {
+                    foreach (var ip in ipList)
+                    {
+                        Ping p = new Ping();
+                        string data = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+                        byte[] buffer = Encoding.ASCII.GetBytes(data);
+                        PingOptions options = new PingOptions(64, true);
+
+                        try
+                        {
+                            p.PingCompleted += P_PingCompleted;
+                            p.SendAsync(ip, 5000, buffer, options, ip);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e.ToString());
+                        }
+                        finally
+                        {
+                            p.Dispose();
+                        }
+                    }
+                    Thread.Sleep(10 * 1000);
+                }
+            });
+        }
+
+        private static void P_PingCompleted(object sender, PingCompletedEventArgs e)
+        {
+            Console.WriteLine(string.Format("Ping {0} 的结果为：{1}", e.UserState.ToString(), e.Reply.Status.ToString()));
+        }
     }
 }

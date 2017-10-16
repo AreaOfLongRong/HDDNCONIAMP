@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using log4net;
 using log4net.Config;
 using System.Diagnostics;
+using HDDNCONIAMP.Utils;
 
 namespace HDDNCONIAMP
 {
@@ -41,8 +42,43 @@ namespace HDDNCONIAMP
             var logger = LogManager.GetLogger(typeof(Program));
             try
             {
-                logger.Info("启动程序...");
-                Application.Run(new FormMain());
+                //查看是否存在视频进程ID文件，如果存在则删除
+                if (File.Exists(FileUtils.FILE_PROCESS_ID_PATH))
+                {
+                    try
+                    {
+                        File.Delete(FileUtils.FILE_PROCESS_ID_PATH);
+                        logger.Info("启动程序...");
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Error(string.Format("删除\"{0}\"文件出现异常：{1}", FileUtils.FILE_PROCESS_ID_PATH, ex.Message));
+                    }
+                }
+
+                FileInfo dbFile = new FileInfo(FileUtils.FILE_DB_PATH);
+                if(dbFile.Exists)
+                {
+                    if(dbFile.Length > 0)
+                    {
+                        logger.Info("启动程序...");
+                        Application.Run(new FormMain());
+                    }
+                    else
+                    {
+                        string str = "数据库文件已损坏，无法正常启动程序！";
+                        logger.Info(str);
+                        MessageBox.Show(str, "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Application.Exit();
+                    }
+                }
+                else
+                {
+                    string str = "数据库文件缺失，无法正常启动程序！";
+                    logger.Info(str);
+                    MessageBox.Show(str, "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                }
             }
             catch(AccessViolationException ave) {
                 logger.Error(" 尝试读取或写入受保护的内存", ave);
