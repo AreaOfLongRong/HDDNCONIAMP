@@ -103,6 +103,9 @@ namespace HDDNCONIAMP.UI.Common
         /// </summary>
         public BMapControl2 BuddyBMapControl { get; set; }
 
+        /// <summary>
+        /// 获取或设置与本控件绑定的视频网格
+        /// </summary>
         public IGrid BuddyGrid { get; set; }
 
         #endregion

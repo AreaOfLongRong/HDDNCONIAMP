@@ -25,6 +25,10 @@ namespace NetworkTest
             //GPSUDPListener li = new GPSUDPListener();
             //li.StartReceive2();
 
+            DateTime t1 = new DateTime(2017, 10, 11, 10, 20, 30);
+            DateTime t2 = new DateTime(2017, 10, 11, 10, 21, 30);
+            Console.WriteLine((t2 - t1).TotalMilliseconds);
+
 
             PingTest();
 
