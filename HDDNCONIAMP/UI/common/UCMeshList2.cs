@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BMap.NET.WindowsForm;
 using BMap.NET.WindowsForm.BMapElements;
@@ -12,11 +12,6 @@ using HDDNCONIAMP.Network;
 using HDDNCONIAMP.UI.AudioVideoProcess;
 using HDDNCONIAMP.Utils;
 using log4net;
-using NodeTopology;
-using System.Threading;
-using System.Net.NetworkInformation;
-using System.Diagnostics;
-using System.Text;
 
 namespace HDDNCONIAMP.UI.Common
 {
@@ -702,7 +697,7 @@ namespace HDDNCONIAMP.UI.Common
                                 Battery = item.Battery,
                                 IsOnline = false,
                                 Location = new LatLngPoint(0, 0),
-                                Expiration = 30 * 1000,
+                                Expiration = int.Parse(mFormMain.AllApplicationSetting[ApplicationSettingKey.GPSExpirationTime]),
                                 ReceiveGPSDT = DateTime.Now
                             },
                             OfflineCount = 0,

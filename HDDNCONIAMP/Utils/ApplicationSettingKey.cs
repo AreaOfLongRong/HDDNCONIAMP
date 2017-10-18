@@ -65,7 +65,11 @@
         /// 视频服务器用户密码
         /// </summary>
         public static string VideoServerPassword = "VideoServerPassword";
-        
+
+        /// <summary>
+        /// GPS信号超时时间（毫秒）
+        /// </summary>
+        public static string GPSExpirationTime = "GPSExpirationTime";
 
         /// <summary>
         /// 私有构造函数，防止被实例化
