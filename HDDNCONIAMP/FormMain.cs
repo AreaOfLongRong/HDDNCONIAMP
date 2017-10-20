@@ -89,7 +89,7 @@ namespace HDDNCONIAMP
         /// <summary>
         /// 程序截止日期
         /// </summary>
-        private DateTime DEADLINE = new DateTime(2017, 10, 17);
+        private DateTime DEADLINE = new DateTime(2017, 10, 21);
 
         /// <summary>
         /// GIS定位关联视频控件
@@ -380,7 +380,7 @@ namespace HDDNCONIAMP
             tableLayoutPanelLogin.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelLogin, true, null);
             tableLayoutPanelBottom.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelBottom, true, null);
         }
-
+        
         /// <summary>
         /// 更新标签面板中的内容
         /// </summary>
@@ -410,14 +410,8 @@ namespace HDDNCONIAMP
                         }
                         tableLayoutPanelLogin.Visible = false;  //隐藏登陆界面
                         ucGISVideo.Visible = true;  //显示GIS定位视频界面
-
-                        // 获取查找窗体句柄(通过窗体标题名)
-                        IntPtr mainHandle = VideoInject.FindWindow(null, this.Text);
-                        if (mainHandle != IntPtr.Zero)
-                        {
-                            //通过句柄设置当前窗体置顶
-                            VideoInject.SetForegroundWindow(mainHandle);
-                        }
+                        //置顶主窗体
+                        SetFormMainTop();
                     }
                     break;
                 case OpenUCType.OpenAudioVideoProcess:
@@ -432,14 +426,8 @@ namespace HDDNCONIAMP
                             superTabControlPanelAudioVideoProcess.Controls.Clear();  //清空所有控件
                             superTabControlPanelAudioVideoProcess.Controls.Add(ucAudioVideoProcess);
                         }
-
-                        //如果存在已经打开的全屏视频，则继续恢复该全屏视频
-                        string fullScreenVideoProcessID = FileUtils.ReadFullScreenVideoProcessID();
-                        if (fullScreenVideoProcessID != null)
-                        {
-                            //通过句柄设置当前窗体置顶
-                            VideoInject.SetForegroundWindow(Process.GetProcessById(int.Parse(fullScreenVideoProcessID)).MainWindowHandle);
-                        }
+                        //置顶已全屏的视频面板
+                        SetVideoPanelTop();
                     }
                     break;
                 case OpenUCType.OpenMeshManagement:
@@ -455,6 +443,8 @@ namespace HDDNCONIAMP
                             superTabControlPanelMeshManagement.Controls.Clear();  //清空所有控件
                             superTabControlPanelMeshManagement.Controls.Add(ucMeshManagement2);
                         }
+                        //置顶主窗体
+                        SetFormMainTop();
                     }
                     break;
                 case OpenUCType.OpenUserSettings:
@@ -470,8 +460,44 @@ namespace HDDNCONIAMP
                             superTabControlPanelUserSettings.Controls.Clear();  //清空所有控件
                             superTabControlPanelUserSettings.Controls.Add(ucUserSettings);
                         }
+                        //置顶主窗体
+                        SetFormMainTop();
                     }
                     break;
+            }
+        }
+
+        /// <summary>
+        /// 置顶主窗体
+        /// </summary>
+        private void SetFormMainTop()
+        {
+            // 获取查找窗体句柄(通过窗体标题名)
+            IntPtr mainHandle = VideoInject.FindWindow(null, this.Text);
+            logger.Info("主窗体句柄：" + mainHandle.ToString());
+            if (mainHandle != IntPtr.Zero)
+            {
+                SetVideoPanelTop();
+                //通过句柄设置当前窗体置顶
+                VideoInject.SetForegroundWindow(mainHandle);
+                logger.Info("主窗体置顶");
+            }
+        }
+
+
+
+        /// <summary>
+        /// 将视频面板置顶
+        /// </summary>
+        private void SetVideoPanelTop()
+        {
+            //如果存在已经打开的全屏视频，则继续恢复该全屏视频
+            string fullScreenVideoProcessID = FileUtils.ReadFullScreenVideoProcessID();
+            if (fullScreenVideoProcessID != null)
+            {
+                //通过句柄设置当前窗体置顶
+                VideoInject.SetForegroundWindow(Process.GetProcessById(int.Parse(fullScreenVideoProcessID)).MainWindowHandle);
+                logger.Info("九宫格置顶窗体：" + Process.GetProcessById(int.Parse(fullScreenVideoProcessID)).ProcessName);
             }
         }
 
@@ -563,6 +589,7 @@ namespace HDDNCONIAMP
             //ping频率，至少10秒以上。
             int frequency = int.Parse(AllApplicationSetting[ApplicationSettingKey.MeshListRefreshFrequency]);
             frequency = frequency >= 10 * 1000 ? frequency : 10 * 1000;
+            int timeOut = 1000;
             List<string> meshIPList = SQLiteHelper.GetInstance().MeshIPListQuery();
             //循环Ping Mesh设备IP地址
             while (true)
@@ -572,7 +599,6 @@ namespace HDDNCONIAMP
                     logger.Info("停止Ping扫描网络内Mesh设备。");
                     return;
                 }
-
                 foreach (string ip in meshIPList)
                 {
                     Ping ping = new Ping();
@@ -580,19 +606,35 @@ namespace HDDNCONIAMP
                     byte[] buffer = Encoding.ASCII.GetBytes(ip);
                     try
                     {
-                        ping.SendAsync(ip, 5000, buffer, options, ip);
-                        ping.PingCompleted += Ping_PingCompleted; ;
+                        string isAsyncPing = AllApplicationSetting[ApplicationSettingKey.IsAsyncPing];
+                        if (isAsyncPing != null && isAsyncPing.ToLower().Equals("true"))
+                        {
+                            //异步方式
+                            ping.SendAsync(ip, timeOut, buffer, options, ip);
+                            ping.PingCompleted += Ping_PingCompleted;
+                        }
+                        else
+                        {
+                            //默认采用，同步方式
+                            PingReply reply = ping.Send(ip, timeOut, buffer, options);
+                            logger.Info(string.Format("Ping\"{0}\":{1}", ip, reply.Status.ToString()));
+                            string status = reply.Status == IPStatus.Success ? "在线" : "离线";
+                            if (ucGISVideo != null)
+                                ucGISVideo.UpdateMeshStatus(ip, status);
+                            if (ucAudioVideoProcess != null)
+                                ucAudioVideoProcess.UpdateMeshStatus(ip, status);
+                        }
                     }
                     catch (PingException pe)
                     {
-                        logger.Error(string.Format("Ping {0}过程中发生异常:{1}", ip), pe);
+                        logger.Error(string.Format("Ping {0}过程中发生异常:{1}", ip, pe));
                     }
                     finally
                     {
                         ping.Dispose();
                     }
                 }
-                Thread.Sleep(frequency);
+                //Thread.Sleep(frequency);
             }
         }
 

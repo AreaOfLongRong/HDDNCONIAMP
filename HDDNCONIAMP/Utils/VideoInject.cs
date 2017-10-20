@@ -52,7 +52,7 @@ namespace HDDNCONIAMP.Utils
         //private static extern int SetWindowLong(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
 
         [DllImport("user32.dll", SetLastError = true)]
-        private static extern long SetWindowPos(IntPtr hwnd, long hWndInsertAfter, long x, long y, long cx, long cy, long wFlags);
+        public static extern long SetWindowPos(IntPtr hwnd, long hWndInsertAfter, long x, long y, long cx, long cy, long wFlags);
 
         [DllImport("user32.dll", SetLastError = true)]
         private static extern bool MoveWindow(IntPtr hwnd, int x, int y, int cx, int cy, bool repaint);

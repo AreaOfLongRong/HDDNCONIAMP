@@ -1210,8 +1210,7 @@ namespace BMap.NET.WindowsForm
                     _mUCVideosControl.VideoServerUserName = VideoServerUserName;
                     _mUCVideosControl.VideoServerPassword = VideoServerPassword;
                     _mUCVideosControl.OnUCVCOpenVideo += _mUCVideosControl_OnUCVCOpenVideo;
-
-
+                    
                     foreach (KeyValuePair<string, BMeshPoint> vv in _meshPoints)
                     {
                         if (vv.Value != v.Value)
@@ -1225,7 +1224,7 @@ namespace BMap.NET.WindowsForm
             }
             Invalidate();
         }
-
+        
         /// <summary>
         /// 上报打开视频事件
         /// </summary>
@@ -1234,6 +1233,7 @@ namespace BMap.NET.WindowsForm
         {
             OnOpenVideo?.Invoke(p);
         }
+
         #endregion
 
         #region 功能方法

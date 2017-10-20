@@ -35,7 +35,7 @@ namespace HDDNCONIAMP.Network
                 {
                     //PGPSUDPListener.StartReceive();
                     PGPSUDPListener.StartReceive(mCT);
-                    //PGPSUDPListener.TestReceiveMessage();
+                    PGPSUDPListener.TestReceiveMessage();
                 }
             });
         }

@@ -62,8 +62,6 @@ namespace BMap.NET.WindowsForm
         /// <param name="e"></param>
         private void buttonX265Video_Click(object sender, EventArgs e)
         {
-            //VideoInject vi = new VideoInject(VideoServerIP, VideoServerUserName, VideoServerPassword);
-            //vi.injectWindow(Model265ID);
             if (UCBMeshPoint != null)
                 OnUCVCOpenVideo?.Invoke(UCBMeshPoint);
         }

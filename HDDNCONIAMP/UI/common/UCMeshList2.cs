@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using BMap.NET.WindowsForm;
 using BMap.NET.WindowsForm.BMapElements;
@@ -127,7 +128,7 @@ namespace HDDNCONIAMP.UI.Common
             mFormMain.NLM.PGPSUDPListener.OnReceiveGPSInfo += PGPSUDPListener_OnReceiveGPSInfo;
 
             //视频转发按钮启用状态设置
-            buttonItemVideoTransfer.Visible = (BuddyGrid != null);            
+            buttonItemVideoTransfer.Visible = (BuddyGrid != null);
         }
 
         #region 公共方法
@@ -159,15 +160,25 @@ namespace HDDNCONIAMP.UI.Common
                 if (status.Equals("离线"))
                 {
                     //如果之前有在线过，3次以内如果没有ping到该设备，仍然认为该设备在线，否则不在线
-                    if (mai.WasOnline && mai.OfflineCount < 3)
+                    if (mai.WasOnline)
                     {
-                        status = "在线";
-                        mai.OfflineCount++;
-                        mai.WasOnline = true;
+                        if (mai.OfflineCount < 2)
+                        {
+                            status = "在线";
+                            mai.OfflineCount++;
+                            mai.WasOnline = true;
+                        }
+                        else
+                        {
+                            status = "离线";
+                            mai.OfflineCount++;
+                            mai.WasOnline = false;
+                        }
                     }
                     else
                     {
-                        mai.OfflineCount = 0;
+                        status = "离线";
+                        mai.OfflineCount++;
                         mai.WasOnline = false;
                     }
                 }
@@ -176,6 +187,7 @@ namespace HDDNCONIAMP.UI.Common
                     mai.OfflineCount = 0;
                     mai.WasOnline = true;
                 }
+                logger.Info(string.Format("{0}:{1}-离线{2}次-{3}", meshIp, status, mai.OfflineCount, mai.WasOnline ? "曾经在线" : "不在线"));
                 doUpdateAdvTreeMeshList(meshIp, status);
             }
         }
@@ -187,7 +199,7 @@ namespace HDDNCONIAMP.UI.Common
         public void UpdateMeshDeviceInfo(MeshDeviceInfo mdi)
         {
             MeshAllInfo mai = mMeshAllInfo.Find(m => m.DeviceInfo.IPV4.Equals(mdi.IPV4));
-            if(mai != null)
+            if (mai != null)
             {
                 mai.DeviceInfo.Frequency = mdi.Frequency;
                 mai.DeviceInfo.Power = mdi.Power;
@@ -197,7 +209,7 @@ namespace HDDNCONIAMP.UI.Common
                 mai.BuddyBMeshPoint.BandWidth = mdi.BandWidth;
             }
         }
-        
+
         #endregion
 
         #region 设备列表事件
@@ -457,6 +469,20 @@ namespace HDDNCONIAMP.UI.Common
             Process process = mFormMain.VideoWindowProcesses.Find(ps => ps.StartInfo.Arguments.Contains(p.Model265ID));
             if (BuddyBMapControl != null)
             {
+                //查找曾经试图关闭视频进程的进程是否已经完全结束，如果没有结束再自动Kill一次
+                foreach (string pidf in Directory.GetFiles(FileUtils.VIDEO_PROCESS_ID_DIRECTORY))
+                {
+                    string pid = Path.GetFileNameWithoutExtension(pidf);
+                    Process tempP = mFormMain.VideoWindowProcesses.Find(ps => ps.Id.ToString() == pid);
+                    if (tempP != null && !tempP.HasExited)
+                    {//说明进程曾经试图关闭自己，但是没有关闭掉
+                        tempP.Kill();
+                        mFormMain.VideoProcesses.Remove(tempP);
+                    }
+                    if (File.Exists(pidf))
+                        File.Delete(pidf);
+                }
+
                 if (process == null)
                 {
                     mFormMain.VideoWindowProcesses.Add(inject.injectWindow(p.Model265ID));
@@ -470,8 +496,22 @@ namespace HDDNCONIAMP.UI.Common
                     }
                     else
                     {
-                        //如果已经打开过该视频，则直接将视频窗口置顶
-                        VideoInject.SetForegroundWindow(process.MainWindowHandle);
+                        //进程ID文件
+                        string idFile = Path.Combine(FileUtils.VIDEO_PROCESS_ID_DIRECTORY, process.Id + ".txt");
+                        if (File.Exists(idFile))
+                        {
+                            if (File.Exists(idFile))
+                                File.Delete(idFile);
+                            if (!process.HasExited)
+                                process.Kill();
+                            mFormMain.VideoWindowProcesses.Remove(process);
+                            mFormMain.VideoWindowProcesses.Add(inject.injectWindow(p.Model265ID));
+                        }
+                        else
+                        {
+                            //如果已经打开过该视频，则直接将视频窗口置顶
+                            VideoInject.SetForegroundWindow(process.MainWindowHandle);
+                        }
                     }
                 }
             }
@@ -582,7 +622,7 @@ namespace HDDNCONIAMP.UI.Common
         {
             tableLayoutPanelMeshDeviceList.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(tableLayoutPanelMeshDeviceList, true, null);
         }
-        
+
         /// <summary>
         /// 异步更新Mesh设备列表树委托
         /// </summary>

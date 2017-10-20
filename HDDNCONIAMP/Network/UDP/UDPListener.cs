@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -8,7 +6,6 @@ using System.Threading;
 using HDDNCONIAMP.DB.Model;
 using HDDNCONIAMP.Utils;
 using log4net;
-using HDDNCONIAMP.Utils;
 
 namespace HDDNCONIAMP.Network.UDP
 {

@@ -72,6 +72,11 @@
         public static string GPSExpirationTime = "GPSExpirationTime";
 
         /// <summary>
+        /// 是否采用异步方式Ping网络内设备
+        /// </summary>
+        public static string IsAsyncPing = "IsAsyncPing";
+
+        /// <summary>
         /// 私有构造函数，防止被实例化
         /// </summary>
         private ApplicationSettingKey() { }

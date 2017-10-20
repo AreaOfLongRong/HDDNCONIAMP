@@ -48,7 +48,7 @@ namespace HDDNCONIAMP
                     try
                     {
                         File.Delete(FileUtils.FILE_PROCESS_ID_PATH);
-                        logger.Info("启动程序...");
+                        logger.Info("删除进程ID文件...");
                     }
                     catch (Exception ex)
                     {
@@ -56,6 +56,7 @@ namespace HDDNCONIAMP
                     }
                 }
 
+                FileUtils.DeleteAllVideoProcessIDFiles();
                 FileInfo dbFile = new FileInfo(FileUtils.FILE_DB_PATH);
                 if(dbFile.Exists)
                 {

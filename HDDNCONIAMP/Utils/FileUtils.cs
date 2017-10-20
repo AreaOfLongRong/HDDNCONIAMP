@@ -5,6 +5,7 @@ using System.Text;
 using BMap.NET.WindowsForm;
 using BMap.NET.WindowsForm.BMapElements;
 using HDDNCONIAMP.Network;
+using log4net;
 
 namespace HDDNCONIAMP.Utils
 {
@@ -13,6 +14,11 @@ namespace HDDNCONIAMP.Utils
     /// </summary>
     public class FileUtils
     {
+
+        /// <summary>
+        /// 日志记录器
+        /// </summary>
+        private static ILog logger = LogManager.GetLogger(typeof(FileUtils));
 
         /// <summary>
         /// CHM帮助文档路径
@@ -33,6 +39,11 @@ namespace HDDNCONIAMP.Utils
         /// 视频转发服务EXE路径
         /// </summary>
         public static string VIDEO_TRANSFER_SERVER_EXE_PATH = AppDomain.CurrentDomain.BaseDirectory + "UDPBroadcastServer.exe";
+
+        /// <summary>
+        /// 视频进程ID文件目录
+        /// </summary>
+        public static string VIDEO_PROCESS_ID_DIRECTORY = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SamplePlayClient\\VideoProcessID");
 
         /// <summary>
         /// 私有构造函数，防止被实例化
@@ -158,6 +169,26 @@ namespace HDDNCONIAMP.Utils
             else
             {
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// 删除所有视频进程ID目录下的文件，如果该目录不存在则创建
+        /// </summary>
+        public static void DeleteAllVideoProcessIDFiles()
+        {
+            if (Directory.Exists(VIDEO_PROCESS_ID_DIRECTORY))
+            {
+                foreach (string file in Directory.GetFiles(VIDEO_PROCESS_ID_DIRECTORY))
+                {
+                    File.Delete(file);
+                    logger.Info("删除文件：" + file);
+                }
+            }
+            else
+            {
+                Directory.CreateDirectory(VIDEO_PROCESS_ID_DIRECTORY);
+                logger.Info("创建目录：" + VIDEO_PROCESS_ID_DIRECTORY);
             }
         }
 
