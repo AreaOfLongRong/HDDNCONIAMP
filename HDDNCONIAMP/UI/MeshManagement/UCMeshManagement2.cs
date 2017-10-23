@@ -1281,22 +1281,17 @@ namespace HDDNCONIAMP.UI.MeshManagement
             Bitmap bmp = new Bitmap(this.drawPanel.Width, this.drawPanel.Height);
             Graphics g = Graphics.FromImage(bmp);
             g.Clear(this.drawPanel.BackColor);
-
-            //Graphics g = this.CreateGraphics();
-            //Graphics g = this.drawPanel.CreateGraphics();
             g.SmoothingMode = SmoothingMode.AntiAlias;  //使绘图质量最高，即消除锯齿
             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
             g.CompositingQuality = CompositingQuality.HighQuality;
 
             GObject CurrObj = new GObject();
             Rectangle Rct = new Rectangle();
-
-            //Pen p = new Pen(Color.Blue);
+            
             Image ObjImg;
             int xm = 0;
             int ym = 0;
             string IsLine = "";
-            //for (int i = 0; i < GNetwork.Nobj; i++)
             //urinatedong 只显示需要显示的
             for (int i = 0; i < GNetwork.Nobj; i++)
             {
@@ -1309,14 +1304,9 @@ namespace HDDNCONIAMP.UI.MeshManagement
                 switch (IsLine)
                 {
                     case "Y":
-                        // g.DrawLine(p, CurrObj.x1, CurrObj.y1, CurrObj.x2, CurrObj.y2);
-
                         AdjustableArrowCap lineCap = new AdjustableArrowCap(5, 6, true);
-
                         Pen p;
-
                         string[] MyRelationInfo = CurrObj.AddInfo.Split("\n".ToCharArray());
-
                         if (MyRelationInfo[6].IndexOf("2") > 0)
                         {
                             p = new Pen(Color.Blue, 3);
@@ -1380,9 +1370,7 @@ namespace HDDNCONIAMP.UI.MeshManagement
                         break;
                 }
             }
-
-            //g1.DrawEllipse(new Pen(System.Drawing.Color.Red), 10, 10, 100, 100); 
-            //g1.DrawImage(Image.FromFile("E:/down.png"), x, 10);//这是在画布上绘制图形 
+            
             this.drawPanel.CreateGraphics().DrawImage(bmp, 0, 0);//这句是将图形显示到窗口上
 
             bmp.Dispose();
@@ -1391,12 +1379,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
         private void AddText(int Xbase, int Ybase, string Msg, bool UseOffset, Graphics UsingGraphics)
         {
-            //Graphics g = this.CreateGraphics();
-            //Graphics g = this.drawPanel.CreateGraphics();
-            //g.SmoothingMode = SmoothingMode.AntiAlias;  //使绘图质量最高，即消除锯齿
-            //g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            //g.CompositingQuality = CompositingQuality.HighQuality;
-
             Font CurrFont = new Font("Arial", 8);
             int x = 0;
             int y = 0;
@@ -1442,39 +1424,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
         public void AddGobject(int x1, int y1, int x2, int y2, MeshRelation prelation)
         {
-
-            #region 为了防止刷新，不在此时画线!!! urinatedong  20170322
-
-            //Graphics g = this.drawPanel.CreateGraphics();//this.CreateGraphics();
-            //g.SmoothingMode = SmoothingMode.AntiAlias;  //使绘图质量最高，即消除锯齿
-            //g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            //g.CompositingQuality = CompositingQuality.HighQuality;
-
-            //AdjustableArrowCap lineCap = new AdjustableArrowCap(5, 6, true);
-
-            //Pen p;
-
-            //if (prelation.Findtimes == 2)
-            //{
-            //     p = new Pen(Color.Blue,3);
-            //}
-            //else
-            //{
-            //     p = new Pen(Color.Orange,3);
-            //     p.DashStyle = DashStyle.Custom;
-            //     p.DashPattern = new float[] { 6, 3 };
-            //}
-
-            //p.CustomEndCap = lineCap;
-
-            //g.DrawLine(p, x1, y1, x2, y2);
-
-            #endregion
-
-            ///新需求中不再强调这些信息
-            ///urinatedong 20170314
-            //int xm = (x1 + x2) / 2;
-            //int ym = (y1 + y2) / 2;
             string relationinfo = "Localport " + prelation.Localport +
                        "\nTxsnr" + prelation.Txsnr +
                        "\nTxspeed " + prelation.Txspeed +
@@ -1566,33 +1515,6 @@ namespace HDDNCONIAMP.UI.MeshManagement
 
                 TempGObject.AddInfo = AddInfo;
             }
-
-            //string ObjName = ObjType + "_" + GNetwork.LastIndexOfGObject(ObjType).ToString();
-            ////
-            //if (ObjType == "Line")
-            //{
-            //    g.DrawLine(p, x1, y1, x2, y2);
-            //    int xm = (x1 + x2) / 2;
-            //    int ym = (y1 + y2) / 2;
-            //    AddText(xm, ym, ObjName, false);
-            //}
-            //else
-            //{
-            //    ObjImg = FindGObjectTypeImage(ObjType);
-            //    ObjRct.X = x1;
-            //    ObjRct.Y = y1;
-            //    ObjRct.Height = ObjImg.Height;
-            //    ObjRct.Width = ObjImg.Width;
-            //    g.DrawImage(ObjImg, ObjRct);
-            //    AddText(x1, y1, ObjName, true);
-            //    x2 = x1 + ObjRct.Width;
-            //    y2 = y1 + ObjRct.Height;
-            //}
-            ////
-            //GNetwork.AddGObject(ObjName, ObjType, x1, y1, x2, y2);
-
-            //p.Dispose(); 
-            //g.Dispose();
         }
 
         public void AddGObject(int x1, int y1, int x2, int y2, string ObjType, string addinfo)

@@ -1809,6 +1809,24 @@ namespace BMap.NET.WindowsForm
         }
 
         /// <summary>
+        /// 选中Mesh设备GPS标识
+        /// </summary>
+        /// <param name="bmp">被选中的Mesh设备点</param>
+        public void SelectMeshDevice(BMeshPoint bmp)
+        {
+            //选中指定的Mesh设备GPS标识，如果bmp为null，则将所有设备置为未选中状态
+            foreach (KeyValuePair<string, BMeshPoint> v in _meshPoints)
+            {
+                v.Value.Selected = bmp != null && v.Value.IPV4.Equals(bmp.IPV4);
+            }
+            //隐藏打开视频控件的可见性
+            _mUCVideosControl.UCBMeshPoint = null;
+            _mUCVideosControl.Visible = false;
+            //重绘
+            Invalidate();
+        }
+
+        /// <summary>
         /// 添加设备路径
         /// </summary>
         /// <param name="routes"></param>

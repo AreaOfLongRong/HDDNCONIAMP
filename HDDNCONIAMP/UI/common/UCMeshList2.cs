@@ -384,6 +384,10 @@ namespace HDDNCONIAMP.UI.Common
                 MeshAllInfo mai = (MeshAllInfo)selectNode.Tag;
                 GPSInfo vp = mai.MeshGPSInfo;
                 //GPS坐标为（0,0），不能执行定位操作
+                if (selectCell.Images.ImageIndex == 9 && BuddyBMapControl != null)
+                {//点中了离线设备
+                    BuddyBMapControl.SelectMeshDevice(null);
+                }
                 if (selectCell.Images.ImageIndex == 10 &&
                     vp.Lat != 0 && vp.Lon != 0
                     && BuddyBMapControl != null)
@@ -391,6 +395,8 @@ namespace HDDNCONIAMP.UI.Common
                     //地图上跳转到设备所在的位置
                     BuddyBMapControl.Center = new LatLngPoint(vp.Lon, vp.Lat);
                     BuddyBMapControl.Locate(false);
+                    //选中目标Mesh设备
+                    BuddyBMapControl.SelectMeshDevice(mai.BuddyBMeshPoint);
                 }
                 else if (selectCell.Images.ImageIndex == 11)
                 {
