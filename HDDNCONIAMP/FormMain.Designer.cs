@@ -132,7 +132,7 @@
             this.labelX1.Name = "labelX1";
             this.labelX1.Size = new System.Drawing.Size(376, 88);
             this.labelX1.TabIndex = 0;
-            this.labelX1.Text = "高清动态无中心自组网综合应用管理平台——<i>演示版</i>";
+            this.labelX1.Text = "高清动态无中心自组网综合应用管理平台";
             // 
             // pictureBox1
             // 
@@ -363,6 +363,7 @@
             this.labelXValidPeriod.Name = "labelXValidPeriod";
             this.labelXValidPeriod.Size = new System.Drawing.Size(141, 25);
             this.labelXValidPeriod.TabIndex = 10;
+            this.labelXValidPeriod.Visible = false;
             // 
             // superTabControlMain
             // 
